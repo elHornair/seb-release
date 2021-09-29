@@ -5,10 +5,12 @@ Development repository for accessibility PoC of new Java-Script based SEB Server
 ## Quick setup SEB Server webservice with Open API documentation integration
 
 Prerequisites:
+
 * Git installation on development machine
 * docker and docker-compose installation on developer machine
 
-Setup: 
+Setup:
+
 0. Install git and docker/docker-compose on your development machine.
 1. Clone this repository to your local development environment
 2. Navigate to /docker/webservice/. In you find a prepared docker-compose setup to start the SEB Server webservice plus integrated mariadb database.
