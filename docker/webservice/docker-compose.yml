@@ -1,0 +1,46 @@
+version: '3.5'
+services:
+  mariadb: 
+    image: "mariadb/server:10.5"
+    container_name: seb-webservice-mariadb
+    environment:
+        - MYSQL_ROOT_PASSWORD=${DB_SA_PWD}
+    ports:
+        - 3306:3306
+    volumes:
+        - seb-server-config:/etc/mysql/conf.d
+        - seb-server-mariadb:/var/lib/mysql
+        - ./config/mariadb/config.cnf:/etc/mysql/conf.d/config.cnf
+    networks:
+        - seb-server-network
+    restart: unless-stopped
+
+  seb-server:
+      image: "anhefti/seb-server:v1.2-apidoc"
+      container_name: seb-webservice
+      volumes:
+        - seb-server-config:/sebserver/config
+        - ./config/spring:/sebserver/config/spring
+      environment:
+        - JAVA_HEAP_MIN=1G
+        - JAVA_HEAP_MAX=8G
+        - spring_profiles_active=ws,prod-ws,prod
+        - sebserver_password=${SEBSERVER_PWD}
+        - sebserver_mariadb_password=${DB_SA_PWD}
+      ports:
+         - 8090:8080
+      networks:
+          - seb-server-network
+      depends_on:
+          - "mariadb"
+      restart: unless-stopped
+
+networks:
+  seb-server-network:
+    name: seb-server-network
+
+volumes:
+  seb-server-config:
+    name: seb-server-config
+  seb-server-mariadb:
+    name: seb-server-mariadb

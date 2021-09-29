@@ -1,0 +1,27 @@
+version: '3.5'
+services:
+  seb-server:
+      image: "anhefti/seb-server:v1.2-apidoc"
+      container_name: seb-server-rapgui
+      volumes:
+        - seb-server-config:/sebserver/config
+        - ./config/spring:/sebserver/config/spring
+      environment:
+        - JAVA_HEAP_MIN=1G
+        - JAVA_HEAP_MAX=8G
+        - spring_profiles_active=gui,prod-gui,prod
+        - sebserver_password=${SEBSERVER_PWD}
+        - sebserver_mariadb_password=${DB_SA_PWD}
+      ports:
+         - 8080:8080
+      networks:
+          - seb-server-network
+      restart: unless-stopped
+
+networks:
+  seb-server-network:
+    name: seb-server-network
+
+volumes:
+  seb-server-config:
+    name: seb-server-config
