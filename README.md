@@ -1,38 +1,32 @@
-# seb-server-jsgui
+# SEB server GUI in JS (POC)
 
-Development repository for accessibility PoC of new Java-Script based SEB Server GUI.
+Development repository for accessibility PoC of new JavaScript based SEB Server GUI.
 
-## Quick setup SEB Server webservice with Open API documentation integration
+**Prerequisites for development machine:**
 
-**Prerequisites:**
+* `git` is installed
+* `docker` (and `docker-compose`) is installed
+* Clone this repo: `git clone git@github.com:SafeExamBrowser/seb-server-jsgui.git`
 
-* Git installation on development machine
-* docker and docker-compose installation on developer machine
+## Setup SEB Server webservice with Open API documentation integration
+1. Navigate to the webservice directory: `cd docker/webservice` (this contains a prepared docker-compose setup to start
+   the SEB Server webservice including an integrated mariadb)
+2. Create a `.env` file and define the required passwords (one for the webservice, one for the database) Example:
+   `SEBSERVER_PWD=somePW\nDB_SA_PWD=someOtherPW`
+3. Run `docker-compose up -d`. This will fetch the latest version (`1.2-latest`) of the images and start the containers.
+   The service will be available on `localhost:8090/` and the Swagger / OpenAPI will run on
+   `http://localhost:8090/swagger-ui/index.html`
+4. Check if everything is ok with `docker logs seb-webservice`
+5. Check the logs for admin user and password (they will be automatically generated when the service is started up with
+   an empty database)
 
-**Setup:**
+## Setup current RAP GUI service
 
-0. Install git and docker/docker-compose on your development machine.
-1. Clone this repository to your local development environment
-2. Navigate to /docker/webservice/. You find a prepared docker-compose setup to start the SEB Server webservice plus integrated mariadb database.
-3. In this directory create a ".env" file with the needed passwords. You have to give two passwords, one for the SEB Server webservice and one for the database. For example: SEBSERVER_PWD=somePW\nDB_SA_PWD=somePW
-4. Use "$ docker-compose build" to fetch the needed images. This can take a while. The SEB Server webservice that is fetched is the newest version 1.2-latest
-5. Use "$ docker-compose up -d" to start the SEB Server webservice together with the database. The service will be available on localhost:8090/ and you will find the OpenAPI integration on http://localhost:8090/swagger-ui/index.html
-6. Check the log with "$ docker logs seb-webservice" if everything is okay 
-7. On fist time startup (with empty database) the service will automatically create a admin-user and paste the name and password of this user to the logs. Find them and try to login within the OpenAPI integration
+This is not required, but can help understand how the current application works.
 
-## Quick setup of current RAP GUI service to use as reference
-
-**Prerequisites:**
-
-* Git installation on development machine
-* docker and docker-compose installation on developer machine
-    
-**Setup:**
-
-0. Install git and docker/docker-compose on your development machine.
-1. Clone this repository to your local development environment
-2. Navigate to /docker/guiservice/rap/. You find a prepared docker-compose setup to start the SEB Server guiservice.
-3. In this directory create a ".env" file with the needed passwords. You have to give only the webservice password here. Please not that this must be the same as given for the webservice above. For example: SEBSERVER_PWD=somePW
-4. Use "$ docker-compose up -d" to start the gui service. The service will be available on localhost:8080/
-5. Just try to login with the admin user given when setup the webservice.
-6. Check the log with "$ docker logs seb-server-rapgui"
+1. `cd docker/guiservice/rap`
+2. Create a `.env` file and define the required passwords (only the one for the webservice is required, but it must
+   match the one defined in the webservice above.
+3. `docker-compose up -d`
+4. The GUI runs on `localhost:8080/` where you can login with the user and password the webservice generated
+6. Check logs: `docker logs seb-server-rapgui`
