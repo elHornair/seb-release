@@ -1,1 +1,8 @@
+# ides
 /.project
+/.idea
+
+
+# env files
+docker/guiservice/rap/.env
+docker/webservice/.env
