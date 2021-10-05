@@ -1,8 +1,25 @@
-# ides
-/.project
-/.idea
+.DS_Store
+node_modules
+/dist
 
-
-# env files
+# local env files
+.env.local
+.env.*.local
 docker/guiservice/rap/.env
 docker/webservice/.env
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories and files
+.idea
+.vscode
+.project
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
