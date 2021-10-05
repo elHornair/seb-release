@@ -6,11 +6,14 @@ Development repository for accessibility PoC of new JavaScript based SEB Server 
 
 **Prerequisites for development machine:**
 
-* `git` is installed
-* `docker` (and `docker-compose`) is installed
-* Clone this repo: `git clone git@github.com:SafeExamBrowser/seb-server-jsgui.git`
+* Install `git`
+* Install `docker` (and `docker-compose`)
+* Install `nvm` ([Node Version Manager](https://github.com/nvm-sh/nvm))
+* Clone this repo: `git clone git@github.com:SafeExamBrowser/seb-server-jsgui.git` (`nvm` will virtually install the
+  correct version of `Node.js` for you)
 
 ### Setup SEB Server webservice with Open API documentation integration
+
 1. Navigate to the webservice directory: `cd docker/webservice` (this contains a prepared docker-compose setup to start
    the SEB Server webservice including an integrated mariadb)
 2. Create a `.env` file and define the required passwords (one for the webservice, one for the database) Example:
@@ -35,12 +38,23 @@ This is not required, but can help understand how the current application works.
    match the one defined in the webservice above.
 3. `docker-compose up -d`
 4. The GUI runs on `localhost:8080/` where you can login with the user and password the webservice generated
-6. Check logs: `docker logs seb-server-rapgui`
+5. Check logs: `docker logs seb-server-rapgui`
+
+### Setup POC GUI
+
+1. Set virtual node environment: `nvm use`
+2. Install dependencies: `npm install`
+3. Compile and minify for production: `npm run build` (all required files will be saved in `/dist`)
+
+* For development *
+* Compile for development (with hot-reloading): `npm run serve` (the CLI tells you on what port the application runs)
+* Linting: `npm run lint`
 
 ## General useful information
+
 * There is a [test server](https://seb.test-swissmooc.ch/sms) that can be used as an API end point when deploying to a
-  Vercel test / staging environment. The test server includes both the GUI and the API webservice. This is a
-  simplified setup with some caveats: 1. The API redirects to the GUI if it receives an incorrect request. 2. Don't
-  delete users here, as other people are using this service for testing
+  Vercel test / staging environment. The test server includes both the GUI and the API webservice. This is a simplified
+  setup with some caveats: 1. The API redirects to the GUI if it receives an incorrect request. 2. Don't delete users
+  here, as other people are using this service for testing
 * The Java code for both the webservice and the current GUI is available on
   [Github](https://github.com/SafeExamBrowser/seb-server)
