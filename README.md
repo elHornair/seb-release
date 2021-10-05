@@ -1,5 +1,7 @@
 # SEB server GUI in JS (POC)
 
+## Project setup
+
 Development repository for accessibility PoC of new JavaScript based SEB Server GUI.
 
 **Prerequisites for development machine:**
@@ -8,11 +10,11 @@ Development repository for accessibility PoC of new JavaScript based SEB Server 
 * `docker` (and `docker-compose`) is installed
 * Clone this repo: `git clone git@github.com:SafeExamBrowser/seb-server-jsgui.git`
 
-## Setup SEB Server webservice with Open API documentation integration
+### Setup SEB Server webservice with Open API documentation integration
 1. Navigate to the webservice directory: `cd docker/webservice` (this contains a prepared docker-compose setup to start
    the SEB Server webservice including an integrated mariadb)
 2. Create a `.env` file and define the required passwords (one for the webservice, one for the database) Example:
-   `SEBSERVER_PWD=somePW\nDB_SA_PWD=someOtherPW`
+   `SEBSERVER_PWD=somePW\nDB_SA_PWD=someOtherPW` (`SEBSERVER_PWD` will be used for HTTP basic Auth)
 3. Run `docker-compose up -d`. This will fetch the latest version (`1.2-latest`) of the images and start the containers.
    The service will be available on `localhost:8090` and the Swagger / OpenAPI will run on
    `http://localhost:8090/swagger-ui/index.html`. By default, you just see a dummy project. Put `/v3/api-docs`
@@ -21,9 +23,10 @@ Development repository for accessibility PoC of new JavaScript based SEB Server 
 5. Check the logs for admin user and password (they will be automatically generated when the service is started up with
    an empty database)
 6. In Swagger, you can click on `Authorize` and fill both the credentials of your user (that you got from the logs) and
-   the basic Auth credentials (that you set in the `.env` file). You now have an access token and can play with the API.
+   the basic Auth credentials (user: `guiClient`, password that you set in the `.env` file). You now have an access
+   token and can play with the API.
 
-## Setup current RAP GUI service
+### Setup current RAP GUI service
 
 This is not required, but can help understand how the current application works.
 
@@ -33,3 +36,11 @@ This is not required, but can help understand how the current application works.
 3. `docker-compose up -d`
 4. The GUI runs on `localhost:8080/` where you can login with the user and password the webservice generated
 6. Check logs: `docker logs seb-server-rapgui`
+
+## General useful information
+* There is a [test server](https://seb.test-swissmooc.ch/sms) that can be used as an API end point when deploying to a
+  Vercel test / staging environment. The test server includes both the GUI and the API webservice. This is a
+  simplified setup with some caveats: 1. The API redirects to the GUI if it receives an incorrect request. 2. Don't
+  delete users here, as other people are using this service for testing
+* The Java code for both the webservice and the current GUI is available on
+  [Github](https://github.com/SafeExamBrowser/seb-server)
