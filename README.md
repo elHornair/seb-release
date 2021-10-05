@@ -49,6 +49,7 @@ This is not required, but can help understand how the current application works.
 * For development *
 * Compile for development (with hot-reloading): `npm run serve` (the CLI tells you on what port the application runs)
 * Linting: `npm run lint`
+* Configure your editor so it respects and autofixes the rules defined in `.eslintrc.js`
 
 ## General useful information
 
