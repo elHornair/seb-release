@@ -1,32 +1,63 @@
 <template>
-  <div>
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
-  </div>
+  <layout ref="layout" />
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import { computed, nextTick } from "vue";
+import { useHead } from "@vueuse/head";
+import Layout from "./components/layout/Layout.vue";
+import { useSidebar } from "./composables/useSidebar";
+import { focusElement } from "./utils/focus";
+import { getDisplayNameByRouteName } from "./router";
+import { useRoute } from "vue-router";
 
-#nav {
-  padding: 30px;
-}
+export default {
+  name: "App",
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+  components: {
+    Layout,
+  },
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+  setup() {
+    const { isOpen, closeSidebar } = useSidebar();
+    const route = useRoute();
+    useHead({
+      title: computed(
+        () => `SEB Server Web-Client - ${getDisplayNameByRouteName(route.name)}`
+      ),
+    });
+
+    return {
+      isOpen,
+      closeSidebar,
+    };
+  },
+
+  data: () => ({
+    ignoreRouteChange: true,
+  }),
+
+  watch: {
+    $route: function () {
+      // ignore the initial route change when focusing main content
+      if (!this.ignoreRouteChange) {
+        nextTick(() => {
+          this.focusMainContent();
+          this.closeSidebar();
+        });
+      } else {
+        this.ignoreRouteChange = false;
+      }
+    },
+  },
+
+  methods: {
+    focusMainContent() {
+      const focusTarget = this.$refs.layout.$refs.focusTarget;
+      if (focusTarget) {
+        focusElement(focusTarget, 300);
+      }
+    },
+  },
+};
+</script>

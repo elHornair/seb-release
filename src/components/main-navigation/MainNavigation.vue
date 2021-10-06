@@ -1,0 +1,78 @@
+<template>
+  <!-- https://www.w3.org/TR/wai-aria-practices/#menu -->
+  <nav
+    id="main-navigation"
+    ref="root"
+    aria-label="Main"
+    class="z-20 relative"
+    :aria-hidden="isAriaHidden"
+  >
+    <button
+      ref="closeButtonRef"
+      class="flex items-center mx-0 mt-2 px-6 md:hidden"
+      type="button"
+      @click="setIsOpen(false)"
+    >
+      Close Navigation
+    </button>
+    <ul class="mt-10">
+      <li class="mb-4">
+        <main-navigation-header
+          ><span>Course Activities</span></main-navigation-header
+        >
+        <ul>
+          <main-navigation-item route="institutions" />
+          <main-navigation-item route="about" />
+        </ul>
+      </li>
+    </ul>
+
+    <ul class="mt-10">
+      <li>
+        <main-navigation-header
+          ><span>External Links</span></main-navigation-header
+        >
+        <ul>
+          <main-navigation-item-external href="https://ethz.ch/"
+            >Campus Map</main-navigation-item-external
+          >
+          <main-navigation-item-external href="https://ethz.ch/"
+            >ETH Shuttlebus</main-navigation-item-external
+          >
+          <main-navigation-item-external href="https://ethz.ch/"
+            >Studierendenportal</main-navigation-item-external
+          >
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</template>
+
+<script>
+import MainNavigationHeader from "./MainNavigationHeader.vue";
+import MainNavigationItem from "./MainNavigationItem.vue";
+import MainNavigationItemExternal from "./MainNavigationItemExternal.vue";
+import { useSidebar } from "../../composables/useSidebar";
+import { ref } from "vue";
+
+export default {
+  name: "MainNavigation",
+
+  components: {
+    MainNavigationItem,
+    MainNavigationHeader,
+    MainNavigationItemExternal,
+  },
+  props: {
+    isAriaHidden: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  setup() {
+    const { setIsOpen } = useSidebar();
+    const closeButtonRef = ref();
+    return { setIsOpen, closeButtonRef };
+  },
+};
+</script>

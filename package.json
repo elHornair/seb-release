@@ -9,9 +9,11 @@
   },
   "dependencies": {
     "@tailwindcss/postcss7-compat": "^2.0.2",
+    "@vueuse/head": "^0.6.0",
     "autoprefixer": "^9",
     "core-js": "^3.6.5",
     "postcss": "^7",
+    "rambdax": "^7.4.1",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0"
