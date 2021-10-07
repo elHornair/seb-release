@@ -44,7 +44,8 @@ This is not required, but can help understand how the current application works.
 
 1. Set virtual node environment: `nvm use`
 2. Install dependencies: `npm install`
-3. Compile and minify for production: `npm run build` (all required files will be saved in `/dist`)
+3. Setup env variables: `cp .env .env.local` and adapt the variables in `.env.local` according to your needs
+4. Compile and minify for production: `npm run build` (all required files will be saved in `/dist`)
 
 * For development *
 * Compile for development (with hot-reloading): `npm run serve` (the CLI tells you on what port the application runs)
