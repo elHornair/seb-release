@@ -1,5 +1,16 @@
 module.exports = {
   devServer: {
-    proxy: "http://localhost:8090",
+    proxy: {
+      "^/oauth": {
+        target: process.env.API_URL,
+        onProxyReq(proxyReq) {
+          const basicAuthHeader = `Basic ${btoa(
+            process.env.BASIC_AUTH_USER + ":" + process.env.BASIC_AUTH_PASSWORD
+          )}`;
+
+          proxyReq.setHeader("Authorization", basicAuthHeader);
+        },
+      },
+    },
   },
 };
