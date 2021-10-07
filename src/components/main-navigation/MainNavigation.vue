@@ -18,11 +18,12 @@
     <ul class="mt-10">
       <li class="mb-4">
         <main-navigation-header
-          ><span>Course Activities</span></main-navigation-header
+          ><span>SEB Server Administration</span></main-navigation-header
         >
         <ul>
-          <main-navigation-item route="institutions" />
-          <main-navigation-item route="about" />
+          <main-navigation-item route="institution" />
+          <main-navigation-item route="user-account" />
+          <main-navigation-item route="user-logs" />
         </ul>
       </li>
     </ul>
@@ -33,14 +34,8 @@
           ><span>External Links</span></main-navigation-header
         >
         <ul>
-          <main-navigation-item-external href="https://ethz.ch/"
-            >Campus Map</main-navigation-item-external
-          >
-          <main-navigation-item-external href="https://ethz.ch/"
-            >ETH Shuttlebus</main-navigation-item-external
-          >
-          <main-navigation-item-external href="https://ethz.ch/"
-            >Studierendenportal</main-navigation-item-external
+          <main-navigation-item-external href="https://www.safeexambrowser.org/"
+            >Documentation</main-navigation-item-external
           >
         </ul>
       </li>

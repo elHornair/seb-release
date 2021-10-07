@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import Institutions from "@/views/Institutions.vue";
-import About from "@/views/About.vue";
+import Institution from "@/views/Institution.vue";
+import Dummy from "@/views/Dummy.vue";
 
 const routes = [
-  { path: "/", name: "institutions", component: Institutions },
-  { path: "/about", name: "about", component: About },
+  { path: "/", name: "institution", component: Institution },
+  { path: "/user-account", name: "user-account", component: Dummy },
+  { path: "/user-logs", name: "user-logs", component: Dummy },
 ];
 
 const router = createRouter({
@@ -15,8 +16,9 @@ const router = createRouter({
 
 export const getDisplayNameByRouteName = (routeName) =>
   ({
-    institutions: "Institutions",
-    about: "About",
+    institution: "Institution",
+    "user-account": "User Account",
+    "user-logs": "User Logs",
   }[routeName] || "");
 
 export default router;
