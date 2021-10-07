@@ -93,6 +93,7 @@ export default {
     @apply w-64;
     @apply overflow-y-auto;
     @apply border-r-2;
+    @apply border-gray-200;
 
     &--is-open {
       @apply translate-x-0;
