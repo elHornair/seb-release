@@ -6,16 +6,14 @@ import Institution from "@/views/Institution.vue";
 import Login from "@/views/Login.vue";
 import Dummy from "@/views/Dummy.vue";
 
+const { isAuthenticated, invalidateUser } = useAuth();
 const {
-  isAuthenticated,
-  invalidateUser,
+  grantAccessToCurrentRoute,
+  denyAccessToCurrentRoute,
   availablePrivileges,
   availableActions,
   hasBasePrivilege,
-} = useAuth();
-
-const { grantAccessToCurrentRoute, denyAccessToCurrentRoute } =
-  useAccessControl();
+} = useAccessControl();
 
 const routes = [
   {
