@@ -93,11 +93,11 @@ import { useAuth } from "@/composables/useAuth";
 export default {
   name: "Login",
   setup() {
-    const { isAuthenticated, fetchAuthToken } = useAuth();
+    const { isAuthenticated, authenticateUser } = useAuth();
 
     return {
       isAuthenticated,
-      fetchAuthToken,
+      authenticateUser,
     };
   },
 
@@ -111,7 +111,7 @@ export default {
   methods: {
     async handleFormSubmit() {
       try {
-        await this.fetchAuthToken(this.userName, this.password);
+        await this.authenticateUser(this.userName, this.password);
         this.$router.push({ name: "institution" });
       } catch (error) {
         console.error(error);

@@ -11,6 +11,9 @@ module.exports = {
           proxyReq.setHeader("Authorization", basicAuthHeader);
         },
       },
+      "^/admin-api": {
+        target: process.env.API_URL,
+      },
     },
   },
 };

@@ -23,7 +23,7 @@ const router = createRouter({
   routes,
 });
 
-const { isAuthenticated, clearAuthData } = useAuth();
+const { isAuthenticated, invalidateUser } = useAuth();
 
 router.beforeEach(async (to) => {
   if (to.name !== "login" && !isAuthenticated.value) {
@@ -35,7 +35,7 @@ router.beforeEach(async (to) => {
   }
 
   if (to.name === "logout") {
-    clearAuthData();
+    invalidateUser();
     return "login";
   }
 });
