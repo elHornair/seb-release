@@ -141,6 +141,10 @@ const hasBasePrivilege = (privilege, action) => {
     return false;
   }
 
+  if (privileges.value === null) {
+    return false;
+  }
+
   return privileges.value[privilege].basePrivilege.includes(action);
 };
 
