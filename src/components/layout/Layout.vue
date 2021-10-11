@@ -5,7 +5,7 @@
     <Sidebar />
 
     <main id="main-content" class="layout_maincontent">
-      <div v-if="isAccessGranted">
+      <div v-if="accessToCurrentRouteGranted">
         <h1 ref="focusTarget" class="layout_mainheading">
           {{ routeDisplayName }}
         </h1>
@@ -29,10 +29,10 @@ export default {
   name: "Layout",
   components: { Sidebar, Header, SkipLinks },
   setup() {
-    const { isAccessGranted } = useAccessControl();
+    const { accessToCurrentRouteGranted } = useAccessControl();
 
     return {
-      isAccessGranted,
+      accessToCurrentRouteGranted,
     };
   },
   computed: {
