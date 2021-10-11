@@ -10,11 +10,19 @@ const authTokenExpiration = ref(null);
 const isAuthenticated = computed(() => authToken.value !== null);
 
 watch(authToken, (newValue) => {
-  window.localStorage.setItem(AUTH_TOKEN_KEY, newValue);
+  if (newValue === null) {
+    window.localStorage.removeItem(AUTH_TOKEN_KEY);
+  } else {
+    window.localStorage.setItem(AUTH_TOKEN_KEY, newValue);
+  }
 });
 
 watch(authTokenExpiration, (newValue) => {
-  window.localStorage.setItem(AUTH_TOKEN_EXPIRATION_KEY, newValue);
+  if (newValue === null) {
+    window.localStorage.removeItem(AUTH_TOKEN_EXPIRATION_KEY);
+  } else {
+    window.localStorage.setItem(AUTH_TOKEN_EXPIRATION_KEY, newValue);
+  }
 });
 
 const getPersistedAuthData = () => {
@@ -41,6 +49,11 @@ const getPersistedAuthData = () => {
     authToken: null,
     authTokenExpiration: null,
   };
+};
+
+const clearAuthData = () => {
+  authToken.value = null;
+  authTokenExpiration.value = null;
 };
 
 const fetchAuthToken = async (username, password) => {
@@ -80,5 +93,6 @@ export const useAuth = () => {
   return {
     isAuthenticated,
     fetchAuthToken,
+    clearAuthData,
   };
 };

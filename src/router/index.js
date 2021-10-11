@@ -7,6 +7,7 @@ import Dummy from "@/views/Dummy.vue";
 
 const routes = [
   { path: "/", name: "institution", component: Institution },
+  { path: "/logout", name: "logout", component: Dummy },
   {
     path: "/login",
     name: "login",
@@ -22,7 +23,7 @@ const router = createRouter({
   routes,
 });
 
-const { isAuthenticated } = useAuth();
+const { isAuthenticated, clearAuthData } = useAuth();
 
 router.beforeEach(async (to) => {
   if (to.name !== "login" && !isAuthenticated.value) {
@@ -32,6 +33,11 @@ router.beforeEach(async (to) => {
   if (to.name === "login" && isAuthenticated.value) {
     return "institution";
   }
+
+  if (to.name === "logout") {
+    clearAuthData();
+    return "login";
+  }
 });
 
 export const getDisplayNameByRouteName = (routeName) =>
@@ -39,6 +45,7 @@ export const getDisplayNameByRouteName = (routeName) =>
     institution: "Institution",
     "user-account": "User Account",
     "user-logs": "User Logs",
+    logout: "Logout",
   }[routeName] || "");
 
 export default router;

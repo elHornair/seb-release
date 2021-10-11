@@ -31,12 +31,13 @@
     <ul class="mt-10">
       <li>
         <main-navigation-header
-          ><span>External Links</span></main-navigation-header
+          ><span>Miscellaneous</span></main-navigation-header
         >
         <ul>
           <main-navigation-item-external href="https://www.safeexambrowser.org/"
             >Documentation</main-navigation-item-external
           >
+          <main-navigation-item route="logout" />
         </ul>
       </li>
     </ul>
