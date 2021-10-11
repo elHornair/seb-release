@@ -112,7 +112,7 @@ export default {
     async handleFormSubmit() {
       try {
         await this.authenticateUser(this.userName, this.password);
-        this.$router.push({ name: "institution" });
+        this.$router.push({ name: "home" });
       } catch (error) {
         console.error(error);
         // TODO: proper error handling (show error message)

@@ -5,10 +5,15 @@
     <Sidebar />
 
     <main id="main-content" class="layout_maincontent">
-      <h1 ref="focusTarget" class="layout_mainheading">
-        {{ routeDisplayName }}
-      </h1>
-      <router-view />
+      <div v-if="isAccessGranted">
+        <h1 ref="focusTarget" class="layout_mainheading">
+          {{ routeDisplayName }}
+        </h1>
+        <router-view />
+      </div>
+      <div v-else>
+        <h1 ref="focusTarget" class="layout_mainheading">Access denied</h1>
+      </div>
     </main>
   </div>
 </template>
@@ -18,10 +23,18 @@ import Header from "../header/Header.vue";
 import Sidebar from "./Sidebar.vue";
 import { getDisplayNameByRouteName } from "../../router";
 import SkipLinks from "../SkipLinks.vue";
+import { useAccessControl } from "@/composables/useAccessControl";
 
 export default {
   name: "Layout",
   components: { Sidebar, Header, SkipLinks },
+  setup() {
+    const { isAccessGranted } = useAccessControl();
+
+    return {
+      isAccessGranted,
+    };
+  },
   computed: {
     routeDisplayName() {
       return getDisplayNameByRouteName(this.$route.name);
