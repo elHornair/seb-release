@@ -7,7 +7,12 @@ import Dummy from "@/views/Dummy.vue";
 
 const routes = [
   { path: "/", name: "institution", component: Institution },
-  { path: "/login", name: "login", component: Login },
+  {
+    path: "/login",
+    name: "login",
+    component: Login,
+    meta: { layout: "full" },
+  },
   { path: "/user-account", name: "user-account", component: Dummy },
   { path: "/user-logs", name: "user-logs", component: Dummy },
 ];

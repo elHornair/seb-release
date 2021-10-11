@@ -1,11 +1,12 @@
 <template>
-  <layout ref="layout" />
+  <component :is="layout" ref="layout"> </component>
 </template>
 
 <script>
 import { computed, nextTick } from "vue";
 import { useHead } from "@vueuse/head";
 import Layout from "./components/layout/Layout.vue";
+import LayoutFull from "@/components/layout/LayoutFull";
 import { useSidebar } from "./composables/useSidebar";
 import { focusElement } from "./utils/focus";
 import { getDisplayNameByRouteName } from "./router";
@@ -16,6 +17,7 @@ export default {
 
   components: {
     Layout,
+    LayoutFull,
   },
 
   setup() {
@@ -36,6 +38,14 @@ export default {
   data: () => ({
     ignoreRouteChange: true,
   }),
+
+  computed: {
+    layout() {
+      return `layout${
+        this.$route.meta.layout ? "-" + this.$route.meta.layout : ""
+      }`;
+    },
+  },
 
   watch: {
     $route: function () {
