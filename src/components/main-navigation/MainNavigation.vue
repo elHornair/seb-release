@@ -21,7 +21,10 @@
           ><span>SEB Server Administration</span></main-navigation-header
         >
         <ul>
-          <main-navigation-item route="institution" />
+          <main-navigation-item
+            v-if="showInstitutionNavItem"
+            route="institution"
+          />
           <main-navigation-item route="user-account" />
           <main-navigation-item route="user-logs" />
         </ul>
@@ -48,12 +51,12 @@
 import MainNavigationHeader from "./MainNavigationHeader.vue";
 import MainNavigationItem from "./MainNavigationItem.vue";
 import MainNavigationItemExternal from "./MainNavigationItemExternal.vue";
+import { useAccessControl } from "@/composables/useAccessControl";
 import { useSidebar } from "../../composables/useSidebar";
 import { ref } from "vue";
 
 export default {
   name: "MainNavigation",
-
   components: {
     MainNavigationItem,
     MainNavigationHeader,
@@ -67,8 +70,26 @@ export default {
   },
   setup() {
     const { setIsOpen } = useSidebar();
+    const { availablePrivileges, availableActions, hasBasePrivilege } =
+      useAccessControl();
+
     const closeButtonRef = ref();
-    return { setIsOpen, closeButtonRef };
+
+    return {
+      setIsOpen,
+      closeButtonRef,
+      availablePrivileges,
+      availableActions,
+      hasBasePrivilege,
+    };
+  },
+  computed: {
+    showInstitutionNavItem() {
+      return this.hasBasePrivilege(
+        this.availablePrivileges.INSTITUTION,
+        this.availableActions.READ
+      );
+    },
   },
 };
 </script>
