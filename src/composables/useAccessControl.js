@@ -1,19 +1,19 @@
 import { ref } from "vue";
 
-const isAccessGranted = ref(true);
+const accessToCurrentRouteGranted = ref(true);
 
-const grantAccess = () => {
-  isAccessGranted.value = true;
+const grantAccessToCurrentRoute = () => {
+  accessToCurrentRouteGranted.value = true;
 };
 
-const denyAccess = () => {
-  isAccessGranted.value = false;
+const denyAccessToCurrentRoute = () => {
+  accessToCurrentRouteGranted.value = false;
 };
 
 export const useAccessControl = () => {
   return {
-    isAccessGranted,
-    grantAccess,
-    denyAccess,
+    accessToCurrentRouteGranted,
+    grantAccessToCurrentRoute,
+    denyAccessToCurrentRoute,
   };
 };

@@ -14,7 +14,8 @@ const {
   hasBasePrivilege,
 } = useAuth();
 
-const { grantAccess, denyAccess } = useAccessControl();
+const { grantAccessToCurrentRoute, denyAccessToCurrentRoute } =
+  useAccessControl();
 
 const routes = [
   {
@@ -113,9 +114,9 @@ router.beforeEach(async (to) => {
       to.meta.accessControl.action
     )
   ) {
-    denyAccess();
+    denyAccessToCurrentRoute();
   } else {
-    grantAccess();
+    grantAccessToCurrentRoute();
   }
 });
 
