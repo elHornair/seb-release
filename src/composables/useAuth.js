@@ -1,12 +1,16 @@
 import axios from "axios";
 import qs from "qs";
-import { computed, readonly, ref, watch } from "vue";
+import { computed, reactive, readonly, watch } from "vue";
 
 const LOCALSTORAGE_KEY = "AUTH";
 
-const authData = ref(null);
+const authData = reactive({
+  token: null,
+  expiration: null,
+  privileges: null,
+});
 
-const isAuthenticated = computed(() => authData.value !== null);
+const isAuthenticated = computed(() => authData.token !== null);
 
 const availablePrivileges = {
   CONFIGURATION_VALUE: "CONFIGURATION_VALUE",
@@ -40,7 +44,7 @@ const actionsMap = {
 };
 
 watch(authData, (newValue) => {
-  if (newValue === null) {
+  if (newValue.token === null) {
     window.localStorage.removeItem(LOCALSTORAGE_KEY);
   } else {
     window.localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(newValue));
@@ -58,11 +62,11 @@ const hasPrivilege = (realm, privilege, action) => {
     return false;
   }
 
-  if (!isAuthenticated.value || authData.value.privileges === null) {
+  if (!isAuthenticated.value || authData.privileges === null) {
     return false;
   }
 
-  return authData.value.privileges[privilege][realm].includes(action);
+  return authData.privileges[privilege][realm].includes(action);
 };
 
 const getPersistedAuthData = () => {
@@ -87,7 +91,9 @@ const getPersistedAuthData = () => {
 };
 
 const invalidateUser = () => {
-  authData.value = null;
+  authData.token = null;
+  authData.expiration = null;
+  authData.privileges = null;
 };
 
 const fetchAndStoreAuthToken = async (username, password) => {
@@ -111,10 +117,8 @@ const fetchAndStoreAuthToken = async (username, password) => {
     );
 
     // TODO: the response also has a "refresh_token" => This can be used in a later improvement to automatically refresh the auth token
-    authData.value = {
-      token: response.data["access_token"],
-      expiration: expirationDateTime,
-    };
+    authData.token = response.data["access_token"];
+    authData.expiration = expirationDateTime;
   } catch (error) {
     console.error(error);
     throw new Error("Login failed");
@@ -191,11 +195,7 @@ const fetchAndStorePrivileges = async (authToken) => {
     });
 
     // store privileges
-    authData.value = {
-      // TODO: that feels dirty. maybe use reactive()
-      ...authData.value,
-      privileges: userPrivileges,
-    };
+    authData.privileges = userPrivileges;
   } catch (error) {
     console.error(error);
     throw new Error("Error while generating privileges");
@@ -204,10 +204,10 @@ const fetchAndStorePrivileges = async (authToken) => {
 
 const authenticateUser = async (username, password) => {
   await fetchAndStoreAuthToken(username, password);
-  await fetchAndStorePrivileges(authData.value.token);
+  await fetchAndStorePrivileges(authData.token);
 };
 
-authData.value = getPersistedAuthData();
+Object.assign(authData, getPersistedAuthData());
 
 export const useAuth = () => {
   return {
