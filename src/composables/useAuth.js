@@ -2,11 +2,9 @@ import axios from "axios";
 import qs from "qs";
 import { computed, readonly, ref, watch } from "vue";
 
-const AUTH_KEY = "AUTH";
-const PRIVILEGES_KEY = "PRIVILEGES";
+const LOCALSTORAGE_KEY = "AUTH";
 
 const authData = ref(null);
-const privileges = ref(null);
 
 const isAuthenticated = computed(() => authData.value !== null);
 
@@ -43,17 +41,9 @@ const actionsMap = {
 
 watch(authData, (newValue) => {
   if (newValue === null) {
-    window.localStorage.removeItem(AUTH_KEY);
+    window.localStorage.removeItem(LOCALSTORAGE_KEY);
   } else {
-    window.localStorage.setItem(AUTH_KEY, JSON.stringify(newValue));
-  }
-});
-
-watch(privileges, (newValue) => {
-  if (newValue === null) {
-    window.localStorage.removeItem(PRIVILEGES_KEY);
-  } else {
-    window.localStorage.setItem(PRIVILEGES_KEY, JSON.stringify(newValue));
+    window.localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(newValue));
   }
 });
 
@@ -68,17 +58,24 @@ const hasPrivilege = (realm, privilege, action) => {
     return false;
   }
 
-  if (privileges.value === null) {
+  if (!isAuthenticated.value || authData.value.privileges === null) {
     return false;
   }
 
-  return privileges.value[privilege][realm].includes(action);
+  return authData.value.privileges[privilege][realm].includes(action);
 };
 
 const getPersistedAuthData = () => {
-  const persistedAuth = JSON.parse(window.localStorage.getItem(AUTH_KEY));
+  const persistedAuth = JSON.parse(
+    window.localStorage.getItem(LOCALSTORAGE_KEY)
+  );
 
-  if (persistedAuth && persistedAuth.token && persistedAuth.expiration) {
+  if (
+    persistedAuth &&
+    persistedAuth.token &&
+    persistedAuth.expiration &&
+    persistedAuth.privileges
+  ) {
     const expirationDate = new Date(persistedAuth.expiration);
 
     if (new Date() < expirationDate) {
@@ -89,19 +86,8 @@ const getPersistedAuthData = () => {
   return null;
 };
 
-const getPersistedPrivilegesData = () => {
-  const persistedPrivileges = window.localStorage.getItem(PRIVILEGES_KEY);
-
-  if (persistedPrivileges) {
-    return JSON.parse(persistedPrivileges);
-  }
-
-  return null;
-};
-
 const invalidateUser = () => {
   authData.value = null;
-  privileges.value = null;
 };
 
 const fetchAndStoreAuthToken = async (username, password) => {
@@ -205,7 +191,11 @@ const fetchAndStorePrivileges = async (authToken) => {
     });
 
     // store privileges
-    privileges.value = userPrivileges;
+    authData.value = {
+      // TODO: that feels dirty. maybe use reactive()
+      ...authData.value,
+      privileges: userPrivileges,
+    };
   } catch (error) {
     console.error(error);
     throw new Error("Error while generating privileges");
@@ -218,7 +208,6 @@ const authenticateUser = async (username, password) => {
 };
 
 authData.value = getPersistedAuthData();
-privileges.value = getPersistedPrivilegesData();
 
 export const useAuth = () => {
   return {
