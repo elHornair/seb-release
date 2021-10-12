@@ -34,6 +34,7 @@ export default {
     const mainNavigationRef = ref();
     const { isOpen, closeSidebar } = useSidebar();
     const { isDesktop } = useViewport();
+
     let lastElementWithFocus;
 
     watch(isOpen, (open) => {

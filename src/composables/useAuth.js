@@ -12,6 +12,9 @@ const authData = reactive({
 });
 
 const isAuthenticated = computed(() => authData.token !== null);
+const userName = computed(() =>
+  isAuthenticated.value ? authData.user.name : null
+);
 
 const availablePrivileges = {
   CONFIGURATION_VALUE: "CONFIGURATION_VALUE",
@@ -221,6 +224,7 @@ export const useAuth = () => {
     isAuthenticated: readonly(isAuthenticated),
     availablePrivileges: readonly(availablePrivileges),
     availableActions: readonly(availableActions),
+    userName: readonly(userName),
     authenticateUser,
     invalidateUser,
     hasPrivilege,

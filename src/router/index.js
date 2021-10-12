@@ -123,7 +123,6 @@ export const getDisplayNameByRouteName = (routeName) =>
     institution: "Institution",
     "user-account": "User Account",
     "user-logs": "User Logs",
-    logout: "Logout",
   }[routeName] || "");
 
 export default router;

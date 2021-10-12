@@ -15,6 +15,19 @@
     >
       Close Navigation
     </button>
+
+    <div class="flex items-center justify-start mt-10 px-6">
+      <dl class="pr-2">
+        <dt class="sr-only">Logged in as</dt>
+        <dd>{{ userName }}</dd>
+      </dl>
+      <router-link
+        class="underline hover:text-gray-800"
+        :to="{ name: 'logout' }"
+        >Sign out</router-link
+      >
+    </div>
+
     <ul class="mt-10">
       <li class="mb-4">
         <main-navigation-header
@@ -33,14 +46,11 @@
 
     <ul class="mt-10">
       <li>
-        <main-navigation-header
-          ><span>Miscellaneous</span></main-navigation-header
-        >
+        <main-navigation-header><span>Links</span></main-navigation-header>
         <ul>
           <main-navigation-item-external href="https://www.safeexambrowser.org/"
             >Documentation</main-navigation-item-external
           >
-          <main-navigation-item route="logout" />
         </ul>
       </li>
     </ul>
@@ -54,6 +64,7 @@ import MainNavigationItemExternal from "./MainNavigationItemExternal.vue";
 import { useAccessControl } from "@/composables/useAccessControl";
 import { useSidebar } from "../../composables/useSidebar";
 import { ref } from "vue";
+import { useAuth } from "@/composables/useAuth";
 
 export default {
   name: "MainNavigation",
@@ -72,6 +83,7 @@ export default {
     const { setIsOpen } = useSidebar();
     const { availablePrivileges, availableActions, hasBasePrivilege } =
       useAccessControl();
+    const { userName } = useAuth();
 
     const closeButtonRef = ref();
 
@@ -81,6 +93,7 @@ export default {
       availablePrivileges,
       availableActions,
       hasBasePrivilege,
+      userName,
     };
   },
   computed: {
