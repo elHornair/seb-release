@@ -136,7 +136,7 @@ const isKnownPrivilege = (privilege) =>
 const isKnownAction = (action) =>
   Object.values(availableActions).includes(action);
 
-const hasBasePrivilege = (privilege, action) => {
+const hasPrivilege = (realm, privilege, action) => {
   if (!(isKnownPrivilege(privilege) && isKnownAction(action))) {
     return false;
   }
@@ -145,15 +145,22 @@ const hasBasePrivilege = (privilege, action) => {
     return false;
   }
 
-  return privileges.value[privilege].basePrivilege.includes(action);
+  return privileges.value[privilege][realm].includes(action);
 };
 
-const hasInstitutionalPrivilege = () => {
-  console.error("hasInstitutionalPrivilege is not implemented yet.");
+const hasBasePrivilege = (privilege, action) => {
+  return hasPrivilege("basePrivilege", privilege, action);
 };
 
-const hasOwnershipPrivilege = () => {
+const hasInstitutionalPrivilege = (privilege, action) => {
+  // TODO: here we should probably also check that the user belongs to the correct institution
+  return hasPrivilege("institutionalPrivilege", privilege, action);
+};
+
+const hasOwnershipPrivilege = (privilege, action) => {
+  // TODO: here we should probably also check that the user owns the respective resource
   console.error("hasOwnershipPrivilege is not implemented yet.");
+  return hasPrivilege("ownershipPrivilege", privilege, action);
 };
 
 const removeAllPrivileges = () => {
