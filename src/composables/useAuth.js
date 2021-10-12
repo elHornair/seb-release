@@ -8,6 +8,7 @@ const authData = reactive({
   token: null,
   expiration: null,
   privileges: null,
+  user: null,
 });
 
 const isAuthenticated = computed(() => authData.token !== null);
@@ -94,6 +95,7 @@ const invalidateUser = () => {
   authData.token = null;
   authData.expiration = null;
   authData.privileges = null;
+  authData.user = null;
 };
 
 const fetchAndStoreAuthToken = async (username, password) => {
@@ -144,8 +146,13 @@ const fetchAndStorePrivileges = async (authToken) => {
       }),
     ]);
 
-    const userRoles = responses[0].data.userRoles;
-    const privilegeMap = responses[1].data;
+    const userResponseData = responses[0].data;
+    const privilegeResponseData = responses[1].data;
+
+    authData.user = {
+      name: userResponseData.username,
+      roles: userResponseData.userRoles,
+    };
 
     // prepare privileges
     const userPrivileges = {};
@@ -158,8 +165,8 @@ const fetchAndStorePrivileges = async (authToken) => {
     });
 
     // map privileges
-    userRoles.forEach((userRole) => {
-      privilegeMap
+    authData.user.roles.forEach((userRole) => {
+      privilegeResponseData
         .filter((privilege) => {
           return privilege.roleTypeKey.userRole === userRole;
         })
