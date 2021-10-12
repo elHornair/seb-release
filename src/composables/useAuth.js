@@ -5,59 +5,36 @@ import { useAccessControl } from "@/composables/useAccessControl";
 
 const { fetchAndStorePrivileges, removeAllPrivileges } = useAccessControl();
 
-const AUTH_TOKEN_KEY = "AUTH_TOKEN";
-const AUTH_TOKEN_EXPIRATION_KEY = "AUTH_TOKEN_EXPIRATION";
+const AUTH_KEY = "AUTH";
 
-const authToken = ref(null);
-const authTokenExpiration = ref(null);
+const authData = ref(null);
 
-const isAuthenticated = computed(() => authToken.value !== null);
+const isAuthenticated = computed(() => authData.value !== null);
 
-watch(authToken, (newValue) => {
+watch(authData, (newValue) => {
   if (newValue === null) {
-    window.localStorage.removeItem(AUTH_TOKEN_KEY);
+    window.localStorage.removeItem(AUTH_KEY);
   } else {
-    window.localStorage.setItem(AUTH_TOKEN_KEY, newValue);
-  }
-});
-
-watch(authTokenExpiration, (newValue) => {
-  if (newValue === null) {
-    window.localStorage.removeItem(AUTH_TOKEN_EXPIRATION_KEY);
-  } else {
-    window.localStorage.setItem(AUTH_TOKEN_EXPIRATION_KEY, newValue);
+    window.localStorage.setItem(AUTH_KEY, JSON.stringify(newValue));
   }
 });
 
 const getPersistedAuthData = () => {
-  const persistedAuthTokenExpiration = window.localStorage.getItem(
-    AUTH_TOKEN_EXPIRATION_KEY
-  );
+  const persistedAuth = JSON.parse(window.localStorage.getItem(AUTH_KEY));
 
-  if (persistedAuthTokenExpiration) {
-    const expirationDate = new Date(persistedAuthTokenExpiration);
+  if (persistedAuth && persistedAuth.token && persistedAuth.expiration) {
+    const expirationDate = new Date(persistedAuth.expiration);
 
     if (new Date() < expirationDate) {
-      const persistedAuthToken = window.localStorage.getItem(AUTH_TOKEN_KEY);
-
-      if (persistedAuthToken) {
-        return {
-          authToken: persistedAuthToken,
-          authTokenExpiration: persistedAuthTokenExpiration,
-        };
-      }
+      return persistedAuth;
     }
   }
 
-  return {
-    authToken: null,
-    authTokenExpiration: null,
-  };
+  return null;
 };
 
 const invalidateUser = () => {
-  authToken.value = null;
-  authTokenExpiration.value = null;
+  authData.value = null;
   removeAllPrivileges();
 };
 
@@ -80,10 +57,12 @@ const fetchAndStoreAuthToken = async (username, password) => {
     expirationDateTime.setSeconds(
       expirationDateTime.getSeconds() + response.data["expires_in"]
     );
-    authTokenExpiration.value = expirationDateTime;
 
     // TODO: the response also has a "refresh_token" => This can be used in a later improvement to automatically refresh the auth token
-    authToken.value = response.data["access_token"];
+    authData.value = {
+      token: response.data["access_token"],
+      expiration: expirationDateTime,
+    };
   } catch (error) {
     console.error(error);
     throw new Error("Login failed");
@@ -92,12 +71,10 @@ const fetchAndStoreAuthToken = async (username, password) => {
 
 const authenticateUser = async (username, password) => {
   await fetchAndStoreAuthToken(username, password);
-  await fetchAndStorePrivileges(authToken.value);
+  await fetchAndStorePrivileges(authData.value.token);
 };
 
-const persistedAuthData = getPersistedAuthData();
-authToken.value = persistedAuthData.authToken;
-authTokenExpiration.value = persistedAuthData.authTokenExpiration;
+authData.value = getPersistedAuthData();
 
 export const useAuth = () => {
   return {
