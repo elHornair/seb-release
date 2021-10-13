@@ -138,7 +138,6 @@ const fetchAndStoreAuthToken = async (username, password) => {
     authData.token = response.data["access_token"];
     authData.expiration = expirationDateTime;
   } catch (error) {
-    console.error(error);
     throw new Error("Login failed");
   }
 };
