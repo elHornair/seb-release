@@ -19,7 +19,7 @@
             <tbody>
               <tr
                 v-for="(institution, institutionIndex) in institutions"
-                :key="institution.email"
+                :key="institution.id"
                 :class="institutionIndex % 2 === 0 ? 'bg-white' : 'bg-gray-50'"
               >
                 <td class="table__data table__data--bold">
