@@ -5,15 +5,15 @@
     <Sidebar />
 
     <main id="main-content" class="layout_maincontent">
-      <div v-if="accessToCurrentRouteGranted">
-        <h1 ref="focusTarget" class="layout_mainheading">
-          {{ routeDisplayName }}
-        </h1>
-        <router-view />
-      </div>
-      <div v-else>
-        <h1 ref="focusTarget" class="layout_mainheading">Access denied</h1>
-      </div>
+      <h1 ref="focusTarget" class="layout_mainheading">
+        {{ routeDisplayName }}
+      </h1>
+      <router-view v-if="accessToCurrentRouteGranted" />
+      <alert
+        v-else
+        title="Access denied"
+        message="You don't have the required permissions to access this page."
+      ></alert>
     </main>
   </div>
 </template>
@@ -24,10 +24,11 @@ import Sidebar from "./Sidebar.vue";
 import { getDisplayNameByRouteName } from "../../router";
 import SkipLinks from "../SkipLinks.vue";
 import { useAccessControl } from "@/composables/useAccessControl";
+import Alert from "@/components/misc/Alert";
 
 export default {
   name: "Layout",
-  components: { Sidebar, Header, SkipLinks },
+  components: { Alert, Sidebar, Header, SkipLinks },
   setup() {
     const { accessToCurrentRouteGranted } = useAccessControl();
 
@@ -52,6 +53,7 @@ export default {
     @apply container;
     @apply mx-auto;
     @apply md:ml-64;
+    @apply md:pl-6;
   }
 
   .layout_mainheading {
@@ -70,7 +72,6 @@ export default {
       @apply items-center;
       @apply bg-white;
       @apply h-12;
-      @apply px-6;
       @apply z-10;
     }
   }
