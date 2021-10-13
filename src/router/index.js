@@ -116,7 +116,7 @@ router.beforeEach(async (to) => {
   }
 
   if (to.name === "home") {
-    return "institution";
+    return "user-account";
   }
 
   if (

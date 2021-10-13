@@ -123,7 +123,7 @@ export default {
     async handleFormSubmit() {
       try {
         await this.authenticateUser(this.userName, this.password);
-        this.$router.push({ name: "user-account" });
+        this.$router.push({ name: "home" });
       } catch (error) {
         this.loginError = true;
       }
