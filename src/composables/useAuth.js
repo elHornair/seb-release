@@ -15,6 +15,9 @@ const isAuthenticated = computed(() => authData.token !== null);
 const userName = computed(() =>
   isAuthenticated.value ? authData.user.name : null
 );
+const authToken = computed(() =>
+  isAuthenticated.value ? authData.token : null
+);
 
 const availablePrivileges = {
   CONFIGURATION_VALUE: "CONFIGURATION_VALUE",
@@ -237,6 +240,7 @@ export const useAuth = () => {
     availablePrivileges: readonly(availablePrivileges),
     availableActions: readonly(availableActions),
     userName: readonly(userName),
+    authToken: readonly(authToken),
     authenticateUser,
     invalidateUser,
     hasPrivilege,
