@@ -13,7 +13,7 @@ const {
   denyAccessToCurrentRoute,
   availablePrivileges,
   availableActions,
-  hasBasePrivilege,
+  hasInstitutionalPrivilege,
 } = useAccessControl();
 
 const routes = [
@@ -67,6 +67,8 @@ const routes = [
     meta: {
       accessControl: {
         public: false,
+        privilege: availablePrivileges.USER,
+        action: availableActions.READ,
       },
     },
   },
@@ -77,6 +79,8 @@ const routes = [
     meta: {
       accessControl: {
         public: false,
+        privilege: availablePrivileges.USER_ACTIVITY_LOG,
+        action: availableActions.READ,
       },
     },
   },
@@ -118,7 +122,7 @@ router.beforeEach(async (to) => {
   if (
     to.meta.accessControl.privilege &&
     to.meta.accessControl.action &&
-    !hasBasePrivilege(
+    !hasInstitutionalPrivilege(
       to.meta.accessControl.privilege,
       to.meta.accessControl.action
     )

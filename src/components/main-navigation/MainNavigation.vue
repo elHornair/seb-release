@@ -38,8 +38,8 @@
             v-if="showInstitutionNavItem"
             route="institution"
           />
-          <main-navigation-item route="user-account" />
-          <main-navigation-item route="user-logs" />
+          <main-navigation-item v-if="showUserNavItem" route="user-account" />
+          <main-navigation-item v-if="showUserLogNavItem" route="user-logs" />
         </ul>
       </li>
     </ul>
@@ -81,7 +81,7 @@ export default {
   },
   setup() {
     const { setIsOpen } = useSidebar();
-    const { availablePrivileges, availableActions, hasBasePrivilege } =
+    const { availablePrivileges, availableActions, hasInstitutionalPrivilege } =
       useAccessControl();
     const { userName } = useAuth();
 
@@ -92,14 +92,26 @@ export default {
       closeButtonRef,
       availablePrivileges,
       availableActions,
-      hasBasePrivilege,
+      hasInstitutionalPrivilege,
       userName,
     };
   },
   computed: {
     showInstitutionNavItem() {
-      return this.hasBasePrivilege(
+      return this.hasInstitutionalPrivilege(
         this.availablePrivileges.INSTITUTION,
+        this.availableActions.READ
+      );
+    },
+    showUserNavItem() {
+      return this.hasInstitutionalPrivilege(
+        this.availablePrivileges.USER,
+        this.availableActions.READ
+      );
+    },
+    showUserLogNavItem() {
+      return this.hasInstitutionalPrivilege(
+        this.availablePrivileges.USER_ACTIVITY_LOG,
         this.availableActions.READ
       );
     },
