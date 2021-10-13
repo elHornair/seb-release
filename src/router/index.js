@@ -5,6 +5,7 @@ import { useAccessControl } from "@/composables/useAccessControl";
 import Institution from "@/views/Institution.vue";
 import Login from "@/views/Login.vue";
 import Dummy from "@/views/Dummy.vue";
+import NotFound from "@/views/NotFound.vue";
 
 const { isAuthenticated, invalidateUser } = useAuth();
 const {
@@ -79,6 +80,16 @@ const routes = [
       },
     },
   },
+  {
+    path: "/:catchAll(.*)",
+    name: "not-found",
+    component: NotFound,
+    meta: {
+      accessControl: {
+        public: true,
+      },
+    },
+  },
 ];
 
 const router = createRouter({
@@ -123,6 +134,7 @@ export const getDisplayNameByRouteName = (routeName) =>
     institution: "Institution",
     "user-account": "User Account",
     "user-logs": "User Logs",
+    "not-found": "Page not found",
   }[routeName] || "");
 
 export default router;
