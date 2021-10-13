@@ -45,24 +45,39 @@
                     <span aria-hidden="true">
                       <x-circle-icon
                         class="h-5 w-5 text-yellow-400"
-                        aria-hidden="true"
                       ></x-circle-icon>
                     </span>
                   </span>
                 </td>
                 <td class="table__data">
-                  <a
-                    href="#"
-                    class="font-medium text-indigo-600 hover:text-indigo-900"
-                    >Edit</a
-                  >
-
-                  {{ " " }}
-                  <a
-                    href="#"
-                    class="font-medium text-indigo-600 hover:text-indigo-900"
-                    >View</a
-                  >
+                  <span class="flex space-x-2">
+                    <a
+                      href="#"
+                      class="font-medium text-indigo-600 hover:text-indigo-900"
+                    >
+                      <span class="sr-only">View</span>
+                      <span aria-hidden="true">
+                        <search-icon class="h-5 w-5"></search-icon>
+                      </span> </a
+                    ><a
+                      href="#"
+                      class="font-medium text-indigo-600 hover:text-indigo-900"
+                    >
+                      <span class="sr-only">Edit</span>
+                      <span aria-hidden="true">
+                        <pencil-alt-icon class="h-5 w-5"></pencil-alt-icon>
+                      </span>
+                    </a>
+                    <a
+                      href="#"
+                      class="font-medium text-indigo-600 hover:text-indigo-900"
+                    >
+                      <span class="sr-only">Activate / Deactivate</span>
+                      <span aria-hidden="true">
+                        <refresh-icon class="h-5 w-5"></refresh-icon>
+                      </span>
+                    </a>
+                  </span>
                 </td>
               </tr>
             </tbody>
@@ -81,13 +96,23 @@
 <script>
 import { XCircleIcon } from "@heroicons/vue/solid";
 import { CheckCircleIcon } from "@heroicons/vue/solid";
+import { PencilAltIcon } from "@heroicons/vue/solid";
+import { RefreshIcon } from "@heroicons/vue/solid";
+import { SearchIcon } from "@heroicons/vue/solid";
 import Pagination from "@/components/misc/Pagination";
 import { useAPI } from "@/composables/useAPI";
 import { ref, watch } from "vue";
 
 export default {
   name: "Institution",
-  components: { Pagination, XCircleIcon, CheckCircleIcon },
+  components: {
+    Pagination,
+    XCircleIcon,
+    CheckCircleIcon,
+    RefreshIcon,
+    PencilAltIcon,
+    SearchIcon,
+  },
   setup() {
     const { getInstitutions } = useAPI();
     const institutionData = getInstitutions();
