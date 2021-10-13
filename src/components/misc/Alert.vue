@@ -35,8 +35,14 @@
 export default {
   name: "Alert",
   props: {
-    title: String,
-    message: String,
+    title: {
+      type: String,
+      required: true,
+    },
+    message: {
+      type: String,
+      required: true,
+    },
   },
 };
 </script>

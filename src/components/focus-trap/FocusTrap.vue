@@ -1,11 +1,11 @@
 <template>
-  <div ref="containerRef" v-bind:class="{ 'h-full': isFullHeight }">
+  <div ref="containerRef" :class="{ 'h-full': isFullHeight }">
     <div
       :tabindex="tabCatcherTabIndex"
       aria-hidden="true"
       @focus="onFirstFocus"
     />
-    <div ref="contentWrapperRef" v-bind:class="{ 'h-full': isFullHeight }">
+    <div ref="contentWrapperRef" :class="{ 'h-full': isFullHeight }">
       <slot />
     </div>
     <div
