@@ -11,7 +11,7 @@
       <router-view v-if="accessToCurrentRouteGranted" />
       <alert
         v-else
-        title="Access denied"
+        title="Error 403 – Access denied"
         message="You don't have the required permissions to access this page."
       ></alert>
     </main>
