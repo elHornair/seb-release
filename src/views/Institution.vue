@@ -6,6 +6,9 @@
           class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg"
         >
           <table class="min-w-full divide-y divide-gray-200">
+            <caption class="sr-only">
+              List of institutions
+            </caption>
             <thead class="bg-gray-50">
               <tr>
                 <th scope="col" class="table__head">Name</th>
