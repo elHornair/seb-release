@@ -8,7 +8,9 @@
     class="float-right pr-4 py-3 md:hidden"
     @click="toggleIsOpen"
   >
-    <MenuIcon class="h-5 w-5"></MenuIcon>
+    <span aria-hidden="true">
+      <MenuIcon class="h-5 w-5"></MenuIcon>
+    </span>
   </button>
 </template>
 

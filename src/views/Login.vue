@@ -72,7 +72,10 @@
         </div>
 
         <button type="submit" class="login__submit">
-          <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+          <span
+            class="absolute left-0 inset-y-0 flex items-center pl-3"
+            aria-hidden="true"
+          >
             <LockClosedIcon
               class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
             />
