@@ -29,7 +29,24 @@
                   {{ institution.urlSuffix }}
                 </td>
                 <td class="table__data">
-                  {{ institution.active }}
+                  <span v-if="institution.active">
+                    <span class="sr-only">Active</span>
+                    <span aria-hidden="true">
+                      <check-circle-icon
+                        class="h-5 w-5 text-green-400"
+                        aria-hidden="true"
+                      ></check-circle-icon>
+                    </span>
+                  </span>
+                  <span v-else>
+                    <span class="sr-only">Inactive</span>
+                    <span aria-hidden="true">
+                      <x-circle-icon
+                        class="h-5 w-5 text-yellow-400"
+                        aria-hidden="true"
+                      ></x-circle-icon>
+                    </span>
+                  </span>
                 </td>
                 <td class="table__data">
                   <a
@@ -60,13 +77,15 @@
 </template>
 
 <script>
+import { XCircleIcon } from "@heroicons/vue/solid";
+import { CheckCircleIcon } from "@heroicons/vue/solid";
+import Pagination from "@/components/misc/Pagination";
 import { useAPI } from "@/composables/useAPI";
 import { ref, watch } from "vue";
-import Pagination from "@/components/misc/Pagination";
 
 export default {
   name: "Institution",
-  components: { Pagination },
+  components: { Pagination, XCircleIcon, CheckCircleIcon },
   setup() {
     const { getInstitutions } = useAPI();
     const institutionData = getInstitutions();
