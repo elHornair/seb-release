@@ -94,11 +94,24 @@ const getPersistedAuthData = () => {
   return null;
 };
 
-const invalidateUser = () => {
+const invalidateUser = async () => {
   authData.token = null;
   authData.expiration = null;
   authData.privileges = null;
   authData.user = null;
+
+  try {
+    await axios({
+      method: "DELETE",
+      url: "/oauth/revoke-token",
+      headers: {
+        Authorization: `Bearer ${authData.token}`,
+      },
+    });
+  } catch (error) {
+    // we don't really care about this, as we locally delete the token anyway
+    console.error(error);
+  }
 };
 
 const fetchAndStoreAuthToken = async (username, password) => {
