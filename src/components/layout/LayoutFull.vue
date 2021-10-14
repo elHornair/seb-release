@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: "LayoutPLayoutFullublic",
+  name: "LayoutFull",
 };
 </script>
