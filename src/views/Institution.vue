@@ -7,7 +7,7 @@
         >
           <table class="min-w-full divide-y divide-gray-200">
             <caption class="sr-only">
-              List of institutions
+              List of institutions, use buttons in column header to sort
             </caption>
             <thead class="bg-gray-50">
               <tr>
