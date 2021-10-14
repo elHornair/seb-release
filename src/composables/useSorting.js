@@ -37,7 +37,7 @@ const removeSorting = () => {
 export const useSorting = () => {
   return {
     SORT_DIRECTION: readonly(SORT_DIRECTION),
-    sorting: readonly(state),
+    sortingState: readonly(state),
     sortingApiParam: readonly(apiParam),
     setSorting,
     removeSorting,

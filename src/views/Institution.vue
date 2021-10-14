@@ -36,13 +36,24 @@
                 :key="institution.id"
                 :class="institutionIndex % 2 === 0 ? 'bg-white' : 'bg-gray-50'"
               >
-                <td class="table__data table__data--bold">
+                <td
+                  class="table__data table__data--bold"
+                  :class="{ 'bg-yellow-50': sortingState.field === 'name' }"
+                >
                   {{ institution.name }}
                 </td>
-                <td class="table__data">
+                <td
+                  class="table__data"
+                  :class="{
+                    'bg-yellow-50': sortingState.field === 'urlSuffix',
+                  }"
+                >
                   {{ institution.urlSuffix }}
                 </td>
-                <td class="table__data">
+                <td
+                  class="table__data"
+                  :class="{ 'bg-yellow-50': sortingState.field === 'active' }"
+                >
                   <span v-if="institution.active">
                     <span class="sr-only">Active</span>
                     <span aria-hidden="true">
@@ -129,7 +140,7 @@ export default {
   },
   setup() {
     const { getInstitutions } = useAPI();
-    const { sortingApiParam } = useSorting();
+    const { sortingState, sortingApiParam } = useSorting();
 
     const institutionState = reactive({
       institutions: [],
@@ -154,6 +165,7 @@ export default {
     updateInstitutionData();
 
     return {
+      sortingState,
       institutionState,
     };
   },

@@ -1,5 +1,10 @@
 <template>
-  <th scope="col" class="table_head_field" :aria-sort="currentSortingAria">
+  <th
+    scope="col"
+    class="table_head_field"
+    :class="{ 'bg-yellow-100': currentSorting }"
+    :aria-sort="currentSortingAria"
+  >
     <div class="flex items-end">
       <span class="pr-1">
         {{ label }}
@@ -66,10 +71,11 @@ export default {
     },
   },
   setup() {
-    const { sorting, setSorting, removeSorting, SORT_DIRECTION } = useSorting();
+    const { sortingState, setSorting, removeSorting, SORT_DIRECTION } =
+      useSorting();
 
     return {
-      sorting,
+      sortingState,
       setSorting,
       removeSorting,
       SORT_DIRECTION,
@@ -77,8 +83,8 @@ export default {
   },
   computed: {
     currentSorting() {
-      return this.sorting.field === this.fieldName
-        ? this.sorting.direction
+      return this.sortingState.field === this.fieldName
+        ? this.sortingState.direction
         : null;
     },
     currentSortingAria() {
@@ -110,7 +116,7 @@ export default {
   @apply -mb-1;
 
   &.table_head_field__button--active {
-    @apply text-indigo-900;
+    @apply text-gray-900;
   }
 }
 </style>
