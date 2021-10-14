@@ -54,21 +54,14 @@
                   class="table__data"
                   :class="{ 'bg-yellow-50': sortingState.field === 'active' }"
                 >
-                  <span v-if="institution.active">
-                    <span class="sr-only">Active</span>
-                    <span aria-hidden="true">
-                      <check-circle-icon
-                        class="h-5 w-5 text-green-400"
-                      ></check-circle-icon>
-                    </span>
-                  </span>
-                  <span v-else>
-                    <span class="sr-only">Inactive</span>
-                    <span aria-hidden="true">
-                      <x-circle-icon
-                        class="h-5 w-5 text-yellow-400"
-                      ></x-circle-icon>
-                    </span>
+                  <span
+                    class="table__batch"
+                    :class="{
+                      'bg-green-100 text-green-800': institution.active,
+                      'bg-red-100 text-red-800': !institution.active,
+                    }"
+                  >
+                    {{ activeBoolToString(institution.active) }}
                   </span>
                 </td>
                 <td class="table__data">
@@ -116,8 +109,6 @@
 </template>
 
 <script>
-import { XCircleIcon } from "@heroicons/vue/solid";
-import { CheckCircleIcon } from "@heroicons/vue/solid";
 import { PencilAltIcon } from "@heroicons/vue/solid";
 import { RefreshIcon } from "@heroicons/vue/solid";
 import { SearchIcon } from "@heroicons/vue/solid";
@@ -132,8 +123,6 @@ export default {
   components: {
     TableHeadField,
     Pagination,
-    XCircleIcon,
-    CheckCircleIcon,
     RefreshIcon,
     PencilAltIcon,
     SearchIcon,
@@ -169,6 +158,11 @@ export default {
       institutionState,
     };
   },
+  methods: {
+    activeBoolToString(active) {
+      return active ? "Active" : "Inactive";
+    },
+  },
 };
 </script>
 
@@ -184,5 +178,15 @@ export default {
     @apply font-medium;
     @apply text-gray-900;
   }
+}
+
+.table__batch {
+  @apply inline-flex;
+  @apply items-center;
+  @apply px-3;
+  @apply py-0.5;
+  @apply rounded-full;
+  @apply text-sm;
+  @apply font-medium;
 }
 </style>
