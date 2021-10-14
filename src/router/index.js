@@ -54,7 +54,7 @@ const routes = [
     name: "login",
     component: Login,
     meta: {
-      layout: "full",
+      layout: "empty",
       accessControl: {
         public: true,
       },

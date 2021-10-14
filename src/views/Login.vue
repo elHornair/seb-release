@@ -1,5 +1,6 @@
 <template>
-  <div
+  <main
+    id="main-content"
     class="
       min-h-screen
       flex
@@ -19,10 +20,7 @@
           src="/img/logo.png"
           alt="Logo SEB Server"
         />
-        <h1
-          ref="focusTarget"
-          class="mt-6 text-center text-3xl font-extrabold text-gray-900"
-        >
+        <h1 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
           Sign in
         </h1>
         <p class="mt-2 text-center text-sm text-gray-600">
@@ -84,7 +82,7 @@
         </button>
       </form>
     </div>
-  </div>
+  </main>
 </template>
 
 <script>

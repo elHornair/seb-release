@@ -7,3 +7,34 @@
 body.scroll-lock {
   overflow-y: hidden;
 }
+
+.layout {
+  @apply max-w-screen-xl;
+  @apply md:flex;
+
+  .layout__content {
+    @apply container;
+    @apply mx-auto;
+    @apply md:ml-64;
+    @apply md:pl-6;
+  }
+
+  .layout__mainheading {
+    @apply absolute;
+    @apply top-0;
+    @apply w-full;
+    @apply text-lg;
+    @apply sr-only;
+
+    @screen md {
+      @apply not-sr-only;
+      @apply sticky;
+      @apply top-0;
+      @apply flex;
+      @apply items-center;
+      @apply bg-white;
+      @apply h-12;
+      @apply z-10;
+    }
+  }
+}

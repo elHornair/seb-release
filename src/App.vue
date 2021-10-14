@@ -1,12 +1,12 @@
 <template>
-  <component :is="layout" ref="layout"></component>
+  <component :is="layout"></component>
 </template>
 
 <script>
 import { computed, nextTick } from "vue";
 import { useHead } from "@vueuse/head";
-import LayoutSimple from "./components/layout/LayoutSimple.vue";
-import LayoutFull from "@/components/layout/LayoutFull";
+import LayoutMain from "./components/layout/LayoutMain.vue";
+import LayoutEmpty from "@/components/layout/LayoutEmpty";
 import { useSidebar } from "./composables/useSidebar";
 import { focusElement } from "./utils/focus";
 import { getDisplayNameByRouteName } from "./router";
@@ -16,8 +16,8 @@ export default {
   name: "App",
 
   components: {
-    LayoutSimple,
-    LayoutFull,
+    LayoutMain,
+    LayoutEmpty,
   },
 
   setup() {
@@ -42,7 +42,7 @@ export default {
   computed: {
     layout() {
       return `layout-${
-        this.$route.meta.layout ? this.$route.meta.layout : "simple"
+        this.$route.meta.layout ? this.$route.meta.layout : "main"
       }`;
     },
   },
@@ -63,7 +63,8 @@ export default {
 
   methods: {
     focusMainContent() {
-      const focusTarget = this.$refs.layout.$refs.focusTarget;
+      const focusTarget = document.getElementById("main-content");
+
       if (focusTarget) {
         focusElement(focusTarget, 300);
       }

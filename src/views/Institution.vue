@@ -1,111 +1,141 @@
 <template>
-  <div class="flex flex-col">
-    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-      <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-        <div
-          class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg"
-        >
-          <table class="min-w-full divide-y divide-gray-200">
-            <caption class="sr-only">
-              List of institutions, use buttons in column header to sort
-            </caption>
-            <thead class="bg-gray-50">
-              <tr>
-                <table-head-field
-                  field-name="name"
-                  label="Name"
-                ></table-head-field>
-                <table-head-field
-                  field-name="urlSuffix"
-                  label="URL Suffix"
-                ></table-head-field>
-                <table-head-field
-                  field-name="active"
-                  label="Status"
-                ></table-head-field>
-                <th scope="col" class="relative px-6 py-3">
-                  <span class="sr-only">Actions</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="(
-                  institution, institutionIndex
-                ) in institutionState.institutions"
-                :key="institution.id"
-                :class="institutionIndex % 2 === 0 ? 'bg-white' : 'bg-gray-50'"
-              >
-                <td
-                  class="table__data table__data--bold"
-                  :class="{ 'bg-yellow-50': sortingState.field === 'name' }"
-                >
-                  {{ institution.name }}
-                </td>
-                <td
-                  class="table__data"
-                  :class="{
-                    'bg-yellow-50': sortingState.field === 'urlSuffix',
-                  }"
-                >
-                  {{ institution.urlSuffix }}
-                </td>
-                <td
-                  class="table__data"
-                  :class="{ 'bg-yellow-50': sortingState.field === 'active' }"
-                >
-                  <span
-                    class="table__batch"
-                    :class="{
-                      'bg-green-100 text-green-800': institution.active,
-                      'bg-red-100 text-red-800': !institution.active,
-                    }"
+  <view-split>
+    <template #main>
+      <div class="flex flex-col">
+        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div
+            class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8"
+          >
+            <div
+              class="
+                shadow
+                overflow-hidden
+                border-b border-gray-200
+                sm:rounded-lg
+              "
+            >
+              <table class="min-w-full divide-y divide-gray-200">
+                <caption class="sr-only">
+                  List of institutions, use buttons in column header to sort
+                </caption>
+                <thead class="bg-gray-50">
+                  <tr>
+                    <table-head-field
+                      field-name="name"
+                      label="Name"
+                    ></table-head-field>
+                    <table-head-field
+                      field-name="urlSuffix"
+                      label="URL Suffix"
+                    ></table-head-field>
+                    <table-head-field
+                      field-name="active"
+                      label="Status"
+                    ></table-head-field>
+                    <th scope="col" class="relative px-6 py-3">
+                      <span class="sr-only">Actions</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="(
+                      institution, institutionIndex
+                    ) in institutionState.institutions"
+                    :key="institution.id"
+                    :class="
+                      institutionIndex % 2 === 0 ? 'bg-white' : 'bg-gray-50'
+                    "
                   >
-                    {{ activeBoolToString(institution.active) }}
-                  </span>
-                </td>
-                <td class="table__data">
-                  <span class="flex space-x-2">
-                    <a
-                      href="#"
-                      class="font-medium text-indigo-600 hover:text-indigo-900"
+                    <td
+                      class="table__data table__data--bold"
+                      :class="{ 'bg-yellow-50': sortingState.field === 'name' }"
                     >
-                      <span class="sr-only">View</span>
-                      <span aria-hidden="true">
-                        <search-icon class="h-5 w-5"></search-icon>
-                      </span> </a
-                    ><a
-                      href="#"
-                      class="font-medium text-indigo-600 hover:text-indigo-900"
+                      {{ institution.name }}
+                    </td>
+                    <td
+                      class="table__data"
+                      :class="{
+                        'bg-yellow-50': sortingState.field === 'urlSuffix',
+                      }"
                     >
-                      <span class="sr-only">Edit</span>
-                      <span aria-hidden="true">
-                        <pencil-alt-icon class="h-5 w-5"></pencil-alt-icon>
+                      {{ institution.urlSuffix }}
+                    </td>
+                    <td
+                      class="table__data"
+                      :class="{
+                        'bg-yellow-50': sortingState.field === 'active',
+                      }"
+                    >
+                      <span
+                        class="table__batch"
+                        :class="{
+                          'bg-green-100 text-green-800': institution.active,
+                          'bg-red-100 text-red-800': !institution.active,
+                        }"
+                      >
+                        {{ activeBoolToString(institution.active) }}
                       </span>
-                    </a>
-                    <a
-                      href="#"
-                      class="font-medium text-indigo-600 hover:text-indigo-900"
-                    >
-                      <span class="sr-only">Activate / Deactivate</span>
-                      <span aria-hidden="true">
-                        <refresh-icon class="h-5 w-5"></refresh-icon>
+                    </td>
+                    <td class="table__data">
+                      <span class="flex space-x-2">
+                        <a
+                          href="#"
+                          class="
+                            font-medium
+                            text-indigo-600
+                            hover:text-indigo-900
+                          "
+                        >
+                          <span class="sr-only">View</span>
+                          <span aria-hidden="true">
+                            <search-icon class="h-5 w-5"></search-icon>
+                          </span> </a
+                        ><a
+                          href="#"
+                          class="
+                            font-medium
+                            text-indigo-600
+                            hover:text-indigo-900
+                          "
+                        >
+                          <span class="sr-only">Edit</span>
+                          <span aria-hidden="true">
+                            <pencil-alt-icon class="h-5 w-5"></pencil-alt-icon>
+                          </span>
+                        </a>
+                        <a
+                          href="#"
+                          class="
+                            font-medium
+                            text-indigo-600
+                            hover:text-indigo-900
+                          "
+                        >
+                          <span class="sr-only">Activate / Deactivate</span>
+                          <span aria-hidden="true">
+                            <refresh-icon class="h-5 w-5"></refresh-icon>
+                          </span>
+                        </a>
                       </span>
-                    </a>
-                  </span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
 
-          <pagination
-            :current-page="institutionState.currentPage"
-            :total-pages="institutionState.totalPages"
-          ></pagination>
+              <pagination
+                :current-page="institutionState.currentPage"
+                :total-pages="institutionState.totalPages"
+              ></pagination>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+    </template>
+    <template #aside>
+      <p>This will be the sidebar</p>
+    </template>
+  </view-split>
 </template>
 
 <script>
@@ -117,10 +147,12 @@ import { useAPI } from "@/composables/useAPI";
 import { useSorting } from "@/composables/useSorting";
 import { reactive, watch } from "vue";
 import TableHeadField from "@/components/table/TableHeadField";
+import ViewSplit from "@/components/layout/ViewSplit";
 
 export default {
   name: "Institution",
   components: {
+    ViewSplit,
     TableHeadField,
     Pagination,
     RefreshIcon,
