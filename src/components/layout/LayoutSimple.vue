@@ -4,17 +4,18 @@
     <Header />
     <Sidebar />
 
-    <main id="main-content" class="layout_maincontent">
-      <h1 ref="focusTarget" class="layout_mainheading">
+    <div id="main-content" class="layout__content">
+      <h1 ref="focusTarget" class="layout__mainheading">
         {{ routeDisplayName }}
       </h1>
       <router-view v-if="accessToCurrentRouteGranted" />
-      <alert
-        v-else
-        title="Error 403 – Access denied"
-        message="You don't have the required permissions to access this page."
-      ></alert>
-    </main>
+      <main v-else>
+        <alert
+          title="Error 403 – Access denied"
+          message="You don't have the required permissions to access this page."
+        ></alert>
+      </main>
+    </div>
   </div>
 </template>
 
@@ -27,7 +28,7 @@ import { useAccessControl } from "@/composables/useAccessControl";
 import Alert from "@/components/misc/Alert";
 
 export default {
-  name: "Layout",
+  name: "LayoutSimple",
   components: { Alert, Sidebar, Header, SkipLinks },
   setup() {
     const { accessToCurrentRouteGranted } = useAccessControl();
@@ -49,14 +50,14 @@ export default {
   @apply max-w-screen-lg;
   @apply md:flex;
 
-  .layout_maincontent {
+  .layout__content {
     @apply container;
     @apply mx-auto;
     @apply md:ml-64;
     @apply md:pl-6;
   }
 
-  .layout_mainheading {
+  .layout__mainheading {
     @apply absolute;
     @apply top-0;
     @apply w-full;
