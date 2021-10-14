@@ -1,7 +1,6 @@
 import axios from "axios";
 import qs from "qs";
 import { useAuth } from "@/composables/useAuth";
-import { ref } from "vue";
 
 const { authToken } = useAuth();
 
@@ -22,22 +21,24 @@ const getInstitutions = (params = {}, filterCriteria = {}) => {
   //   urlSuffix: 'eth',
   //   active: true,
   // }
-  const institutionData = ref({});
+  const cleanParams = {};
 
-  axios({
+  if (params.sort) {
+    cleanParams.sort = params.sort;
+  }
+
+  return axios({
     method: "GET",
     url: `${API_PREFIX}institution`,
     headers: {
       Authorization: `Bearer ${authToken.value}`,
       "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
     },
-    params: params,
+    params: cleanParams,
     data: qs.stringify(filterCriteria),
   }).then((response) => {
-    institutionData.value = response.data;
+    return response.data;
   });
-
-  return institutionData;
 };
 
 export const useAPI = () => {

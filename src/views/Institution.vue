@@ -11,9 +11,18 @@
             </caption>
             <thead class="bg-gray-50">
               <tr>
-                <th scope="col" class="table__head">Name</th>
-                <th scope="col" class="table__head">URL Suffix</th>
-                <th scope="col" class="table__head">Status</th>
+                <table-head-field
+                  field-name="name"
+                  label="Name"
+                ></table-head-field>
+                <table-head-field
+                  field-name="urlSuffix"
+                  label="URL Suffix"
+                ></table-head-field>
+                <table-head-field
+                  field-name="active"
+                  label="Status"
+                ></table-head-field>
                 <th scope="col" class="relative px-6 py-3">
                   <span class="sr-only">Actions</span>
                 </th>
@@ -21,7 +30,9 @@
             </thead>
             <tbody>
               <tr
-                v-for="(institution, institutionIndex) in institutions"
+                v-for="(
+                  institution, institutionIndex
+                ) in institutionState.institutions"
                 :key="institution.id"
                 :class="institutionIndex % 2 === 0 ? 'bg-white' : 'bg-gray-50'"
               >
@@ -84,8 +95,8 @@
           </table>
 
           <pagination
-            :current-page="currentPage"
-            :total-pages="totalPages"
+            :current-page="institutionState.currentPage"
+            :total-pages="institutionState.totalPages"
           ></pagination>
         </div>
       </div>
@@ -101,11 +112,14 @@ import { RefreshIcon } from "@heroicons/vue/solid";
 import { SearchIcon } from "@heroicons/vue/solid";
 import Pagination from "@/components/misc/Pagination";
 import { useAPI } from "@/composables/useAPI";
-import { ref, watch } from "vue";
+import { useSorting } from "@/composables/useSorting";
+import { reactive, watch } from "vue";
+import TableHeadField from "@/components/table/TableHeadField";
 
 export default {
   name: "Institution",
   components: {
+    TableHeadField,
     Pagination,
     XCircleIcon,
     CheckCircleIcon,
@@ -115,37 +129,38 @@ export default {
   },
   setup() {
     const { getInstitutions } = useAPI();
-    const institutionData = getInstitutions();
-    const institutions = ref([]);
-    const totalPages = ref(0);
-    const currentPage = ref(0);
+    const { sortingApiParam } = useSorting();
 
-    watch(institutionData, (newValue) => {
-      institutions.value = newValue.content;
-      totalPages.value = newValue["number_of_pages"];
-      currentPage.value = newValue["page_number"];
+    const institutionState = reactive({
+      institutions: [],
+      totalPages: 0,
+      currentPage: 0,
     });
 
+    const updateInstitutionData = async () => {
+      const institutionData = await getInstitutions({
+        sort: sortingApiParam.value,
+      });
+
+      Object.assign(institutionState, {
+        institutions: institutionData["content"],
+        totalPages: institutionData["number_of_pages"],
+        currentPage: institutionData["page_number"],
+      });
+    };
+
+    watch(sortingApiParam, () => updateInstitutionData());
+
+    updateInstitutionData();
+
     return {
-      institutions,
-      totalPages,
-      currentPage,
+      institutionState,
     };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.table__head {
-  @apply px-6;
-  @apply py-3;
-  @apply text-left text-xs;
-  @apply font-medium;
-  @apply text-gray-500;
-  @apply uppercase;
-  @apply tracking-wider;
-}
-
 .table__data {
   @apply px-6;
   @apply py-4;
