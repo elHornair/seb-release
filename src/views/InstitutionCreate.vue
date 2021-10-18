@@ -17,6 +17,12 @@
           name="url-suffix"
           class="form__row"
         ></form-input-text>
+        <form-input-checkbox
+          name="active"
+          label="Active"
+          description="Status"
+          class="form__row"
+        ></form-input-checkbox>
         <form-input-file
           label="Cover photo"
           name="cover-photo"
@@ -45,10 +51,17 @@ import ViewBasic from "@/components/layout/ViewBasic";
 import FormInputText from "@/components/form/FormInputText";
 import FormInputFile from "@/components/form/FormInputFile";
 import ActionButton from "@/components/misc/ActionButton";
+import FormInputCheckbox from "@/components/form/FormInputCheckbox";
 
 export default {
   name: "InstitutionCreate",
-  components: { ViewBasic, FormInputText, FormInputFile, ActionButton },
+  components: {
+    FormInputCheckbox,
+    ViewBasic,
+    FormInputText,
+    FormInputFile,
+    ActionButton,
+  },
   methods: {
     async handleFormSubmit() {
       // TODO: use api
