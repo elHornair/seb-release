@@ -10,6 +10,7 @@
       <input
         :id="name"
         :name="name"
+        :value="modelValue"
         type="checkbox"
         class="
           focus:ring-indigo-500
@@ -19,6 +20,7 @@
           border-gray-300
           rounded
         "
+        @input="$emit('update:modelValue', $event.target.checked)"
       />
       <label
         :for="name"
@@ -30,8 +32,6 @@
 </template>
 
 <script>
-import { ref } from "vue";
-
 export default {
   name: "FormInputCheckbox",
   props: {
@@ -47,10 +47,12 @@ export default {
       type: String,
       required: true,
     },
+    modelValue: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
-  setup() {
-    const enabled = ref(false);
-    return { enabled };
-  },
+  emits: ["update:modelValue"],
 };
 </script>
