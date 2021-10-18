@@ -66,6 +66,7 @@ const getInstitutions = (params = {}, filterCriteria = {}) => {
 
 export const useAPI = () => {
   return {
+    createInstitution,
     getInstitutions,
   };
 };

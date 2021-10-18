@@ -8,16 +8,19 @@
     >
       <div class="space-y-6 sm:space-y-5">
         <form-input-text
+          v-model="name"
           label="Name"
           name="name"
           class="form__row"
         ></form-input-text>
         <form-input-text
+          v-model="urlSuffix"
           label="URL Suffix"
           name="url-suffix"
           class="form__row"
         ></form-input-text>
         <form-input-checkbox
+          v-model="active"
           name="active"
           label="Active"
           description="Status"
@@ -52,6 +55,7 @@ import FormInputText from "@/components/form/FormInputText";
 import FormInputFile from "@/components/form/FormInputFile";
 import ActionButton from "@/components/misc/ActionButton";
 import FormInputCheckbox from "@/components/form/FormInputCheckbox";
+import { useAPI } from "@/composables/useAPI";
 
 export default {
   name: "InstitutionCreate",
@@ -62,10 +66,39 @@ export default {
     FormInputFile,
     ActionButton,
   },
+  setup() {
+    const { createInstitution } = useAPI();
+
+    return {
+      createInstitution,
+    };
+  },
+  data() {
+    return {
+      name: null,
+      urlSuffix: null,
+      active: false,
+    };
+  },
   methods: {
     async handleFormSubmit() {
-      // TODO: use api
-      console.log("create institution submit triggered");
+      // TODO: form validation (name: required && 3-255 zeichen; urlSuffix: 3 bis 45 zeichen)
+
+      try {
+        const response = await this.createInstitution(
+          this.name,
+          this.urlSuffix,
+          this.active
+        );
+
+        // TODO: use the received id to redirect to the newly created institutions detail page
+        console.log("institution created");
+        console.log(response);
+
+        this.$router.push({ name: "institutions" });
+      } catch (error) {
+        // TODO: show error message and properly style it
+      }
     },
   },
 };
