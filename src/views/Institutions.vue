@@ -146,17 +146,17 @@
 </template>
 
 <script>
+import { reactive, watch } from "vue";
+import { useAPI } from "@/composables/useAPI";
+import { useSorting } from "@/composables/useSorting";
+import { useAccessControl } from "@/composables/useAccessControl";
 import { PencilAltIcon } from "@heroicons/vue/solid";
 import { RefreshIcon } from "@heroicons/vue/solid";
 import { SearchIcon } from "@heroicons/vue/solid";
 import Pagination from "@/components/misc/Pagination";
-import { useAPI } from "@/composables/useAPI";
-import { useSorting } from "@/composables/useSorting";
-import { reactive, watch } from "vue";
 import TableHeadField from "@/components/table/TableHeadField";
 import ViewSplit from "@/components/layout/ViewSplit";
 import AddButton from "@/components/misc/AddButton";
-import { useAccessControl } from "@/composables/useAccessControl";
 
 export default {
   name: "Institution",
