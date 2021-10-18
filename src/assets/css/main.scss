@@ -25,6 +25,7 @@ body.scroll-lock {
     @apply w-full;
     @apply text-lg;
     @apply sr-only;
+    @apply bg-gray-100;
 
     @screen md {
       @apply not-sr-only;
@@ -34,6 +35,8 @@ body.scroll-lock {
       @apply items-center;
       @apply h-12;
       @apply z-10;
+      @apply md:-mx-6;
+      @apply md:px-6;
     }
   }
 }
