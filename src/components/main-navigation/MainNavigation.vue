@@ -36,7 +36,7 @@
         <ul>
           <main-navigation-item
             v-if="showInstitutionNavItem"
-            route="institution"
+            route="institutions"
           />
           <main-navigation-item v-if="showUserNavItem" route="user-account" />
           <main-navigation-item v-if="showUserLogNavItem" route="user-logs" />

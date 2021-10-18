@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import { useAuth } from "@/composables/useAuth";
 import { useAccessControl } from "@/composables/useAccessControl";
 
-import Institution from "@/views/Institution.vue";
+import Institutions from "@/views/Institutions.vue";
 import Login from "@/views/Login.vue";
 import Dummy from "@/views/Dummy.vue";
 import NotFound from "@/views/NotFound.vue";
@@ -28,9 +28,9 @@ const routes = [
     },
   },
   {
-    path: "/institution",
-    name: "institution",
-    component: Institution,
+    path: "/institutions",
+    name: "institutions",
+    component: Institutions,
     meta: {
       accessControl: {
         public: false,
@@ -135,7 +135,7 @@ router.beforeEach(async (to) => {
 
 export const getDisplayNameByRouteName = (routeName) =>
   ({
-    institution: "Institution",
+    institutions: "Institutions",
     "user-account": "User Account",
     "user-logs": "User Logs",
     "not-found": "Page not found",
