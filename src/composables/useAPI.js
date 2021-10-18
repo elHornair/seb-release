@@ -4,7 +4,30 @@ import { useAuth } from "@/composables/useAuth";
 
 const { authToken } = useAuth();
 
-const API_PREFIX = "admin-api/v1/";
+const API_PREFIX = "/admin-api/v1/";
+
+const createInstitution = (name, urlSuffix = null, active = false) => {
+  const payload = {
+    name,
+    active, // TODO: "active" is not respected by the BE at this point -> figure out why (maybe because it wants this manipulated only through the dedicated API endpoint?)
+  };
+
+  if (urlSuffix) {
+    payload.urlSuffix = urlSuffix;
+  }
+
+  return axios({
+    method: "POST",
+    url: `${API_PREFIX}institution`,
+    headers: {
+      Authorization: `Bearer ${authToken.value}`,
+      "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+    },
+    data: qs.stringify(payload),
+  }).then((response) => {
+    return response.data;
+  });
+};
 
 const getInstitutions = (params = {}, filterCriteria = {}) => {
   // params:
