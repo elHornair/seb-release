@@ -135,11 +135,19 @@
     <template #aside>
       <div class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
         <h2 class="mb-3">Actions</h2>
-        <add-button
+        <action-button
           v-if="showAddAction"
           label="Add institution"
-          action="institution-create"
-        ></add-button>
+          type="link"
+          route="institution-create"
+        >
+          <template #icon>
+            <plus-circle-icon
+              class="-ml-1 mr-2 h-5 w-5 text-white"
+              aria-hidden="true"
+            />
+          </template>
+        </action-button>
       </div>
     </template>
   </view-split>
@@ -153,19 +161,21 @@ import { useAccessControl } from "@/composables/useAccessControl";
 import { PencilAltIcon } from "@heroicons/vue/solid";
 import { RefreshIcon } from "@heroicons/vue/solid";
 import { SearchIcon } from "@heroicons/vue/solid";
+import { PlusCircleIcon } from "@heroicons/vue/solid";
 import Pagination from "@/components/misc/Pagination";
 import TableHeadField from "@/components/table/TableHeadField";
 import ViewSplit from "@/components/layout/ViewSplit";
-import AddButton from "@/components/misc/AddButton";
+import ActionButton from "@/components/misc/ActionButton";
 
 export default {
   name: "Institution",
   components: {
-    AddButton,
+    ActionButton,
     ViewSplit,
     TableHeadField,
     Pagination,
     RefreshIcon,
+    PlusCircleIcon,
     PencilAltIcon,
     SearchIcon,
   },

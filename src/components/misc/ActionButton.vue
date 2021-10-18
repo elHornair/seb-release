@@ -1,11 +1,14 @@
 <template>
-  <button
-    :type="type"
+  <component
+    :is="componentType"
+    :type="isLink ? null : type"
+    :to="isLink ? { name: route } : null"
     class="button"
     :class="{ 'button--primary': primary, 'button--secondary': !primary }"
   >
+    <slot name="icon"></slot>
     {{ label }}
-  </button>
+  </component>
 </template>
 
 <script>
@@ -20,12 +23,26 @@ export default {
       type: String,
       default: "button",
       validator(value) {
-        return ["button", "submit", "reset"].includes(value);
+        return ["button", "submit", "reset", "link"].includes(value);
       },
     },
     primary: {
       type: Boolean,
       default: true,
+    },
+    route: {
+      type: String,
+      default: "",
+      required: false,
+    },
+  },
+
+  computed: {
+    isLink() {
+      return this.type === "link";
+    },
+    componentType() {
+      return this.isLink ? "router-link" : "button";
     },
   },
 };
