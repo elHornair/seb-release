@@ -50,6 +50,7 @@
 </template>
 
 <script>
+// TODO: really implement this => figure out, how the API wants to receive binary file information
 import { UploadIcon } from "@heroicons/vue/solid";
 export default {
   name: "FormInputFile",
