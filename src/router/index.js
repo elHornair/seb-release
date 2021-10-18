@@ -13,6 +13,7 @@ const {
   denyAccessToCurrentRoute,
   availablePrivileges,
   availableActions,
+  hasBasePrivilege,
   hasInstitutionalPrivilege,
 } = useAccessControl();
 
@@ -28,7 +29,7 @@ const routes = [
     },
   },
   {
-    path: "/institutions",
+    path: "/institution",
     name: "institutions",
     component: Institutions,
     meta: {
@@ -122,9 +123,15 @@ router.beforeEach(async (to) => {
   if (
     to.meta.accessControl.privilege &&
     to.meta.accessControl.action &&
-    !hasInstitutionalPrivilege(
-      to.meta.accessControl.privilege,
-      to.meta.accessControl.action
+    !(
+      hasBasePrivilege(
+        to.meta.accessControl.privilege,
+        to.meta.accessControl.action
+      ) ||
+      hasInstitutionalPrivilege(
+        to.meta.accessControl.privilege,
+        to.meta.accessControl.action
+      )
     )
   ) {
     denyAccessToCurrentRoute();

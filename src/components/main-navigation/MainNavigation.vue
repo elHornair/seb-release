@@ -81,8 +81,12 @@ export default {
   },
   setup() {
     const { setIsOpen } = useSidebar();
-    const { availablePrivileges, availableActions, hasInstitutionalPrivilege } =
-      useAccessControl();
+    const {
+      availablePrivileges,
+      availableActions,
+      hasBasePrivilege,
+      hasInstitutionalPrivilege,
+    } = useAccessControl();
     const { userName } = useAuth();
 
     const closeButtonRef = ref();
@@ -92,27 +96,46 @@ export default {
       closeButtonRef,
       availablePrivileges,
       availableActions,
+      hasBasePrivilege,
       hasInstitutionalPrivilege,
       userName,
     };
   },
   computed: {
     showInstitutionNavItem() {
-      return this.hasInstitutionalPrivilege(
-        this.availablePrivileges.INSTITUTION,
-        this.availableActions.READ
+      return (
+        this.hasBasePrivilege(
+          this.availablePrivileges.INSTITUTION,
+          this.availableActions.READ
+        ) ||
+        this.hasInstitutionalPrivilege(
+          this.availablePrivileges.INSTITUTION,
+          this.availableActions.READ
+        )
       );
     },
     showUserNavItem() {
-      return this.hasInstitutionalPrivilege(
-        this.availablePrivileges.USER,
-        this.availableActions.READ
+      return (
+        this.hasBasePrivilege(
+          this.availablePrivileges.USER,
+          this.availableActions.READ
+        ) ||
+        this.hasInstitutionalPrivilege(
+          this.availablePrivileges.USER,
+          this.availableActions.READ
+        )
       );
     },
     showUserLogNavItem() {
-      return this.hasInstitutionalPrivilege(
-        this.availablePrivileges.USER_ACTIVITY_LOG,
-        this.availableActions.READ
+      return (
+        this.hasBasePrivilege(
+          this.availablePrivileges.USER_ACTIVITY_LOG,
+          this.availableActions.READ
+        ) ||
+        this.hasInstitutionalPrivilege(
+          this.availablePrivileges.USER_ACTIVITY_LOG,
+          this.availableActions.READ
+        )
       );
     },
   },

@@ -152,6 +152,7 @@ import { reactive, watch } from "vue";
 import TableHeadField from "@/components/table/TableHeadField";
 import ViewSplit from "@/components/layout/ViewSplit";
 import AddButton from "@/components/misc/AddButton";
+import { useAccessControl } from "@/composables/useAccessControl";
 
 export default {
   name: "Institution",
@@ -167,6 +168,8 @@ export default {
   setup() {
     const { getInstitutions } = useAPI();
     const { sortingState, sortingApiParam } = useSorting();
+    const { availablePrivileges, availableActions, hasBasePrivilege } =
+      useAccessControl();
 
     const institutionState = reactive({
       institutions: [],
@@ -193,7 +196,18 @@ export default {
     return {
       sortingState,
       institutionState,
+      availablePrivileges,
+      availableActions,
+      hasBasePrivilege,
     };
+  },
+  computed: {
+    showAddAction() {
+      return this.hasBasePrivilege(
+        this.availablePrivileges.INSTITUTION,
+        this.availableActions.WRITE
+      );
+    },
   },
   methods: {
     activeBoolToString(active) {
