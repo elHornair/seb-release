@@ -1,21 +1,21 @@
 <template>
-  <div>
-    <main id="main-content">
-      <h1 class="layout__mainheading">
-        {{ routeDisplayName }}
-      </h1>
-      <slot name="main"></slot>
-    </main>
-    <aside>
-      <slot name="aside"></slot>
-    </aside>
-  </div>
+  <main id="main-content">
+    <h1 class="layout__mainheading">
+      {{ routeDisplayName }}
+    </h1>
+    <div class="grid grid-cols-12 gap-6">
+      <div class="col-span-12 xl:col-span-9 order-2 xl:order-1">
+        <slot name="main"></slot>
+      </div>
+      <aside class="col-span-12 xl:col-span-3 order-1 xl:order-2">
+        <slot name="aside"></slot>
+      </aside>
+    </div>
+  </main>
 </template>
 
 <script>
 import { getDisplayNameByRouteName } from "@/router";
-
-// TODO: put the <aside> really on the side on bigger screens. Also: should it be before or after the main content on small screens? In the DOM? visually?
 export default {
   name: "ViewSplit",
   computed: {
