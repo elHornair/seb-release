@@ -46,7 +46,7 @@ export default {
     const { isEnabled } = toRefs(props);
     const containerRef = ref();
     const contentWrapperRef = ref();
-    const tabCatcherTabIndex = computed(() => (isEnabled ? 0 : -1));
+    const tabCatcherTabIndex = computed(() => (isEnabled.value ? 0 : -1));
 
     let focusableElements = null;
     let hiddenElements = [];
