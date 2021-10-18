@@ -135,7 +135,11 @@
     <template #aside>
       <div class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
         <h2 class="mb-3">Actions</h2>
-        <add-button label="Add institution"></add-button>
+        <add-button
+          v-if="showAddAction"
+          label="Add institution"
+          action="institution-create"
+        ></add-button>
       </div>
     </template>
   </view-split>

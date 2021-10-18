@@ -1,6 +1,6 @@
 <template>
-  <button
-    type="button"
+  <router-link
+    :to="{ name: action }"
     class="
       inline-flex
       items-center
@@ -26,7 +26,7 @@
       aria-hidden="true"
     />
     {{ label }}
-  </button>
+  </router-link>
 </template>
 
 <script>
@@ -37,6 +37,10 @@ export default {
   components: { PlusCircleIcon },
   props: {
     label: {
+      type: String,
+      required: true,
+    },
+    action: {
       type: String,
       required: true,
     },
