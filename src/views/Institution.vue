@@ -133,7 +133,10 @@
       </div>
     </template>
     <template #aside>
-      <p>This will be the sidebar</p>
+      <div class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
+        <h2 class="mb-3">Actions</h2>
+        <add-button label="Add institution"></add-button>
+      </div>
     </template>
   </view-split>
 </template>
@@ -148,10 +151,12 @@ import { useSorting } from "@/composables/useSorting";
 import { reactive, watch } from "vue";
 import TableHeadField from "@/components/table/TableHeadField";
 import ViewSplit from "@/components/layout/ViewSplit";
+import AddButton from "@/components/misc/AddButton";
 
 export default {
   name: "Institution",
   components: {
+    AddButton,
     ViewSplit,
     TableHeadField,
     Pagination,
