@@ -59,11 +59,6 @@ export default {
   @apply text-sm;
   @apply font-medium;
   @apply shadow-sm;
-
-  @apply focus:outline-none;
-  @apply focus:ring-2;
-  @apply focus:ring-offset-2;
-  @apply focus:ring-indigo-500;
 }
 
 .button--primary {
