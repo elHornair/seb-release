@@ -233,6 +233,7 @@ export default {
 
 <style lang="scss" scoped>
 .table__data {
+  @apply relative;
   @apply px-6;
   @apply py-4;
   @apply whitespace-nowrap;

@@ -103,6 +103,7 @@ export default {
 
 <style lang="scss" scoped>
 .table_head_field {
+  @apply relative;
   @apply px-6;
   @apply py-3;
   @apply text-left text-xs;
