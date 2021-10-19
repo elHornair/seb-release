@@ -4,13 +4,15 @@
       :for="name"
       class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
     >
-      {{ label }}
+      {{ label
+      }}<span v-if="required" aria-hidden="true" class="text-red-700">*</span>
     </label>
     <div class="mt-1 sm:mt-0 sm:col-span-2">
       <input
         :id="name"
         :name="name"
         :value="modelValue"
+        :required="required"
         type="text"
         autocomplete="off"
         class="block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -35,6 +37,11 @@ export default {
     modelValue: {
       type: String,
       required: false,
+    },
+    required: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   emits: ["update:modelValue"],

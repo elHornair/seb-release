@@ -5,6 +5,7 @@
         v-model="name"
         label="Name"
         name="name"
+        :required="true"
         class="form__row"
       ></form-input-text>
       <form-input-text
