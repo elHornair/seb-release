@@ -90,20 +90,25 @@
                           <span class="sr-only">View</span>
                           <span aria-hidden="true">
                             <search-icon class="h-5 w-5"></search-icon>
-                          </span> </a
-                        ><a
-                          href="#"
+                          </span>
+                        </a>
+                        <router-link
                           class="
                             font-medium
                             text-indigo-600
                             hover:text-indigo-900
                           "
+                          :to="{
+                            name: 'institution-edit',
+                            params: { id: institution.id },
+                          }"
                         >
                           <span class="sr-only">Edit</span>
                           <span aria-hidden="true">
                             <pencil-alt-icon class="h-5 w-5"></pencil-alt-icon>
                           </span>
-                        </a>
+                        </router-link>
+
                         <a
                           href="#"
                           class="

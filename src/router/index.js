@@ -7,6 +7,7 @@ import Login from "@/views/Login.vue";
 import Dummy from "@/views/Dummy.vue";
 import NotFound from "@/views/NotFound.vue";
 import InstitutionCreate from "@/views/InstitutionCreate";
+import InstitutionEdit from "@/views/InstitutionEdit";
 
 const { isAuthenticated, invalidateUser } = useAuth();
 const {
@@ -50,6 +51,18 @@ const routes = [
         public: false,
         privilege: availablePrivileges.INSTITUTION,
         action: availableActions.WRITE,
+      },
+    },
+  },
+  {
+    path: "/institution/:id/edit",
+    name: "institution-edit",
+    component: InstitutionEdit,
+    meta: {
+      accessControl: {
+        public: false,
+        privilege: availablePrivileges.INSTITUTION,
+        action: availableActions.MODIFY,
       },
     },
   },
@@ -157,6 +170,7 @@ export const getDisplayNameByRouteName = (routeName) =>
   ({
     institutions: "Institutions",
     "institution-create": "Add institution",
+    "institution-edit": "Edit institution",
     "user-account": "User Account",
     "user-logs": "User Logs",
     "not-found": "Page not found",

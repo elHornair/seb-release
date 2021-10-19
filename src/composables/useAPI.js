@@ -29,6 +29,48 @@ const createInstitution = (name, urlSuffix = null, active = false) => {
   });
 };
 
+const readInstitution = (id) => {
+  if (!Number.isInteger(id) || id < 0) {
+    throw new Error("Invalid ID");
+  }
+
+  return axios({
+    method: "GET",
+    url: `${API_PREFIX}institution/${id}`,
+    headers: {
+      Authorization: `Bearer ${authToken.value}`,
+      "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8", // TODO: could this be JSON too? (see update action)
+    },
+    data: qs.stringify({}), // this is needed, because if there is no payload, the API will throw an error
+  }).then((response) => {
+    return response.data;
+  });
+};
+
+const updateInstitution = (id, name, urlSuffix = "", active) => {
+  const payload = {
+    id,
+    name,
+    urlSuffix,
+  };
+
+  if (active === true || active === false) {
+    payload.active = active; // TODO: this doesnt have any effect
+  }
+
+  return axios({
+    method: "PUT",
+    url: `${API_PREFIX}institution`,
+    headers: {
+      Authorization: `Bearer ${authToken.value}`,
+      "Content-Type": "application/json",
+    },
+    data: JSON.stringify(payload),
+  }).then((response) => {
+    return response.data;
+  });
+};
+
 const getInstitutions = (params = {}, filterCriteria = {}) => {
   // params:
   // {
@@ -67,6 +109,8 @@ const getInstitutions = (params = {}, filterCriteria = {}) => {
 export const useAPI = () => {
   return {
     createInstitution,
+    readInstitution,
+    updateInstitution,
     getInstitutions,
   };
 };
