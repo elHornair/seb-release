@@ -117,16 +117,16 @@ const router = createRouter({
 
 router.beforeEach(async (to) => {
   if (!to.meta.accessControl.public && !isAuthenticated.value) {
-    return "login";
+    return { name: "login" };
   }
 
   if (to.name === "login" && isAuthenticated.value) {
-    return "home";
+    return { name: "home" };
   }
 
   if (to.name === "logout") {
     invalidateUser();
-    return "login";
+    return { name: "login" };
   }
 
   if (to.name === "home") {
