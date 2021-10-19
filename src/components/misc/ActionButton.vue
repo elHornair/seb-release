@@ -2,11 +2,13 @@
   <component
     :is="componentType"
     :type="isLink ? null : type"
-    :to="isLink ? { name: route } : null"
+    :to="isLink ? routeObj : null"
     class="button"
     :class="{ 'button--primary': primary, 'button--secondary': !primary }"
   >
-    <slot name="icon"></slot>
+    <span aria-hidden="true">
+      <slot name="icon"></slot>
+    </span>
     {{ label }}
   </component>
 </template>
@@ -30,9 +32,9 @@ export default {
       type: Boolean,
       default: true,
     },
-    route: {
-      type: String,
-      default: "",
+    routeObj: {
+      type: Object,
+      default: null,
       required: false,
     },
   },

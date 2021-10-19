@@ -108,7 +108,6 @@
                             <pencil-alt-icon class="h-5 w-5"></pencil-alt-icon>
                           </span>
                         </router-link>
-
                         <a
                           href="#"
                           class="
@@ -144,13 +143,10 @@
           v-if="showAddAction"
           label="Add institution"
           type="link"
-          route="institution-create"
+          :route-obj="{ name: 'institution-create' }"
         >
           <template #icon>
-            <plus-circle-icon
-              class="-ml-1 mr-2 h-5 w-5 text-white"
-              aria-hidden="true"
-            />
+            <plus-circle-icon class="-ml-1 mr-2 h-5 w-5 text-white" />
           </template>
         </action-button>
       </div>
