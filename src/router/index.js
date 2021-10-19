@@ -8,6 +8,7 @@ import Dummy from "@/views/Dummy.vue";
 import NotFound from "@/views/NotFound.vue";
 import InstitutionCreate from "@/views/InstitutionCreate";
 import InstitutionEdit from "@/views/InstitutionEdit";
+import InstitutionView from "@/views/InstitutionView";
 
 const { isAuthenticated, invalidateUser } = useAuth();
 const {
@@ -34,6 +35,18 @@ const routes = [
     path: "/institution",
     name: "institutions",
     component: Institutions,
+    meta: {
+      accessControl: {
+        public: false,
+        privilege: availablePrivileges.INSTITUTION,
+        action: availableActions.READ,
+      },
+    },
+  },
+  {
+    path: "/institution/:id",
+    name: "institution-view",
+    component: InstitutionView,
     meta: {
       accessControl: {
         public: false,
@@ -169,6 +182,7 @@ router.beforeEach(async (to) => {
 export const getDisplayNameByRouteName = (routeName) =>
   ({
     institutions: "Institutions",
+    "institution-view": "Institution",
     "institution-create": "Add institution",
     "institution-edit": "Edit institution",
     "user-account": "User Account",
