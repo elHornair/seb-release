@@ -185,7 +185,7 @@ export default {
     SearchIcon,
   },
   setup() {
-    const { getInstitutions } = useAPI();
+    const { readInstitutions } = useAPI();
     const { sortingState, sortingApiParam } = useSorting();
     const { availablePrivileges, availableActions, hasBasePrivilege } =
       useAccessControl();
@@ -197,7 +197,7 @@ export default {
     });
 
     const updateInstitutionData = async () => {
-      const institutionData = await getInstitutions({
+      const institutionData = await readInstitutions({
         sort: sortingApiParam.value,
       });
 

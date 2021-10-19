@@ -63,7 +63,7 @@ const updateInstitution = (id, name, urlSuffix = "") => {
   });
 };
 
-const getInstitutions = (params = {}, filterCriteria = {}) => {
+const readInstitutions = (params = {}, filterCriteria = {}) => {
   // params:
   // {
   //   page_number: 1,
@@ -103,6 +103,6 @@ export const useAPI = () => {
     createInstitution,
     readInstitution,
     updateInstitution,
-    getInstitutions,
+    readInstitutions,
   };
 };
