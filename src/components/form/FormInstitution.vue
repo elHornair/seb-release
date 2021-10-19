@@ -1,10 +1,5 @@
 <template>
-  <form
-    class="form"
-    action="#"
-    method="POST"
-    @submit.prevent="handleFormSubmit"
-  >
+  <form class="form" @submit.prevent="handleFormSubmit">
     <div class="space-y-6 sm:space-y-5">
       <form-input-text
         v-model="name"
