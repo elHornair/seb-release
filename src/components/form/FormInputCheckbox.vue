@@ -10,7 +10,7 @@
       <input
         :id="name"
         :name="name"
-        :value="modelValue"
+        :checked="modelValue"
         type="checkbox"
         class="h-4 w-4 text-indigo-600 border-gray-300 rounded"
         @input="$emit('update:modelValue', $event.target.checked)"
