@@ -32,6 +32,7 @@
         label="Reset"
         type="reset"
         :primary="false"
+        @click.prevent="handleFormReset"
       ></action-button>
       <action-button
         label="Save"
@@ -63,7 +64,14 @@ export default {
     existingInstitution: {
       type: Object,
       required: false,
-      default: null,
+      default: () => {
+        return {
+          id: null,
+          name: null,
+          urlSuffix: null,
+          active: false,
+        };
+      },
     },
   },
   setup(props) {
@@ -73,23 +81,26 @@ export default {
       () => props.existingInstitution !== null && props.existingInstitution.id
     );
 
-    const id = ref(null);
-    const name = ref(null);
-    const urlSuffix = ref(null);
-    const active = ref(false);
+    const id = ref();
+    const name = ref();
+    const urlSuffix = ref();
+    const active = ref();
+
+    const setFormDataToInitialValue = () => {
+      id.value = props.existingInstitution.id;
+      name.value = props.existingInstitution.name;
+      urlSuffix.value = props.existingInstitution.urlSuffix;
+      active.value = props.existingInstitution.active;
+    };
 
     watchEffect(() => {
-      if (isExistingInstitution.value) {
-        id.value = props.existingInstitution.id;
-        name.value = props.existingInstitution.name;
-        urlSuffix.value = props.existingInstitution.urlSuffix;
-        active.value = props.existingInstitution.active;
-      }
+      setFormDataToInitialValue();
     });
 
     return {
       createInstitution,
       updateInstitution,
+      setFormDataToInitialValue,
       isExistingInstitution,
       id,
       name,
@@ -98,9 +109,11 @@ export default {
     };
   },
   methods: {
+    handleFormReset() {
+      this.setFormDataToInitialValue();
+    },
     async handleFormSubmit() {
       // TODO: form validation (name: required && 3-255 zeichen; urlSuffix: 3 bis 45 zeichen)
-      // TODO: make sure, reset-button works correct with initial data
 
       try {
         const response = this.isExistingInstitution
