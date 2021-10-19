@@ -23,6 +23,7 @@
         name="active"
         label="Active"
         description="Status"
+        :disabled="true"
         class="form__row"
       ></form-input-checkbox>
       <form-input-file

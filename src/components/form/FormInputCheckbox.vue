@@ -11,13 +11,16 @@
         :id="name"
         :name="name"
         :checked="modelValue"
+        :disabled="disabled"
+        :aria-hidden="disabled"
         type="checkbox"
-        class="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+        class="input"
         @input="$emit('update:modelValue', $event.target.checked)"
       />
       <label
         :for="name"
-        class="ml-3 text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+        class="label"
+        :class="{ 'label--disabled': disabled }"
         >{{ label }}</label
       >
     </div>
@@ -45,7 +48,40 @@ export default {
       required: false,
       default: false,
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ["update:modelValue"],
 };
 </script>
+
+<style lang="scss" scoped>
+.input {
+  @apply h-4;
+  @apply w-4;
+  @apply text-indigo-600;
+  @apply border-gray-300;
+  @apply rounded;
+
+  &:disabled {
+    @apply cursor-not-allowed;
+    @apply opacity-70;
+  }
+}
+
+.label {
+  @apply ml-3;
+  @apply text-sm;
+  @apply font-medium;
+  @apply text-gray-700;
+  @apply sm:mt-px;
+  @apply sm:pt-2;
+
+  &.label--disabled {
+    @apply cursor-not-allowed;
+    @apply opacity-70;
+  }
+}
+</style>
