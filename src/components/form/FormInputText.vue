@@ -13,6 +13,8 @@
         :name="name"
         :value="modelValue"
         :required="required"
+        :minlength="minLength"
+        :maxlength="maxLength"
         type="text"
         autocomplete="off"
         class="block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -42,6 +44,16 @@ export default {
       type: Boolean,
       required: false,
       default: false,
+    },
+    minLength: {
+      type: Number,
+      required: false,
+      default: null,
+    },
+    maxLength: {
+      type: Number,
+      required: false,
+      default: null,
     },
   },
   emits: ["update:modelValue"],

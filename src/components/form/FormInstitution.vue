@@ -6,12 +6,16 @@
         label="Name"
         name="name"
         :required="true"
+        :min-length="3"
+        :max-length="255"
         class="form__row"
       ></form-input-text>
       <form-input-text
         v-model="urlSuffix"
         label="URL Suffix"
         name="url-suffix"
+        :min-length="3"
+        :max-length="45"
         class="form__row"
       ></form-input-text>
       <form-input-checkbox
@@ -114,8 +118,6 @@ export default {
       this.setFormDataToInitialValue();
     },
     async handleFormSubmit() {
-      // TODO: form validation (name: required && 3-255 zeichen; urlSuffix: 3 bis 45 zeichen)
-
       try {
         const response = this.isExistingInstitution
           ? await this.updateInstitution(this.id, this.name, this.urlSuffix)
