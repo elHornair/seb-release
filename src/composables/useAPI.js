@@ -35,7 +35,7 @@ const readInstitution = (id) => {
     url: `${API_PREFIX}institution/${id}`,
     headers: {
       Authorization: `Bearer ${authToken.value}`,
-      "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8", // TODO: could this be JSON too? (see update action)
+      "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
     },
     data: qs.stringify({}), // this is needed, because if there is no payload, the API will throw an error
   }).then((response) => {
