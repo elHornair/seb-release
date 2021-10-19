@@ -48,13 +48,13 @@
                     "
                   >
                     <td
-                      class="table__data table__data--bold"
+                      class="table_cell table_cell--bold"
                       :class="{ 'bg-yellow-50': sortingState.field === 'name' }"
                     >
                       {{ institution.name }}
                     </td>
                     <td
-                      class="table__data"
+                      class="table_cell"
                       :class="{
                         'bg-yellow-50': sortingState.field === 'urlSuffix',
                       }"
@@ -62,13 +62,13 @@
                       {{ institution.urlSuffix }}
                     </td>
                     <td
-                      class="table__data"
+                      class="table_cell"
                       :class="{
                         'bg-yellow-50': sortingState.field === 'active',
                       }"
                     >
                       <span
-                        class="table__batch"
+                        class="batch"
                         :class="{
                           'bg-green-100 text-green-800': institution.active,
                           'bg-red-100 text-red-800': !institution.active,
@@ -77,7 +77,7 @@
                         {{ activeBoolToString(institution.active) }}
                       </span>
                     </td>
-                    <td class="table__data">
+                    <td class="table_cell">
                       <span class="flex space-x-2">
                         <a
                           href="#"
@@ -232,7 +232,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.table__data {
+.table_cell {
   @apply relative;
   @apply px-6;
   @apply py-4;
@@ -240,13 +240,13 @@ export default {
   @apply text-sm;
   @apply text-gray-500;
 
-  &.table__data--bold {
+  &.table_cell--bold {
     @apply font-medium;
     @apply text-gray-900;
   }
 }
 
-.table__batch {
+.batch {
   @apply inline-flex;
   @apply items-center;
   @apply px-3;
