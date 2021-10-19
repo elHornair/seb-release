@@ -109,17 +109,8 @@ export default {
 
       try {
         const response = this.isExistingInstitution
-          ? await this.updateInstitution(
-              this.id,
-              this.name,
-              this.urlSuffix,
-              this.active
-            )
-          : await this.createInstitution(
-              this.name,
-              this.urlSuffix,
-              this.active
-            );
+          ? await this.updateInstitution(this.id, this.name, this.urlSuffix)
+          : await this.createInstitution(this.name, this.urlSuffix);
 
         // TODO: use the received id to redirect to the newly created institutions detail page
         console.log("institution created/updated");

@@ -6,15 +6,11 @@ const { authToken } = useAuth();
 
 const API_PREFIX = "/admin-api/v1/";
 
-const createInstitution = (name, urlSuffix = null, active = false) => {
+const createInstitution = (name, urlSuffix = "") => {
   const payload = {
     name,
-    active, // TODO: "active" is not respected by the BE at this point -> figure out why (maybe because it wants this manipulated only through the dedicated API endpoint?)
+    urlSuffix,
   };
-
-  if (urlSuffix) {
-    payload.urlSuffix = urlSuffix;
-  }
 
   return axios({
     method: "POST",
@@ -47,16 +43,12 @@ const readInstitution = (id) => {
   });
 };
 
-const updateInstitution = (id, name, urlSuffix = "", active) => {
+const updateInstitution = (id, name, urlSuffix = "") => {
   const payload = {
     id,
     name,
     urlSuffix,
   };
-
-  if (active === true || active === false) {
-    payload.active = active; // TODO: this doesnt have any effect
-  }
 
   return axios({
     method: "PUT",
