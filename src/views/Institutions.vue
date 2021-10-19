@@ -79,19 +79,22 @@
                     </td>
                     <td class="table_cell">
                       <span class="flex space-x-2">
-                        <a
-                          href="#"
+                        <router-link
                           class="
                             font-medium
                             text-indigo-600
                             hover:text-indigo-900
                           "
+                          :to="{
+                            name: 'institution-view',
+                            params: { id: institution.id },
+                          }"
                         >
                           <span class="sr-only">View</span>
                           <span aria-hidden="true">
                             <search-icon class="h-5 w-5"></search-icon>
                           </span>
-                        </a>
+                        </router-link>
                         <router-link
                           class="
                             font-medium
