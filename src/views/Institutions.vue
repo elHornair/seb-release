@@ -41,7 +41,7 @@
                   <tr
                     v-for="(
                       institution, institutionIndex
-                    ) in institutionState.institutions"
+                    ) in institutionsState.institutions"
                     :key="institution.id"
                     :class="
                       institutionIndex % 2 === 0 ? 'bg-white' : 'bg-gray-50'
@@ -129,8 +129,8 @@
               </table>
 
               <pagination
-                :current-page="institutionState.currentPage"
-                :total-pages="institutionState.totalPages"
+                :current-page="institutionsState.currentPage"
+                :total-pages="institutionsState.totalPages"
               ></pagination>
             </div>
           </div>
@@ -190,7 +190,7 @@ export default {
     const { availablePrivileges, availableActions, hasBasePrivilege } =
       useAccessControl();
 
-    const institutionState = reactive({
+    const institutionsState = reactive({
       institutions: [],
       totalPages: 0,
       currentPage: 0,
@@ -201,7 +201,7 @@ export default {
         sort: sortingApiParam.value,
       });
 
-      Object.assign(institutionState, {
+      Object.assign(institutionsState, {
         institutions: institutionData["content"],
         totalPages: institutionData["number_of_pages"],
         currentPage: institutionData["page_number"],
@@ -214,7 +214,7 @@ export default {
 
     return {
       sortingState,
-      institutionState,
+      institutionsState,
       availablePrivileges,
       availableActions,
       hasBasePrivilege,
