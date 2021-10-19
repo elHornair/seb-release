@@ -7,7 +7,10 @@
       <div class="col-span-12 xl:col-span-9 order-2 xl:order-1">
         <slot name="main"></slot>
       </div>
-      <aside class="col-span-12 xl:col-span-3 order-1 xl:order-2">
+      <aside
+        class="col-span-12 xl:col-span-3 order-1 xl:order-2"
+        :aria-label="labelAside"
+      >
         <slot name="aside"></slot>
       </aside>
     </div>
@@ -18,6 +21,12 @@
 import { getDisplayNameByRouteName } from "@/router";
 export default {
   name: "ViewSplit",
+  props: {
+    labelAside: {
+      type: String,
+      required: true,
+    },
+  },
   computed: {
     routeDisplayName() {
       return getDisplayNameByRouteName(this.$route.name);
