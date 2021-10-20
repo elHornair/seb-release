@@ -72,11 +72,7 @@
                     <td class="table_cell">
                       <span class="flex space-x-2">
                         <router-link
-                          class="
-                            font-medium
-                            text-indigo-600
-                            hover:text-indigo-900
-                          "
+                          class="inline-action"
                           :to="{
                             name: 'institution-view',
                             params: { id: institution.id },
@@ -88,11 +84,7 @@
                           </span>
                         </router-link>
                         <router-link
-                          class="
-                            font-medium
-                            text-indigo-600
-                            hover:text-indigo-900
-                          "
+                          class="inline-action"
                           :to="{
                             name: 'institution-edit',
                             params: { id: institution.id },
@@ -103,14 +95,7 @@
                             <pencil-alt-icon class="h-5 w-5"></pencil-alt-icon>
                           </span>
                         </router-link>
-                        <a
-                          href="#"
-                          class="
-                            font-medium
-                            text-indigo-600
-                            hover:text-indigo-900
-                          "
-                        >
+                        <a href="#" class="inline-action">
                           <span class="sr-only">Activate / Deactivate</span>
                           <span aria-hidden="true">
                             <refresh-icon class="h-5 w-5"></refresh-icon>
@@ -237,5 +222,11 @@ export default {
     @apply font-medium;
     @apply text-gray-900;
   }
+}
+
+.inline-action {
+  @apply font-medium;
+  @apply text-gray-500;
+  @apply hover:text-indigo-700;
 }
 </style>

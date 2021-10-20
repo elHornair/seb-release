@@ -115,9 +115,10 @@ export default {
 
 .table_head_field__button {
   @apply -mb-1;
+  @apply hover:text-indigo-700;
 
   &.table_head_field__button--active {
-    @apply text-gray-900;
+    @apply text-indigo-700;
   }
 }
 </style>
