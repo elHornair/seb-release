@@ -123,11 +123,15 @@ export default {
           ? await this.updateInstitution(this.id, this.name, this.urlSuffix)
           : await this.createInstitution(this.name, this.urlSuffix);
 
-        // TODO: use the received id to redirect to the newly created institutions detail page
-        console.log("institution created/updated");
-        console.log(response);
+        if (!response.id) {
+          throw new Error("Unexpected result from server after submit");
+        }
 
-        this.$router.push({ name: "institutions" });
+        // TODO: maybe also show an alert on that page ("institution successfully updated / created")
+        this.$router.push({
+          name: "institution-view",
+          params: { id: response.id },
+        });
       } catch (error) {
         // TODO: show error message and properly style it
       }
