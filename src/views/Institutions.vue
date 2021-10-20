@@ -67,15 +67,7 @@
                         'bg-yellow-50': sortingState.field === 'active',
                       }"
                     >
-                      <span
-                        class="batch"
-                        :class="{
-                          'bg-green-100 text-green-800': institution.active,
-                          'bg-red-100 text-red-800': !institution.active,
-                        }"
-                      >
-                        {{ activeBoolToString(institution.active) }}
-                      </span>
+                      <status-batch :active="institution.active"></status-batch>
                     </td>
                     <td class="table_cell">
                       <span class="flex space-x-2">
@@ -170,6 +162,7 @@ import Pagination from "@/components/misc/Pagination";
 import TableHeadField from "@/components/table/TableHeadField";
 import ViewSplit from "@/components/layout/ViewSplit";
 import ActionButton from "@/components/misc/ActionButton";
+import StatusBatch from "@/components/misc/StatusBatch";
 
 export default {
   name: "Institution",
@@ -178,6 +171,7 @@ export default {
     ViewSplit,
     TableHeadField,
     Pagination,
+    StatusBatch,
     RefreshIcon,
     PlusCircleIcon,
     PencilAltIcon,
@@ -227,11 +221,6 @@ export default {
       );
     },
   },
-  methods: {
-    activeBoolToString(active) {
-      return active ? "Active" : "Inactive";
-    },
-  },
 };
 </script>
 
@@ -248,15 +237,5 @@ export default {
     @apply font-medium;
     @apply text-gray-900;
   }
-}
-
-.batch {
-  @apply inline-flex;
-  @apply items-center;
-  @apply px-3;
-  @apply py-0.5;
-  @apply rounded-full;
-  @apply text-sm;
-  @apply font-medium;
 }
 </style>
