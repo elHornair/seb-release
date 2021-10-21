@@ -6,10 +6,12 @@
     :aria-sort="currentSortingAria"
   >
     <div class="flex items-end">
-      <span class="pr-1">
+      <span class="table_head_field__text">
         {{ label }}
       </span>
+      <sorting-dropdown v-if="useDropdown"></sorting-dropdown>
       <sorting-buttons
+        v-else
         class="flex items-end -mb-1"
         :label="label"
         :field-name="fieldName"
@@ -21,10 +23,12 @@
 <script>
 import SortingButtons from "@/components/table/SortingButtons";
 import { useSorting } from "@/composables/useSorting";
+import SortingDropdown from "@/components/table/SortingDropdown";
 
 export default {
   name: "TableHeadField",
   components: {
+    SortingDropdown,
     SortingButtons,
   },
   props: {
@@ -35,6 +39,10 @@ export default {
     fieldName: {
       type: String,
       required: true,
+    },
+    useDropdown: {
+      type: Boolean,
+      default: true,
     },
   },
   setup() {
@@ -67,9 +75,13 @@ export default {
   @apply relative;
   @apply px-6;
   @apply py-3;
+  @apply text-gray-500;
+}
+
+.table_head_field__text {
+  @apply pr-1;
   @apply text-left text-xs;
   @apply font-medium;
-  @apply text-gray-500;
   @apply uppercase;
   @apply tracking-wider;
 }

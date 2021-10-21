@@ -23,14 +23,17 @@
                     <table-head-field
                       field-name="name"
                       label="Name"
+                      :use-dropdown="false"
                     ></table-head-field>
                     <table-head-field
                       field-name="urlSuffix"
                       label="URL Suffix"
+                      :use-dropdown="true"
                     ></table-head-field>
                     <table-head-field
                       field-name="active"
                       label="Status"
+                      :use-dropdown="true"
                     ></table-head-field>
                     <th scope="col" class="relative px-6 py-3">
                       <span class="sr-only">Actions</span>
