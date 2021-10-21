@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label for="sorting" class="label">Institutions table sorting</label>
+    <label for="sorting" class="label">Sorting</label>
     <div class="mt-1">
       <select
         id="sorting"
