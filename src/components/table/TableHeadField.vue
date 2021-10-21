@@ -9,13 +9,11 @@
       <span class="table_head_field__text">
         {{ label }}
       </span>
-      <sorting-dropdown v-if="useDropdown"></sorting-dropdown>
-      <sorting-buttons
-        v-else
-        class="flex items-end -mb-1"
+      <component
+        :is="useDropdown ? 'sorting-dropdown' : 'sorting-buttons'"
         :label="label"
         :field-name="fieldName"
-      ></sorting-buttons>
+      ></component>
     </div>
   </th>
 </template>

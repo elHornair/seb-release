@@ -1,5 +1,5 @@
 <template>
-  <span>
+  <span class="flex items-end -mb-1">
     <button
       type="button"
       class="sorting-button"
