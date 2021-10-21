@@ -14,12 +14,12 @@
                 sm:rounded-lg
               "
             >
-              <table class="min-w-full divide-y divide-gray-200">
+              <table class="min-w-full divide-y divide-gray-200" role="table">
                 <caption class="sr-only">
                   List of institutions, use buttons in column header to sort
                 </caption>
-                <thead class="bg-gray-50">
-                  <tr>
+                <thead class="bg-gray-50" role="rowgroup">
+                  <tr role="row">
                     <table-head-field
                       field-name="name"
                       label="Name"
@@ -40,23 +40,26 @@
                     </th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody role="rowgroup">
                   <tr
                     v-for="(
                       institution, institutionIndex
                     ) in institutionsState.institutions"
                     :key="institution.id"
+                    role="row"
                     :class="
                       institutionIndex % 2 === 0 ? 'bg-white' : 'bg-gray-50'
                     "
                   >
                     <td
+                      role="cell"
                       class="table_cell table_cell--bold"
                       :class="{ 'bg-yellow-50': sortingState.field === 'name' }"
                     >
                       {{ institution.name }}
                     </td>
                     <td
+                      role="cell"
                       class="table_cell"
                       :class="{
                         'bg-yellow-50': sortingState.field === 'urlSuffix',
@@ -65,6 +68,7 @@
                       {{ institution.urlSuffix }}
                     </td>
                     <td
+                      role="cell"
                       class="table_cell"
                       :class="{
                         'bg-yellow-50': sortingState.field === 'active',
@@ -72,7 +76,7 @@
                     >
                       <status-batch :active="institution.active"></status-batch>
                     </td>
-                    <td class="table_cell">
+                    <td class="table_cell" role="cell">
                       <span class="flex space-x-2">
                         <router-link
                           class="inline-action"

@@ -1,5 +1,6 @@
 <template>
   <th
+    role="columnheader"
     scope="col"
     class="table_head_field"
     :class="{ 'bg-yellow-100': isSorted }"
@@ -7,7 +8,7 @@
     :aria-label="label"
   >
     <div class="flex items-end">
-      <span class="table_head_field__text" :aria-hidden="true">
+      <span class="table_head_field__text">
         {{ label }}
       </span>
       <component
