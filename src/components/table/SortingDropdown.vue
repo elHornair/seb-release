@@ -1,8 +1,10 @@
 <template>
   <Menu as="div" class="relative inline-block text-left z-10 font-normal">
     <div>
-      <MenuButton class="flex items-center hover:text-indigo-700">
-        <span class="sr-only">Open sorting options</span>
+      <MenuButton
+        class="flex items-center hover:text-indigo-700"
+        aria-label="Open sorting options"
+      >
         <span aria-hidden="true">
           <SwitchVerticalIcon class="h-5 w-5" />
         </span>
