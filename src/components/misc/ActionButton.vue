@@ -61,6 +61,8 @@ export default {
   @apply text-sm;
   @apply font-medium;
   @apply shadow-sm;
+  @apply w-full;
+  @apply sm:w-auto;
 }
 
 .button--primary {
