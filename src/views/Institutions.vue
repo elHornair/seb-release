@@ -16,7 +16,9 @@
             >
               <table class="min-w-full divide-y divide-gray-200" role="table">
                 <caption class="sr-only">
-                  List of institutions, use buttons in column header to sort
+                  {{
+                    caption
+                  }}
                 </caption>
                 <thead class="bg-gray-50" role="rowgroup">
                   <tr role="row">
@@ -171,7 +173,7 @@ export default {
   },
   setup() {
     const { readInstitutions } = useAPI();
-    const { sortingState, sortingApiParam } = useSorting();
+    const { sortingState, sortingApiParam, SORT_DIRECTION } = useSorting();
     const { availablePrivileges, availableActions, hasBasePrivilege } =
       useAccessControl();
 
@@ -199,6 +201,7 @@ export default {
 
     return {
       sortingState,
+      SORT_DIRECTION,
       institutionsState,
       availablePrivileges,
       availableActions,
@@ -211,6 +214,21 @@ export default {
         this.availablePrivileges.INSTITUTION,
         this.availableActions.WRITE
       );
+    },
+    caption() {
+      let currentSortingInfo;
+
+      if (this.sortingState.field) {
+        currentSortingInfo = `Currently sorted by ${this.sortingState.field} ${
+          this.sortingState.direction === this.SORT_DIRECTION.ASC
+            ? "Z to A"
+            : "A to Z"
+        }`;
+      } else {
+        currentSortingInfo = "Currently not sorted";
+      }
+
+      return `List of institutions. ${currentSortingInfo}. Use buttons in column header to adapt sorting.`;
     },
   },
 };
