@@ -55,14 +55,14 @@
                   >
                     <td
                       role="cell"
-                      class="table_cell table_cell--bold"
+                      class="table_cell table_cell--bold w-4/12"
                       :class="{ 'bg-yellow-50': sortingState.field === 'name' }"
                     >
                       {{ institution.name }}
                     </td>
                     <td
                       role="cell"
-                      class="table_cell"
+                      class="table_cell w-4/12"
                       :class="{
                         'bg-yellow-50': sortingState.field === 'urlSuffix',
                       }"
@@ -71,14 +71,14 @@
                     </td>
                     <td
                       role="cell"
-                      class="table_cell"
+                      class="table_cell w-2/12"
                       :class="{
                         'bg-yellow-50': sortingState.field === 'active',
                       }"
                     >
                       <status-batch :active="institution.active"></status-batch>
                     </td>
-                    <td class="table_cell" role="cell">
+                    <td class="table_cell w-2/12" role="cell">
                       <span class="flex space-x-2">
                         <router-link
                           class="inline-action"

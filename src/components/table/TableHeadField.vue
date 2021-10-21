@@ -76,6 +76,7 @@ export default {
   @apply px-6;
   @apply py-3;
   @apply text-gray-500;
+  @apply whitespace-nowrap;
 }
 
 .table_head_field__text {
