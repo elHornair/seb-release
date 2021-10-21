@@ -4,23 +4,6 @@
       type="button"
       class="sorting-button"
       :class="{
-        'sorting-button--active': currentSorting === SORT_DIRECTION.ASC,
-      }"
-      @click="
-        currentSorting === SORT_DIRECTION.ASC
-          ? removeSorting()
-          : setSorting(fieldName, SORT_DIRECTION.ASC)
-      "
-    >
-      <span class="sr-only">Sort by {{ label }} Z to A</span>
-      <span aria-hidden="true">
-        <sort-ascending-icon class="h-5 w-5"></sort-ascending-icon>
-      </span>
-    </button>
-    <button
-      type="button"
-      class="sorting-button"
-      :class="{
         'sorting-button--active': currentSorting === SORT_DIRECTION.DSC,
       }"
       @click="
@@ -32,6 +15,23 @@
       <span class="sr-only">Sort by {{ label }} A to Z</span>
       <span aria-hidden="true">
         <sort-descending-icon class="h-5 w-5"></sort-descending-icon>
+      </span>
+    </button>
+    <button
+      type="button"
+      class="sorting-button"
+      :class="{
+        'sorting-button--active': currentSorting === SORT_DIRECTION.ASC,
+      }"
+      @click="
+        currentSorting === SORT_DIRECTION.ASC
+          ? removeSorting()
+          : setSorting(fieldName, SORT_DIRECTION.ASC)
+      "
+    >
+      <span class="sr-only">Sort by {{ label }} Z to A</span>
+      <span aria-hidden="true">
+        <sort-ascending-icon class="h-5 w-5"></sort-ascending-icon>
       </span>
     </button>
   </span>
