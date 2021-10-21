@@ -122,12 +122,21 @@
         <h2 class="mb-3">Actions</h2>
         <div
           class="
-            flex flex-col
+            flex flex-col-reverse
             gap-4
-            sm:flex-row-reverse sm:items-end sm:justify-between
-            xl:flex-col-reverse xl:items-start
+            sm:flex-row sm:items-end sm:justify-between
+            xl:flex-col xl:items-start
           "
         >
+          <GeneralSortingDropdown
+            class="
+              pt-4
+              border-t border-gray-200
+              sm:border-t-0 sm:pt-0
+              xl:pb-4 xl:border-b
+            "
+            :fields="sortableFields"
+          ></GeneralSortingDropdown>
           <action-button
             v-if="showAddAction"
             label="Add institution"
@@ -138,15 +147,6 @@
               <plus-circle-icon class="-ml-1 mr-2 h-5 w-5 text-white" />
             </template>
           </action-button>
-          <GeneralSortingDropdown
-            class="
-              pt-4
-              border-t border-gray-200
-              sm:border-t-0 sm:pt-0
-              xl:pb-4 xl:border-b
-            "
-            :fields="sortableFields"
-          ></GeneralSortingDropdown>
         </div>
       </div>
     </template>

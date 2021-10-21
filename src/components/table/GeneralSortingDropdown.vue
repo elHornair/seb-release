@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label for="sorting" class="label"> Sort institutions table </label>
+    <label for="sorting" class="label">Institutions table sorting</label>
     <div class="mt-1">
       <select
         id="sorting"
@@ -9,19 +9,15 @@
         autocomplete="off"
         class="select"
       >
-        <option :value="NO_SORTING">No Sorting</option>
-        <optgroup
-          v-for="field in fields"
-          :key="field.field"
-          :label="field.label"
-        >
+        <template v-for="field in fields" :key="field.field">
           <option :value="createSortingValue(field.field, SORT_DIRECTION.DSC)">
-            {{ field.label }} A to Z
+            By {{ field.label }} A to Z
           </option>
           <option :value="createSortingValue(field.field, SORT_DIRECTION.ASC)">
-            {{ field.label }} Z to A
+            By {{ field.label }} Z to A
           </option>
-        </optgroup>
+        </template>
+        <option :value="NO_SORTING" default>No Sorting</option>
       </select>
     </div>
   </div>
