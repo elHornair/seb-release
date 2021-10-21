@@ -2,63 +2,30 @@
   <th
     scope="col"
     class="table_head_field"
-    :class="{ 'bg-yellow-100': currentSorting }"
+    :class="{ 'bg-yellow-100': isSorted }"
     :aria-sort="currentSortingAria"
   >
     <div class="flex items-end">
       <span class="pr-1">
         {{ label }}
       </span>
-      <button
-        type="button"
-        class="table_head_field__button"
-        :class="{
-          'table_head_field__button--active':
-            currentSorting === SORT_DIRECTION.ASC,
-        }"
-        @click="
-          currentSorting === SORT_DIRECTION.ASC
-            ? removeSorting()
-            : setSorting(fieldName, SORT_DIRECTION.ASC)
-        "
-      >
-        <span class="sr-only">Sort by {{ label }} ascending</span>
-        <span aria-hidden="true">
-          <sort-ascending-icon class="h-5 w-5"></sort-ascending-icon>
-        </span>
-      </button>
-      <button
-        type="button"
-        class="table_head_field__button"
-        :class="{
-          'table_head_field__button--active':
-            currentSorting === SORT_DIRECTION.DSC,
-        }"
-        @click="
-          currentSorting === SORT_DIRECTION.DSC
-            ? removeSorting()
-            : setSorting(fieldName, SORT_DIRECTION.DSC)
-        "
-      >
-        <span class="sr-only">Sort by {{ label }} descending</span>
-        <span aria-hidden="true">
-          <sort-descending-icon class="h-5 w-5"></sort-descending-icon>
-        </span>
-      </button>
+      <sorting-buttons
+        class="flex items-end -mb-1"
+        :label="label"
+        :field-name="fieldName"
+      ></sorting-buttons>
     </div>
   </th>
 </template>
 
 <script>
-import { SortDescendingIcon } from "@heroicons/vue/solid";
-import { SortAscendingIcon } from "@heroicons/vue/solid";
+import SortingButtons from "@/components/table/SortingButtons";
 import { useSorting } from "@/composables/useSorting";
 
 export default {
   name: "TableHeadField",
   components: {
-    SortDescendingIcon,
-    SortAscendingIcon,
+    SortingButtons,
   },
   props: {
     label: {
@@ -71,28 +38,22 @@ export default {
     },
   },
   setup() {
-    const { sortingState, setSorting, removeSorting, SORT_DIRECTION } =
-      useSorting();
+    const { sortingState, SORT_DIRECTION } = useSorting();
 
     return {
       sortingState,
-      setSorting,
-      removeSorting,
       SORT_DIRECTION,
     };
   },
   computed: {
-    currentSorting() {
-      return this.sortingState.field === this.fieldName
-        ? this.sortingState.direction
-        : null;
+    isSorted() {
+      return this.sortingState.field === this.fieldName;
     },
     currentSortingAria() {
-      if (this.currentSorting === this.SORT_DIRECTION.ASC) {
-        return "ascending";
-      }
-      if (this.currentSorting === this.SORT_DIRECTION.DSC) {
-        return "descending";
+      if (this.isSorted) {
+        return this.sortingState.direction === this.SORT_DIRECTION.ASC
+          ? "ascending"
+          : "descending";
       }
 
       return "none";
@@ -111,14 +72,5 @@ export default {
   @apply text-gray-500;
   @apply uppercase;
   @apply tracking-wider;
-}
-
-.table_head_field__button {
-  @apply -mb-1;
-  @apply hover:text-indigo-700;
-
-  &.table_head_field__button--active {
-    @apply text-indigo-700;
-  }
 }
 </style>
