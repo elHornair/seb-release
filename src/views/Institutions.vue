@@ -23,20 +23,13 @@
                 <thead class="bg-gray-50" role="rowgroup">
                   <tr role="row">
                     <table-head-field
-                      field-name="name"
-                      label="Name"
-                      :use-dropdown="false"
+                      v-for="sortableField in sortableFields"
+                      :key="sortableField.field"
+                      :field-name="sortableField.field"
+                      :label="sortableField.label"
+                      :use-dropdown="sortableField.useDropdown"
                     ></table-head-field>
-                    <table-head-field
-                      field-name="urlSuffix"
-                      label="URL Suffix"
-                      :use-dropdown="true"
-                    ></table-head-field>
-                    <table-head-field
-                      field-name="active"
-                      label="Status"
-                      :use-dropdown="true"
-                    ></table-head-field>
+
                     <th scope="col" class="relative px-6 py-3">
                       <span class="sr-only">Actions</span>
                     </th>
@@ -115,7 +108,6 @@
                   </tr>
                 </tbody>
               </table>
-
               <pagination
                 :current-page="institutionsState.currentPage"
                 :total-pages="institutionsState.totalPages"
@@ -128,16 +120,34 @@
     <template #aside>
       <div class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
         <h2 class="mb-3">Actions</h2>
-        <action-button
-          v-if="showAddAction"
-          label="Add institution"
-          type="link"
-          :route-obj="{ name: 'institution-create' }"
+        <div
+          class="
+            flex flex-col
+            gap-4
+            sm:flex-row-reverse sm:items-end sm:justify-between
+            xl:flex-col-reverse xl:items-start
+          "
         >
-          <template #icon>
-            <plus-circle-icon class="-ml-1 mr-2 h-5 w-5 text-white" />
-          </template>
-        </action-button>
+          <action-button
+            v-if="showAddAction"
+            label="Add institution"
+            type="link"
+            :route-obj="{ name: 'institution-create' }"
+          >
+            <template #icon>
+              <plus-circle-icon class="-ml-1 mr-2 h-5 w-5 text-white" />
+            </template>
+          </action-button>
+          <GeneralSortingDropdown
+            class="
+              pt-4
+              border-t border-gray-200
+              sm:border-t-0 sm:pt-0
+              xl:pb-4 xl:border-b
+            "
+            :fields="sortableFields"
+          ></GeneralSortingDropdown>
+        </div>
       </div>
     </template>
   </view-split>
@@ -157,10 +167,12 @@ import TableHeadField from "@/components/table/TableHeadField";
 import ViewSplit from "@/components/layout/ViewSplit";
 import ActionButton from "@/components/misc/ActionButton";
 import StatusBatch from "@/components/misc/StatusBatch";
+import GeneralSortingDropdown from "@/components/table/GeneralSortingDropdown";
 
 export default {
   name: "Institution",
   components: {
+    GeneralSortingDropdown,
     ActionButton,
     ViewSplit,
     TableHeadField,
@@ -206,6 +218,27 @@ export default {
       availablePrivileges,
       availableActions,
       hasBasePrivilege,
+    };
+  },
+  data() {
+    return {
+      sortableFields: [
+        {
+          field: "name",
+          label: "Name",
+          useDropdown: false,
+        },
+        {
+          field: "urlSuffix",
+          label: "URL Suffix",
+          useDropdown: true,
+        },
+        {
+          field: "active",
+          label: "Status",
+          useDropdown: true,
+        },
+      ],
     };
   },
   computed: {
