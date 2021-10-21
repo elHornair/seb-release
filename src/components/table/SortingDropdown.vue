@@ -17,59 +17,61 @@
       leave-from-class="transform opacity-100 scale-100"
       leave-to-class="transform opacity-0 scale-95"
     >
-      <MenuItems
-        class="
-          origin-top-right
-          absolute
-          right-0
-          mt-2
-          w-56
-          rounded-md
-          shadow-lg
-          bg-white
-          ring-1 ring-black ring-opacity-5
-          divide-y divide-gray-100
-          focus:outline-none
-        "
-      >
+      <MenuItems class="items">
         <div class="py-1">
           <MenuItem v-slot="{ active }">
-            <a
-              href="#"
+            <button
               class="item"
-              :class="{ 'bg-gray-100 text-gray-900': active }"
+              :class="{
+                'bg-gray-100 text-gray-900': active,
+              }"
+              :aria-label="`Sort by ${label} A to Z`"
+              @click="setSorting(fieldName, SORT_DIRECTION.DSC)"
             >
               <span aria-hidden="true">
-                <SortDescendingIcon class="item__icon"></SortDescendingIcon>
+                <SortDescendingIcon
+                  class="item__icon"
+                  :class="{
+                    'item__icon--active': currentSorting === SORT_DIRECTION.DSC,
+                  }"
+                ></SortDescendingIcon>
               </span>
-              Sort A to Z</a
-            >
+              Sort A to Z
+            </button>
           </MenuItem>
           <MenuItem v-slot="{ active }">
-            <a
-              href="#"
+            <button
               class="item"
-              :class="{ 'bg-gray-100 text-gray-900': active }"
+              :class="{
+                'bg-gray-100 text-gray-900': active,
+              }"
+              :aria-label="`Sort by ${label} Z to A`"
+              @click="setSorting(fieldName, SORT_DIRECTION.ASC)"
             >
               <span aria-hidden="true">
-                <SortAscendingIcon class="item__icon"></SortAscendingIcon>
+                <SortAscendingIcon
+                  class="item__icon"
+                  :class="{
+                    'item__icon--active': currentSorting === SORT_DIRECTION.ASC,
+                  }"
+                ></SortAscendingIcon>
               </span>
-              Sort Z to A</a
-            >
+              Sort Z to A
+            </button>
           </MenuItem>
         </div>
-        <div class="py-1">
+        <div v-if="currentSorting" class="py-1">
           <MenuItem v-slot="{ active }">
-            <a
-              href="#"
+            <button
               class="item"
               :class="{ 'bg-gray-100 text-gray-900': active }"
+              @click="removeSorting()"
             >
               <span aria-hidden="true">
                 <XCircleIcon class="item__icon"></XCircleIcon>
               </span>
-              Remove Sorting</a
-            >
+              Remove Sorting
+            </button>
           </MenuItem>
         </div>
       </MenuItems>
@@ -85,6 +87,7 @@ import {
   SortAscendingIcon,
   XCircleIcon,
 } from "@heroicons/vue/solid";
+import { useSorting } from "@/composables/useSorting";
 
 export default {
   name: "SortingDropdown",
@@ -98,14 +101,56 @@ export default {
     SortAscendingIcon,
     XCircleIcon,
   },
+  props: {
+    label: {
+      type: String,
+      required: true,
+    },
+    fieldName: {
+      type: String,
+      required: true,
+    },
+  },
+  setup() {
+    const { sortingState, setSorting, removeSorting, SORT_DIRECTION } =
+      useSorting();
+
+    return {
+      sortingState,
+      setSorting,
+      removeSorting,
+      SORT_DIRECTION,
+    };
+  },
+  computed: {
+    currentSorting() {
+      return this.sortingState.field === this.fieldName
+        ? this.sortingState.direction
+        : null;
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
+.items {
+  @apply origin-top-right;
+  @apply absolute;
+  @apply right-0;
+  @apply mt-2;
+  @apply w-56;
+  @apply rounded-md;
+  @apply shadow-lg;
+  @apply bg-white;
+  @apply ring-1 ring-black ring-opacity-5;
+  @apply divide-y divide-gray-100;
+}
+
 .item {
   @apply group;
   @apply flex;
   @apply items-center;
+  @apply w-full;
   @apply px-4;
   @apply py-2;
   @apply text-sm;
@@ -118,5 +163,9 @@ export default {
   @apply w-5;
   @apply text-gray-400;
   @apply group-hover:text-gray-500;
+
+  &.item__icon--active {
+    @apply text-indigo-700;
+  }
 }
 </style>
