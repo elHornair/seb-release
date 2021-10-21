@@ -12,7 +12,7 @@
           : setSorting(fieldName, SORT_DIRECTION.ASC)
       "
     >
-      <span class="sr-only">Sort by {{ label }} ascending</span>
+      <span class="sr-only">Sort by {{ label }} Z to A</span>
       <span aria-hidden="true">
         <sort-ascending-icon class="h-5 w-5"></sort-ascending-icon>
       </span>
@@ -29,7 +29,7 @@
           : setSorting(fieldName, SORT_DIRECTION.DSC)
       "
     >
-      <span class="sr-only">Sort by {{ label }} descending</span>
+      <span class="sr-only">Sort by {{ label }} A to Z</span>
       <span aria-hidden="true">
         <sort-descending-icon class="h-5 w-5"></sort-descending-icon>
       </span>
