@@ -4,9 +4,10 @@
     class="table_head_field"
     :class="{ 'bg-yellow-100': isSorted }"
     :aria-sort="currentSortingAria"
+    :aria-label="label"
   >
     <div class="flex items-end">
-      <span class="table_head_field__text">
+      <span class="table_head_field__text" :aria-hidden="true">
         {{ label }}
       </span>
       <component
