@@ -1,0 +1,4 @@
+{
+  "rewrites": [{ "source": "/oauth/(.*)", "destination": "/api" }],
+  "rewrites": [{ "source": "/admin-api/(.*)", "destination": "/api" }]
+}
