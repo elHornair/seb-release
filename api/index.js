@@ -1,6 +1,10 @@
 const app = require("express")();
 const { createProxyMiddleware } = require("http-proxy-middleware");
 
+const btoa = (text) => {
+  return Buffer.from(text, "binary").toString("base64");
+};
+
 app.use(
   "^/oauth",
   createProxyMiddleware({
