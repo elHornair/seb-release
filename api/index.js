@@ -24,6 +24,8 @@ app.use(
         process.env.BASIC_AUTH_USER + ":" + process.env.BASIC_AUTH_PASSWORD
       )}`;
 
+      console.log(basicAuthHeader);
+
       proxyReq.setHeader("Authorization", basicAuthHeader);
     },
   })
