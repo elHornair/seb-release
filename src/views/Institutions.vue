@@ -97,12 +97,12 @@
                             <pencil-alt-icon class="h-5 w-5"></pencil-alt-icon>
                           </span>
                         </router-link>
-                        <a href="#" class="inline-action">
-                          <span class="sr-only">Activate / Deactivate</span>
-                          <span aria-hidden="true">
-                            <refresh-icon class="h-5 w-5"></refresh-icon>
-                          </span>
-                        </a>
+                        <toggle-institution-status-action
+                          :id="institution.id"
+                          class="inline-action"
+                          :active="institution.active"
+                          @institution:change="updateInstitutionData"
+                        ></toggle-institution-status-action>
                       </span>
                     </td>
                   </tr>
@@ -159,7 +159,6 @@ import { useAPI } from "@/composables/useAPI";
 import { useSorting } from "@/composables/useSorting";
 import { useAccessControl } from "@/composables/useAccessControl";
 import { PencilAltIcon } from "@heroicons/vue/solid";
-import { RefreshIcon } from "@heroicons/vue/solid";
 import { SearchIcon } from "@heroicons/vue/solid";
 import { PlusCircleIcon } from "@heroicons/vue/solid";
 import Pagination from "@/components/misc/Pagination";
@@ -168,17 +167,18 @@ import ViewSplit from "@/components/layout/ViewSplit";
 import ActionButton from "@/components/misc/ActionButton";
 import StatusBatch from "@/components/misc/StatusBatch";
 import GeneralSortingDropdown from "@/components/table/GeneralSortingDropdown";
+import ToggleInstitutionStatusAction from "@/components/institution/ToggleInstitutionStatusAction";
 
 export default {
   name: "Institution",
   components: {
+    ToggleInstitutionStatusAction,
     GeneralSortingDropdown,
     ActionButton,
     ViewSplit,
     TableHeadField,
     Pagination,
     StatusBatch,
-    RefreshIcon,
     PlusCircleIcon,
     PencilAltIcon,
     SearchIcon,
@@ -218,6 +218,7 @@ export default {
       availablePrivileges,
       availableActions,
       hasBasePrivilege,
+      updateInstitutionData,
     };
   },
   data() {

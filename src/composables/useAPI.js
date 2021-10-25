@@ -6,6 +6,12 @@ const { authToken } = useAuth();
 
 const API_PREFIX = "/admin-api/v1/";
 
+const assureValidId = (id) => {
+  if (!Number.isInteger(id) || id < 0) {
+    throw new Error("Invalid ID");
+  }
+};
+
 const createInstitution = (name, urlSuffix = "") => {
   const payload = {
     name,
@@ -26,9 +32,7 @@ const createInstitution = (name, urlSuffix = "") => {
 };
 
 const readInstitution = (id) => {
-  if (!Number.isInteger(id) || id < 0) {
-    throw new Error("Invalid ID");
-  }
+  assureValidId(id);
 
   return axios({
     method: "GET",
@@ -58,6 +62,57 @@ const updateInstitution = (id, name, urlSuffix = "") => {
       "Content-Type": "application/json",
     },
     data: JSON.stringify(payload),
+  }).then((response) => {
+    return response.data;
+  });
+};
+
+const getInstitutionDependencies = (id) => {
+  assureValidId(id);
+
+  return axios({
+    method: "GET",
+    url: `${API_PREFIX}institution/${id}/dependency`,
+    headers: {
+      Authorization: `Bearer ${authToken.value}`,
+      "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+    },
+    params: {
+      bulkActionType: "DEACTIVATE",
+    },
+    data: JSON.stringify({}),
+  }).then((response) => {
+    return response.data;
+  });
+};
+
+const activateInstitution = (id) => {
+  assureValidId(id);
+
+  return axios({
+    method: "POST",
+    url: `${API_PREFIX}institution/${id}/active`,
+    headers: {
+      Authorization: `Bearer ${authToken.value}`,
+      "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+    },
+    data: JSON.stringify({}),
+  }).then((response) => {
+    return response.data;
+  });
+};
+
+const deactivateInstitution = (id) => {
+  assureValidId(id);
+
+  return axios({
+    method: "POST",
+    url: `${API_PREFIX}institution/${id}/inactive`,
+    headers: {
+      Authorization: `Bearer ${authToken.value}`,
+      "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+    },
+    data: JSON.stringify({}),
   }).then((response) => {
     return response.data;
   });
@@ -103,6 +158,9 @@ export const useAPI = () => {
     createInstitution,
     readInstitution,
     updateInstitution,
+    getInstitutionDependencies,
+    activateInstitution,
+    deactivateInstitution,
     readInstitutions,
   };
 };
