@@ -38,7 +38,8 @@ export default {
     },
     modelValue: {
       type: String,
-      required: true,
+      required: false,
+      default: null,
     },
     required: {
       type: Boolean,
@@ -56,6 +57,5 @@ export default {
       default: null,
     },
   },
-  emits: ["update:modelValue"],
 };
 </script>
