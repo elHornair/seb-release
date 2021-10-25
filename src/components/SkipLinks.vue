@@ -21,7 +21,6 @@
 
 <script>
 import { focusElement } from "../utils/focus";
-import { useViewport } from "../composables/useViewport";
 
 export default {
   setup() {
@@ -29,27 +28,11 @@ export default {
       const targetElement = document.querySelector(selector);
       focusElement(targetElement);
     };
-    const { isDesktop } = useViewport();
 
     return {
       linkClickHandler,
-      useViewport,
-      isDesktop,
     };
   },
-
-  data: () => ({
-    links: [
-      {
-        selector: "#main-navigation",
-        displayName: "Skip to main navigation",
-      },
-      {
-        selector: "#main-content",
-        displayName: "Skip to main content",
-      },
-    ],
-  }),
 };
 </script>
 
