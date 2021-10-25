@@ -14,7 +14,7 @@ app.use(
       // TODO: remove debug
       console.log("***************");
       console.log(
-        "got a proxy request to oauth api. Gonna add Basic Auth headers"
+        "got a proxy request to oauth api. Gonna add Basic Auth headers..."
       );
       console.log(process.env.API_URL);
       console.log(process.env.BASIC_AUTH_USER);
