@@ -2,18 +2,18 @@
   <button @click="active ? handleDeactivateClick() : handleActivateClick()">
     <span class="sr-only">{{ label }}</span>
     <span aria-hidden="true">
-      <RefreshIcon class="h-5 w-5"></RefreshIcon>
+      <component :is="icon" class="h-5 w-5"></component>
     </span>
   </button>
 </template>
 
 <script>
-import { RefreshIcon } from "@heroicons/vue/solid";
+import { StatusOnlineIcon, StatusOfflineIcon } from "@heroicons/vue/solid";
 import { useAPI } from "@/composables/useAPI";
 
 export default {
   name: "ToggleInstitutionStatusAction",
-  components: { RefreshIcon },
+  components: { StatusOnlineIcon, StatusOfflineIcon },
   props: {
     id: {
       type: Number,
@@ -41,6 +41,9 @@ export default {
   computed: {
     label() {
       return this.active ? "Deactivate" : "Activate";
+    },
+    icon() {
+      return this.active ? "StatusOfflineIcon" : "StatusOnlineIcon";
     },
   },
   methods: {
