@@ -57,5 +57,6 @@ export default {
       default: null,
     },
   },
+  emits: ["update:modelValue"],
 };
 </script>

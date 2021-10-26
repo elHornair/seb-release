@@ -24,6 +24,7 @@ export default {
       required: true,
     },
   },
+  emits: ["institution:change"],
   setup() {
     const {
       getInstitutionDependencies,
