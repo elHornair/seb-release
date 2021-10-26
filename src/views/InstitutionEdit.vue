@@ -8,26 +8,28 @@
     <template #aside>
       <div class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
         <h2 class="mb-3">Actions</h2>
-        <toggle-institution-status-action
-          :id="institutionState.id"
-          :active="institutionState.active"
-          :icon-only="false"
-          @institution:change="fetchInstitutionData"
-        ></toggle-institution-status-action>
-        <action-button
-          label="View institution"
-          type="link"
-          :primary="false"
-          :full="true"
-          :route-obj="{
-            name: 'institution-view',
-            params: { id: $route.params.id },
-          }"
-        >
-          <template #icon>
-            <SearchIcon class="-ml-1 mr-2 h-5 w-5 text-gray-700"></SearchIcon>
-          </template>
-        </action-button>
+        <div class="flex flex-col space-y-2">
+          <toggle-institution-status-action
+            :id="institutionState.id"
+            :active="institutionState.active"
+            :icon-only="false"
+            @institution:change="fetchInstitutionData"
+          ></toggle-institution-status-action>
+          <action-button
+            label="View institution"
+            type="link"
+            :primary="false"
+            :full="true"
+            :route-obj="{
+              name: 'institution-view',
+              params: { id: $route.params.id },
+            }"
+          >
+            <template #icon>
+              <SearchIcon class="-ml-1 mr-2 h-5 w-5 text-gray-700"></SearchIcon>
+            </template>
+          </action-button>
+        </div>
       </div>
     </template>
   </view-split>
