@@ -44,7 +44,7 @@ This is not required, but can help understand how the current application works.
 
 1. Set virtual node environment: `nvm use`
 2. Install dependencies: `npm install`
-3. Setup env variables: `cp .env .env.local` and adapt the variables in `.env.local` according to your needs
+3. Setup env variables: `cp .env.dist .env` and adapt the variables in `.env` according to your needs
 4. Compile and minify for production: `npm run build` (all required files will be saved in `/dist`)
 
 * For development *
@@ -60,3 +60,21 @@ This is not required, but can help understand how the current application works.
   here, as other people are using this service for testing
 * The Java code for both the webservice and the current GUI is available on
   [Github](https://github.com/SafeExamBrowser/seb-server)
+
+## Deployment
+
+The project is optimized to be deployed to Vercel. If Vercel is connected, deployments will automatically run on each
+push.
+
+Currently, [this](https://github.com/elHornair/seb-release) repo is connected to Vercel. The main branch is continuously
+deployed to
+[this](TODO) URL. If you want to connect your own Repo to Vercel, you can do the following:
+
+* Go to [Vercel](https://vercel.com/)
+* Create a new project and connect it to your Github repo.
+* Fill in the questions that are asked during setup.
+* Configure the environment variables that are defined in `.env.dist` in the Vercel user interface. You will probably
+  use `https://seb.test-swissmooc.ch` as the endpoint.
+
+If you want to run the Vercel setup (including the serverless functions) locally for debugging purposes,
+run `npm run vercel`. You will have to answer some questions regarding config like the Github repo to use etc.
