@@ -11,12 +11,14 @@
         <toggle-institution-status-action
           :id="institutionState.id"
           :active="institutionState.active"
+          :icon-only="false"
           @institution:change="fetchInstitutionData"
         ></toggle-institution-status-action>
         <action-button
           label="View institution"
           type="link"
           :primary="false"
+          :full="true"
           :route-obj="{
             name: 'institution-view',
             params: { id: $route.params.id },

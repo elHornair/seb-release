@@ -1,19 +1,38 @@
 <template>
-  <button @click="active ? handleDeactivateClick() : handleActivateClick()">
+  <button
+    v-if="iconOnly"
+    @click="active ? handleDeactivateClick() : handleActivateClick()"
+  >
     <span class="sr-only">{{ label }}</span>
     <span aria-hidden="true">
       <component :is="icon" class="h-5 w-5"></component>
     </span>
   </button>
+  <action-button
+    v-else
+    type="button"
+    :label="label"
+    :primary="false"
+    :full="true"
+    @click="active ? handleDeactivateClick() : handleActivateClick()"
+  >
+    <template #icon>
+      <component
+        :is="icon"
+        class="-ml-1 mr-2 h-5 w-5 text-gray-700"
+      ></component>
+    </template>
+  </action-button>
 </template>
 
 <script>
 import { StatusOnlineIcon, StatusOfflineIcon } from "@heroicons/vue/solid";
 import { useAPI } from "@/composables/useAPI";
+import ActionButton from "@/components/misc/ActionButton";
 
 export default {
   name: "ToggleInstitutionStatusAction",
-  components: { StatusOnlineIcon, StatusOfflineIcon },
+  components: { ActionButton, StatusOnlineIcon, StatusOfflineIcon },
   props: {
     id: {
       type: Number,
@@ -22,6 +41,10 @@ export default {
     active: {
       type: Boolean,
       required: true,
+    },
+    iconOnly: {
+      type: Boolean,
+      default: true,
     },
   },
   emits: ["institution:change"],
