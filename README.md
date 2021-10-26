@@ -68,7 +68,7 @@ push.
 
 Currently, [this](https://github.com/elHornair/seb-release) repo is connected to Vercel. The main branch is continuously
 deployed to
-[this](TODO) URL. If you want to connect your own Repo to Vercel, you can do the following:
+[this](https://seb-release.vercel.app/) URL. If you want to connect your own Repo to Vercel, you can do the following:
 
 * Go to [Vercel](https://vercel.com/)
 * Create a new project and connect it to your Github repo.
