@@ -4,7 +4,11 @@
     :type="isLink ? null : type"
     :to="isLink ? routeObj : null"
     class="button"
-    :class="{ 'button--primary': primary, 'button--secondary': !primary }"
+    :class="{
+      'button--primary': primary,
+      'button--secondary': !primary,
+      'button--full': full,
+    }"
   >
     <span aria-hidden="true">
       <slot name="icon"></slot>
@@ -31,6 +35,10 @@ export default {
     primary: {
       type: Boolean,
       default: true,
+    },
+    full: {
+      type: Boolean,
+      default: false,
     },
     routeObj: {
       type: Object,
@@ -63,6 +71,10 @@ export default {
   @apply shadow-sm;
   @apply w-full;
   @apply sm:w-auto;
+}
+
+.button--full {
+  @apply sm:w-full;
 }
 
 .button--primary {

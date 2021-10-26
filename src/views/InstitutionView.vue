@@ -42,6 +42,7 @@
           label="Edit institution"
           type="link"
           :primary="false"
+          :full="true"
           :route-obj="{
             name: 'institution-edit',
             params: { id: $route.params.id },
