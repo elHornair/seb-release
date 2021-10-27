@@ -1,6 +1,12 @@
 <template>
   <view-split label-aside="General actions concerning all institutions">
     <template #main>
+      <div class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6 mb-6">
+        <!-- TODO: move this to a Modal or something similar -->
+        <h2>Filters</h2>
+        <Filters></Filters>
+      </div>
+
       <div class="flex flex-col">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div
@@ -157,6 +163,7 @@
 import { reactive, watch } from "vue";
 import { useAPI } from "@/composables/useAPI";
 import { useSorting } from "@/composables/useSorting";
+import { useFiltering } from "@/composables/useFiltering";
 import { useAccessControl } from "@/composables/useAccessControl";
 import { PencilAltIcon } from "@heroicons/vue/solid";
 import { SearchIcon } from "@heroicons/vue/solid";
@@ -168,10 +175,12 @@ import ActionButton from "@/components/misc/ActionButton";
 import StatusBatch from "@/components/misc/StatusBatch";
 import GeneralSortingDropdown from "@/components/table/GeneralSortingDropdown";
 import ToggleInstitutionStatusAction from "@/components/institution/ToggleInstitutionStatusAction";
+import Filters from "@/components/table/Filters";
 
 export default {
   name: "Institution",
   components: {
+    Filters,
     ToggleInstitutionStatusAction,
     GeneralSortingDropdown,
     ActionButton,
@@ -186,6 +195,7 @@ export default {
   setup() {
     const { readInstitutions } = useAPI();
     const { sortingState, sortingApiParam, SORT_DIRECTION } = useSorting();
+    const { filteringApiParam } = useFiltering();
     const { availablePrivileges, availableActions, hasBasePrivilege } =
       useAccessControl();
 
@@ -196,9 +206,12 @@ export default {
     });
 
     const updateInstitutionData = async () => {
-      const institutionData = await readInstitutions({
-        sort: sortingApiParam.value,
-      });
+      const institutionData = await readInstitutions(
+        {
+          sort: sortingApiParam.value,
+        },
+        filteringApiParam.value
+      );
 
       Object.assign(institutionsState, {
         institutions: institutionData["content"],
@@ -208,6 +221,7 @@ export default {
     };
 
     watch(sortingApiParam, () => updateInstitutionData());
+    watch(filteringApiParam, () => updateInstitutionData());
 
     updateInstitutionData();
 

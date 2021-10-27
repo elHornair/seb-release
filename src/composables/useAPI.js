@@ -139,6 +139,8 @@ const readInstitutions = (params = {}, filterCriteria = {}) => {
     cleanParams.sort = params.sort;
   }
 
+  Object.assign(cleanParams, filterCriteria);
+
   return axios({
     method: "GET",
     url: `${API_PREFIX}institution`,
@@ -147,7 +149,7 @@ const readInstitutions = (params = {}, filterCriteria = {}) => {
       "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
     },
     params: cleanParams,
-    data: qs.stringify(filterCriteria),
+    data: qs.stringify({}),
   }).then((response) => {
     return response.data;
   });
