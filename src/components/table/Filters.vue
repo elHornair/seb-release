@@ -17,10 +17,10 @@
     </div>
     <div class="flex justify-end pt-5">
       <action-button
-        label="Abort"
+        label="Reset"
         type="reset"
         :primary="false"
-        @click.prevent="handleAbortClick"
+        @click.prevent="handleResetClick"
       ></action-button>
       <action-button
         label="Apply"
@@ -59,7 +59,7 @@ export default {
 
     setFormDataToInitialValue();
 
-    const handleAbortClick = () => {
+    const handleResetClick = () => {
       setFormDataToInitialValue();
     };
 
@@ -72,6 +72,8 @@ export default {
       handleFormSubmit,
       name,
       state,
+      handleResetClick,
+      handleFormSubmit,
     };
   },
 };
