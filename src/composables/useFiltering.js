@@ -3,7 +3,7 @@ import { computed, reactive, readonly } from "vue";
 const initialState = {
   name: null,
   urlSuffix: null,
-  status: null,
+  active: null,
 };
 
 const state = reactive(initialState);
@@ -17,7 +17,7 @@ const apiParam = computed(() => {
   if (state.urlSuffix) {
     cleanApiParam.urlSuffix = state.urlSuffix;
   }
-  if (state.active) {
+  if (state.active === true || state.active === false) {
     cleanApiParam.active = state.active;
   }
 
@@ -28,7 +28,10 @@ const setFilters = (filters) => {
   Object.assign(state, {
     name: filters.name ? filters.name : null,
     urlSuffix: filters.urlSuffix ? filters.urlSuffix : null,
-    status: filters.status ? filters.status : null,
+    active:
+      filters.active === true || filters.active === false
+        ? filters.active
+        : null,
   });
 };
 

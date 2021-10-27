@@ -13,7 +13,18 @@
         name="url-suffix"
         class="form__row"
       ></form-input-text>
-      <!-- TODO: add radiobuttons for status here-->
+      <form-input-radio
+        v-model="state.active"
+        label="Status"
+        name="status"
+        :options="[
+          { label: 'All', value: STATUS_FILTER_OPTIONS.ALL },
+          { label: 'Only Active', value: STATUS_FILTER_OPTIONS.ACTIVE },
+          { label: 'Only Inactive', value: STATUS_FILTER_OPTIONS.INACTIVE },
+        ]"
+        class="form__row"
+      >
+      </form-input-radio>
     </div>
     <div class="flex justify-end pt-5">
       <action-button
@@ -37,24 +48,52 @@ import FormInputText from "@/components/form/FormInputText";
 import ActionButton from "@/components/misc/ActionButton";
 import { useFiltering } from "@/composables/useFiltering";
 import { reactive } from "vue";
+import FormInputRadio from "@/components/form/FormInputRadio";
 
 export default {
   name: "Filters",
   components: {
+    FormInputRadio,
     FormInputText,
     ActionButton,
   },
   setup() {
     const { filteringState, setFilters } = useFiltering();
 
+    const STATUS_FILTER_OPTIONS = {
+      ALL: "ALL",
+      ACTIVE: "ACTIVE",
+      INACTIVE: "INACTIVE",
+    };
+
     const state = reactive({
       name: null,
       urlSuffix: null,
-      active: null,
+      active: STATUS_FILTER_OPTIONS.ALL,
     });
 
+    const statusFilterToString = (statusFilter) => {
+      if (statusFilter === null) {
+        return STATUS_FILTER_OPTIONS.ALL;
+      }
+
+      return statusFilter
+        ? STATUS_FILTER_OPTIONS.ACTIVE
+        : STATUS_FILTER_OPTIONS.INACTIVE;
+    };
+
+    const stringToStatusFilter = (str) => {
+      if (str === STATUS_FILTER_OPTIONS.ALL) {
+        return null;
+      }
+
+      return str === STATUS_FILTER_OPTIONS.ACTIVE;
+    };
+
     const setFormDataToInitialValue = () => {
-      Object.assign(state, filteringState);
+      Object.assign(state, filteringState, {
+        active: statusFilterToString(filteringState.active),
+      });
     };
 
     setFormDataToInitialValue();
@@ -64,13 +103,15 @@ export default {
     };
 
     const handleFormSubmit = () => {
-      setFilters(state);
+      setFilters(
+        Object.assign({}, state, {
+          active: stringToStatusFilter(state.active),
+        })
+      );
     };
 
     return {
-      handleAbortClick,
-      handleFormSubmit,
-      name,
+      STATUS_FILTER_OPTIONS,
       state,
       handleResetClick,
       handleFormSubmit,
