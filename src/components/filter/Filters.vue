@@ -1,4 +1,5 @@
 <template>
+  <h2>Filters</h2>
   <form @submit.prevent="handleFormSubmit">
     <div class="space-y-6 sm:space-y-5">
       <form-input-text
