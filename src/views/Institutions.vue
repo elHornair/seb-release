@@ -175,7 +175,7 @@ import ActionButton from "@/components/misc/ActionButton";
 import StatusBatch from "@/components/misc/StatusBatch";
 import GeneralSortingDropdown from "@/components/table/GeneralSortingDropdown";
 import ToggleInstitutionStatusAction from "@/components/institution/ToggleInstitutionStatusAction";
-import Filters from "@/components/table/Filters";
+import Filters from "@/components/filter/Filters";
 
 export default {
   name: "Institution",
