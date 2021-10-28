@@ -110,6 +110,7 @@ export default {
     setFormDataToInitialValue();
 
     const handleResetClick = () => {
+      // TODO: once the filters are in a modal, this should just close the modal
       setFormDataToInitialValue();
     };
 
