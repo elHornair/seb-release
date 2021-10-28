@@ -6,6 +6,10 @@
         <Filters></Filters>
       </div>
 
+      <div class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6 mb-6">
+        <ActiveFilters></ActiveFilters>
+      </div>
+
       <div class="flex flex-col">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div
@@ -175,10 +179,12 @@ import StatusBatch from "@/components/misc/StatusBatch";
 import GeneralSortingDropdown from "@/components/table/GeneralSortingDropdown";
 import ToggleInstitutionStatusAction from "@/components/institution/ToggleInstitutionStatusAction";
 import Filters from "@/components/filter/Filters";
+import ActiveFilters from "@/components/filter/ActiveFilters";
 
 export default {
   name: "Institution",
   components: {
+    ActiveFilters,
     Filters,
     ToggleInstitutionStatusAction,
     GeneralSortingDropdown,

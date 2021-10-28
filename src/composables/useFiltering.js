@@ -6,7 +6,7 @@ const initialState = {
   active: null,
 };
 
-const state = reactive(initialState);
+const state = reactive(Object.assign({}, initialState));
 
 const apiParam = computed(() => {
   const cleanApiParam = {};
