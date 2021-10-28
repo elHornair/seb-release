@@ -4,24 +4,33 @@
     <div class="space-y-6 sm:space-y-5">
       <form-input-text
         v-model="state.name"
-        label="Name"
+        :label="getFieldLabel('name')"
         name="name"
         class="form__row"
       ></form-input-text>
       <form-input-text
         v-model="state.urlSuffix"
-        label="URL Suffix"
+        :label="getFieldLabel('urlSuffix')"
         name="url-suffix"
         class="form__row"
       ></form-input-text>
       <form-input-radio
         v-model="state.active"
-        label="Status"
+        :label="getFieldLabel('active')"
         name="status"
         :options="[
-          { label: 'All', value: STATUS_FILTER_OPTIONS.ALL },
-          { label: 'Only Active', value: STATUS_FILTER_OPTIONS.ACTIVE },
-          { label: 'Only Inactive', value: STATUS_FILTER_OPTIONS.INACTIVE },
+          {
+            label: getFieldValue('active', null),
+            value: STATUS_FILTER_OPTIONS.ALL,
+          },
+          {
+            label: getFieldValue('active', true),
+            value: STATUS_FILTER_OPTIONS.ACTIVE,
+          },
+          {
+            label: getFieldValue('active', false),
+            value: STATUS_FILTER_OPTIONS.INACTIVE,
+          },
         ]"
         class="form__row"
       >
@@ -59,7 +68,8 @@ export default {
     ActionButton,
   },
   setup() {
-    const { filteringState, setFilters } = useFiltering();
+    const { filteringState, setFilters, getFieldLabel, getFieldValue } =
+      useFiltering();
 
     const STATUS_FILTER_OPTIONS = {
       ALL: "ALL",
@@ -116,6 +126,8 @@ export default {
       state,
       handleResetClick,
       handleFormSubmit,
+      getFieldLabel,
+      getFieldValue,
     };
   },
 };

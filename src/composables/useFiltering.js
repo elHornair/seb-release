@@ -12,7 +12,8 @@ const fields = {
   },
   active: {
     label: "Status",
-    valueFormatter: (value) => (value === true ? "Active" : "Inactive"),
+    valueFormatter: (value) =>
+      value === true ? "Active" : value === false ? "Inactive" : "All",
   },
 };
 
