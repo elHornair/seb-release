@@ -1,10 +1,24 @@
 import { computed, reactive, readonly } from "vue";
 
-const initialState = {
-  name: null,
-  urlSuffix: null,
-  active: null,
+const fields = {
+  name: {
+    label: "Name",
+  },
+  urlSuffix: {
+    label: "URL Suffix",
+  },
+  active: {
+    label: "Status",
+    valueFormatter: (value) => (value === true ? "Active" : "Inactive"),
+  },
 };
+
+const fieldNames = Object.keys(fields);
+const initialState = fieldNames.reduce((reducedFields, fieldName) => {
+  return Object.assign(reducedFields, {
+    [fieldName]: null,
+  });
+}, {});
 
 const state = reactive(Object.assign({}, initialState));
 
@@ -36,7 +50,7 @@ const setFilters = (filters) => {
 };
 
 const removeFilter = (field) => {
-  if (!["name", "urlSuffix", "active"].includes(field)) {
+  if (!fieldNames.includes(field)) {
     throw new Error(`Unknown field "${field}"`);
   }
 
@@ -49,6 +63,26 @@ const removeAllFilters = () => {
   Object.assign(state, initialState);
 };
 
+const getFieldLabel = (field) => {
+  if (!fieldNames.includes(field)) {
+    throw new Error(`Unknown field "${field}"`);
+  }
+
+  return fields[field].label;
+};
+
+const getFieldValue = (field, rawValue) => {
+  if (!fieldNames.includes(field)) {
+    throw new Error(`Unknown field "${field}"`);
+  }
+
+  if (fields[field].valueFormatter) {
+    return fields[field].valueFormatter(rawValue);
+  }
+
+  return rawValue;
+};
+
 export const useFiltering = () => {
   return {
     filteringState: readonly(state),
@@ -56,5 +90,7 @@ export const useFiltering = () => {
     setFilters,
     removeFilter,
     removeAllFilters,
+    getFieldLabel,
+    getFieldValue,
   };
 };

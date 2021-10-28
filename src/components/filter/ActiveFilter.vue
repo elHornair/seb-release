@@ -13,7 +13,7 @@
       {{ label }}
     </span>
     <span class="active-filter__value">
-      {{ value }}
+      {{ formattedValue }}
     </span>
   </span>
 </template>
@@ -37,16 +37,20 @@ export default {
     },
   },
   setup(props) {
-    const { removeFilter } = useFiltering();
+    const { removeFilter, getFieldLabel, getFieldValue } = useFiltering();
 
     const label = computed(() => {
-      // TODO: make real label out of this. Helper function in "useFiltering?" Same for value
-      return props.field;
+      return getFieldLabel(props.field);
+    });
+
+    const formattedValue = computed(() => {
+      return getFieldValue(props.field, props.value);
     });
 
     return {
       removeFilter,
       label,
+      formattedValue,
     };
   },
 };
