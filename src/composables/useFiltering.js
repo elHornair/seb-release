@@ -1,6 +1,9 @@
 import { computed, reactive, readonly } from "vue";
 
 const fields = {
+  // Apart from "fields", useFiltering() is already generalised
+  // It's ready to be turned into a factory (that gets "fields" as a parameter)
+  // That factory could then be used to create a filtering for another entity
   name: {
     label: "Name",
   },
@@ -22,31 +25,20 @@ const initialState = fieldNames.reduce((reducedFields, fieldName) => {
 
 const state = reactive(Object.assign({}, initialState));
 
-const apiParam = computed(() => {
-  const cleanApiParam = {};
-
-  if (state.name) {
-    cleanApiParam.name = state.name;
-  }
-  if (state.urlSuffix) {
-    cleanApiParam.urlSuffix = state.urlSuffix;
-  }
-  if (state.active === true || state.active === false) {
-    cleanApiParam.active = state.active;
-  }
-
-  return cleanApiParam;
-});
+const apiParam = computed(() =>
+  Object.keys(state)
+    .filter((fieldKey) => state[fieldKey] !== null)
+    .reduce(
+      (paramObj, fieldKey) =>
+        Object.assign(paramObj, {
+          [fieldKey]: state[fieldKey],
+        }),
+      {}
+    )
+);
 
 const setFilters = (filters) => {
-  Object.assign(state, {
-    name: filters.name ? filters.name : null,
-    urlSuffix: filters.urlSuffix ? filters.urlSuffix : null,
-    active:
-      filters.active === true || filters.active === false
-        ? filters.active
-        : null,
-  });
+  Object.assign(state, initialState, filters);
 };
 
 const removeFilter = (field) => {
