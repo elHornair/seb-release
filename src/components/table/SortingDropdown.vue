@@ -136,7 +136,7 @@ export default {
     );
 
     const currentIcon = computed(() => {
-      if (sortingState.direction) {
+      if (currentSorting.value && sortingState.direction) {
         return sortDirectionToIcon[sortingState.direction];
       }
 
