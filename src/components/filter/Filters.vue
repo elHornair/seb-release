@@ -1,5 +1,5 @@
 <template>
-  <Modal :on-close="handleClose">
+  <Modal :on-close="handleClose" close-button-label="Close filters">
     <template #header>
       <h2 class="px-3">Filters</h2>
     </template>
@@ -12,19 +12,19 @@
           <div class="space-y-6 sm:space-y-5">
             <form-input-text
               v-model="state.name"
-              :label="getFieldLabel('name')"
+              :label="`Filter by ${getFieldLabel('name')}`"
               name="name"
               class="form__row"
             ></form-input-text>
             <form-input-text
               v-model="state.urlSuffix"
-              :label="getFieldLabel('urlSuffix')"
+              :label="`Filter by ${getFieldLabel('urlSuffix')}`"
               name="url-suffix"
               class="form__row"
             ></form-input-text>
             <form-input-radio
               v-model="state.active"
-              :label="getFieldLabel('active')"
+              :label="`Filter by ${getFieldLabel('active')}`"
               name="status"
               :options="[
                 {
@@ -52,7 +52,7 @@
               @click.prevent="handleClose"
             ></action-button>
             <action-button
-              label="Apply"
+              label="Apply filters"
               type="submit"
               :primary="true"
               class="ml-3"

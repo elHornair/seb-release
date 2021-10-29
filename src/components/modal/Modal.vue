@@ -22,7 +22,7 @@
                   ref="closeButtonRef"
                   class="m-2"
                   type="button"
-                  aria-label="Close detail view"
+                  :aria-label="closeButtonLabel"
                   @click="onClose"
                 >
                   <svg
@@ -61,6 +61,11 @@ export default {
   name: "Modal",
   components: { FocusTrap },
   props: {
+    closeButtonLabel: {
+      type: String,
+      required: false,
+      default: "Close",
+    },
     onClose: {
       type: Function,
       required: true,
