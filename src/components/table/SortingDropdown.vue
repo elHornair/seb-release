@@ -86,6 +86,7 @@ import {
   XCircleIcon,
 } from "@heroicons/vue/solid";
 import { useSorting } from "@/composables/useSorting";
+import { computed } from "vue";
 
 export default {
   name: "SortingDropdown",
@@ -109,23 +110,21 @@ export default {
       required: true,
     },
   },
-  setup() {
+  setup(props) {
     const { sortingState, setSorting, removeSorting, SORT_DIRECTION } =
       useSorting();
 
+    const currentSorting = computed(() =>
+      sortingState.field === props.fieldName ? sortingState.direction : null
+    );
+
     return {
       sortingState,
+      SORT_DIRECTION,
+      currentSorting,
       setSorting,
       removeSorting,
-      SORT_DIRECTION,
     };
-  },
-  computed: {
-    currentSorting() {
-      return this.sortingState.field === this.fieldName
-        ? this.sortingState.direction
-        : null;
-    },
   },
 };
 </script>
