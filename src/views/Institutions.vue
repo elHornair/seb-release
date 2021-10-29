@@ -223,7 +223,7 @@ export default {
   setup() {
     const { readInstitutions } = useAPI();
     const { sortingState, sortingApiParam, SORT_DIRECTION } = useSorting();
-    const { filteringApiParam } = useFiltering();
+    const { filteringState, filteringApiParam } = useFiltering();
     const { availablePrivileges, availableActions, hasBasePrivilege } =
       useAccessControl();
 
@@ -261,6 +261,7 @@ export default {
       filtersVisible,
       sortingState,
       SORT_DIRECTION,
+      filteringState,
       institutionsState,
       availablePrivileges,
       availableActions,
@@ -297,6 +298,15 @@ export default {
     },
     caption() {
       let currentSortingInfo;
+      let currentFilteringInfo = Object.keys(this.filteringState)
+        .filter((fieldKey) => this.filteringState[fieldKey] !== null)
+        .join(", ");
+
+      if (currentFilteringInfo) {
+        currentFilteringInfo = `Currently filtered by ${currentFilteringInfo}`;
+      } else {
+        currentFilteringInfo = "Currently not filtered";
+      }
 
       if (this.sortingState.field) {
         currentSortingInfo = `Currently sorted by ${this.sortingState.field} ${
@@ -308,7 +318,7 @@ export default {
         currentSortingInfo = "Currently not sorted";
       }
 
-      return `List of institutions. ${currentSortingInfo}. Go to actions landmark to adapt sorting.`;
+      return `List of institutions. ${currentFilteringInfo}. ${currentSortingInfo}. Go to actions landmark to adapt filtering and sorting.`;
     },
   },
 };
