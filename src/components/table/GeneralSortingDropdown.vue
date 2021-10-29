@@ -1,6 +1,8 @@
 <template>
   <div>
-    <label for="sorting" class="label">Sorting</label>
+    <label for="sorting" class="label">
+      <h3>Sorting</h3>
+    </label>
     <div class="mt-1">
       <select
         id="sorting"

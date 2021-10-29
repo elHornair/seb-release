@@ -1,20 +1,6 @@
 <template>
   <view-split label-aside="General actions concerning all institutions">
     <template #main>
-      <div class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6 mb-6">
-        <action-button
-          label="Show Filters"
-          type="button"
-          :primary="true"
-          @click="handleFilterShow"
-        >
-          <template #icon>
-            <FilterIcon class="-ml-1 mr-2 h-5 w-5 text-white" />
-          </template>
-        </action-button>
-        <Filters v-if="filtersVisible" @hide="handleFilterHide"></Filters>
-      </div>
-
       <ActiveFilters></ActiveFilters>
 
       <div class="flex flex-col">
@@ -153,16 +139,42 @@
             "
             :fields="sortableFields"
           ></GeneralSortingDropdown>
-          <action-button
-            v-if="showAddAction"
-            label="Add institution"
-            type="link"
-            :route-obj="{ name: 'institution-create' }"
+
+          <div
+            class="
+              pt-4
+              border-t border-gray-200
+              sm:border-t-0 sm:pt-0
+              xl:pb-4 xl:border-b
+            "
           >
-            <template #icon>
-              <plus-circle-icon class="-ml-1 mr-2 h-5 w-5 text-white" />
-            </template>
-          </action-button>
+            <h3 class="text-sm font-medium text-gray-700 pb-1">Filtering</h3>
+            <action-button
+              label="Show Filters"
+              type="button"
+              :primary="true"
+              @click="handleFilterShow"
+            >
+              <template #icon>
+                <FilterIcon class="-ml-1 mr-2 h-5 w-5 text-white" />
+              </template>
+            </action-button>
+            <Filters v-if="filtersVisible" @hide="handleFilterHide"></Filters>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-medium text-gray-700 pb-1">General</h3>
+            <action-button
+              v-if="showAddAction"
+              label="Add institution"
+              type="link"
+              :route-obj="{ name: 'institution-create' }"
+            >
+              <template #icon>
+                <plus-circle-icon class="-ml-1 mr-2 h-5 w-5 text-white" />
+              </template>
+            </action-button>
+          </div>
         </div>
       </div>
     </template>
