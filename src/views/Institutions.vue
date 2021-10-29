@@ -15,9 +15,7 @@
         <Filters v-if="filtersVisible" @hide="handleFilterHide"></Filters>
       </div>
 
-      <div class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6 mb-6">
-        <ActiveFilters></ActiveFilters>
-      </div>
+      <ActiveFilters></ActiveFilters>
 
       <div class="flex flex-col">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
