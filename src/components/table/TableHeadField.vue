@@ -19,6 +19,7 @@
 <script>
 import { useSorting } from "@/composables/useSorting";
 import SortingDropdown from "@/components/table/SortingDropdown";
+import { computed } from "vue";
 
 export default {
   name: "TableHeadField",
@@ -35,27 +36,25 @@ export default {
       required: true,
     },
   },
-  setup() {
+  setup(props) {
     const { sortingState, SORT_DIRECTION } = useSorting();
-
-    return {
-      sortingState,
-      SORT_DIRECTION,
-    };
-  },
-  computed: {
-    isSorted() {
-      return this.sortingState.field === this.fieldName;
-    },
-    currentSortingAria() {
-      if (this.isSorted) {
-        return this.sortingState.direction === this.SORT_DIRECTION.ASC
+    const isSorted = computed(() => sortingState.field === props.fieldName);
+    const currentSortingAria = computed(() => {
+      if (isSorted.value) {
+        return sortingState.direction === SORT_DIRECTION.ASC
           ? "ascending"
           : "descending";
       }
 
       return "none";
-    },
+    });
+
+    return {
+      sortingState,
+      isSorted,
+      currentSortingAria,
+      SORT_DIRECTION,
+    };
   },
 };
 </script>
