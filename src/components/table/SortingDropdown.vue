@@ -3,7 +3,7 @@
     <MenuButton class="flex items-center hover:text-indigo-700">
       <span class="sr-only">Open {{ label }} sorting options</span>
       <span aria-hidden="true">
-        <SwitchVerticalIcon class="h-5 w-5" />
+        <component :is="currentIcon" class="h-5 w-5" />
       </span>
     </MenuButton>
 
@@ -114,14 +114,28 @@ export default {
     const { sortingState, setSorting, removeSorting, SORT_DIRECTION } =
       useSorting();
 
+    const sortDirectionToIcon = {
+      [SORT_DIRECTION.DSC]: "SortDescendingIcon",
+      [SORT_DIRECTION.ASC]: "SortAscendingIcon",
+    };
+
     const currentSorting = computed(() =>
       sortingState.field === props.fieldName ? sortingState.direction : null
     );
+
+    const currentIcon = computed(() => {
+      if (sortingState.direction) {
+        return sortDirectionToIcon[sortingState.direction];
+      }
+
+      return "SwitchVerticalIcon";
+    });
 
     return {
       sortingState,
       SORT_DIRECTION,
       currentSorting,
+      currentIcon,
       setSorting,
       removeSorting,
     };
