@@ -11,7 +11,11 @@
       <span class="table_head_field__text">
         {{ label }}
       </span>
-      <SortingDropdown :label="label" :field-name="fieldName"></SortingDropdown>
+      <SortingDropdown
+        :label="label"
+        :field-name="fieldName"
+        :open-right="firstCol"
+      ></SortingDropdown>
     </div>
   </th>
 </template>
@@ -34,6 +38,10 @@ export default {
     fieldName: {
       type: String,
       required: true,
+    },
+    firstCol: {
+      type: Boolean,
+      default: false,
     },
   },
   setup(props) {

@@ -15,7 +15,7 @@
       leave-from-class="transform opacity-100 scale-100"
       leave-to-class="transform opacity-0 scale-95"
     >
-      <MenuItems class="items">
+      <MenuItems class="items" :class="{ 'items--right': openRight }">
         <div class="py-1">
           <MenuItem v-slot="{ active }">
             <button
@@ -117,6 +117,10 @@ export default {
       type: String,
       required: true,
     },
+    openRight: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props) {
     const { sortingState, setSorting, removeSorting, SORT_DIRECTION } =
@@ -163,6 +167,12 @@ export default {
   @apply bg-white;
   @apply ring-1 ring-black ring-opacity-5;
   @apply divide-y divide-gray-100;
+
+  &.items--right {
+    @apply origin-top-left;
+    @apply right-auto;
+    @apply left-0;
+  }
 }
 
 .item {

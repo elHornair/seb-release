@@ -25,11 +25,12 @@
                 <thead class="bg-gray-50" role="rowgroup">
                   <tr role="row">
                     <table-head-field
-                      v-for="sortableField in sortableFields"
+                      v-for="(sortableField, index) in sortableFields"
                       :key="sortableField.field"
                       :field-name="sortableField.field"
                       :label="sortableField.label"
                       :use-dropdown="sortableField.useDropdown"
+                      :first-col="index === 0"
                     ></table-head-field>
 
                     <th scope="col" class="relative px-6 py-3">
