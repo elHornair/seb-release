@@ -307,7 +307,7 @@ export default {
         currentSortingInfo = "Currently not sorted";
       }
 
-      return `List of institutions. ${currentSortingInfo}. Use buttons in column header to adapt sorting.`;
+      return `List of institutions. ${currentSortingInfo}. Go to aside actions to adapt sorting.`;
     },
   },
 };
