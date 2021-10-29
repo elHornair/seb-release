@@ -27,14 +27,17 @@
               @click="setSorting(fieldName, SORT_DIRECTION.DSC)"
             >
               <span aria-hidden="true">
-                <SortDescendingIcon
-                  class="item__icon"
-                  :class="{
-                    'item__icon--active': currentSorting === SORT_DIRECTION.DSC,
-                  }"
-                ></SortDescendingIcon>
+                <SortDescendingIcon class="item__icon"></SortDescendingIcon>
               </span>
-              Sort A to Z
+              <span class="flex-grow text-left">Sort A to Z</span>
+              <span
+                v-if="currentSorting === SORT_DIRECTION.DSC"
+                aria-hidden="true"
+              >
+                <CheckCircleIcon
+                  class="item__icon item__icon--right"
+                ></CheckCircleIcon>
+              </span>
             </button>
           </MenuItem>
           <MenuItem v-slot="{ active }">
@@ -47,14 +50,17 @@
               @click="setSorting(fieldName, SORT_DIRECTION.ASC)"
             >
               <span aria-hidden="true">
-                <SortAscendingIcon
-                  class="item__icon"
-                  :class="{
-                    'item__icon--active': currentSorting === SORT_DIRECTION.ASC,
-                  }"
-                ></SortAscendingIcon>
+                <SortAscendingIcon class="item__icon"></SortAscendingIcon>
               </span>
-              Sort Z to A
+              <span class="flex-grow text-left">Sort Z to A</span>
+              <span
+                v-if="currentSorting === SORT_DIRECTION.ASC"
+                aria-hidden="true"
+              >
+                <CheckCircleIcon
+                  class="item__icon item__icon--right"
+                ></CheckCircleIcon>
+              </span>
             </button>
           </MenuItem>
         </div>
@@ -68,7 +74,7 @@
               <span aria-hidden="true">
                 <XCircleIcon class="item__icon"></XCircleIcon>
               </span>
-              Remove Sorting
+              <span class="flex-grow text-left">Remove Sorting</span>
             </button>
           </MenuItem>
         </div>
@@ -84,6 +90,7 @@ import {
   SortDescendingIcon,
   SortAscendingIcon,
   XCircleIcon,
+  CheckCircleIcon,
 } from "@heroicons/vue/solid";
 import { useSorting } from "@/composables/useSorting";
 import { computed } from "vue";
@@ -99,6 +106,7 @@ export default {
     SortDescendingIcon,
     SortAscendingIcon,
     XCircleIcon,
+    CheckCircleIcon,
   },
   props: {
     label: {
@@ -161,6 +169,7 @@ export default {
   @apply group;
   @apply flex;
   @apply items-center;
+  @apply justify-between;
   @apply w-full;
   @apply px-4;
   @apply py-2;
@@ -175,8 +184,8 @@ export default {
   @apply text-gray-400;
   @apply group-hover:text-gray-500;
 
-  &.item__icon--active {
-    @apply text-indigo-700;
+  &.item__icon--right {
+    @apply mr-0;
   }
 }
 </style>
