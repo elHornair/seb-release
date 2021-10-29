@@ -1,5 +1,5 @@
 <template>
-  <view-split label-aside="General actions concerning all institutions">
+  <view-split label-aside="Actions">
     <template #main>
       <ActiveFilters></ActiveFilters>
 
@@ -137,6 +137,7 @@
               border-t border-gray-200
               sm:border-t-0 sm:pt-0
               xl:pb-4 xl:border-b
+              sm:sr-only
             "
             :fields="sortableFields"
           ></GeneralSortingDropdown>
@@ -307,7 +308,7 @@ export default {
         currentSortingInfo = "Currently not sorted";
       }
 
-      return `List of institutions. ${currentSortingInfo}. Go to aside actions to adapt sorting.`;
+      return `List of institutions. ${currentSortingInfo}. Go to actions landmark to adapt sorting.`;
     },
   },
 };
