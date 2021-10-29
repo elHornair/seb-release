@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div
+    v-if="hasActiveFilters"
+    class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6 mb-6"
+  >
     <h2>Active Filters</h2>
     <div class="flex space-x-4 divide-x divide-gray-200 text-sm mt-2">
       <span class="flex mt-3 text-gray-700 font-medium whitespace-nowrap">
@@ -9,7 +12,7 @@
           ></FilterIcon> </span
         >{{ activeFiltersLabel }}
       </span>
-      <div v-if="hasActiveFilters" class="pl-2">
+      <div class="pl-2">
         <active-filter
           v-for="activeFilter in activeFilters"
           :key="activeFilter.field"
@@ -63,15 +66,12 @@ export default {
     const activeFiltersAmount = computed(() => activeFilters.value.length);
     const hasActiveFilters = computed(() => activeFiltersAmount.value > 0);
 
-    const activeFiltersLabel = computed(() => {
-      if (!hasActiveFilters.value) {
-        return "No active filters";
-      }
-
-      return `${activeFiltersAmount.value} Filter${
-        activeFiltersAmount.value > 1 ? "s" : ""
-      }`;
-    });
+    const activeFiltersLabel = computed(
+      () =>
+        `${activeFiltersAmount.value} Filter${
+          activeFiltersAmount.value > 1 ? "s" : ""
+        }`
+    );
 
     return {
       activeFilters,
