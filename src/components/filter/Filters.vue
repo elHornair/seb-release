@@ -46,10 +46,10 @@
           </div>
           <div class="flex justify-end pt-5">
             <action-button
-              label="Reset"
+              label="Abort"
               type="reset"
               :primary="false"
-              @click.prevent="handleResetClick"
+              @click.prevent="handleClose"
             ></action-button>
             <action-button
               label="Apply"
@@ -115,22 +115,7 @@ export default {
       return str === STATUS_FILTER_OPTIONS.ACTIVE;
     };
 
-    const setFormDataToInitialValue = () => {
-      Object.assign(state, filteringState, {
-        active: statusFilterToString(filteringState.active),
-      });
-    };
-
-    setFormDataToInitialValue();
-
-    const handleResetClick = () => {
-      // TODO: once the filters are in a modal, this should just close the modal
-      setFormDataToInitialValue();
-    };
-
-    const handleClose = () => {
-      context.emit("hide");
-    };
+    const handleClose = () => context.emit("hide");
 
     const handleFormSubmit = () => {
       setFilters(
@@ -141,11 +126,14 @@ export default {
       context.emit("hide");
     };
 
+    Object.assign(state, filteringState, {
+      active: statusFilterToString(filteringState.active),
+    });
+
     return {
       STATUS_FILTER_OPTIONS,
       state,
       handleClose,
-      handleResetClick,
       handleFormSubmit,
       getFieldLabel,
       getFieldValue,
