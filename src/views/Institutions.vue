@@ -2,8 +2,17 @@
   <view-split label-aside="General actions concerning all institutions">
     <template #main>
       <div class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6 mb-6">
-        <!-- TODO: move this to a Modal or something similar -->
-        <Filters></Filters>
+        <action-button
+          label="Show Filters"
+          type="button"
+          :primary="true"
+          @click="handleFilterShow"
+        >
+          <template #icon>
+            <FilterIcon class="-ml-1 mr-2 h-5 w-5 text-white" />
+          </template>
+        </action-button>
+        <Filters v-if="filtersVisible" @hide="handleFilterHide"></Filters>
       </div>
 
       <div class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6 mb-6">
@@ -163,7 +172,7 @@
 </template>
 
 <script>
-import { reactive, watch } from "vue";
+import { reactive, ref, watch } from "vue";
 import { useAPI } from "@/composables/useAPI";
 import { useSorting } from "@/composables/useSorting";
 import { useFiltering } from "@/composables/useFiltering";
@@ -171,6 +180,7 @@ import { useAccessControl } from "@/composables/useAccessControl";
 import { PencilAltIcon } from "@heroicons/vue/solid";
 import { SearchIcon } from "@heroicons/vue/solid";
 import { PlusCircleIcon } from "@heroicons/vue/solid";
+import { FilterIcon } from "@heroicons/vue/solid";
 import Pagination from "@/components/misc/Pagination";
 import TableHeadField from "@/components/table/TableHeadField";
 import ViewSplit from "@/components/layout/ViewSplit";
@@ -196,6 +206,7 @@ export default {
     PlusCircleIcon,
     PencilAltIcon,
     SearchIcon,
+    FilterIcon,
   },
   setup() {
     const { readInstitutions } = useAPI();
@@ -203,6 +214,10 @@ export default {
     const { filteringApiParam } = useFiltering();
     const { availablePrivileges, availableActions, hasBasePrivilege } =
       useAccessControl();
+
+    const filtersVisible = ref(false);
+    const handleFilterShow = () => (filtersVisible.value = true);
+    const handleFilterHide = () => (filtersVisible.value = false);
 
     const institutionsState = reactive({
       institutions: [],
@@ -231,11 +246,14 @@ export default {
     updateInstitutionData();
 
     return {
+      filtersVisible,
       sortingState,
       SORT_DIRECTION,
       institutionsState,
       availablePrivileges,
       availableActions,
+      handleFilterShow,
+      handleFilterHide,
       hasBasePrivilege,
       updateInstitutionData,
     };

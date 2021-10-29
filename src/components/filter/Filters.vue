@@ -1,73 +1,87 @@
 <template>
-  <h2>Filters</h2>
-  <form @submit.prevent="handleFormSubmit">
-    <div class="space-y-6 sm:space-y-5">
-      <form-input-text
-        v-model="state.name"
-        :label="getFieldLabel('name')"
-        name="name"
-        class="form__row"
-      ></form-input-text>
-      <form-input-text
-        v-model="state.urlSuffix"
-        :label="getFieldLabel('urlSuffix')"
-        name="url-suffix"
-        class="form__row"
-      ></form-input-text>
-      <form-input-radio
-        v-model="state.active"
-        :label="getFieldLabel('active')"
-        name="status"
-        :options="[
-          {
-            label: getFieldValue('active', null),
-            value: STATUS_FILTER_OPTIONS.ALL,
-          },
-          {
-            label: getFieldValue('active', true),
-            value: STATUS_FILTER_OPTIONS.ACTIVE,
-          },
-          {
-            label: getFieldValue('active', false),
-            value: STATUS_FILTER_OPTIONS.INACTIVE,
-          },
-        ]"
-        class="form__row"
+  <Modal :on-close="handleClose">
+    <template #header>
+      <h2 class="px-3">Filters</h2>
+    </template>
+    <template #body>
+      <form
+        class="h-full overflow-hidden relative"
+        @submit.prevent="handleFormSubmit"
       >
-      </form-input-radio>
-    </div>
-    <div class="flex justify-end pt-5">
-      <action-button
-        label="Reset"
-        type="reset"
-        :primary="false"
-        @click.prevent="handleResetClick"
-      ></action-button>
-      <action-button
-        label="Apply"
-        type="submit"
-        :primary="true"
-        class="ml-3"
-      ></action-button>
-    </div>
-  </form>
+        <div class="absolute inset-0 overflow-y-auto px-3">
+          <div class="space-y-6 sm:space-y-5">
+            <form-input-text
+              v-model="state.name"
+              :label="getFieldLabel('name')"
+              name="name"
+              class="form__row"
+            ></form-input-text>
+            <form-input-text
+              v-model="state.urlSuffix"
+              :label="getFieldLabel('urlSuffix')"
+              name="url-suffix"
+              class="form__row"
+            ></form-input-text>
+            <form-input-radio
+              v-model="state.active"
+              :label="getFieldLabel('active')"
+              name="status"
+              :options="[
+                {
+                  label: getFieldValue('active', null),
+                  value: STATUS_FILTER_OPTIONS.ALL,
+                },
+                {
+                  label: getFieldValue('active', true),
+                  value: STATUS_FILTER_OPTIONS.ACTIVE,
+                },
+                {
+                  label: getFieldValue('active', false),
+                  value: STATUS_FILTER_OPTIONS.INACTIVE,
+                },
+              ]"
+              class="form__row"
+            >
+            </form-input-radio>
+          </div>
+          <div class="flex justify-end pt-5">
+            <action-button
+              label="Reset"
+              type="reset"
+              :primary="false"
+              @click.prevent="handleResetClick"
+            ></action-button>
+            <action-button
+              label="Apply"
+              type="submit"
+              :primary="true"
+              class="ml-3"
+            ></action-button>
+          </div>
+        </div>
+      </form>
+    </template>
+  </Modal>
 </template>
 
 <script>
+import Modal from "@/components/modal/Modal";
 import FormInputText from "@/components/form/FormInputText";
+import FormInputRadio from "@/components/form/FormInputRadio";
 import ActionButton from "@/components/misc/ActionButton";
 import { useFiltering } from "@/composables/useFiltering";
 import { reactive } from "vue";
-import FormInputRadio from "@/components/form/FormInputRadio";
 
 export default {
   name: "Filters",
   components: {
+    Modal,
     FormInputRadio,
     FormInputText,
     ActionButton,
   },
-  setup() {
+  emits: ["hide"],
+  setup(props, context) {
     const { filteringState, setFilters, getFieldLabel, getFieldValue } =
       useFiltering();
 
@@ -114,17 +128,23 @@ export default {
       setFormDataToInitialValue();
     };
 
+    const handleClose = () => {
+      context.emit("hide");
+    };
+
     const handleFormSubmit = () => {
       setFilters(
         Object.assign({}, state, {
           active: stringToStatusFilter(state.active),
         })
       );
+      context.emit("hide");
     };
 
     return {
       STATUS_FILTER_OPTIONS,
       state,
+      handleClose,
       handleResetClick,
       handleFormSubmit,
       getFieldLabel,
