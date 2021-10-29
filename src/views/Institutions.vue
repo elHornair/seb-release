@@ -274,17 +274,14 @@ export default {
         {
           field: "name",
           label: "Name",
-          useDropdown: false,
         },
         {
           field: "urlSuffix",
           label: "URL Suffix",
-          useDropdown: true,
         },
         {
           field: "active",
           label: "Status",
-          useDropdown: true,
         },
       ],
     };

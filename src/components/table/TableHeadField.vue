@@ -11,17 +11,12 @@
       <span class="table_head_field__text">
         {{ label }}
       </span>
-      <component
-        :is="useDropdown ? 'sorting-dropdown' : 'sorting-buttons'"
-        :label="label"
-        :field-name="fieldName"
-      ></component>
+      <SortingDropdown :label="label" :field-name="fieldName"></SortingDropdown>
     </div>
   </th>
 </template>
 
 <script>
-import SortingButtons from "@/components/table/SortingButtons";
 import { useSorting } from "@/composables/useSorting";
 import SortingDropdown from "@/components/table/SortingDropdown";
 
@@ -29,7 +24,6 @@ export default {
   name: "TableHeadField",
   components: {
     SortingDropdown,
-    SortingButtons,
   },
   props: {
     label: {
@@ -39,10 +33,6 @@ export default {
     fieldName: {
       type: String,
       required: true,
-    },
-    useDropdown: {
-      type: Boolean,
-      default: true,
     },
   },
   setup() {
