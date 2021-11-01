@@ -47,7 +47,30 @@
               <span class="menu__item__label">Edit</span>
             </router-link>
           </MenuItem>
-          <!-- TODO: add status toggle action here -->
+          <MenuItem v-if="institution.active" v-slot="{ active }">
+            <button
+              class="menu__item"
+              :class="{ 'menu__item--active': active }"
+              @click="handleDeactivateClick"
+            >
+              <span aria-hidden="true">
+                <StatusOfflineIcon class="menu__item__icon"></StatusOfflineIcon>
+              </span>
+              <span class="menu__item__label">Deactivate</span>
+            </button>
+          </MenuItem>
+          <MenuItem v-if="!institution.active" v-slot="{ active }">
+            <button
+              class="menu__item"
+              :class="{ 'menu__item--active': active }"
+              @click="handleActivateClick"
+            >
+              <span aria-hidden="true">
+                <StatusOnlineIcon class="menu__item__icon"></StatusOnlineIcon>
+              </span>
+              <span class="menu__item__label">Activate</span>
+            </button>
+          </MenuItem>
         </div>
       </MenuItems>
     </transition>
@@ -60,7 +83,10 @@ import {
   DotsVerticalIcon,
   SearchIcon,
   PencilAltIcon,
+  StatusOfflineIcon,
+  StatusOnlineIcon,
 } from "@heroicons/vue/solid";
+import { useInstitutionStatusToggling } from "@/composables/useInstitutionStatusToggling";
 
 export default {
   name: "InlineActionsDropdown",
@@ -72,12 +98,40 @@ export default {
     DotsVerticalIcon,
     SearchIcon,
     PencilAltIcon,
+    StatusOfflineIcon,
+    StatusOnlineIcon,
   },
   props: {
     institution: {
       type: Object,
       required: true,
     },
+  },
+  emits: ["institution:change"], // TODO: listen to that event outside
+  setup(props, context) {
+    const { handleActivateRequest, handleDeactivateRequest } =
+      useInstitutionStatusToggling();
+
+    const handleActivateClick = async () => {
+      if (await handleActivateRequest(props.institution.id)) {
+        context.emit("institution:change", {
+          id: props.institution.id,
+        });
+      }
+    };
+
+    const handleDeactivateClick = async () => {
+      if (await handleDeactivateRequest(props.institution.id)) {
+        context.emit("institution:change", {
+          id: props.institution.id,
+        });
+      }
+    };
+
+    return {
+      handleActivateClick,
+      handleDeactivateClick,
+    };
   },
 };
 </script>

@@ -77,6 +77,7 @@
                     <td class="table_cell w-1/12 text-right" role="cell">
                       <InlineActionsDropdown
                         :institution="institution"
+                        @institution:change="updateInstitutionData"
                       ></InlineActionsDropdown>
                     </td>
                   </tr>

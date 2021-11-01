@@ -13,7 +13,6 @@
           <toggle-institution-status-action
             :id="institutionState.id"
             :active="institutionState.active"
-            :icon-only="false"
             @institution:change="fetchInstitutionData"
           ></toggle-institution-status-action>
           <action-button

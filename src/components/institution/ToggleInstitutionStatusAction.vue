@@ -1,20 +1,10 @@
 <template>
-  <button
-    v-if="iconOnly"
-    @click="active ? handleDeactivateClick() : handleActivateClick()"
-  >
-    <span class="sr-only">{{ label }}</span>
-    <span aria-hidden="true">
-      <component :is="icon" class="h-5 w-5"></component>
-    </span>
-  </button>
   <action-button
-    v-else
     type="button"
     :label="label"
     :primary="false"
     :full="true"
-    @click="active ? handleDeactivateClick() : handleActivateClick()"
+    @click="active ? handleDeactivateClick(id) : handleActivateClick(id)"
   >
     <template #icon>
       <component
@@ -27,7 +17,7 @@
 
 <script>
 import { StatusOnlineIcon, StatusOfflineIcon } from "@heroicons/vue/solid";
-import { useAPI } from "@/composables/useAPI";
+import { useInstitutionStatusToggling } from "@/composables/useInstitutionStatusToggling";
 import ActionButton from "@/components/misc/ActionButton";
 
 export default {
@@ -42,23 +32,31 @@ export default {
       type: Boolean,
       required: true,
     },
-    iconOnly: {
-      type: Boolean,
-      default: true,
-    },
   },
   emits: ["institution:change"],
-  setup() {
-    const {
-      getInstitutionDependencies,
-      activateInstitution,
-      deactivateInstitution,
-    } = useAPI();
+  setup(props, context) {
+    const { handleActivateRequest, handleDeactivateRequest } =
+      useInstitutionStatusToggling();
+
+    const handleActivateClick = async () => {
+      if (await handleActivateRequest(props.id)) {
+        context.emit("institution:change", {
+          id: props.id,
+        });
+      }
+    };
+
+    const handleDeactivateClick = async () => {
+      if (await handleDeactivateRequest(props.id)) {
+        context.emit("institution:change", {
+          id: props.id,
+        });
+      }
+    };
 
     return {
-      getInstitutionDependencies,
-      activateInstitution,
-      deactivateInstitution,
+      handleActivateClick,
+      handleDeactivateClick,
     };
   },
   computed: {
@@ -67,41 +65,6 @@ export default {
     },
     icon() {
       return this.active ? "StatusOfflineIcon" : "StatusOnlineIcon";
-    },
-  },
-  methods: {
-    async checkDependencies() {
-      const dependencies = await this.getInstitutionDependencies(this.id);
-
-      if (!dependencies || dependencies.length < 1) {
-        return true;
-      }
-
-      return confirm(
-        `Note that ${dependencies.length} entities belong to this institution. Are that you want to deactivate this institution?`
-      );
-    },
-    async handleActivateClick() {
-      this.processToggleResult(await this.activateInstitution(this.id));
-    },
-    async handleDeactivateClick() {
-      if (!(await this.checkDependencies())) {
-        return false;
-      }
-
-      this.processToggleResult(await this.deactivateInstitution(this.id));
-    },
-    processToggleResult(res) {
-      if (res.errors.length > 0) {
-        alert(
-          "There was an error while updating the active status of this institution."
-        );
-        console.error(res);
-      }
-
-      this.$emit("institution:change", {
-        id: this.id,
-      });
     },
   },
 };
