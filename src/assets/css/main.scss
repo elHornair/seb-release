@@ -3,6 +3,7 @@
 @tailwind components;
 
 @import "./focus-follow";
+@import "./menu";
 
 body.scroll-lock {
   overflow-y: hidden;

@@ -1,9 +1,9 @@
 <template>
-  <Menu as="div" class="relative inline-block text-left z-10 font-normal">
-    <MenuButton class="flex items-center hover:text-indigo-700">
+  <Menu as="div" class="menu">
+    <MenuButton class="menu__toggle">
       <span class="sr-only">Open {{ label }} sorting options</span>
       <span aria-hidden="true">
-        <component :is="currentIcon" class="h-5 w-5" />
+        <component :is="currentIcon" class="menu__toggle__icon" />
       </span>
     </MenuButton>
 
@@ -15,66 +15,67 @@
       leave-from-class="transform opacity-100 scale-100"
       leave-to-class="transform opacity-0 scale-95"
     >
-      <MenuItems class="items" :class="{ 'items--right': openRight }">
-        <div class="py-1">
+      <MenuItems
+        class="menu__items"
+        :class="{ 'menu__items--right': openRight }"
+      >
+        <div class="menu__section">
           <MenuItem v-slot="{ active }">
             <button
-              class="item"
-              :class="{
-                'bg-gray-100 text-gray-900': active,
-              }"
+              class="menu__item"
+              :class="{ 'menu__item--active': active }"
               :aria-label="`Sort by ${label} A to Z`"
               @click="setSorting(fieldName, SORT_DIRECTION.DSC)"
             >
               <span aria-hidden="true">
-                <SortDescendingIcon class="item__icon"></SortDescendingIcon>
+                <SortDescendingIcon
+                  class="menu__item__icon"
+                ></SortDescendingIcon>
               </span>
-              <span class="flex-grow text-left">Sort A to Z</span>
+              <span class="menu__item__label">Sort A to Z</span>
               <span
                 v-if="currentSorting === SORT_DIRECTION.DSC"
                 aria-hidden="true"
               >
                 <CheckCircleIcon
-                  class="item__icon item__icon--right"
+                  class="menu__item__icon menu__item__icon--right"
                 ></CheckCircleIcon>
               </span>
             </button>
           </MenuItem>
           <MenuItem v-slot="{ active }">
             <button
-              class="item"
-              :class="{
-                'bg-gray-100 text-gray-900': active,
-              }"
+              class="menu__item"
+              :class="{ 'menu__item--active': active }"
               :aria-label="`Sort by ${label} Z to A`"
               @click="setSorting(fieldName, SORT_DIRECTION.ASC)"
             >
               <span aria-hidden="true">
-                <SortAscendingIcon class="item__icon"></SortAscendingIcon>
+                <SortAscendingIcon class="menu__item__icon"></SortAscendingIcon>
               </span>
-              <span class="flex-grow text-left">Sort Z to A</span>
+              <span class="menu__item__label">Sort Z to A</span>
               <span
                 v-if="currentSorting === SORT_DIRECTION.ASC"
                 aria-hidden="true"
               >
                 <CheckCircleIcon
-                  class="item__icon item__icon--right"
+                  class="menu__item__icon menu__item__icon--right"
                 ></CheckCircleIcon>
               </span>
             </button>
           </MenuItem>
         </div>
-        <div v-if="currentSorting" class="py-1">
+        <div v-if="currentSorting" class="menu__section">
           <MenuItem v-slot="{ active }">
             <button
-              class="item"
-              :class="{ 'bg-gray-100 text-gray-900': active }"
+              class="menu__item"
+              :class="{ 'menu__item--active': active }"
               @click="removeSorting()"
             >
               <span aria-hidden="true">
-                <XCircleIcon class="item__icon"></XCircleIcon>
+                <XCircleIcon class="menu__item__icon"></XCircleIcon>
               </span>
-              <span class="flex-grow text-left">Remove Sorting</span>
+              <span class="menu__item__label">Remove Sorting</span>
             </button>
           </MenuItem>
         </div>
@@ -154,48 +155,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.items {
-  @apply origin-top-right;
-  @apply absolute;
-  @apply right-0;
-  @apply mt-2;
-  @apply w-56;
-  @apply rounded-md;
-  @apply shadow-lg;
-  @apply bg-white;
-  @apply ring-1 ring-black ring-opacity-5;
-  @apply divide-y divide-gray-100;
-
-  &.items--right {
-    @apply origin-top-left;
-    @apply right-auto;
-    @apply left-0;
-  }
-}
-
-.item {
-  @apply group;
-  @apply flex;
-  @apply items-center;
-  @apply justify-between;
-  @apply w-full;
-  @apply px-4;
-  @apply py-2;
-  @apply text-sm;
-  @apply text-gray-700;
-}
-
-.item__icon {
-  @apply mr-3;
-  @apply h-5;
-  @apply w-5;
-  @apply text-gray-400;
-  @apply group-hover:text-gray-500;
-
-  &.item__icon--right {
-    @apply mr-0;
-  }
-}
-</style>
