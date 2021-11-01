@@ -16,8 +16,8 @@
       leave-to-class="transform opacity-0 scale-95"
     >
       <MenuItems
-        class="menu__items"
-        :class="{ 'menu__items--right': openRight }"
+        class="menu__content"
+        :class="{ 'menu__content--right': openRight }"
       >
         <div class="menu__section">
           <MenuItem v-slot="{ active }">

@@ -15,7 +15,7 @@
       leave-from-class="transform opacity-100 scale-100"
       leave-to-class="transform opacity-0 scale-95"
     >
-      <MenuItems class="menu__items">
+      <MenuItems class="menu__content">
         <div class="menu__section">
           <MenuItem v-slot="{ active }">
             <router-link
