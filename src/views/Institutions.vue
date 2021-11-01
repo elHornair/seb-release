@@ -67,46 +67,17 @@
                     </td>
                     <td
                       role="cell"
-                      class="table_cell w-2/12"
+                      class="table_cell w-3/12"
                       :class="{
                         'bg-yellow-50': sortingState.field === 'active',
                       }"
                     >
                       <status-batch :active="institution.active"></status-batch>
                     </td>
-                    <td class="table_cell w-2/12" role="cell">
-                      <span class="flex space-x-2">
-                        <router-link
-                          class="inline-action"
-                          :to="{
-                            name: 'institution-view',
-                            params: { id: institution.id },
-                          }"
-                        >
-                          <span class="sr-only">View</span>
-                          <span aria-hidden="true">
-                            <search-icon class="h-5 w-5"></search-icon>
-                          </span>
-                        </router-link>
-                        <router-link
-                          class="inline-action"
-                          :to="{
-                            name: 'institution-edit',
-                            params: { id: institution.id },
-                          }"
-                        >
-                          <span class="sr-only">Edit</span>
-                          <span aria-hidden="true">
-                            <pencil-alt-icon class="h-5 w-5"></pencil-alt-icon>
-                          </span>
-                        </router-link>
-                        <toggle-institution-status-action
-                          :id="institution.id"
-                          class="inline-action"
-                          :active="institution.active"
-                          @institution:change="updateInstitutionData"
-                        ></toggle-institution-status-action>
-                      </span>
+                    <td class="table_cell w-1/12 text-right" role="cell">
+                      <InlineActionsDropdown
+                        :institution="institution"
+                      ></InlineActionsDropdown>
                     </td>
                   </tr>
                 </tbody>
@@ -189,8 +160,6 @@ import { useAPI } from "@/composables/useAPI";
 import { useSorting } from "@/composables/useSorting";
 import { useFiltering } from "@/composables/useFiltering";
 import { useAccessControl } from "@/composables/useAccessControl";
-import { PencilAltIcon } from "@heroicons/vue/solid";
-import { SearchIcon } from "@heroicons/vue/solid";
 import { PlusCircleIcon } from "@heroicons/vue/solid";
 import { FilterIcon } from "@heroicons/vue/solid";
 import Pagination from "@/components/misc/Pagination";
@@ -199,16 +168,16 @@ import ViewSplit from "@/components/layout/ViewSplit";
 import ActionButton from "@/components/misc/ActionButton";
 import StatusBatch from "@/components/misc/StatusBatch";
 import GeneralSortingDropdown from "@/components/table/GeneralSortingDropdown";
-import ToggleInstitutionStatusAction from "@/components/institution/ToggleInstitutionStatusAction";
 import Filters from "@/components/filter/Filters";
 import ActiveFilters from "@/components/filter/ActiveFilters";
+import InlineActionsDropdown from "@/components/table/InlineActionsDropdown";
 
 export default {
   name: "Institution",
   components: {
+    InlineActionsDropdown,
     ActiveFilters,
     Filters,
-    ToggleInstitutionStatusAction,
     GeneralSortingDropdown,
     ActionButton,
     ViewSplit,
@@ -216,8 +185,6 @@ export default {
     Pagination,
     StatusBatch,
     PlusCircleIcon,
-    PencilAltIcon,
-    SearchIcon,
     FilterIcon,
   },
   setup() {
@@ -337,11 +304,5 @@ export default {
     @apply font-medium;
     @apply text-gray-900;
   }
-}
-
-.inline-action {
-  @apply font-medium;
-  @apply text-gray-500;
-  @apply hover:text-indigo-700;
 }
 </style>
