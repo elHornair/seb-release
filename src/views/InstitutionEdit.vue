@@ -3,6 +3,7 @@
     <template #main>
       <form-institution
         :existing-institution="institutionState"
+        @submit="handleSubmit"
       ></form-institution>
     </template>
     <template #aside>
@@ -42,7 +43,7 @@ import ViewSplit from "@/components/layout/ViewSplit";
 import ToggleInstitutionStatusAction from "@/components/institution/ToggleInstitutionStatusAction";
 import { useAPI } from "@/composables/useAPI";
 import { reactive } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import ActionButton from "@/components/misc/ActionButton";
 
 export default {
@@ -55,7 +56,8 @@ export default {
     FormInstitution,
   },
   setup() {
-    const { readInstitution } = useAPI();
+    const { readInstitution, updateInstitution } = useAPI();
+    const router = useRouter();
     const route = useRoute();
 
     const institutionState = reactive({
@@ -76,11 +78,34 @@ export default {
       });
     };
 
+    const handleSubmit = async (formState) => {
+      try {
+        const response = await updateInstitution(
+          formState.id,
+          formState.name,
+          formState.urlSuffix
+        );
+
+        if (!response.id) {
+          throw new Error("Unexpected result from server after submit");
+        }
+
+        // TODO: maybe also show an alert on that page ("institution successfully created")
+        await router.push({
+          name: "institution-view",
+          params: { id: response.id },
+        });
+      } catch (error) {
+        // TODO: show error message and properly style it
+      }
+    };
+
     fetchInstitutionData();
 
     return {
       institutionState,
       fetchInstitutionData,
+      handleSubmit,
     };
   },
 };

@@ -50,9 +50,8 @@
 </template>
 
 <script>
-import { computed, reactive, watchEffect } from "vue";
+import { reactive, watchEffect } from "vue";
 import { useRouter } from "vue-router";
-import { useAPI } from "@/composables/useAPI";
 import { equals } from "rambdax";
 import FormInputCheckbox from "@/components/form/FormInputCheckbox";
 import FormInputText from "@/components/form/FormInputText";
@@ -81,14 +80,10 @@ export default {
       },
     },
   },
-  setup(props) {
-    const { createInstitution, updateInstitution } = useAPI();
+  emits: ["submit"],
+  setup(props, context) {
     const router = useRouter();
     const formState = reactive({});
-
-    const isExistingInstitution = computed(
-      () => props.existingInstitution !== null && props.existingInstitution.id
-    );
 
     const handleFormCancel = () => {
       if (
@@ -105,42 +100,17 @@ export default {
       });
     };
 
+    const handleFormSubmit = () => context.emit("submit", formState);
+
     watchEffect(() => {
       Object.assign(formState, props.existingInstitution);
     });
 
     return {
-      createInstitution,
-      updateInstitution,
+      handleFormSubmit,
       handleFormCancel,
-      isExistingInstitution,
       formState,
     };
-  },
-  methods: {
-    async handleFormSubmit() {
-      try {
-        const response = this.isExistingInstitution
-          ? await this.updateInstitution(
-              this.state.id,
-              this.state.name,
-              this.state.urlSuffix
-            )
-          : await this.createInstitution(this.state.name, this.state.urlSuffix);
-
-        if (!response.id) {
-          throw new Error("Unexpected result from server after submit");
-        }
-
-        // TODO: maybe also show an alert on that page ("institution successfully updated / created")
-        this.$router.push({
-          name: "institution-view",
-          params: { id: response.id },
-        });
-      } catch (error) {
-        // TODO: show error message and properly style it
-      }
-    },
   },
 };
 </script>
