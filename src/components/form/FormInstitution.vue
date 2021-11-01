@@ -2,7 +2,7 @@
   <form class="form" @submit.prevent="handleFormSubmit">
     <div class="space-y-6 sm:space-y-5">
       <form-input-text
-        v-model="name"
+        v-model="formState.name"
         label="Name"
         name="name"
         :required="true"
@@ -11,7 +11,7 @@
         class="form__row"
       ></form-input-text>
       <form-input-text
-        v-model="urlSuffix"
+        v-model="formState.urlSuffix"
         label="URL Suffix"
         name="url-suffix"
         :min-length="3"
@@ -19,7 +19,7 @@
         class="form__row"
       ></form-input-text>
       <form-input-checkbox
-        v-model="active"
+        v-model="formState.active"
         name="active"
         label="Active"
         description="Status"
@@ -34,10 +34,10 @@
     </div>
     <div class="flex justify-end pt-5">
       <action-button
-        label="Reset"
+        label="Cancel"
         type="reset"
         :primary="false"
-        @click.prevent="handleFormReset"
+        @click.prevent="handleFormCancel"
       ></action-button>
       <action-button
         label="Save"
@@ -50,12 +50,14 @@
 </template>
 
 <script>
+import { computed, reactive, watchEffect } from "vue";
+import { useRouter } from "vue-router";
 import { useAPI } from "@/composables/useAPI";
+import { equals } from "rambdax";
 import FormInputCheckbox from "@/components/form/FormInputCheckbox";
 import FormInputText from "@/components/form/FormInputText";
 import FormInputFile from "@/components/form/FormInputFile";
 import ActionButton from "@/components/misc/ActionButton";
-import { computed, ref, watchEffect } from "vue";
 
 export default {
   name: "FormInstitution",
@@ -81,47 +83,50 @@ export default {
   },
   setup(props) {
     const { createInstitution, updateInstitution } = useAPI();
+    const router = useRouter();
+    const formState = reactive({});
 
     const isExistingInstitution = computed(
       () => props.existingInstitution !== null && props.existingInstitution.id
     );
 
-    const id = ref();
-    const name = ref();
-    const urlSuffix = ref();
-    const active = ref();
+    const handleFormCancel = () => {
+      if (
+        !equals(formState, props.existingInstitution) &&
+        !confirm(
+          `Your form contains unsaved changes. You will lose your changes if you continue. Do you want to continue?`
+        )
+      ) {
+        return;
+      }
 
-    const setFormDataToInitialValue = () => {
-      id.value = props.existingInstitution.id;
-      name.value = props.existingInstitution.name;
-      urlSuffix.value = props.existingInstitution.urlSuffix;
-      active.value = props.existingInstitution.active;
+      router.push({
+        name: "institutions",
+      });
     };
 
     watchEffect(() => {
-      setFormDataToInitialValue();
+      Object.assign(formState, props.existingInstitution);
     });
 
     return {
       createInstitution,
       updateInstitution,
-      setFormDataToInitialValue,
+      handleFormCancel,
       isExistingInstitution,
-      id,
-      name,
-      urlSuffix,
-      active,
+      formState,
     };
   },
   methods: {
-    handleFormReset() {
-      this.setFormDataToInitialValue();
-    },
     async handleFormSubmit() {
       try {
         const response = this.isExistingInstitution
-          ? await this.updateInstitution(this.id, this.name, this.urlSuffix)
-          : await this.createInstitution(this.name, this.urlSuffix);
+          ? await this.updateInstitution(
+              this.state.id,
+              this.state.name,
+              this.state.urlSuffix
+            )
+          : await this.createInstitution(this.state.name, this.state.urlSuffix);
 
         if (!response.id) {
           throw new Error("Unexpected result from server after submit");

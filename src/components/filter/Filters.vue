@@ -46,7 +46,7 @@
           </div>
           <div class="flex justify-end pt-5">
             <action-button
-              label="Abort"
+              label="Cancel"
               type="reset"
               :primary="false"
               @click.prevent="handleClose"
