@@ -238,7 +238,7 @@ export default {
   setup() {
     const route = useRoute();
     const { readInstitutions } = useAPI();
-    const { selectionState, selectedCounter, addOptions, unselectAll } =
+    const { multiSelectionState, selectedCounter, addOptions, unselectAll } =
       useMultiselect();
     const { sortingState, sortingApiParam, SORT_DIRECTION } = useSorting();
     const { filteringState, filteringApiParam } = useFiltering();
@@ -249,6 +249,7 @@ export default {
     const handleFilterShow = () => (filtersVisible.value = true);
     const handleFilterHide = () => (filtersVisible.value = false);
     const multiselect = ref(route.query.multiselect !== undefined); // This is a query param for demo purposes only. In reality, the property will be defined by the entity at hand
+    const singleSelectionState = ref(undefined);
 
     const institutionsState = reactive({
       institutions: [],
@@ -304,7 +305,8 @@ export default {
       SORT_DIRECTION,
       filteringState,
       institutionsState,
-      selectionState,
+      singleSelectionState,
+      multiSelectionState,
       availablePrivileges,
       availableActions,
       showBulkActions,

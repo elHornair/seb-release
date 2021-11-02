@@ -1,20 +1,21 @@
 import { computed, reactive } from "vue";
 
-const selectionState = reactive([]);
+const multiSelectionState = reactive([]);
 
 const selectedCounter = computed(() => {
-  return Object.keys(selectionState).filter((item) => {
-    return selectionState[item].checked;
+  return Object.keys(multiSelectionState).filter((item) => {
+    return multiSelectionState[item].checked;
   }).length;
 });
 
 const addOptions = (optionIds) => {
   Object.assign(
-    selectionState,
+    multiSelectionState,
     optionIds.reduce((allOptions, optionId) => {
       allOptions[optionId] = {
         checked:
-          (selectionState[optionId] && selectionState[optionId].checked) ||
+          (multiSelectionState[optionId] &&
+            multiSelectionState[optionId].checked) ||
           false,
       };
 
@@ -24,14 +25,14 @@ const addOptions = (optionIds) => {
 };
 
 const unselectAll = () => {
-  Object.keys(selectionState).forEach((key) => {
-    selectionState[key] = { checked: false };
+  Object.keys(multiSelectionState).forEach((key) => {
+    multiSelectionState[key] = { checked: false };
   });
 };
 
 export const useMultiselect = () => {
   return {
-    selectionState,
+    multiSelectionState,
     selectedCounter,
     addOptions,
     unselectAll,
