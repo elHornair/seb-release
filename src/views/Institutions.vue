@@ -217,6 +217,7 @@ import GeneralSortingDropdown from "@/components/table/GeneralSortingDropdown";
 import Filters from "@/components/filter/Filters";
 import ActiveFilters from "@/components/filter/ActiveFilters";
 import InlineActionsDropdown from "@/components/table/InlineActionsDropdown";
+import { useRoute } from "vue-router";
 
 export default {
   name: "Institution",
@@ -234,13 +235,8 @@ export default {
     FilterIcon,
     ViewListIcon,
   },
-  props: {
-    multiselect: {
-      type: Boolean,
-      default: true,
-    },
-  },
-  setup(props) {
+  setup() {
+    const route = useRoute();
     const { readInstitutions } = useAPI();
     const { selectionState, selectedCounter, addOptions, unselectAll } =
       useMultiselect();
@@ -252,6 +248,7 @@ export default {
     const filtersVisible = ref(false);
     const handleFilterShow = () => (filtersVisible.value = true);
     const handleFilterHide = () => (filtersVisible.value = false);
+    const multiselect = ref(route.query.multiselect !== undefined); // This is a query param for demo purposes only. In reality, the property will be defined by the entity at hand
 
     const institutionsState = reactive({
       institutions: [],
@@ -260,7 +257,7 @@ export default {
     });
 
     const showBulkActions = computed(
-      () => props.multiselect && selectedCounter.value > 0
+      () => multiselect.value && selectedCounter.value > 0
     );
 
     const handleBulkActionClick = () => {
@@ -286,13 +283,13 @@ export default {
     watch(filteringApiParam, async () => {
       await updateInstitutionData();
 
-      if (props.multiselect) {
+      if (multiselect.value) {
         unselectAll();
       }
     });
 
     watch(institutionsState, () => {
-      if (props.multiselect) {
+      if (multiselect.value) {
         addOptions(
           institutionsState.institutions.map((institution) => institution.id)
         );
@@ -311,6 +308,7 @@ export default {
       availablePrivileges,
       availableActions,
       showBulkActions,
+      multiselect,
       handleBulkActionClick,
       handleFilterShow,
       handleFilterHide,
