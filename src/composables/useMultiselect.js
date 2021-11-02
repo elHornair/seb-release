@@ -8,21 +8,18 @@ const selectedCounter = computed(() => {
   }).length;
 });
 
-const addOptions = (options) => {
-  // TODO: this should only get an array of ids, not an array of objects containing an id
+const addOptions = (optionIds) => {
   Object.assign(
     selectionState,
-    options
-      .map((option) => option.id)
-      .reduce((all, optionId) => {
-        all[optionId] = {
-          checked:
-            (selectionState[optionId] && selectionState[optionId].checked) ||
-            false,
-        };
+    optionIds.reduce((allOptions, optionId) => {
+      allOptions[optionId] = {
+        checked:
+          (selectionState[optionId] && selectionState[optionId].checked) ||
+          false,
+      };
 
-        return all;
-      }, {})
+      return allOptions;
+    }, {})
   );
 };
 

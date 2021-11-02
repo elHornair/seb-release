@@ -293,7 +293,9 @@ export default {
 
     watch(institutionsState, () => {
       if (props.multiselect) {
-        addOptions(institutionsState.institutions);
+        addOptions(
+          institutionsState.institutions.map((institution) => institution.id)
+        );
       }
     });
 
