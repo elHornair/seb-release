@@ -167,22 +167,22 @@
           </div>
 
           <div class="w-full">
-            <h3 class="text-sm font-medium text-gray-700 pb-1">General</h3>
+            <h3 class="text-sm font-medium text-gray-700 pb-1">Main Actions</h3>
             <action-button
               v-if="showAddAction"
               label="Add institution"
               type="link"
               :full-xl="true"
               :route-obj="{ name: 'institution-create' }"
-              class="sm:mr-2"
             >
               <template #icon>
                 <plus-circle-icon class="-ml-1 mr-2 h-5 w-5 text-white" />
               </template>
             </action-button>
-
+          </div>
+          <div v-if="showBulkActions" class="w-full">
+            <h3 class="text-sm font-medium text-gray-700 pb-1">Bulk Actions</h3>
             <action-button
-              v-if="showBulkAction"
               label="Bulk action"
               type="button"
               class="mt-2 xl:ml-0"
@@ -264,8 +264,8 @@ export default {
         return selectedInstitutionsState[item].checked;
       }).length;
     });
-    const showBulkAction = computed(
-      () => selectedInstitutionsCounter.value > 0
+    const showBulkActions = computed(
+      () => props.multiselect && selectedInstitutionsCounter.value > 0
     );
 
     const handleBulkActionClick = () => {
@@ -338,7 +338,7 @@ export default {
       selectedInstitutionsState,
       availablePrivileges,
       availableActions,
-      showBulkAction,
+      showBulkActions,
       handleBulkActionClick,
       handleFilterShow,
       handleFilterHide,
