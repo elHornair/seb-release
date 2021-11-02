@@ -205,6 +205,7 @@ import { computed, reactive, ref, watch } from "vue";
 import { useAPI } from "@/composables/useAPI";
 import { useSorting } from "@/composables/useSorting";
 import { useFiltering } from "@/composables/useFiltering";
+import { useMultiselect } from "@/composables/useMultiselect";
 import { useAccessControl } from "@/composables/useAccessControl";
 import { PlusCircleIcon } from "@heroicons/vue/solid";
 import { FilterIcon } from "@heroicons/vue/solid";
@@ -243,6 +244,12 @@ export default {
   },
   setup(props) {
     const { readInstitutions } = useAPI();
+    const {
+      selectedInstitutionsState,
+      selectedInstitutionsCounter,
+      addSelectableInstitutions,
+      unselectAllInstitutions,
+    } = useMultiselect();
     const { sortingState, sortingApiParam, SORT_DIRECTION } = useSorting();
     const { filteringState, filteringApiParam } = useFiltering();
     const { availablePrivileges, availableActions, hasBasePrivilege } =
@@ -258,12 +265,6 @@ export default {
       currentPage: 0,
     });
 
-    const selectedInstitutionsState = reactive([]);
-    const selectedInstitutionsCounter = computed(() => {
-      return Object.keys(selectedInstitutionsState).filter((item) => {
-        return selectedInstitutionsState[item].checked;
-      }).length;
-    });
     const showBulkActions = computed(
       () => props.multiselect && selectedInstitutionsCounter.value > 0
     );
@@ -272,34 +273,6 @@ export default {
       alert(
         `Do something with ${selectedInstitutionsCounter.value} selected item(s)`
       );
-    };
-
-    const addSelectableInstitutions = (institutions) => {
-      if (props.multiselect) {
-        Object.assign(
-          selectedInstitutionsState,
-          institutions
-            .map((institution) => institution.id)
-            .reduce((all, institutionId) => {
-              all[institutionId] = {
-                checked:
-                  (selectedInstitutionsState[institutionId] &&
-                    selectedInstitutionsState[institutionId].checked) ||
-                  false,
-              };
-
-              return all;
-            }, {})
-        );
-      }
-    };
-
-    const unselectAllInstitutions = () => {
-      if (props.multiselect) {
-        Object.keys(selectedInstitutionsState).forEach((key) => {
-          selectedInstitutionsState[key] = { checked: false };
-        });
-      }
     };
 
     const updateInstitutionData = async () => {
@@ -320,11 +293,16 @@ export default {
     watch(sortingApiParam, () => updateInstitutionData());
     watch(filteringApiParam, async () => {
       await updateInstitutionData();
-      unselectAllInstitutions();
+
+      if (props.multiselect) {
+        unselectAllInstitutions();
+      }
     });
 
     watch(institutionsState, () => {
-      addSelectableInstitutions(institutionsState.institutions);
+      if (props.multiselect) {
+        addSelectableInstitutions(institutionsState.institutions);
+      }
     });
 
     updateInstitutionData();
