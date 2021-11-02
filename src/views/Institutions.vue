@@ -206,6 +206,52 @@
               </template>
             </action-button>
           </div>
+          <div
+            v-if="showActionsOnSelection"
+            class="w-full hidden sm:block space-y-2"
+          >
+            <h3 class="text-sm font-medium text-gray-700 pb-1">
+              Action on selection
+            </h3>
+            <action-button
+              label="View institution"
+              type="link"
+              :primary="false"
+              :full="true"
+              :route-obj="{
+                name: 'institution-view',
+                params: { id: singleSelectionState },
+              }"
+            >
+              <template #icon>
+                <SearchIcon
+                  class="-ml-1 mr-2 h-5 w-5 text-gray-700"
+                ></SearchIcon>
+              </template>
+            </action-button>
+            <action-button
+              label="Edit institution"
+              type="link"
+              :primary="false"
+              :full="true"
+              :route-obj="{
+                name: 'institution-edit',
+                params: { id: singleSelectionState },
+              }"
+            >
+              <template #icon>
+                <PencilAltIcon
+                  class="-ml-1 mr-2 h-5 w-5 text-gray-700"
+                ></PencilAltIcon>
+              </template>
+            </action-button>
+            <toggle-institution-status-action
+              v-if="singleSelectedInstitution"
+              :id="singleSelectionState"
+              :active="singleSelectedInstitution.active"
+              @institution:change="updateInstitutionData"
+            ></toggle-institution-status-action>
+          </div>
           <div v-if="showBulkActions" class="w-full">
             <h3 class="text-sm font-medium text-gray-700 pb-1">Bulk Actions</h3>
             <action-button
@@ -236,6 +282,8 @@ import { useAccessControl } from "@/composables/useAccessControl";
 import { PlusCircleIcon } from "@heroicons/vue/solid";
 import { FilterIcon } from "@heroicons/vue/solid";
 import { ViewListIcon } from "@heroicons/vue/solid";
+import { SearchIcon } from "@heroicons/vue/solid";
+import { PencilAltIcon } from "@heroicons/vue/solid";
 import Pagination from "@/components/misc/Pagination";
 import TableHeadField from "@/components/table/TableHeadField";
 import ViewSplit from "@/components/layout/ViewSplit";
@@ -245,12 +293,14 @@ import GeneralSortingDropdown from "@/components/table/GeneralSortingDropdown";
 import Filters from "@/components/filter/Filters";
 import ActiveFilters from "@/components/filter/ActiveFilters";
 import InlineActionsDropdown from "@/components/table/InlineActionsDropdown";
+import ToggleInstitutionStatusAction from "@/components/institution/ToggleInstitutionStatusAction";
 import { useRoute } from "vue-router";
 
 export default {
   name: "Institution",
   components: {
     InlineActionsDropdown,
+    ToggleInstitutionStatusAction,
     ActiveFilters,
     Filters,
     GeneralSortingDropdown,
@@ -262,6 +312,8 @@ export default {
     PlusCircleIcon,
     FilterIcon,
     ViewListIcon,
+    SearchIcon,
+    PencilAltIcon,
   },
   setup() {
     const route = useRoute();
@@ -284,6 +336,20 @@ export default {
       totalPages: 0,
       currentPage: 0,
     });
+
+    const singleSelectedInstitution = computed(() => {
+      if (multiselect.value || singleSelectionState.value === undefined) {
+        return undefined;
+      }
+
+      return institutionsState.institutions.find(
+        (institution) => institution.id === singleSelectionState.value
+      );
+    });
+
+    const showActionsOnSelection = computed(
+      () => !multiselect.value && singleSelectionState.value !== undefined
+    );
 
     const showBulkActions = computed(
       () => multiselect.value && selectedCounter.value > 0
@@ -334,9 +400,11 @@ export default {
       filteringState,
       institutionsState,
       singleSelectionState,
+      singleSelectedInstitution,
       multiSelectionState,
       availablePrivileges,
       availableActions,
+      showActionsOnSelection,
       showBulkActions,
       multiselect,
       handleBulkActionClick,
