@@ -1,23 +1,23 @@
 import { computed, reactive } from "vue";
 
-const selectedInstitutionsState = reactive([]);
+const selectionState = reactive([]);
 
-const selectedInstitutionsCounter = computed(() => {
-  return Object.keys(selectedInstitutionsState).filter((item) => {
-    return selectedInstitutionsState[item].checked;
+const selectedCounter = computed(() => {
+  return Object.keys(selectionState).filter((item) => {
+    return selectionState[item].checked;
   }).length;
 });
 
-const addSelectableInstitutions = (institutions) => {
+const addOptions = (options) => {
+  // TODO: this should only get an array of ids, not an array of objects containing an id
   Object.assign(
-    selectedInstitutionsState,
-    institutions
-      .map((institution) => institution.id)
-      .reduce((all, institutionId) => {
-        all[institutionId] = {
+    selectionState,
+    options
+      .map((option) => option.id)
+      .reduce((all, optionId) => {
+        all[optionId] = {
           checked:
-            (selectedInstitutionsState[institutionId] &&
-              selectedInstitutionsState[institutionId].checked) ||
+            (selectionState[optionId] && selectionState[optionId].checked) ||
             false,
         };
 
@@ -26,17 +26,17 @@ const addSelectableInstitutions = (institutions) => {
   );
 };
 
-const unselectAllInstitutions = () => {
-  Object.keys(selectedInstitutionsState).forEach((key) => {
-    selectedInstitutionsState[key] = { checked: false };
+const unselectAll = () => {
+  Object.keys(selectionState).forEach((key) => {
+    selectionState[key] = { checked: false };
   });
 };
 
 export const useMultiselect = () => {
   return {
-    selectedInstitutionsState,
-    selectedInstitutionsCounter,
-    addSelectableInstitutions,
-    unselectAllInstitutions,
+    selectionState,
+    selectedCounter,
+    addOptions,
+    unselectAll,
   };
 };

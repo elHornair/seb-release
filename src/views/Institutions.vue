@@ -64,9 +64,7 @@
                     >
                       <input
                         :id="`cb_${institution.id}`"
-                        v-model="
-                          selectedInstitutionsState[institution.id].checked
-                        "
+                        v-model="selectionState[institution.id].checked"
                         :name="`cb_${institution.id}`"
                         type="checkbox"
                         class="h-4 w-4 text-indigo-600 border-gray-300 rounded"
@@ -244,12 +242,8 @@ export default {
   },
   setup(props) {
     const { readInstitutions } = useAPI();
-    const {
-      selectedInstitutionsState,
-      selectedInstitutionsCounter,
-      addSelectableInstitutions,
-      unselectAllInstitutions,
-    } = useMultiselect();
+    const { selectionState, selectedCounter, addOptions, unselectAll } =
+      useMultiselect();
     const { sortingState, sortingApiParam, SORT_DIRECTION } = useSorting();
     const { filteringState, filteringApiParam } = useFiltering();
     const { availablePrivileges, availableActions, hasBasePrivilege } =
@@ -266,13 +260,11 @@ export default {
     });
 
     const showBulkActions = computed(
-      () => props.multiselect && selectedInstitutionsCounter.value > 0
+      () => props.multiselect && selectedCounter.value > 0
     );
 
     const handleBulkActionClick = () => {
-      alert(
-        `Do something with ${selectedInstitutionsCounter.value} selected item(s)`
-      );
+      alert(`Do something with ${selectedCounter.value} selected item(s)`);
     };
 
     const updateInstitutionData = async () => {
@@ -295,13 +287,13 @@ export default {
       await updateInstitutionData();
 
       if (props.multiselect) {
-        unselectAllInstitutions();
+        unselectAll();
       }
     });
 
     watch(institutionsState, () => {
       if (props.multiselect) {
-        addSelectableInstitutions(institutionsState.institutions);
+        addOptions(institutionsState.institutions);
       }
     });
 
@@ -313,7 +305,7 @@ export default {
       SORT_DIRECTION,
       filteringState,
       institutionsState,
-      selectedInstitutionsState,
+      selectionState,
       availablePrivileges,
       availableActions,
       showBulkActions,
