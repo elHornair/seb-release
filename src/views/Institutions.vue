@@ -25,9 +25,9 @@
                 <thead class="bg-gray-50" role="rowgroup">
                   <tr role="row">
                     <th
-                      v-if="multiselect"
                       scope="col"
                       class="relative px-6 py-3"
+                      :class="{ 'hidden sm:table-cell': !multiselect }"
                     >
                       <span class="sr-only">Selection</span>
                     </th>
@@ -41,7 +41,11 @@
                       :first-col="index === 0"
                     ></table-head-field>
 
-                    <th scope="col" class="relative px-6 py-3">
+                    <th
+                      scope="col"
+                      class="relative px-6 py-3"
+                      :class="{ 'sm:hidden': !multiselect }"
+                    >
                       <span class="sr-only">Actions</span>
                     </th>
                   </tr>
@@ -58,20 +62,40 @@
                     "
                   >
                     <td
-                      v-if="multiselect"
                       class="table_cell w-1/12"
                       role="cell"
+                      :class="{ 'hidden sm:table-cell': !multiselect }"
                     >
-                      <input
-                        :id="`cb_${institution.id}`"
-                        v-model="selectionState[institution.id].checked"
-                        :name="`cb_${institution.id}`"
-                        type="checkbox"
-                        class="h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                      />
-                      <label :for="`cb_${institution.id}`" class="sr-only">{{
-                        institution.name
-                      }}</label>
+                      <template v-if="multiselect">
+                        <input
+                          :id="`select_cb_${institution.id}`"
+                          v-model="multiSelectionState[institution.id].checked"
+                          :name="`select_cb_${institution.id}`"
+                          type="checkbox"
+                          class="table__checkbox"
+                        />
+                        <label
+                          :for="`select_cb_${institution.id}`"
+                          class="sr-only"
+                          >{{ institution.name }}</label
+                        >
+                      </template>
+                      <template v-else>
+                        <input
+                          :id="`select_option-${institution.id}`"
+                          v-model="singleSelectionState"
+                          :name="`select_option`"
+                          type="radio"
+                          class="table__radio"
+                          :value="institution.id"
+                        />
+                        <label
+                          :for="`select_option-${institution.id}`"
+                          class="sr-only"
+                        >
+                          {{ institution.name }}
+                        </label>
+                      </template>
                     </td>
                     <td
                       role="cell"
@@ -95,12 +119,16 @@
                       :class="{
                         'bg-yellow-50': sortingState.field === 'active',
                         'w-2/12': multiselect,
-                        'w-3/12': !multiselect,
+                        'sm:w-3/12': !multiselect,
                       }"
                     >
                       <status-batch :active="institution.active"></status-batch>
                     </td>
-                    <td class="table_cell w-1/12 text-right" role="cell">
+                    <td
+                      class="table_cell w-1/12 text-right"
+                      :class="{ 'sm:hidden': !multiselect }"
+                      role="cell"
+                    >
                       <InlineActionsDropdown
                         :institution="institution"
                         @institution:change="updateInstitutionData"
@@ -384,5 +412,20 @@ export default {
     @apply font-medium;
     @apply text-gray-900;
   }
+}
+
+.table__checkbox {
+  @apply h-4;
+  @apply w-4;
+  @apply text-indigo-600;
+  @apply border-gray-300;
+  @apply rounded;
+}
+
+.table__radio {
+  @apply h-4;
+  @apply w-4;
+  @apply text-indigo-600;
+  @apply border-gray-300;
 }
 </style>
