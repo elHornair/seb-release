@@ -24,6 +24,14 @@
                 </caption>
                 <thead class="bg-gray-50" role="rowgroup">
                   <tr role="row">
+                    <th
+                      v-if="multiselect"
+                      scope="col"
+                      class="relative px-6 py-3"
+                    >
+                      <span class="sr-only">Selection</span>
+                    </th>
+
                     <table-head-field
                       v-for="(sortableField, index) in sortableFields"
                       :key="sortableField.field"
@@ -50,6 +58,24 @@
                     "
                   >
                     <td
+                      v-if="multiselect"
+                      class="table_cell w-1/12"
+                      role="cell"
+                    >
+                      <input
+                        :id="`cb_${institution.id}`"
+                        v-model="
+                          selectedInstitutionsState[institution.id].checked
+                        "
+                        :name="`cb_${institution.id}`"
+                        type="checkbox"
+                        class="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                      />
+                      <label :for="`cb_${institution.id}`" class="sr-only">{{
+                        institution.name
+                      }}</label>
+                    </td>
+                    <td
                       role="cell"
                       class="table_cell table_cell--bold w-4/12"
                       :class="{ 'bg-yellow-50': sortingState.field === 'name' }"
@@ -67,9 +93,11 @@
                     </td>
                     <td
                       role="cell"
-                      class="table_cell w-3/12"
+                      class="table_cell"
                       :class="{
                         'bg-yellow-50': sortingState.field === 'active',
+                        'w-2/12': multiselect,
+                        'w-3/12': !multiselect,
                       }"
                     >
                       <status-batch :active="institution.active"></status-batch>
@@ -120,6 +148,7 @@
               border-t border-gray-200
               sm:border-t-0 sm:pt-0
               xl:pb-4 xl:border-b
+              w-full
             "
           >
             <h3 class="text-sm font-medium text-gray-700 pb-1">Filtering</h3>
@@ -127,6 +156,7 @@
               label="Show Filters"
               type="button"
               :primary="true"
+              :full-xl="true"
               @click="handleFilterShow"
             >
               <template #icon>
@@ -136,16 +166,31 @@
             <Filters v-if="filtersVisible" @hide="handleFilterHide"></Filters>
           </div>
 
-          <div>
+          <div class="w-full">
             <h3 class="text-sm font-medium text-gray-700 pb-1">General</h3>
             <action-button
               v-if="showAddAction"
               label="Add institution"
               type="link"
+              :full-xl="true"
               :route-obj="{ name: 'institution-create' }"
+              class="sm:mr-2"
             >
               <template #icon>
                 <plus-circle-icon class="-ml-1 mr-2 h-5 w-5 text-white" />
+              </template>
+            </action-button>
+
+            <action-button
+              v-if="showBulkAction"
+              label="Bulk action"
+              type="button"
+              class="mt-2 xl:ml-0"
+              :full-xl="true"
+              @click="handleBulkActionClick"
+            >
+              <template #icon>
+                <ViewListIcon class="-ml-1 mr-2 h-5 w-5 text-white" />
               </template>
             </action-button>
           </div>
@@ -156,13 +201,14 @@
 </template>
 
 <script>
-import { reactive, ref, watch } from "vue";
+import { computed, reactive, ref, watch } from "vue";
 import { useAPI } from "@/composables/useAPI";
 import { useSorting } from "@/composables/useSorting";
 import { useFiltering } from "@/composables/useFiltering";
 import { useAccessControl } from "@/composables/useAccessControl";
 import { PlusCircleIcon } from "@heroicons/vue/solid";
 import { FilterIcon } from "@heroicons/vue/solid";
+import { ViewListIcon } from "@heroicons/vue/solid";
 import Pagination from "@/components/misc/Pagination";
 import TableHeadField from "@/components/table/TableHeadField";
 import ViewSplit from "@/components/layout/ViewSplit";
@@ -187,8 +233,15 @@ export default {
     StatusBatch,
     PlusCircleIcon,
     FilterIcon,
+    ViewListIcon,
   },
-  setup() {
+  props: {
+    multiselect: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  setup(props) {
     const { readInstitutions } = useAPI();
     const { sortingState, sortingApiParam, SORT_DIRECTION } = useSorting();
     const { filteringState, filteringApiParam } = useFiltering();
@@ -204,6 +257,50 @@ export default {
       totalPages: 0,
       currentPage: 0,
     });
+
+    const selectedInstitutionsState = reactive([]);
+    const selectedInstitutionsCounter = computed(() => {
+      return Object.keys(selectedInstitutionsState).filter((item) => {
+        return selectedInstitutionsState[item].checked;
+      }).length;
+    });
+    const showBulkAction = computed(
+      () => selectedInstitutionsCounter.value > 0
+    );
+
+    const handleBulkActionClick = () => {
+      alert(
+        `Do something with ${selectedInstitutionsCounter.value} selected item(s)`
+      );
+    };
+
+    const addSelectableInstitutions = (institutions) => {
+      if (props.multiselect) {
+        Object.assign(
+          selectedInstitutionsState,
+          institutions
+            .map((institution) => institution.id)
+            .reduce((all, institutionId) => {
+              all[institutionId] = {
+                checked:
+                  (selectedInstitutionsState[institutionId] &&
+                    selectedInstitutionsState[institutionId].checked) ||
+                  false,
+              };
+
+              return all;
+            }, {})
+        );
+      }
+    };
+
+    const unselectAllInstitutions = () => {
+      if (props.multiselect) {
+        Object.keys(selectedInstitutionsState).forEach((key) => {
+          selectedInstitutionsState[key] = { checked: false };
+        });
+      }
+    };
 
     const updateInstitutionData = async () => {
       const institutionData = await readInstitutions(
@@ -221,7 +318,14 @@ export default {
     };
 
     watch(sortingApiParam, () => updateInstitutionData());
-    watch(filteringApiParam, () => updateInstitutionData());
+    watch(filteringApiParam, async () => {
+      await updateInstitutionData();
+      unselectAllInstitutions();
+    });
+
+    watch(institutionsState, () => {
+      addSelectableInstitutions(institutionsState.institutions);
+    });
 
     updateInstitutionData();
 
@@ -231,8 +335,11 @@ export default {
       SORT_DIRECTION,
       filteringState,
       institutionsState,
+      selectedInstitutionsState,
       availablePrivileges,
       availableActions,
+      showBulkAction,
+      handleBulkActionClick,
       handleFilterShow,
       handleFilterHide,
       hasBasePrivilege,
