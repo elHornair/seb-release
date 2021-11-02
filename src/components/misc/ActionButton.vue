@@ -8,6 +8,7 @@
       'button--primary': primary,
       'button--secondary': !primary,
       'button--full': full,
+      'button--full-xl': fullXl,
     }"
   >
     <span aria-hidden="true">
@@ -37,6 +38,10 @@ export default {
       default: true,
     },
     full: {
+      type: Boolean,
+      default: false,
+    },
+    fullXl: {
       type: Boolean,
       default: false,
     },
@@ -75,6 +80,10 @@ export default {
 
 .button--full {
   @apply sm:w-full;
+}
+
+.button--full-xl {
+  @apply xl:w-full;
 }
 
 .button--primary {
