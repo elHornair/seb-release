@@ -25,9 +25,9 @@
                 <thead class="bg-gray-50" role="rowgroup">
                   <tr role="row">
                     <th
+                      v-if="multiselect"
                       scope="col"
                       class="relative px-6 py-3"
-                      :class="{ 'hidden sm:table-cell': !multiselect }"
                     >
                       <span class="sr-only">Selection</span>
                     </th>
@@ -41,11 +41,7 @@
                       :first-col="index === 0"
                     ></table-head-field>
 
-                    <th
-                      scope="col"
-                      class="relative px-6 py-3"
-                      :class="{ 'sm:hidden': !multiselect }"
-                    >
+                    <th scope="col" class="relative px-6 py-3">
                       <span class="sr-only">Actions</span>
                     </th>
                   </tr>
@@ -62,40 +58,22 @@
                     "
                   >
                     <td
+                      v-if="multiselect"
                       class="table_cell w-1/12"
                       role="cell"
-                      :class="{ 'hidden sm:table-cell': !multiselect }"
                     >
-                      <template v-if="multiselect">
-                        <input
-                          :id="`select_cb_${institution.id}`"
-                          v-model="multiSelectionState[institution.id].checked"
-                          :name="`select_cb_${institution.id}`"
-                          type="checkbox"
-                          class="table__checkbox"
-                        />
-                        <label
-                          :for="`select_cb_${institution.id}`"
-                          class="sr-only"
-                          >{{ institution.name }}</label
-                        >
-                      </template>
-                      <template v-else>
-                        <input
-                          :id="`select_option-${institution.id}`"
-                          v-model="singleSelectionState"
-                          :name="`select_option`"
-                          type="radio"
-                          class="table__radio"
-                          :value="institution.id"
-                        />
-                        <label
-                          :for="`select_option-${institution.id}`"
-                          class="sr-only"
-                        >
-                          {{ institution.name }}
-                        </label>
-                      </template>
+                      <input
+                        :id="`select_cb_${institution.id}`"
+                        v-model="multiSelectionState[institution.id].checked"
+                        :name="`select_cb_${institution.id}`"
+                        type="checkbox"
+                        class="table__checkbox"
+                      />
+                      <label
+                        :for="`select_cb_${institution.id}`"
+                        class="sr-only"
+                        >{{ institution.name }}</label
+                      >
                     </td>
                     <td
                       role="cell"
@@ -119,16 +97,12 @@
                       :class="{
                         'bg-yellow-50': sortingState.field === 'active',
                         'w-2/12': multiselect,
-                        'sm:w-3/12': !multiselect,
+                        'w-3/12': !multiselect,
                       }"
                     >
                       <status-batch :active="institution.active"></status-batch>
                     </td>
-                    <td
-                      class="table_cell w-1/12 text-right"
-                      :class="{ 'sm:hidden': !multiselect }"
-                      role="cell"
-                    >
+                    <td class="table_cell w-1/12 text-right" role="cell">
                       <InlineActionsDropdown
                         :institution="institution"
                         @institution:change="updateInstitutionData"
@@ -206,52 +180,6 @@
               </template>
             </action-button>
           </div>
-          <div
-            v-if="showActionsOnSelection"
-            class="w-full hidden sm:block space-y-2"
-          >
-            <h3 class="text-sm font-medium text-gray-700 pb-1">
-              Action on selection
-            </h3>
-            <action-button
-              label="View institution"
-              type="link"
-              :primary="false"
-              :full="true"
-              :route-obj="{
-                name: 'institution-view',
-                params: { id: singleSelectionState },
-              }"
-            >
-              <template #icon>
-                <SearchIcon
-                  class="-ml-1 mr-2 h-5 w-5 text-gray-700"
-                ></SearchIcon>
-              </template>
-            </action-button>
-            <action-button
-              label="Edit institution"
-              type="link"
-              :primary="false"
-              :full="true"
-              :route-obj="{
-                name: 'institution-edit',
-                params: { id: singleSelectionState },
-              }"
-            >
-              <template #icon>
-                <PencilAltIcon
-                  class="-ml-1 mr-2 h-5 w-5 text-gray-700"
-                ></PencilAltIcon>
-              </template>
-            </action-button>
-            <toggle-institution-status-action
-              v-if="singleSelectedInstitution"
-              :id="singleSelectionState"
-              :active="singleSelectedInstitution.active"
-              @institution:change="updateInstitutionData"
-            ></toggle-institution-status-action>
-          </div>
           <div v-if="showBulkActions" class="w-full">
             <h3 class="text-sm font-medium text-gray-700 pb-1">Bulk Actions</h3>
             <action-button
@@ -282,8 +210,6 @@ import { useAccessControl } from "@/composables/useAccessControl";
 import { PlusCircleIcon } from "@heroicons/vue/solid";
 import { FilterIcon } from "@heroicons/vue/solid";
 import { ViewListIcon } from "@heroicons/vue/solid";
-import { SearchIcon } from "@heroicons/vue/solid";
-import { PencilAltIcon } from "@heroicons/vue/solid";
 import Pagination from "@/components/misc/Pagination";
 import TableHeadField from "@/components/table/TableHeadField";
 import ViewSplit from "@/components/layout/ViewSplit";
@@ -293,14 +219,12 @@ import GeneralSortingDropdown from "@/components/table/GeneralSortingDropdown";
 import Filters from "@/components/filter/Filters";
 import ActiveFilters from "@/components/filter/ActiveFilters";
 import InlineActionsDropdown from "@/components/table/InlineActionsDropdown";
-import ToggleInstitutionStatusAction from "@/components/institution/ToggleInstitutionStatusAction";
 import { useRoute } from "vue-router";
 
 export default {
   name: "Institution",
   components: {
     InlineActionsDropdown,
-    ToggleInstitutionStatusAction,
     ActiveFilters,
     Filters,
     GeneralSortingDropdown,
@@ -312,8 +236,6 @@ export default {
     PlusCircleIcon,
     FilterIcon,
     ViewListIcon,
-    SearchIcon,
-    PencilAltIcon,
   },
   setup() {
     const route = useRoute();
@@ -329,27 +251,12 @@ export default {
     const handleFilterShow = () => (filtersVisible.value = true);
     const handleFilterHide = () => (filtersVisible.value = false);
     const multiselect = ref(route.query.multiselect !== undefined); // This is a query param for demo purposes only. In reality, the property will be defined by the entity at hand
-    const singleSelectionState = ref(undefined);
 
     const institutionsState = reactive({
       institutions: [],
       totalPages: 0,
       currentPage: 0,
     });
-
-    const singleSelectedInstitution = computed(() => {
-      if (multiselect.value || singleSelectionState.value === undefined) {
-        return undefined;
-      }
-
-      return institutionsState.institutions.find(
-        (institution) => institution.id === singleSelectionState.value
-      );
-    });
-
-    const showActionsOnSelection = computed(
-      () => !multiselect.value && singleSelectionState.value !== undefined
-    );
 
     const showBulkActions = computed(
       () => multiselect.value && selectedCounter.value > 0
@@ -399,12 +306,9 @@ export default {
       SORT_DIRECTION,
       filteringState,
       institutionsState,
-      singleSelectionState,
-      singleSelectedInstitution,
       multiSelectionState,
       availablePrivileges,
       availableActions,
-      showActionsOnSelection,
       showBulkActions,
       multiselect,
       handleBulkActionClick,
