@@ -92,7 +92,10 @@
                       class="table_cell table_cell--bold sm:w-4/12"
                       :class="{ 'bg-yellow-50': sortingState.field === 'name' }"
                     >
-                      {{ institution.name }}
+                      <span class="table__cell__label">Name</span>
+                      <span class="table__cell__content">{{
+                        institution.name
+                      }}</span>
                     </td>
                     <td
                       role="cell"
@@ -101,7 +104,10 @@
                         'bg-yellow-50': sortingState.field === 'urlSuffix',
                       }"
                     >
-                      {{ institution.urlSuffix }}
+                      <span class="table__cell__label">URL Suffix</span>
+                      <span class="table__cell__content">{{
+                        institution.urlSuffix
+                      }}</span>
                     </td>
                     <td
                       role="cell"
@@ -112,7 +118,12 @@
                         'sm:w-3/12': !multiselect,
                       }"
                     >
-                      <status-batch :active="institution.active"></status-batch>
+                      <span class="table__cell__label">Status</span>
+                      <span class="table__cell__content"
+                        ><status-batch
+                          :active="institution.active"
+                        ></status-batch
+                      ></span>
                     </td>
                     <td class="table_cell sm:w-1/12 sm:text-right" role="cell">
                       <InlineActionsDropdown
@@ -384,14 +395,36 @@ export default {
 
 <style lang="scss" scoped>
 .table_cell {
-  @apply block;
-  @apply sm:table-cell;
+  @apply flex;
   @apply relative;
   @apply px-6;
-  @apply py-4;
+  @apply py-2;
   @apply whitespace-nowrap;
   @apply text-sm;
   @apply text-gray-500;
+  @apply sm:table-cell;
+  @apply sm:py-4;
+
+  .table__cell__label {
+    @apply text-xs;
+    @apply font-medium;
+    @apply text-gray-900;
+    @apply uppercase;
+    @apply tracking-wider;
+
+    padding-top: 0.16rem;
+    @apply pr-2;
+    min-width: 5rem;
+    @apply sm:hidden;
+
+    &::after {
+      content: ":";
+    }
+  }
+
+  .table__cell__content {
+    @apply flex-grow;
+  }
 
   &.table_cell--bold {
     @apply font-medium;
