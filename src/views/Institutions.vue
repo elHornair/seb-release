@@ -21,14 +21,20 @@
                 sm:rounded-lg
               "
             >
-              <table class="min-w-full divide-y divide-gray-200" role="table">
+              <table
+                class="block sm:table min-w-full divide-y divide-gray-200"
+                role="table"
+              >
                 <caption id="table_caption" class="sr-only">
                   {{
                     caption
                   }}
                 </caption>
-                <thead class="bg-gray-50" role="rowgroup">
-                  <tr role="row">
+                <thead
+                  class="hidden sm:table-header-group bg-gray-50"
+                  role="rowgroup"
+                >
+                  <tr role="row" class="hidden sm:table-row">
                     <th
                       v-if="multiselect"
                       scope="col"
@@ -51,20 +57,21 @@
                     </th>
                   </tr>
                 </thead>
-                <tbody role="rowgroup">
+                <tbody role="rowgroup" class="block sm:table-row-group">
                   <tr
                     v-for="(
                       institution, institutionIndex
                     ) in institutionsState.institutions"
                     :key="institution.id"
                     role="row"
+                    class="block sm:table-row"
                     :class="
                       institutionIndex % 2 === 0 ? 'bg-white' : 'bg-gray-50'
                     "
                   >
                     <td
                       v-if="multiselect"
-                      class="table_cell w-1/12"
+                      class="table_cell sm:w-1/12"
                       role="cell"
                     >
                       <input
@@ -82,14 +89,14 @@
                     </td>
                     <td
                       role="cell"
-                      class="table_cell table_cell--bold w-4/12"
+                      class="table_cell table_cell--bold sm:w-4/12"
                       :class="{ 'bg-yellow-50': sortingState.field === 'name' }"
                     >
                       {{ institution.name }}
                     </td>
                     <td
                       role="cell"
-                      class="table_cell w-4/12"
+                      class="table_cell sm:w-4/12"
                       :class="{
                         'bg-yellow-50': sortingState.field === 'urlSuffix',
                       }"
@@ -101,13 +108,13 @@
                       class="table_cell"
                       :class="{
                         'bg-yellow-50': sortingState.field === 'active',
-                        'w-2/12': multiselect,
-                        'w-3/12': !multiselect,
+                        'sm:w-2/12': multiselect,
+                        'sm:w-3/12': !multiselect,
                       }"
                     >
                       <status-batch :active="institution.active"></status-batch>
                     </td>
-                    <td class="table_cell w-1/12 text-right" role="cell">
+                    <td class="table_cell sm:w-1/12 sm:text-right" role="cell">
                       <InlineActionsDropdown
                         :institution="institution"
                         @institution:change="updateInstitutionData"
@@ -377,6 +384,8 @@ export default {
 
 <style lang="scss" scoped>
 .table_cell {
+  @apply block;
+  @apply sm:table-cell;
   @apply relative;
   @apply px-6;
   @apply py-4;
