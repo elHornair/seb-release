@@ -2,12 +2,12 @@
   <div>
     <label
       :for="name"
-      class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+      class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-5"
     >
       {{ label
       }}<span v-if="required" aria-hidden="true" class="text-red-700">*</span>
     </label>
-    <div class="mt-1 sm:mt-0 sm:col-span-2">
+    <div class="sm:col-span-2">
       <input
         :id="name"
         :name="name"
@@ -17,7 +17,15 @@
         :maxlength="maxLength"
         type="text"
         autocomplete="off"
-        class="block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+        class="
+          block
+          w-full
+          mt-1
+          shadow-sm
+          border-gray-300
+          rounded-md
+          sm:mt-3 sm:text-sm
+        "
         @input="$emit('update:modelValue', $event.target.value)"
       />
     </div>
