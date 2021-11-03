@@ -183,14 +183,13 @@
           <div v-if="showBulkActions" class="w-full">
             <h3 class="text-sm font-medium text-gray-700 pb-1">Bulk Actions</h3>
             <action-button
-              label="Bulk action"
+              label="Delete Selected"
               type="button"
-              class="mt-2 xl:ml-0"
               :full-xl="true"
               @click="handleBulkActionClick"
             >
               <template #icon>
-                <ViewListIcon class="-ml-1 mr-2 h-5 w-5 text-white" />
+                <DocumentRemoveIcon class="-ml-1 mr-2 h-5 w-5 text-white" />
               </template>
             </action-button>
           </div>
@@ -209,7 +208,7 @@ import { useMultiselect } from "@/composables/useMultiselect";
 import { useAccessControl } from "@/composables/useAccessControl";
 import { PlusCircleIcon } from "@heroicons/vue/solid";
 import { FilterIcon } from "@heroicons/vue/solid";
-import { ViewListIcon } from "@heroicons/vue/solid";
+import { DocumentRemoveIcon } from "@heroicons/vue/solid";
 import Pagination from "@/components/misc/Pagination";
 import TableHeadField from "@/components/table/TableHeadField";
 import ViewSplit from "@/components/layout/ViewSplit";
@@ -235,7 +234,7 @@ export default {
     StatusBatch,
     PlusCircleIcon,
     FilterIcon,
-    ViewListIcon,
+    DocumentRemoveIcon,
   },
   setup() {
     const route = useRoute();
@@ -263,7 +262,7 @@ export default {
     );
 
     const handleBulkActionClick = () => {
-      alert(`Do something with ${selectedCounter.value} selected item(s)`);
+      alert(`This will delete ${selectedCounter.value} selected item(s)`);
     };
 
     const updateInstitutionData = async () => {
