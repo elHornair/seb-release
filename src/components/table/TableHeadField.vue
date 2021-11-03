@@ -80,7 +80,8 @@ export default {
 
 .table_head_field__text {
   @apply pr-1;
-  @apply text-left text-xs;
+  @apply text-left;
+  @apply text-xs;
   @apply font-medium;
   @apply uppercase;
   @apply tracking-wider;
