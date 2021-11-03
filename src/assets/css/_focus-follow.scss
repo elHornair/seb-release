@@ -14,6 +14,9 @@ textarea {
 *:focus {
   outline-color: theme('colors.gray.800') !important;
   outline-offset: 1px;
+}
+
+input:focus {
   box-shadow: none !important;
 }
 
