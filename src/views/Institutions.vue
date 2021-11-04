@@ -84,7 +84,7 @@
                       <label
                         :for="`select_cb_${institution.id}`"
                         class="sr-only"
-                        >{{ institution.name }}</label
+                        >Select this institution</label
                       >
                     </td>
                     <td
