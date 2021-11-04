@@ -92,7 +92,9 @@
                       class="table_cell table_cell--bold sm:w-4/12"
                       :class="{ 'bg-yellow-50': sortingState.field === 'name' }"
                     >
-                      <span class="table__cell__label">Name</span>
+                      <span class="table__cell__label"
+                        >Name<span :aria-hidden="true">:</span></span
+                      >
                       <span class="table__cell__content">{{
                         institution.name
                       }}</span>
@@ -416,10 +418,6 @@ export default {
     @apply pr-2;
     min-width: 5rem;
     @apply sm:hidden;
-
-    &::after {
-      content: ":";
-    }
   }
 
   .table__cell__content {
