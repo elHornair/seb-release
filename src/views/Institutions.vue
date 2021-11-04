@@ -402,7 +402,7 @@ export default {
   @apply relative;
   @apply px-6;
   @apply py-2;
-  @apply whitespace-nowrap;
+  @apply sm:whitespace-nowrap;
   @apply text-sm;
   @apply text-left;
   @apply text-gray-500;
