@@ -87,9 +87,10 @@
                         >Select this institution</label
                       >
                     </td>
-                    <td
-                      role="cell"
-                      class="table_cell table_cell--bold sm:w-4/12"
+                    <th
+                      role="rowheader"
+                      scope="row"
+                      class="table_cell table_cell--header sm:w-4/12"
                       :class="{ 'bg-yellow-50': sortingState.field === 'name' }"
                     >
                       <span class="table__cell__label"
@@ -98,7 +99,7 @@
                       <span class="table__cell__content">{{
                         institution.name
                       }}</span>
-                    </td>
+                    </th>
                     <td
                       role="cell"
                       class="table_cell sm:w-4/12"
@@ -403,6 +404,7 @@ export default {
   @apply py-2;
   @apply whitespace-nowrap;
   @apply text-sm;
+  @apply text-left;
   @apply text-gray-500;
   @apply sm:table-cell;
   @apply sm:py-4;
@@ -424,7 +426,7 @@ export default {
     @apply flex-grow;
   }
 
-  &.table_cell--bold {
+  &.table_cell--header {
     @apply font-medium;
     @apply text-gray-900;
   }
