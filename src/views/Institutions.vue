@@ -109,7 +109,9 @@
                         'bg-yellow-50': sortingState.field === 'urlSuffix',
                       }"
                     >
-                      <span class="table__cell__label">URL Suffix</span>
+                      <span class="table__cell__label"
+                        >URL Suffix<span :aria-hidden="true">:</span></span
+                      >
                       <span class="table__cell__content">{{
                         institution.urlSuffix
                       }}</span>
@@ -123,7 +125,9 @@
                         'sm:w-3/12': !multiselect,
                       }"
                     >
-                      <span class="table__cell__label">Status</span>
+                      <span class="table__cell__label"
+                        >Status<span :aria-hidden="true">:</span></span
+                      >
                       <span class="table__cell__content"
                         ><status-batch
                           :active="institution.active"
@@ -442,7 +446,7 @@ export default {
 
     padding-top: 0.16rem;
     @apply pr-2;
-    min-width: 5rem;
+    min-width: 5.5rem;
     @apply sm:hidden;
   }
 
