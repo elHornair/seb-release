@@ -64,14 +64,16 @@
                     ) in institutionsState.institutions"
                     :key="institution.id"
                     role="row"
-                    class="block sm:table-row"
-                    :class="
-                      institutionIndex % 2 === 0 ? 'bg-white' : 'bg-gray-50'
-                    "
+                    class="table_row"
+                    :class="{
+                      'table_row--multiselect': multiselect,
+                      'bg-white': institutionIndex % 2 === 0,
+                      'bg-gray-50': institutionIndex % 2 !== 0,
+                    }"
                   >
                     <td
                       v-if="multiselect"
-                      class="table_cell sm:w-1/12"
+                      class="table_cell table_cell--break-out-left sm:w-1/12"
                       role="cell"
                     >
                       <input
@@ -128,7 +130,13 @@
                         ></status-batch
                       ></span>
                     </td>
-                    <td class="table_cell sm:w-1/12 sm:text-right" role="cell">
+                    <td
+                      class="
+                        table_cell table_cell--break-out-right
+                        sm:w-1/12 sm:text-right
+                      "
+                      role="cell"
+                    >
                       <InlineActionsDropdown
                         :institution="institution"
                         @institution:change="updateInstitutionData"
@@ -397,16 +405,32 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.table_row {
+  @apply block;
+  @apply relative;
+  @apply pr-8;
+  @apply py-3;
+  @apply sm:table-row;
+  @apply sm:pr-0;
+  @apply sm:py-0;
+
+  &.table_row--multiselect {
+    @apply pl-10;
+    @apply sm:pl-0;
+  }
+}
+
 .table_cell {
   @apply flex;
   @apply relative;
-  @apply px-6;
+  @apply px-2;
   @apply py-2;
   @apply sm:whitespace-nowrap;
   @apply text-sm;
   @apply text-left;
   @apply text-gray-500;
   @apply sm:table-cell;
+  @apply sm:px-6;
   @apply sm:py-4;
 
   .table__cell__label {
@@ -429,6 +453,26 @@ export default {
   &.table_cell--header {
     @apply font-medium;
     @apply text-gray-900;
+  }
+
+  &.table_cell--break-out-left {
+    @apply absolute;
+    @apply top-3.5;
+    @apply left-2;
+    @apply sm:relative;
+    @apply sm:top-auto;
+    @apply sm:left-auto;
+    @apply sm:px-6;
+  }
+
+  &.table_cell--break-out-right {
+    @apply absolute;
+    @apply top-3;
+    @apply right-0;
+    @apply sm:relative;
+    @apply sm:top-auto;
+    @apply sm:right-auto;
+    @apply sm:px-6;
   }
 }
 
