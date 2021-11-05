@@ -483,11 +483,4 @@ export default {
   @apply border-gray-300;
   @apply rounded;
 }
-
-.table__radio {
-  @apply h-4;
-  @apply w-4;
-  @apply text-indigo-600;
-  @apply border-gray-300;
-}
 </style>
