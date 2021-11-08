@@ -1,6 +1,5 @@
 <template>
   <th
-    role="columnheader"
     scope="col"
     class="table_head_field"
     :class="{ 'bg-yellow-100': isSorted }"
