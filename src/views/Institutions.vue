@@ -27,8 +27,8 @@
 
                   <table-head-field
                     v-for="(field, index) in fields"
-                    :key="field.field"
-                    :field-name="field.field"
+                    :key="field.name"
+                    :field-name="field.name"
                     :label="field.label"
                     :first-col="index === 0"
                   ></table-head-field>
@@ -66,46 +66,25 @@
                       >Select this institution</label
                     >
                   </td>
-                  <th
-                    scope="row"
-                    class="table_cell table_cell--header sm:w-4/12"
-                    :class="{ 'bg-yellow-50': sortingState.field === 'name' }"
-                  >
-                    <span class="table__cell__label"
-                      >Name<span :aria-hidden="true">:</span></span
-                    >
-                    <span class="table__cell__content">{{
-                      institution.name
-                    }}</span>
-                  </th>
-                  <td
-                    class="table_cell sm:w-4/12"
-                    :class="{
-                      'bg-yellow-50': sortingState.field === 'urlSuffix',
-                    }"
-                  >
-                    <span class="table__cell__label"
-                      >URL Suffix<span :aria-hidden="true">:</span></span
-                    >
-                    <span class="table__cell__content">{{
-                      institution.urlSuffix
-                    }}</span>
-                  </td>
-                  <td
+                  <TableContentField
+                    v-for="field in fields"
+                    :key="`${institutionIndex}_${field.name}`"
                     class="table_cell"
-                    :class="{
-                      'bg-yellow-50': sortingState.field === 'active',
-                      'sm:w-2/12': multiselect,
-                      'sm:w-3/12': !multiselect,
-                    }"
+                    :label="field.label"
+                    :field-name="field.name"
+                    :width="field.width"
+                    :is-header="field.isMain"
                   >
-                    <span class="table__cell__label"
-                      >Status<span :aria-hidden="true">:</span></span
-                    >
-                    <span class="table__cell__content"
-                      ><status-batch :active="institution.active"></status-batch
-                    ></span>
-                  </td>
+                    <template v-if="field.renderContentAs">
+                      <component
+                        :is="field.renderContentAs"
+                        :value="institution[field.name]"
+                      ></component>
+                    </template>
+                    <template v-else>
+                      {{ institution[field.name] }}
+                    </template>
+                  </TableContentField>
                   <td
                     class="
                       table_cell table_cell--break-out-right
@@ -227,10 +206,12 @@ import GeneralSortingDropdown from "@/components/table/GeneralSortingDropdown";
 import Filters from "@/components/filter/Filters";
 import ActiveFilters from "@/components/filter/ActiveFilters";
 import InlineActionsDropdown from "@/components/table/InlineActionsDropdown";
+import TableContentField from "@/components/table/TableContentField";
 
 export default {
   name: "Institution",
   components: {
+    TableContentField,
     InlineActionsDropdown,
     ActiveFilters,
     Filters,
@@ -329,16 +310,23 @@ export default {
     return {
       fields: [
         {
-          field: "name",
+          name: "name",
           label: "Name",
+          width: "4/12",
+          isMain: true,
         },
         {
-          field: "urlSuffix",
+          name: "urlSuffix",
           label: "URL Suffix",
+          width: "4/12",
+          isMain: false,
         },
         {
-          field: "active",
+          name: "active",
           label: "Status",
+          width: "2/12",
+          isMain: false,
+          renderContentAs: "StatusBatch",
         },
       ],
     };
@@ -399,6 +387,7 @@ export default {
   @apply relative;
   @apply px-2;
   @apply py-2;
+  @apply font-normal;
   @apply text-sm;
   @apply text-left;
   @apply align-top;
@@ -406,28 +395,6 @@ export default {
   @apply sm:table-cell;
   @apply sm:px-6;
   @apply sm:py-4;
-
-  .table__cell__label {
-    @apply text-xs;
-    @apply font-medium;
-    @apply text-gray-900;
-    @apply uppercase;
-    @apply tracking-wider;
-
-    padding-top: 0.16rem;
-    @apply pr-2;
-    min-width: 5.5rem;
-    @apply sm:hidden;
-  }
-
-  .table__cell__content {
-    @apply flex-grow;
-  }
-
-  &.table_cell--header {
-    @apply font-medium;
-    @apply text-gray-900;
-  }
 
   &.table_cell--break-out-left {
     @apply absolute;

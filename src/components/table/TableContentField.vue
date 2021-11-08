@@ -1,0 +1,84 @@
+<template>
+  <component
+    :is="isHeader ? 'th' : 'td'"
+    scope="row"
+    :class="{
+      'bg-yellow-50': isSorted,
+      [widthClass]: true,
+    }"
+  >
+    <span class="label">{{ label }}<span :aria-hidden="true">:</span></span>
+    <span
+      :class="{
+        content: true,
+        'content--header': isHeader,
+      }"
+      ><slot></slot
+    ></span>
+  </component>
+</template>
+
+<script>
+import { useSorting } from "@/composables/useSorting";
+import { computed } from "vue";
+
+export default {
+  name: "TableContentField",
+  props: {
+    label: {
+      type: String,
+      required: true,
+    },
+    fieldName: {
+      type: String,
+      required: true,
+    },
+    width: {
+      type: String,
+      required: false,
+      default: "4/12",
+    },
+    isHeader: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+  },
+  setup(props) {
+    const { sortingState } = useSorting();
+
+    return {
+      isSorted: computed(() => sortingState.field === props.fieldName),
+    };
+  },
+  computed: {
+    widthClass() {
+      return `sm:w-${this.width}`;
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.label {
+  @apply text-xs;
+  @apply font-medium;
+  @apply text-gray-900;
+  @apply uppercase;
+  @apply tracking-wider;
+
+  padding-top: 0.16rem;
+  @apply pr-2;
+  min-width: 5.5rem;
+  @apply sm:hidden;
+}
+
+.content {
+  @apply flex-grow;
+
+  &.content--header {
+    @apply font-medium;
+    @apply text-gray-900;
+  }
+}
+</style>

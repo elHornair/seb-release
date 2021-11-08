@@ -2,8 +2,8 @@
   <span
     class="batch"
     :class="{
-      'batch--active': active,
-      'batch--inactive': !active,
+      'batch--active': value,
+      'batch--inactive': !value,
     }"
   >
     {{ label }}
@@ -11,18 +11,18 @@
 </template>
 
 <script>
+import { computed } from "vue";
+
 export default {
   name: "StatusBatch",
   props: {
-    active: {
+    value: {
       type: Boolean,
       required: true,
     },
   },
-  computed: {
-    label() {
-      return this.active ? "Active" : "Inactive";
-    },
+  setup(props) {
+    return { label: computed(() => (props.value ? "Active" : "Inactive")) };
   },
 };
 </script>

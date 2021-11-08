@@ -10,11 +10,11 @@
         autocomplete="off"
         class="select"
       >
-        <template v-for="field in fields" :key="field.field">
-          <option :value="createSortingValue(field.field, SORT_DIRECTION.DSC)">
+        <template v-for="field in fields" :key="field.name">
+          <option :value="createSortingValue(field.name, SORT_DIRECTION.DSC)">
             By {{ field.label }} A to Z
           </option>
-          <option :value="createSortingValue(field.field, SORT_DIRECTION.ASC)">
+          <option :value="createSortingValue(field.name, SORT_DIRECTION.ASC)">
             By {{ field.label }} Z to A
           </option>
         </template>
