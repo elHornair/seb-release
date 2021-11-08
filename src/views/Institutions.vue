@@ -13,20 +13,14 @@
           class="overflow-x-auto shadow border-b border-gray-200 sm:rounded-lg"
         >
           <div class="align-middle inline-block min-w-full overflow-hidden">
-            <table
-              class="block sm:table min-w-full divide-y divide-gray-200"
-              role="table"
-            >
+            <table class="block sm:table min-w-full divide-y divide-gray-200">
               <caption id="table_caption" class="sr-only">
                 {{
                   caption
                 }}
               </caption>
-              <thead
-                class="hidden sm:table-header-group bg-gray-50"
-                role="rowgroup"
-              >
-                <tr role="row" class="hidden sm:table-row">
+              <thead class="hidden sm:table-header-group bg-gray-50">
+                <tr class="hidden sm:table-row">
                   <th v-if="multiselect" scope="col" class="relative px-6 py-3">
                     <span class="sr-only">Selection</span>
                   </th>
@@ -45,13 +39,12 @@
                   </th>
                 </tr>
               </thead>
-              <tbody role="rowgroup" class="block sm:table-row-group">
+              <tbody class="block sm:table-row-group">
                 <tr
                   v-for="(
                     institution, institutionIndex
                   ) in institutionsState.institutions"
                   :key="institution.id"
-                  role="row"
                   class="table_row"
                   :class="{
                     'table_row--multiselect': multiselect,
@@ -62,7 +55,6 @@
                   <td
                     v-if="multiselect"
                     class="table_cell table_cell--break-out-left sm:w-1/12"
-                    role="cell"
                   >
                     <input
                       :id="`select_cb_${institution.id}`"
@@ -76,7 +68,6 @@
                     >
                   </td>
                   <th
-                    role="rowheader"
                     scope="row"
                     class="table_cell table_cell--header sm:w-4/12"
                     :class="{ 'bg-yellow-50': sortingState.field === 'name' }"
@@ -89,7 +80,6 @@
                     }}</span>
                   </th>
                   <td
-                    role="cell"
                     class="table_cell sm:w-4/12"
                     :class="{
                       'bg-yellow-50': sortingState.field === 'urlSuffix',
@@ -103,7 +93,6 @@
                     }}</span>
                   </td>
                   <td
-                    role="cell"
                     class="table_cell"
                     :class="{
                       'bg-yellow-50': sortingState.field === 'active',
@@ -123,7 +112,6 @@
                       table_cell table_cell--break-out-right
                       sm:w-1/12 sm:text-right
                     "
-                    role="cell"
                   >
                     <InlineActionsDropdown
                       :institution="institution"
