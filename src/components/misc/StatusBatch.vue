@@ -31,6 +31,7 @@ export default {
 .batch {
   @apply inline-flex;
   @apply items-center;
+  @apply -my-0.5;
   @apply px-3;
   @apply py-0.5;
   @apply rounded-full;

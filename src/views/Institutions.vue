@@ -412,9 +412,9 @@ export default {
   @apply relative;
   @apply px-2;
   @apply py-2;
-  @apply sm:whitespace-nowrap;
   @apply text-sm;
   @apply text-left;
+  @apply align-top;
   @apply text-gray-500;
   @apply sm:table-cell;
   @apply sm:px-6;
