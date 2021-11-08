@@ -24,6 +24,11 @@ const addOptions = (optionIds) => {
   );
 };
 
+const selectAllVisible = () => {
+  // TODO: implement (first I need to know them somehow)
+  console.log("TODO: select all visible");
+};
+
 const unselectAll = () => {
   Object.keys(multiSelectionState).forEach((key) => {
     multiSelectionState[key] = { checked: false };
@@ -35,6 +40,7 @@ export const useMultiselect = () => {
     multiSelectionState,
     selectedCounter,
     addOptions,
+    selectAllVisible,
     unselectAll,
   };
 };

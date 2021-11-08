@@ -25,6 +25,7 @@
                 <tr class="hidden sm:table-row">
                   <th v-if="multiselect" scope="col" class="relative px-6 py-3">
                     <span class="sr-only">Selection</span>
+                    <MultiselectDropdown></MultiselectDropdown>
                   </th>
 
                   <table-head-field
@@ -209,10 +210,12 @@ import Filters from "@/components/filter/Filters";
 import ActiveFilters from "@/components/filter/ActiveFilters";
 import InlineActionsDropdown from "@/components/table/InlineActionsDropdown";
 import TableContentField from "@/components/table/TableContentField";
+import MultiselectDropdown from "@/components/table/MultiselectDropdown";
 
 export default {
   name: "Institution",
   components: {
+    MultiselectDropdown,
     TableContentField,
     InlineActionsDropdown,
     ActiveFilters,
