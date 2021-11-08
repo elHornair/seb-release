@@ -246,6 +246,13 @@ export default {
       currentPage: 0,
     });
 
+    const showAddAction = () => {
+      return this.hasBasePrivilege(
+        this.availablePrivileges.INSTITUTION,
+        this.availableActions.WRITE
+      );
+    };
+
     const showBulkActions = computed(
       () => multiselect.value && selectedCounter.value > 0
     );
@@ -297,6 +304,7 @@ export default {
       multiSelectionState,
       availablePrivileges,
       availableActions,
+      showAddAction,
       showBulkActions,
       multiselect,
       handleBulkActionClick,
@@ -304,10 +312,6 @@ export default {
       handleFilterHide,
       hasBasePrivilege,
       updateInstitutionData,
-    };
-  },
-  data() {
-    return {
       fields: [
         {
           name: "name",
@@ -332,12 +336,6 @@ export default {
     };
   },
   computed: {
-    showAddAction() {
-      return this.hasBasePrivilege(
-        this.availablePrivileges.INSTITUTION,
-        this.availableActions.WRITE
-      );
-    },
     caption() {
       let currentSortingInfo;
       let currentFilteringInfo = Object.keys(this.filteringState)
