@@ -26,10 +26,10 @@
                   </th>
 
                   <table-head-field
-                    v-for="(sortableField, index) in sortableFields"
-                    :key="sortableField.field"
-                    :field-name="sortableField.field"
-                    :label="sortableField.label"
+                    v-for="(field, index) in fields"
+                    :key="field.field"
+                    :field-name="field.field"
+                    :label="field.label"
                     :first-col="index === 0"
                   ></table-head-field>
 
@@ -147,7 +147,7 @@
               xl:pb-4 xl:border-b
               sm:sr-only
             "
-            :fields="sortableFields"
+            :fields="fields"
           ></GeneralSortingDropdown>
 
           <div
@@ -327,7 +327,7 @@ export default {
   },
   data() {
     return {
-      sortableFields: [
+      fields: [
         {
           field: "name",
           label: "Name",
