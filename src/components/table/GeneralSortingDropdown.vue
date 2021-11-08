@@ -1,8 +1,7 @@
 <template>
   <div>
-    <label for="sorting" class="label">
-      <h3>Sorting</h3>
-    </label>
+    <h3 class="title">Sorting</h3>
+    <label for="sorting" class="sr-only">Sorting</label>
     <div class="mt-1">
       <select
         id="sorting"
@@ -19,7 +18,7 @@
             By {{ field.label }} Z to A
           </option>
         </template>
-        <option :value="NO_SORTING" default>No Sorting</option>
+        <option :value="NO_SORTING">No Sorting</option>
       </select>
     </div>
   </div>
@@ -79,7 +78,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-label {
+.title {
   @apply block;
   @apply text-sm;
   @apply font-medium;
