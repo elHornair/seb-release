@@ -30,7 +30,6 @@
                     :key="sortableField.field"
                     :field-name="sortableField.field"
                     :label="sortableField.label"
-                    :use-dropdown="sortableField.useDropdown"
                     :first-col="index === 0"
                   ></table-head-field>
 
