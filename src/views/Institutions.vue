@@ -6,6 +6,7 @@
       <div
         class="flex flex-col"
         role="region"
+        aria-describedby="table_description"
         aria-labelledby="table_caption"
         tabindex="0"
       >
@@ -13,10 +14,11 @@
           class="overflow-x-auto shadow border-b border-gray-200 sm:rounded-lg"
         >
           <div class="align-middle inline-block min-w-full overflow-hidden">
+            <p id="table_description" class="sr-only">{{ tableDescription }}</p>
             <table class="block sm:table min-w-full divide-y divide-gray-200">
               <caption id="table_caption" class="sr-only">
                 {{
-                  caption
+                  tableCaption
                 }}
               </caption>
               <thead class="hidden sm:table-header-group bg-gray-50">
@@ -261,6 +263,30 @@ export default {
       alert(`This will delete ${selectedCounter.value} selected item(s)`);
     };
 
+    const tableCaption = "List of institutions";
+    const tableDescription = computed(() => {
+      let currentSortingInfo;
+      let currentFilteringInfo = Object.keys(filteringState)
+        .filter((fieldKey) => filteringState[fieldKey] !== null)
+        .join(", ");
+
+      if (currentFilteringInfo) {
+        currentFilteringInfo = `Currently filtered by ${currentFilteringInfo}`;
+      } else {
+        currentFilteringInfo = "Currently not filtered";
+      }
+
+      if (sortingState.field) {
+        currentSortingInfo = `Currently sorted by ${sortingState.field} ${
+          sortingState.direction === SORT_DIRECTION.ASC ? "Z to A" : "A to Z"
+        }`;
+      } else {
+        currentSortingInfo = "Currently not sorted";
+      }
+
+      return `${tableCaption}. ${currentFilteringInfo}. ${currentSortingInfo}. Go to actions landmark to adapt filtering and sorting.`;
+    });
+
     const updateInstitutionData = async () => {
       const institutionData = await readInstitutions(
         {
@@ -304,9 +330,11 @@ export default {
       multiSelectionState,
       availablePrivileges,
       availableActions,
-      showAddAction,
       showBulkActions,
       multiselect,
+      tableCaption,
+      tableDescription,
+      showAddAction,
       handleBulkActionClick,
       handleFilterShow,
       handleFilterHide,
@@ -334,32 +362,6 @@ export default {
         },
       ],
     };
-  },
-  computed: {
-    caption() {
-      let currentSortingInfo;
-      let currentFilteringInfo = Object.keys(this.filteringState)
-        .filter((fieldKey) => this.filteringState[fieldKey] !== null)
-        .join(", ");
-
-      if (currentFilteringInfo) {
-        currentFilteringInfo = `Currently filtered by ${currentFilteringInfo}`;
-      } else {
-        currentFilteringInfo = "Currently not filtered";
-      }
-
-      if (this.sortingState.field) {
-        currentSortingInfo = `Currently sorted by ${this.sortingState.field} ${
-          this.sortingState.direction === this.SORT_DIRECTION.ASC
-            ? "Z to A"
-            : "A to Z"
-        }`;
-      } else {
-        currentSortingInfo = "Currently not sorted";
-      }
-
-      return `List of institutions. ${currentFilteringInfo}. ${currentSortingInfo}. Go to actions landmark to adapt filtering and sorting.`;
-    },
   },
 };
 </script>
