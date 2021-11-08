@@ -9,151 +9,134 @@
         aria-labelledby="table_caption"
         tabindex="0"
       >
-        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div
-            class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8"
-          >
-            <div
-              class="
-                shadow
-                overflow-hidden
-                border-b border-gray-200
-                sm:rounded-lg
-              "
+        <div
+          class="overflow-x-auto shadow border-b border-gray-200 sm:rounded-lg"
+        >
+          <div class="align-middle inline-block min-w-full overflow-hidden">
+            <table
+              class="block sm:table min-w-full divide-y divide-gray-200"
+              role="table"
             >
-              <table
-                class="block sm:table min-w-full divide-y divide-gray-200"
-                role="table"
+              <caption id="table_caption" class="sr-only">
+                {{
+                  caption
+                }}
+              </caption>
+              <thead
+                class="hidden sm:table-header-group bg-gray-50"
+                role="rowgroup"
               >
-                <caption id="table_caption" class="sr-only">
-                  {{
-                    caption
-                  }}
-                </caption>
-                <thead
-                  class="hidden sm:table-header-group bg-gray-50"
-                  role="rowgroup"
+                <tr role="row" class="hidden sm:table-row">
+                  <th v-if="multiselect" scope="col" class="relative px-6 py-3">
+                    <span class="sr-only">Selection</span>
+                  </th>
+
+                  <table-head-field
+                    v-for="(sortableField, index) in sortableFields"
+                    :key="sortableField.field"
+                    :field-name="sortableField.field"
+                    :label="sortableField.label"
+                    :use-dropdown="sortableField.useDropdown"
+                    :first-col="index === 0"
+                  ></table-head-field>
+
+                  <th scope="col" class="relative px-6 py-3">
+                    <span class="sr-only">Actions</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody role="rowgroup" class="block sm:table-row-group">
+                <tr
+                  v-for="(
+                    institution, institutionIndex
+                  ) in institutionsState.institutions"
+                  :key="institution.id"
+                  role="row"
+                  class="table_row"
+                  :class="{
+                    'table_row--multiselect': multiselect,
+                    'bg-white': institutionIndex % 2 === 0,
+                    'bg-gray-50': institutionIndex % 2 !== 0,
+                  }"
                 >
-                  <tr role="row" class="hidden sm:table-row">
-                    <th
-                      v-if="multiselect"
-                      scope="col"
-                      class="relative px-6 py-3"
+                  <td
+                    v-if="multiselect"
+                    class="table_cell table_cell--break-out-left sm:w-1/12"
+                    role="cell"
+                  >
+                    <input
+                      :id="`select_cb_${institution.id}`"
+                      v-model="multiSelectionState[institution.id].checked"
+                      :name="`select_cb_${institution.id}`"
+                      type="checkbox"
+                      class="table__checkbox"
+                    />
+                    <label :for="`select_cb_${institution.id}`" class="sr-only"
+                      >Select this institution</label
                     >
-                      <span class="sr-only">Selection</span>
-                    </th>
-
-                    <table-head-field
-                      v-for="(sortableField, index) in sortableFields"
-                      :key="sortableField.field"
-                      :field-name="sortableField.field"
-                      :label="sortableField.label"
-                      :use-dropdown="sortableField.useDropdown"
-                      :first-col="index === 0"
-                    ></table-head-field>
-
-                    <th scope="col" class="relative px-6 py-3">
-                      <span class="sr-only">Actions</span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody role="rowgroup" class="block sm:table-row-group">
-                  <tr
-                    v-for="(
-                      institution, institutionIndex
-                    ) in institutionsState.institutions"
-                    :key="institution.id"
-                    role="row"
-                    class="table_row"
+                  </td>
+                  <th
+                    role="rowheader"
+                    scope="row"
+                    class="table_cell table_cell--header sm:w-4/12"
+                    :class="{ 'bg-yellow-50': sortingState.field === 'name' }"
+                  >
+                    <span class="table__cell__label"
+                      >Name<span :aria-hidden="true">:</span></span
+                    >
+                    <span class="table__cell__content">{{
+                      institution.name
+                    }}</span>
+                  </th>
+                  <td
+                    role="cell"
+                    class="table_cell sm:w-4/12"
                     :class="{
-                      'table_row--multiselect': multiselect,
-                      'bg-white': institutionIndex % 2 === 0,
-                      'bg-gray-50': institutionIndex % 2 !== 0,
+                      'bg-yellow-50': sortingState.field === 'urlSuffix',
                     }"
                   >
-                    <td
-                      v-if="multiselect"
-                      class="table_cell table_cell--break-out-left sm:w-1/12"
-                      role="cell"
+                    <span class="table__cell__label"
+                      >URL Suffix<span :aria-hidden="true">:</span></span
                     >
-                      <input
-                        :id="`select_cb_${institution.id}`"
-                        v-model="multiSelectionState[institution.id].checked"
-                        :name="`select_cb_${institution.id}`"
-                        type="checkbox"
-                        class="table__checkbox"
-                      />
-                      <label
-                        :for="`select_cb_${institution.id}`"
-                        class="sr-only"
-                        >Select this institution</label
-                      >
-                    </td>
-                    <th
-                      role="rowheader"
-                      scope="row"
-                      class="table_cell table_cell--header sm:w-4/12"
-                      :class="{ 'bg-yellow-50': sortingState.field === 'name' }"
+                    <span class="table__cell__content">{{
+                      institution.urlSuffix
+                    }}</span>
+                  </td>
+                  <td
+                    role="cell"
+                    class="table_cell"
+                    :class="{
+                      'bg-yellow-50': sortingState.field === 'active',
+                      'sm:w-2/12': multiselect,
+                      'sm:w-3/12': !multiselect,
+                    }"
+                  >
+                    <span class="table__cell__label"
+                      >Status<span :aria-hidden="true">:</span></span
                     >
-                      <span class="table__cell__label"
-                        >Name<span :aria-hidden="true">:</span></span
-                      >
-                      <span class="table__cell__content">{{
-                        institution.name
-                      }}</span>
-                    </th>
-                    <td
-                      role="cell"
-                      class="table_cell sm:w-4/12"
-                      :class="{
-                        'bg-yellow-50': sortingState.field === 'urlSuffix',
-                      }"
-                    >
-                      <span class="table__cell__label"
-                        >URL Suffix<span :aria-hidden="true">:</span></span
-                      >
-                      <span class="table__cell__content">{{
-                        institution.urlSuffix
-                      }}</span>
-                    </td>
-                    <td
-                      role="cell"
-                      class="table_cell"
-                      :class="{
-                        'bg-yellow-50': sortingState.field === 'active',
-                        'sm:w-2/12': multiselect,
-                        'sm:w-3/12': !multiselect,
-                      }"
-                    >
-                      <span class="table__cell__label"
-                        >Status<span :aria-hidden="true">:</span></span
-                      >
-                      <span class="table__cell__content"
-                        ><status-batch
-                          :active="institution.active"
-                        ></status-batch
-                      ></span>
-                    </td>
-                    <td
-                      class="
-                        table_cell table_cell--break-out-right
-                        sm:w-1/12 sm:text-right
-                      "
-                      role="cell"
-                    >
-                      <InlineActionsDropdown
-                        :institution="institution"
-                        @institution:change="updateInstitutionData"
-                      ></InlineActionsDropdown>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <pagination
-                :current-page="institutionsState.currentPage"
-                :total-pages="institutionsState.totalPages"
-              ></pagination>
-            </div>
+                    <span class="table__cell__content"
+                      ><status-batch :active="institution.active"></status-batch
+                    ></span>
+                  </td>
+                  <td
+                    class="
+                      table_cell table_cell--break-out-right
+                      sm:w-1/12 sm:text-right
+                    "
+                    role="cell"
+                  >
+                    <InlineActionsDropdown
+                      :institution="institution"
+                      @institution:change="updateInstitutionData"
+                    ></InlineActionsDropdown>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <pagination
+              :current-page="institutionsState.currentPage"
+              :total-pages="institutionsState.totalPages"
+            ></pagination>
           </div>
         </div>
       </div>
