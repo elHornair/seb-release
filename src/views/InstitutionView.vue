@@ -142,7 +142,6 @@ export default {
 .term,
 .details {
   @apply relative;
-  @apply whitespace-nowrap;
   @apply text-sm;
   @apply text-gray-500;
 }
@@ -151,7 +150,10 @@ export default {
   @apply font-medium;
   @apply text-gray-900;
 }
+
 .details {
   @apply sm:col-span-2;
+  @apply pt-2;
+  @apply sm:pt-0;
 }
 </style>
