@@ -16,7 +16,7 @@
           <div class="align-middle inline-block min-w-full overflow-hidden">
             <p id="table_description" class="sr-only">{{ tableDescription }}</p>
             <table class="block sm:table min-w-full divide-y divide-gray-200">
-              <caption id="table_caption" class="sr-only">
+              <caption id="table_caption" class="table_caption">
                 {{
                   tableCaption
                 }}
@@ -367,6 +367,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.table_caption {
+  @apply block;
+  @apply relative;
+  @apply px-6;
+  @apply py-3;
+  @apply text-gray-500;
+  @apply text-left;
+  @apply text-xs;
+  @apply font-medium;
+  @apply uppercase;
+  @apply tracking-wider;
+  @apply bg-gray-50;
+
+  @apply sm:table-caption;
+  @apply sm:sr-only;
+}
+
 .table_row {
   @apply block;
   @apply relative;
