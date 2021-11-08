@@ -210,6 +210,7 @@
 
 <script>
 import { computed, reactive, ref, watch } from "vue";
+import { useRoute } from "vue-router";
 import { useAPI } from "@/composables/useAPI";
 import { useSorting } from "@/composables/useSorting";
 import { useFiltering } from "@/composables/useFiltering";
@@ -227,7 +228,6 @@ import GeneralSortingDropdown from "@/components/table/GeneralSortingDropdown";
 import Filters from "@/components/filter/Filters";
 import ActiveFilters from "@/components/filter/ActiveFilters";
 import InlineActionsDropdown from "@/components/table/InlineActionsDropdown";
-import { useRoute } from "vue-router";
 
 export default {
   name: "Institution",
