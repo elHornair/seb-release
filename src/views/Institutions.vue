@@ -29,7 +29,7 @@
                     class="relative px-6 py-3"
                   >
                     <span class="sr-only">Selection</span>
-                    <MultiselectDropdown></MultiselectDropdown>
+                    <MultiselectControls></MultiselectControls>
                   </th>
 
                   <table-head-field
@@ -214,13 +214,13 @@ import Filters from "@/components/filter/Filters";
 import ActiveFilters from "@/components/filter/ActiveFilters";
 import InlineActionsDropdown from "@/components/table/InlineActionsDropdown";
 import TableContentField from "@/components/table/TableContentField";
-import MultiselectDropdown from "@/components/table/MultiselectDropdown";
+import MultiselectControls from "@/components/table/MultiselectControls";
 import { useInstitutions } from "@/composables/institution/useInstitutions";
 
 export default {
   name: "Institution",
   components: {
-    MultiselectDropdown,
+    MultiselectControls,
     TableContentField,
     InlineActionsDropdown,
     ActiveFilters,

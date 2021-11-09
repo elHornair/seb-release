@@ -25,6 +25,14 @@ export const useMultiselect = (state) => {
     state.selectedItems = [];
   };
 
+  const unselectAllVisible = () => {
+    state.selectedItems = [
+      ...state.selectedItems.filter((selectedItem) => {
+        return !state.items.find((item) => item.id === selectedItem.id);
+      }),
+    ];
+  };
+
   const selectAllVisible = () => {
     state.selectedItems = [...state.selectedItems, ...state.items];
   };
@@ -33,14 +41,20 @@ export const useMultiselect = (state) => {
     return state.selectedItems.find((item) => item.id === id);
   };
 
+  const allVisibleSelected = computed(() => {
+    return !state.items.find((item) => !isSelected(item.id));
+  });
+
   const selectedCounter = computed(() => state.selectedItems.length);
 
   return {
     addSelected,
     removeSelected,
     unselectAll,
+    unselectAllVisible,
     selectAllVisible,
     isSelected,
+    allVisibleSelected,
     selectedCounter,
   };
 };
