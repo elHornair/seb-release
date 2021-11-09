@@ -103,8 +103,8 @@
               </tbody>
             </table>
             <pagination
-              :current-page="paginationState.currentPage"
-              :total-pages="paginationState.totalPages"
+              :current-page="institutionsState.paging.currentPage"
+              :total-pages="institutionsState.paging.totalPages"
             ></pagination>
           </div>
         </div>
@@ -190,9 +190,8 @@
 </template>
 
 <script>
-import { computed, reactive, ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import { useRoute } from "vue-router";
-import { useInstitutionAPI } from "@/composables/institution/useInstitutionAPI";
 import { useInstitutionSorting } from "@/composables/institution/useInstitutionSorting";
 import { useInstitutionFiltering } from "@/composables/institution/useInstitutionFiltering";
 import { useMultiselect } from "@/composables/useMultiselect";
@@ -233,8 +232,8 @@ export default {
   },
   setup() {
     const route = useRoute();
-    const { institutionsState, setItems } = useInstitutionCollection();
-    const { readInstitutions } = useInstitutionAPI();
+    const { institutionsState, updateInstitutionData } =
+      useInstitutionCollection();
     const { multiSelectionState, selectedCounter, addOptions, unselectAll } =
       useMultiselect();
     const { sortingState, sortingApiParam, SORT_DIRECTION } =
@@ -247,11 +246,6 @@ export default {
     const handleFilterShow = () => (filtersVisible.value = true);
     const handleFilterHide = () => (filtersVisible.value = false);
     const multiselect = ref(route.query.multiselect !== undefined); // This is a query param for demo purposes only. In reality, the property will be defined by the entity at hand
-
-    const paginationState = reactive({
-      totalPages: 0,
-      currentPage: 0,
-    });
 
     const showAddAction = () => {
       return this.hasBasePrivilege(
@@ -292,22 +286,6 @@ export default {
       return `${tableCaption}. ${currentFilteringInfo}. ${currentSortingInfo}. Go to actions landmark to adapt filtering and sorting.`;
     });
 
-    const updateInstitutionData = async () => {
-      const institutionData = await readInstitutions(
-        {
-          sort: sortingApiParam.value,
-        },
-        filteringApiParam.value
-      );
-
-      Object.assign(paginationState, {
-        totalPages: institutionData["number_of_pages"],
-        currentPage: institutionData["page_number"],
-      });
-
-      setItems(institutionData["content"]);
-    };
-
     watch(sortingApiParam, () => updateInstitutionData());
     watch(filteringApiParam, async () => {
       await updateInstitutionData();
@@ -330,8 +308,6 @@ export default {
     return {
       filtersVisible,
       SORT_DIRECTION,
-      filteringState,
-      paginationState,
       institutionsState,
       multiSelectionState,
       availablePrivileges,
