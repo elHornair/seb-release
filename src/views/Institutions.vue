@@ -250,9 +250,9 @@ export default {
     const handleFilterHide = () => (filtersVisible.value = false);
 
     const showAddAction = () => {
-      return this.hasBasePrivilege(
-        this.availablePrivileges.INSTITUTION,
-        this.availableActions.WRITE
+      return hasBasePrivilege(
+        availablePrivileges.INSTITUTION,
+        availableActions.WRITE
       );
     };
 
@@ -293,8 +293,6 @@ export default {
       SORT_DIRECTION,
       institutionsState,
       multiSelectionState,
-      availablePrivileges,
-      availableActions,
       showBulkActions,
       isMultiselect,
       tableCaption,
