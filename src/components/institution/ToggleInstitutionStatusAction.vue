@@ -17,7 +17,7 @@
 
 <script>
 import { StatusOnlineIcon, StatusOfflineIcon } from "@heroicons/vue/solid";
-import { useInstitutionStatusToggling } from "@/composables/useInstitutionStatusToggling";
+import { useInstitutionStatusToggling } from "@/composables/institution/useInstitutionStatusToggling";
 import ActionButton from "@/components/misc/ActionButton";
 import { computed } from "vue";
 

@@ -86,7 +86,7 @@ import {
   StatusOfflineIcon,
   StatusOnlineIcon,
 } from "@heroicons/vue/solid";
-import { useInstitutionStatusToggling } from "@/composables/useInstitutionStatusToggling";
+import { useInstitutionStatusToggling } from "@/composables/institution/useInstitutionStatusToggling";
 
 export default {
   name: "InlineActionsDropdown",
