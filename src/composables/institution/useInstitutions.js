@@ -37,13 +37,13 @@ const updateInstitutionData = async () => {
   setItems(institutionData["content"]);
 };
 
-const isMultiselect = computed(() => entityCollectionState.multiselect);
+const isMultiselect = computed(() => entityCollectionState.isMultiselect);
 
 watch(sortingApiParam, () => updateInstitutionData());
 watch(filteringApiParam, async () => {
   await updateInstitutionData();
 
-  if (entityCollectionState.multiselect) {
+  if (isMultiselect.value) {
     unselectAll();
   }
 });

@@ -1,6 +1,6 @@
 import { computed, reactive, readonly } from "vue";
 
-export const useEntityCollection = (multiselect) => {
+export const useEntityCollection = (isMultiselect) => {
   const state = reactive({
     items: [],
     selectedItems: [],
@@ -8,7 +8,7 @@ export const useEntityCollection = (multiselect) => {
       totalPages: 0,
       currentPages: 0,
     },
-    multiselect: multiselect,
+    isMultiselect: isMultiselect,
   });
 
   const setItems = (items) => {
