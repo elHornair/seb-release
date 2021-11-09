@@ -12,7 +12,7 @@ export const useEntityCollection = (isMultiselect) => {
     isMultiselect: isMultiselect,
   });
 
-  const multiselect = useMultiselect(state); // TODO: maybe dont pass the whole state -> items as readonly, selectedItems as normal
+  const multiselect = useMultiselect(state);
 
   const setItems = (items) => {
     Object.assign(state.items, [], items);
