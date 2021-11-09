@@ -7,7 +7,7 @@
 <script>
 import ViewBasic from "@/components/layout/ViewBasic";
 import FormInstitution from "@/components/form/FormInstitution";
-import { useAPI } from "@/composables/useAPI";
+import { useInstitutionAPI } from "@/composables/institution/useInstitutionAPI";
 import { useRouter } from "vue-router";
 
 export default {
@@ -17,7 +17,7 @@ export default {
     FormInstitution,
   },
   setup() {
-    const { createInstitution } = useAPI();
+    const { createInstitution } = useInstitutionAPI();
     const router = useRouter();
 
     const handleSubmit = async (formState) => {

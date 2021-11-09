@@ -192,7 +192,7 @@
 <script>
 import { computed, reactive, ref, watch } from "vue";
 import { useRoute } from "vue-router";
-import { useAPI } from "@/composables/useAPI";
+import { useInstitutionAPI } from "@/composables/institution/useInstitutionAPI";
 import { useInstitutionSorting } from "@/composables/institution/useInstitutionSorting";
 import { useFiltering } from "@/composables/useFiltering";
 import { useMultiselect } from "@/composables/useMultiselect";
@@ -232,7 +232,7 @@ export default {
   },
   setup() {
     const route = useRoute();
-    const { readInstitutions } = useAPI();
+    const { readInstitutions } = useInstitutionAPI();
     const { multiSelectionState, selectedCounter, addOptions, unselectAll } =
       useMultiselect();
     const { sortingState, sortingApiParam, SORT_DIRECTION } =

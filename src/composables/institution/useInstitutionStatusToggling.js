@@ -1,10 +1,10 @@
-import { useAPI } from "@/composables/useAPI";
+import { useInstitutionAPI } from "@/composables/institution/useInstitutionAPI";
 
 const {
   getInstitutionDependencies,
   activateInstitution,
   deactivateInstitution,
-} = useAPI();
+} = useInstitutionAPI();
 
 const checkDependencies = async (id) => {
   const dependencies = await getInstitutionDependencies(id);

@@ -40,7 +40,7 @@ import { SearchIcon } from "@heroicons/vue/solid";
 import FormInstitution from "@/components/form/FormInstitution";
 import ViewSplit from "@/components/layout/ViewSplit";
 import ToggleInstitutionStatusAction from "@/components/institution/ToggleInstitutionStatusAction";
-import { useAPI } from "@/composables/useAPI";
+import { useInstitutionAPI } from "@/composables/institution/useInstitutionAPI";
 import { reactive } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import ActionButton from "@/components/misc/ActionButton";
@@ -55,7 +55,7 @@ export default {
     FormInstitution,
   },
   setup() {
-    const { readInstitution, updateInstitution } = useAPI();
+    const { readInstitution, updateInstitution } = useInstitutionAPI();
     const router = useRouter();
     const route = useRoute();
 

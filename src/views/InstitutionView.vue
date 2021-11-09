@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { useAPI } from "@/composables/useAPI";
+import { useInstitutionAPI } from "@/composables/institution/useInstitutionAPI";
 import { useRoute } from "vue-router";
 import { reactive } from "vue";
 import { useAccessControl } from "@/composables/useAccessControl";
@@ -76,7 +76,7 @@ export default {
     SearchIcon,
   },
   setup() {
-    const { readInstitution } = useAPI();
+    const { readInstitution } = useInstitutionAPI();
     const { availablePrivileges, availableActions, hasBasePrivilege } =
       useAccessControl();
     const route = useRoute();

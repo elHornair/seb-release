@@ -155,7 +155,7 @@ const readInstitutions = (params = {}, filterCriteria = {}) => {
   });
 };
 
-export const useAPI = () => {
+export const useInstitutionAPI = () => {
   return {
     createInstitution,
     readInstitution,
