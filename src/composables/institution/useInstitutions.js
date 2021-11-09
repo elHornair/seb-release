@@ -2,12 +2,20 @@ import { useEntityCollection } from "@/composables/useEntityCollection";
 import { useInstitutionAPI } from "@/composables/institution/useInstitutionAPI";
 import { useInstitutionSorting } from "@/composables/institution/useInstitutionSorting";
 import { useInstitutionFiltering } from "@/composables/institution/useInstitutionFiltering";
-const { multiSelectionState, selectedCounter, addOptions, unselectAll } =
-  useMultiselect();
-import { computed, watch } from "vue";
-import { useMultiselect } from "@/composables/useMultiselect";
 
-const { entityCollectionState, setItems, setPaging } = useEntityCollection(
+import { computed, watch } from "vue";
+
+const {
+  entityCollectionState,
+  setItems,
+  setPaging,
+  addSelected,
+  removeSelected,
+  unselectAll,
+  selectAllVisible,
+  isSelected,
+  selectedCounter,
+} = useEntityCollection(
   // temporary hack for demo purposes only: in reality, the entity (here institutions) will define if it's multiselect
   window.location.search === "?multiselect"
 );
@@ -40,14 +48,6 @@ watch(filteringApiParam, async () => {
   }
 });
 
-watch(entityCollectionState.items, () => {
-  if (entityCollectionState.multiselect) {
-    addOptions(
-      entityCollectionState.items.map((institution) => institution.id)
-    );
-  }
-});
-
 const tableCaption = "List of institutions";
 const tableDescription = computed(() => {
   let currentSortingInfo;
@@ -76,10 +76,14 @@ export const useInstitutions = () => {
   return {
     institutionsState: entityCollectionState,
     updateInstitutionData,
-    selectedCounter,
-    multiSelectionState,
     isMultiselect,
     tableCaption,
     tableDescription,
+    addSelected,
+    removeSelected,
+    unselectAll,
+    selectAllVisible,
+    isSelected,
+    selectedCounter,
   };
 };

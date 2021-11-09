@@ -64,10 +64,15 @@
                   >
                     <input
                       :id="`select_cb_${institution.id}`"
-                      v-model="multiSelectionState[institution.id].checked"
                       :name="`select_cb_${institution.id}`"
+                      :checked="isSelected(institution.id)"
                       type="checkbox"
                       class="table__checkbox"
+                      @change="
+                        isSelected(institution.id)
+                          ? removeSelected(institution.id)
+                          : addSelected(institution.id)
+                      "
                     />
                     <label :for="`select_cb_${institution.id}`" class="sr-only"
                       >Select this institution</label
@@ -234,11 +239,13 @@ export default {
     const {
       institutionsState,
       updateInstitutionData,
-      selectedCounter,
-      multiSelectionState,
       isMultiselect,
       tableCaption,
       tableDescription,
+      addSelected,
+      removeSelected,
+      isSelected,
+      selectedCounter,
     } = useInstitutions();
 
     const { availablePrivileges, availableActions, hasBasePrivilege } =
@@ -266,11 +273,13 @@ export default {
     return {
       filtersVisible,
       institutionsState,
-      multiSelectionState,
       showBulkActions,
       isMultiselect,
       tableCaption,
       tableDescription,
+      addSelected,
+      removeSelected,
+      isSelected,
       showAddAction,
       handleBulkActionClick,
       handleFilterShow,

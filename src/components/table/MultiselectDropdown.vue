@@ -20,7 +20,7 @@
             <button
               class="menu__item"
               :class="{ 'menu__item--active': active }"
-              @click="handleSelectAllClick"
+              @click="selectAllVisible()"
             >
               <span aria-hidden="true">
                 <CheckCircleIcon class="menu__item__icon"></CheckCircleIcon>
@@ -30,17 +30,17 @@
               >
             </button>
           </MenuItem>
-          <MenuItem v-if="selectedItemsCount > 0" v-slot="{ active }">
+          <MenuItem v-if="selectedCounter > 0" v-slot="{ active }">
             <button
               class="menu__item"
               :class="{ 'menu__item--active': active }"
-              @click="handleDeselectAllClick"
+              @click="unselectAll()"
             >
               <span aria-hidden="true">
                 <XCircleIcon class="menu__item__icon"></XCircleIcon>
               </span>
               <span class="menu__item__label"
-                >Deselect all selected ({{ selectedItemsCount }})</span
+                >Deselect all selected ({{ selectedCounter }})</span
               >
             </button>
           </MenuItem>
@@ -52,13 +52,13 @@
 
 <script>
 import { computed } from "vue";
-import { useMultiselect } from "@/composables/useMultiselect";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
 import {
   DotsVerticalIcon,
   CheckCircleIcon,
   XCircleIcon,
 } from "@heroicons/vue/solid";
+import { useInstitutions } from "@/composables/institution/useInstitutions";
 
 export default {
   name: "MultiselectDropdown",
@@ -72,30 +72,20 @@ export default {
     XCircleIcon,
   },
   setup() {
-    const { multiSelectionState, selectAllVisible, unselectAll } =
-      useMultiselect();
+    const {
+      selectAllVisible,
+      unselectAll,
+      selectedCounter,
+      institutionsState,
+    } = useInstitutions();
 
-    const visibleItemsCount = computed(() => {
-      return Object.values(multiSelectionState).length; // TODO: refactor this. The value is not always correct, because not all items in the multiSelectionState are visible
-    });
-
-    const selectedItemsCount = computed(
-      () =>
-        Object.values(multiSelectionState).filter((item) => item.checked).length
-    );
-
-    const handleSelectAllClick = () => {
-      selectAllVisible();
-    };
-    const handleDeselectAllClick = () => {
-      unselectAll();
-    };
+    const visibleItemsCount = computed(() => institutionsState.items.length);
 
     return {
       visibleItemsCount,
-      selectedItemsCount,
-      handleSelectAllClick,
-      handleDeselectAllClick,
+      selectedCounter,
+      selectAllVisible,
+      unselectAll,
     };
   },
 };
