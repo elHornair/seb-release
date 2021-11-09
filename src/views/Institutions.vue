@@ -329,7 +329,6 @@ export default {
 
     return {
       filtersVisible,
-      sortingState,
       SORT_DIRECTION,
       filteringState,
       paginationState,
