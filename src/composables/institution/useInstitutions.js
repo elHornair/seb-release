@@ -13,8 +13,9 @@ const { entityCollectionState, setItems, setPaging } = useEntityCollection(
 );
 
 const { readInstitutions } = useInstitutionAPI();
-const { sortingApiParam } = useInstitutionSorting();
-const { filteringApiParam } = useInstitutionFiltering();
+const { sortingState, sortingApiParam, SORT_DIRECTION } =
+  useInstitutionSorting();
+const { filteringState, filteringApiParam } = useInstitutionFiltering();
 
 const updateInstitutionData = async () => {
   const institutionData = await readInstitutions(
@@ -47,6 +48,30 @@ watch(entityCollectionState.items, () => {
   }
 });
 
+const tableCaption = "List of institutions";
+const tableDescription = computed(() => {
+  let currentSortingInfo;
+  let currentFilteringInfo = Object.keys(filteringState)
+    .filter((fieldKey) => filteringState[fieldKey] !== null)
+    .join(", ");
+
+  if (currentFilteringInfo) {
+    currentFilteringInfo = `Currently filtered by ${currentFilteringInfo}`;
+  } else {
+    currentFilteringInfo = "Currently not filtered";
+  }
+
+  if (sortingState.field) {
+    currentSortingInfo = `Currently sorted by ${sortingState.field} ${
+      sortingState.direction === SORT_DIRECTION.ASC ? "Z to A" : "A to Z"
+    }`;
+  } else {
+    currentSortingInfo = "Currently not sorted";
+  }
+
+  return `${tableCaption}. ${currentFilteringInfo}. ${currentSortingInfo}. Go to actions landmark to adapt filtering and sorting.`;
+});
+
 export const useInstitutions = () => {
   return {
     institutionsState: entityCollectionState,
@@ -54,5 +79,7 @@ export const useInstitutions = () => {
     selectedCounter,
     multiSelectionState,
     isMultiselect,
+    tableCaption,
+    tableDescription,
   };
 };

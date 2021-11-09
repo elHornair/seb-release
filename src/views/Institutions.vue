@@ -195,8 +195,6 @@
 
 <script>
 import { computed, ref } from "vue";
-import { useInstitutionSorting } from "@/composables/institution/useInstitutionSorting";
-import { useInstitutionFiltering } from "@/composables/institution/useInstitutionFiltering";
 import { useAccessControl } from "@/composables/useAccessControl";
 import { PlusCircleIcon } from "@heroicons/vue/solid";
 import { FilterIcon } from "@heroicons/vue/solid";
@@ -239,9 +237,10 @@ export default {
       selectedCounter,
       multiSelectionState,
       isMultiselect,
+      tableCaption,
+      tableDescription,
     } = useInstitutions();
-    const { sortingState, SORT_DIRECTION } = useInstitutionSorting();
-    const { filteringState } = useInstitutionFiltering();
+
     const { availablePrivileges, availableActions, hasBasePrivilege } =
       useAccessControl();
 
@@ -262,35 +261,10 @@ export default {
       alert(`This will delete ${selectedCounter.value} selected item(s)`);
     };
 
-    const tableCaption = "List of institutions";
-    const tableDescription = computed(() => {
-      let currentSortingInfo;
-      let currentFilteringInfo = Object.keys(filteringState)
-        .filter((fieldKey) => filteringState[fieldKey] !== null)
-        .join(", ");
-
-      if (currentFilteringInfo) {
-        currentFilteringInfo = `Currently filtered by ${currentFilteringInfo}`;
-      } else {
-        currentFilteringInfo = "Currently not filtered";
-      }
-
-      if (sortingState.field) {
-        currentSortingInfo = `Currently sorted by ${sortingState.field} ${
-          sortingState.direction === SORT_DIRECTION.ASC ? "Z to A" : "A to Z"
-        }`;
-      } else {
-        currentSortingInfo = "Currently not sorted";
-      }
-
-      return `${tableCaption}. ${currentFilteringInfo}. ${currentSortingInfo}. Go to actions landmark to adapt filtering and sorting.`;
-    });
-
     updateInstitutionData();
 
     return {
       filtersVisible,
-      SORT_DIRECTION,
       institutionsState,
       multiSelectionState,
       showBulkActions,
@@ -301,7 +275,6 @@ export default {
       handleBulkActionClick,
       handleFilterShow,
       handleFilterHide,
-      hasBasePrivilege,
       updateInstitutionData,
       fields: [
         {
