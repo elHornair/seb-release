@@ -20,7 +20,7 @@
             <button
               class="menu__item"
               :class="{ 'menu__item--active': active }"
-              @click="selectAllVisible()"
+              @click="multiselect.selectAllVisible()"
             >
               <span aria-hidden="true">
                 <CheckCircleIcon class="menu__item__icon"></CheckCircleIcon>
@@ -30,17 +30,22 @@
               >
             </button>
           </MenuItem>
-          <MenuItem v-if="selectedCounter > 0" v-slot="{ active }">
+          <MenuItem
+            v-if="multiselect.selectedCounter.value > 0"
+            v-slot="{ active }"
+          >
             <button
               class="menu__item"
               :class="{ 'menu__item--active': active }"
-              @click="unselectAll()"
+              @click="multiselect.unselectAll()"
             >
               <span aria-hidden="true">
                 <XCircleIcon class="menu__item__icon"></XCircleIcon>
               </span>
               <span class="menu__item__label"
-                >Deselect all selected ({{ selectedCounter }})</span
+                >Deselect all selected ({{
+                  multiselect.selectedCounter.value
+                }})</span
               >
             </button>
           </MenuItem>
@@ -72,20 +77,12 @@ export default {
     XCircleIcon,
   },
   setup() {
-    const {
-      selectAllVisible,
-      unselectAll,
-      selectedCounter,
-      institutionsState,
-    } = useInstitutions();
-
+    const { institutionsState, multiselect } = useInstitutions();
     const visibleItemsCount = computed(() => institutionsState.items.length);
 
     return {
       visibleItemsCount,
-      selectedCounter,
-      selectAllVisible,
-      unselectAll,
+      multiselect,
     };
   },
 };

@@ -65,13 +65,13 @@
                     <input
                       :id="`select_cb_${institution.id}`"
                       :name="`select_cb_${institution.id}`"
-                      :checked="isSelected(institution.id)"
+                      :checked="multiselect.isSelected(institution.id)"
                       type="checkbox"
                       class="table__checkbox"
                       @change="
-                        isSelected(institution.id)
-                          ? removeSelected(institution.id)
-                          : addSelected(institution.id)
+                        multiselect.isSelected(institution.id)
+                          ? multiselect.removeSelected(institution.id)
+                          : multiselect.addSelected(institution.id)
                       "
                     />
                     <label :for="`select_cb_${institution.id}`" class="sr-only"
@@ -239,13 +239,10 @@ export default {
     const {
       institutionsState,
       updateInstitutionData,
-      isMultiselect,
       tableCaption,
       tableDescription,
-      addSelected,
-      removeSelected,
-      isSelected,
-      selectedCounter,
+      isMultiselect,
+      multiselect,
     } = useInstitutions();
 
     const { availablePrivileges, availableActions, hasBasePrivilege } =
@@ -262,10 +259,14 @@ export default {
       );
     };
 
-    const showBulkActions = computed(() => selectedCounter.value > 0);
+    const showBulkActions = computed(
+      () => multiselect.selectedCounter.value > 0
+    );
 
     const handleBulkActionClick = () => {
-      alert(`This will delete ${selectedCounter.value} selected item(s)`);
+      alert(
+        `This will delete ${multiselect.selectedCounter.value} selected item(s)`
+      );
     };
 
     updateInstitutionData();
@@ -273,13 +274,11 @@ export default {
     return {
       filtersVisible,
       institutionsState,
-      showBulkActions,
       isMultiselect,
+      multiselect,
+      showBulkActions,
       tableCaption,
       tableDescription,
-      addSelected,
-      removeSelected,
-      isSelected,
       showAddAction,
       handleBulkActionClick,
       handleFilterShow,

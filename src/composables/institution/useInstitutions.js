@@ -5,20 +5,11 @@ import { useInstitutionFiltering } from "@/composables/institution/useInstitutio
 
 import { computed, watch } from "vue";
 
-const {
-  entityCollectionState,
-  setItems,
-  setPaging,
-  addSelected,
-  removeSelected,
-  unselectAll,
-  selectAllVisible,
-  isSelected,
-  selectedCounter,
-} = useEntityCollection(
-  // temporary hack for demo purposes only: in reality, the entity (here institutions) will define if it's multiselect
-  window.location.search === "?multiselect"
-);
+const { entityCollectionState, setItems, setPaging, multiselect } =
+  useEntityCollection(
+    // temporary hack for demo purposes only: in reality, the entity (here institutions) will define if it's multiselect
+    window.location.search === "?multiselect"
+  );
 
 const { readInstitutions } = useInstitutionAPI();
 const { sortingState, sortingApiParam, SORT_DIRECTION } =
@@ -44,7 +35,7 @@ watch(filteringApiParam, async () => {
   await updateInstitutionData();
 
   if (isMultiselect.value) {
-    unselectAll();
+    multiselect.unselectAll();
   }
 });
 
@@ -79,11 +70,6 @@ export const useInstitutions = () => {
     isMultiselect,
     tableCaption,
     tableDescription,
-    addSelected,
-    removeSelected,
-    unselectAll,
-    selectAllVisible,
-    isSelected,
-    selectedCounter,
+    multiselect,
   };
 };
