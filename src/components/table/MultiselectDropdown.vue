@@ -6,14 +6,7 @@
         <DotsVerticalIcon class="menu__toggle__icon" />
       </span>
     </MenuButton>
-    <transition
-      enter-active-class="transition ease-out duration-100"
-      enter-from-class="transform opacity-0 scale-95"
-      enter-to-class="transform opacity-100 scale-100"
-      leave-active-class="transition ease-in duration-75"
-      leave-from-class="transform opacity-100 scale-100"
-      leave-to-class="transform opacity-0 scale-95"
-    >
+    <DropdownTransition>
       <MenuItems class="menu__content menu__content--right">
         <div class="menu__section">
           <MenuItem v-slot="{ active }">
@@ -51,7 +44,7 @@
           </MenuItem>
         </div>
       </MenuItems>
-    </transition>
+    </DropdownTransition>
   </Menu>
 </template>
 
@@ -64,10 +57,12 @@ import {
   XCircleIcon,
 } from "@heroicons/vue/solid";
 import { useInstitutions } from "@/composables/institution/useInstitutions";
+import DropdownTransition from "@/components/misc/DropdownTransition";
 
 export default {
   name: "MultiselectDropdown",
   components: {
+    DropdownTransition,
     Menu,
     MenuButton,
     MenuItem,

@@ -7,14 +7,7 @@
       </span>
     </MenuButton>
 
-    <transition
-      enter-active-class="transition ease-out duration-100"
-      enter-from-class="transform opacity-0 scale-95"
-      enter-to-class="transform opacity-100 scale-100"
-      leave-active-class="transition ease-in duration-75"
-      leave-from-class="transform opacity-100 scale-100"
-      leave-to-class="transform opacity-0 scale-95"
-    >
+    <DropdownTransition>
       <MenuItems class="menu__content">
         <div class="menu__section">
           <MenuItem v-slot="{ active }">
@@ -73,7 +66,7 @@
           </MenuItem>
         </div>
       </MenuItems>
-    </transition>
+    </DropdownTransition>
   </Menu>
 </template>
 
@@ -87,6 +80,7 @@ import {
   StatusOnlineIcon,
 } from "@heroicons/vue/solid";
 import { useInstitutionStatusToggling } from "@/composables/institution/useInstitutionStatusToggling";
+import DropdownTransition from "@/components/misc/DropdownTransition";
 
 export default {
   name: "InlineActionsDropdown",
@@ -100,6 +94,7 @@ export default {
     PencilAltIcon,
     StatusOfflineIcon,
     StatusOnlineIcon,
+    DropdownTransition,
   },
   props: {
     institution: {
