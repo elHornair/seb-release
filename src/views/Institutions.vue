@@ -26,7 +26,7 @@
                   <th
                     v-if="isMultiselect"
                     scope="col"
-                    class="relative px-6 py-3"
+                    class="flex relative px-6 py-3"
                   >
                     <span class="sr-only">Selection</span>
                     <MultiselectControls></MultiselectControls>

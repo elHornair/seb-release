@@ -36,6 +36,8 @@ export default {
 .checkbox {
   @apply h-4;
   @apply w-4;
+  @apply mt-0.5;
+  @apply mr-1;
   @apply text-indigo-600;
   @apply border-gray-300;
   @apply rounded;

@@ -1,6 +1,6 @@
 <template>
   <Menu as="div" class="menu">
-    <MenuButton class="menu__toggle mt-2">
+    <MenuButton class="menu__toggle">
       <span class="sr-only">Open multiselect actions</span>
       <span aria-hidden="true">
         <DotsVerticalIcon class="menu__toggle__icon" />
