@@ -45,7 +45,7 @@
                 <tr
                   v-for="(
                     institution, institutionIndex
-                  ) in institutionsState.institutions"
+                  ) in institutionsState.items"
                   :key="institution.id"
                   class="table_row"
                   :class="{
@@ -103,8 +103,8 @@
               </tbody>
             </table>
             <pagination
-              :current-page="institutionsState.currentPage"
-              :total-pages="institutionsState.totalPages"
+              :current-page="paginationState.currentPage"
+              :total-pages="paginationState.totalPages"
             ></pagination>
           </div>
         </div>
@@ -211,6 +211,7 @@ import ActiveFilters from "@/components/filter/ActiveFilters";
 import InlineActionsDropdown from "@/components/table/InlineActionsDropdown";
 import TableContentField from "@/components/table/TableContentField";
 import MultiselectDropdown from "@/components/table/MultiselectDropdown";
+import { useInstitutionCollection } from "@/composables/institution/useInstitutionCollection";
 
 export default {
   name: "Institution",
@@ -232,6 +233,7 @@ export default {
   },
   setup() {
     const route = useRoute();
+    const { institutionsState, setItems } = useInstitutionCollection();
     const { readInstitutions } = useInstitutionAPI();
     const { multiSelectionState, selectedCounter, addOptions, unselectAll } =
       useMultiselect();
@@ -246,8 +248,7 @@ export default {
     const handleFilterHide = () => (filtersVisible.value = false);
     const multiselect = ref(route.query.multiselect !== undefined); // This is a query param for demo purposes only. In reality, the property will be defined by the entity at hand
 
-    const institutionsState = reactive({
-      institutions: [],
+    const paginationState = reactive({
       totalPages: 0,
       currentPage: 0,
     });
@@ -299,11 +300,12 @@ export default {
         filteringApiParam.value
       );
 
-      Object.assign(institutionsState, {
-        institutions: institutionData["content"],
+      Object.assign(paginationState, {
         totalPages: institutionData["number_of_pages"],
         currentPage: institutionData["page_number"],
       });
+
+      setItems(institutionData["content"]);
     };
 
     watch(sortingApiParam, () => updateInstitutionData());
@@ -318,7 +320,7 @@ export default {
     watch(institutionsState, () => {
       if (multiselect.value) {
         addOptions(
-          institutionsState.institutions.map((institution) => institution.id)
+          institutionsState.items.map((institution) => institution.id)
         );
       }
     });
@@ -330,6 +332,7 @@ export default {
       sortingState,
       SORT_DIRECTION,
       filteringState,
+      paginationState,
       institutionsState,
       multiSelectionState,
       availablePrivileges,
