@@ -23,7 +23,11 @@
               </caption>
               <thead class="hidden sm:table-header-group bg-gray-50">
                 <tr class="hidden sm:table-row">
-                  <th v-if="multiselect" scope="col" class="relative px-6 py-3">
+                  <th
+                    v-if="isMultiselect"
+                    scope="col"
+                    class="relative px-6 py-3"
+                  >
                     <span class="sr-only">Selection</span>
                     <MultiselectDropdown></MultiselectDropdown>
                   </th>
@@ -49,13 +53,13 @@
                   :key="institution.id"
                   class="table_row"
                   :class="{
-                    'table_row--multiselect': multiselect,
+                    'table_row--multiselect': isMultiselect,
                     'bg-white': institutionIndex % 2 === 0,
                     'bg-gray-50': institutionIndex % 2 !== 0,
                   }"
                 >
                   <td
-                    v-if="multiselect"
+                    v-if="isMultiselect"
                     class="table_cell table_cell--break-out-left sm:w-1/12"
                   >
                     <input
@@ -190,11 +194,9 @@
 </template>
 
 <script>
-import { computed, ref, watch } from "vue";
-import { useRoute } from "vue-router";
+import { computed, ref } from "vue";
 import { useInstitutionSorting } from "@/composables/institution/useInstitutionSorting";
 import { useInstitutionFiltering } from "@/composables/institution/useInstitutionFiltering";
-import { useMultiselect } from "@/composables/useMultiselect";
 import { useAccessControl } from "@/composables/useAccessControl";
 import { PlusCircleIcon } from "@heroicons/vue/solid";
 import { FilterIcon } from "@heroicons/vue/solid";
@@ -210,7 +212,7 @@ import ActiveFilters from "@/components/filter/ActiveFilters";
 import InlineActionsDropdown from "@/components/table/InlineActionsDropdown";
 import TableContentField from "@/components/table/TableContentField";
 import MultiselectDropdown from "@/components/table/MultiselectDropdown";
-import { useInstitutionCollection } from "@/composables/institution/useInstitutionCollection";
+import { useInstitutions } from "@/composables/institution/useInstitutions";
 
 export default {
   name: "Institution",
@@ -231,21 +233,21 @@ export default {
     DocumentRemoveIcon,
   },
   setup() {
-    const route = useRoute();
-    const { institutionsState, updateInstitutionData } =
-      useInstitutionCollection();
-    const { multiSelectionState, selectedCounter, addOptions, unselectAll } =
-      useMultiselect();
-    const { sortingState, sortingApiParam, SORT_DIRECTION } =
-      useInstitutionSorting();
-    const { filteringState, filteringApiParam } = useInstitutionFiltering();
+    const {
+      institutionsState,
+      updateInstitutionData,
+      selectedCounter,
+      multiSelectionState,
+      isMultiselect,
+    } = useInstitutions();
+    const { sortingState, SORT_DIRECTION } = useInstitutionSorting();
+    const { filteringState } = useInstitutionFiltering();
     const { availablePrivileges, availableActions, hasBasePrivilege } =
       useAccessControl();
 
     const filtersVisible = ref(false);
     const handleFilterShow = () => (filtersVisible.value = true);
     const handleFilterHide = () => (filtersVisible.value = false);
-    const multiselect = ref(route.query.multiselect !== undefined); // This is a query param for demo purposes only. In reality, the property will be defined by the entity at hand
 
     const showAddAction = () => {
       return this.hasBasePrivilege(
@@ -254,9 +256,7 @@ export default {
       );
     };
 
-    const showBulkActions = computed(
-      () => multiselect.value && selectedCounter.value > 0
-    );
+    const showBulkActions = computed(() => selectedCounter.value > 0);
 
     const handleBulkActionClick = () => {
       alert(`This will delete ${selectedCounter.value} selected item(s)`);
@@ -286,23 +286,6 @@ export default {
       return `${tableCaption}. ${currentFilteringInfo}. ${currentSortingInfo}. Go to actions landmark to adapt filtering and sorting.`;
     });
 
-    watch(sortingApiParam, () => updateInstitutionData());
-    watch(filteringApiParam, async () => {
-      await updateInstitutionData();
-
-      if (multiselect.value) {
-        unselectAll();
-      }
-    });
-
-    watch(institutionsState, () => {
-      if (multiselect.value) {
-        addOptions(
-          institutionsState.items.map((institution) => institution.id)
-        );
-      }
-    });
-
     updateInstitutionData();
 
     return {
@@ -313,7 +296,7 @@ export default {
       availablePrivileges,
       availableActions,
       showBulkActions,
-      multiselect,
+      isMultiselect,
       tableCaption,
       tableDescription,
       showAddAction,

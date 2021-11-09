@@ -1,12 +1,13 @@
 import { reactive, readonly } from "vue";
 
-export const useEntityCollection = () => {
+export const useEntityCollection = (multiselect) => {
   const state = reactive({
     items: [],
     paging: {
       totalPages: 0,
       currentPages: 0,
     },
+    multiselect: multiselect,
   });
 
   const setItems = (items) => {
