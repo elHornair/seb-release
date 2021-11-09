@@ -13,10 +13,31 @@
         <div
           class="overflow-x-auto shadow border-b border-gray-200 sm:rounded-lg"
         >
-          <div class="align-middle inline-block min-w-full overflow-hidden">
+          <div
+            class="
+              relative
+              z-0
+              align-middle
+              inline-block
+              min-w-full
+              overflow-hidden
+            "
+          >
             <p id="table_description" class="sr-only">{{ tableDescription }}</p>
+
+            <MultiselectControls
+              v-if="isMultiselect"
+              class="absolute z-10 top-2 left-4 sm:top-3.5 sm:left-6"
+            ></MultiselectControls>
+
             <table class="block sm:table min-w-full divide-y divide-gray-200">
-              <caption id="table_caption" class="table_caption">
+              <caption
+                id="table_caption"
+                :class="{
+                  table_caption: true,
+                  'table_caption--multiselect': isMultiselect,
+                }"
+              >
                 {{
                   tableCaption
                 }}
@@ -26,10 +47,9 @@
                   <th
                     v-if="isMultiselect"
                     scope="col"
-                    class="flex relative px-6 py-3"
+                    class="relative px-6 py-3"
                   >
                     <span class="sr-only">Selection</span>
-                    <MultiselectControls></MultiselectControls>
                   </th>
 
                   <table-head-field
@@ -312,7 +332,7 @@ export default {
 .table_caption {
   @apply block;
   @apply relative;
-  @apply px-6;
+  @apply px-4;
   @apply py-3;
   @apply text-gray-500;
   @apply text-left;
@@ -324,6 +344,11 @@ export default {
 
   @apply sm:table-caption;
   @apply sm:sr-only;
+
+  &.table_caption--multiselect {
+    @apply pl-14;
+    @apply text-right;
+  }
 }
 
 .table_row {

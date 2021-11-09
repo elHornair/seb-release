@@ -19,8 +19,11 @@
                 <CheckCircleIcon class="menu__item__icon"></CheckCircleIcon>
               </span>
               <span class="menu__item__label"
-                >Select all visible ({{ visibleItemsCount }})</span
-              >
+                >Select all visible
+                <span class="sr-only">institutions</span> ({{
+                  visibleItemsCount
+                }})
+              </span>
             </button>
           </MenuItem>
           <MenuItem
@@ -36,7 +39,8 @@
                 <XCircleIcon class="menu__item__icon"></XCircleIcon>
               </span>
               <span class="menu__item__label"
-                >Deselect all selected ({{
+                >Deselect all selected
+                <span class="sr-only">institutions</span> ({{
                   multiselect.selectedCount.value
                 }})</span
               >

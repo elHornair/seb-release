@@ -1,18 +1,20 @@
 <template>
-  <input
-    id="select_all"
-    :checked="multiselect.allVisibleSelected.value"
-    name="select_all"
-    type="checkbox"
-    class="checkbox"
-    @change="
-      multiselect.allVisibleSelected.value
-        ? multiselect.unselectAllVisible()
-        : multiselect.selectAllVisible()
-    "
-  />
-  <label :for="`select_all`" class="sr-only">Select all</label>
-  <MultiselectDropdown></MultiselectDropdown>
+  <div class="flex">
+    <input
+      id="select_all"
+      :checked="multiselect.allVisibleSelected.value"
+      name="select_all"
+      type="checkbox"
+      class="checkbox"
+      @change="
+        multiselect.allVisibleSelected.value
+          ? multiselect.unselectAllVisible()
+          : multiselect.selectAllVisible()
+      "
+    />
+    <label :for="`select_all`" class="sr-only">Select all institutions</label>
+    <MultiselectDropdown></MultiselectDropdown>
+  </div>
 </template>
 
 <script>
