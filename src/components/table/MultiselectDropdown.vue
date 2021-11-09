@@ -33,6 +33,23 @@
             <button
               class="menu__item"
               :class="{ 'menu__item--active': active }"
+              @click="multiselect.deselectAllVisible()"
+            >
+              <span aria-hidden="true">
+                <XCircleIcon class="menu__item__icon"></XCircleIcon>
+              </span>
+              <span class="menu__item__label"
+                >Deselect all visible <span class="sr-only">institutions</span>
+              </span>
+            </button>
+          </MenuItem>
+          <MenuItem
+            v-if="multiselect.selectedCount.value > 0"
+            v-slot="{ active }"
+          >
+            <button
+              class="menu__item"
+              :class="{ 'menu__item--active': active }"
               @click="multiselect.deselectAll()"
             >
               <span aria-hidden="true">
