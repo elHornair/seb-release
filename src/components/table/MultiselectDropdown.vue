@@ -33,7 +33,7 @@
             <button
               class="menu__item"
               :class="{ 'menu__item--active': active }"
-              @click="multiselect.unselectAll()"
+              @click="multiselect.deselectAll()"
             >
               <span aria-hidden="true">
                 <XCircleIcon class="menu__item__icon"></XCircleIcon>

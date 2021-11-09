@@ -8,7 +8,7 @@
       class="checkbox"
       @change="
         multiselect.allVisibleSelected.value
-          ? multiselect.unselectAllVisible()
+          ? multiselect.deselectAllVisible()
           : multiselect.selectAllVisible()
       "
     />

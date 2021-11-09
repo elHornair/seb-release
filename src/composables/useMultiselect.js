@@ -21,11 +21,11 @@ export const useMultiselect = (state) => {
     ];
   };
 
-  const unselectAll = () => {
+  const deselectAll = () => {
     state.selectedItems = [];
   };
 
-  const unselectAllVisible = () => {
+  const deselectAllVisible = () => {
     state.selectedItems = [
       ...state.selectedItems.filter((selectedItem) => {
         return !state.items.find((item) => item.id === selectedItem.id);
@@ -50,8 +50,8 @@ export const useMultiselect = (state) => {
   return {
     addSelected,
     removeSelected,
-    unselectAll,
-    unselectAllVisible,
+    deselectAll,
+    deselectAllVisible,
     selectAllVisible,
     isSelected,
     allVisibleSelected,

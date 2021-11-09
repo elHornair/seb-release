@@ -35,7 +35,7 @@ watch(filteringApiParam, async () => {
   await updateInstitutionData();
 
   if (isMultiselect.value) {
-    multiselect.unselectAll();
+    multiselect.deselectAll();
   }
 });
 
