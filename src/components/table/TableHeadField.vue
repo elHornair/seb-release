@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { useSorting } from "@/composables/useSorting";
+import { useInstitutionSorting } from "@/composables/institution/useInstitutionSorting";
 import SortingDropdown from "@/components/table/SortingDropdown";
 import { computed } from "vue";
 
@@ -46,7 +46,7 @@ export default {
     },
   },
   setup(props) {
-    const { sortingState, SORT_DIRECTION } = useSorting();
+    const { sortingState, SORT_DIRECTION } = useInstitutionSorting();
     const isSorted = computed(() => sortingState.field === props.fieldName);
     const currentSortingAria = computed(() => {
       if (isSorted.value) {

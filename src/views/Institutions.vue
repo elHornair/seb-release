@@ -193,7 +193,7 @@
 import { computed, reactive, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useAPI } from "@/composables/useAPI";
-import { useSorting } from "@/composables/useSorting";
+import { useInstitutionSorting } from "@/composables/institution/useInstitutionSorting";
 import { useFiltering } from "@/composables/useFiltering";
 import { useMultiselect } from "@/composables/useMultiselect";
 import { useAccessControl } from "@/composables/useAccessControl";
@@ -235,7 +235,8 @@ export default {
     const { readInstitutions } = useAPI();
     const { multiSelectionState, selectedCounter, addOptions, unselectAll } =
       useMultiselect();
-    const { sortingState, sortingApiParam, SORT_DIRECTION } = useSorting();
+    const { sortingState, sortingApiParam, SORT_DIRECTION } =
+      useInstitutionSorting();
     const { filteringState, filteringApiParam } = useFiltering();
     const { availablePrivileges, availableActions, hasBasePrivilege } =
       useAccessControl();

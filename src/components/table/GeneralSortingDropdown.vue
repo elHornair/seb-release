@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { useSorting } from "@/composables/useSorting";
+import { useInstitutionSorting } from "@/composables/institution/useInstitutionSorting";
 
 export default {
   name: "GeneralSortingDropdown",
@@ -37,7 +37,7 @@ export default {
   },
   setup() {
     const { sortingState, setSorting, removeSorting, SORT_DIRECTION } =
-      useSorting();
+      useInstitutionSorting();
 
     return {
       sortingState,

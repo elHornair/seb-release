@@ -93,7 +93,7 @@ import {
   XCircleIcon,
   CheckCircleIcon,
 } from "@heroicons/vue/solid";
-import { useSorting } from "@/composables/useSorting";
+import { useInstitutionSorting } from "@/composables/institution/useInstitutionSorting";
 import { computed } from "vue";
 
 export default {
@@ -125,7 +125,7 @@ export default {
   },
   setup(props) {
     const { sortingState, setSorting, removeSorting, SORT_DIRECTION } =
-      useSorting();
+      useInstitutionSorting();
 
     const sortDirectionToIcon = {
       [SORT_DIRECTION.DSC]: "SortDescendingIcon",

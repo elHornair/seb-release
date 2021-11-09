@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { useSorting } from "@/composables/useSorting";
+import { useInstitutionSorting } from "@/composables/institution/useInstitutionSorting";
 import { computed } from "vue";
 
 export default {
@@ -45,7 +45,7 @@ export default {
     },
   },
   setup(props) {
-    const { sortingState } = useSorting();
+    const { sortingState } = useInstitutionSorting();
 
     return {
       isSorted: computed(() => sortingState.field === props.fieldName),
