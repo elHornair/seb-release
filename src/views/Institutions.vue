@@ -259,13 +259,11 @@ export default {
       );
     };
 
-    const showBulkActions = computed(
-      () => multiselect.selectedCounter.value > 0
-    );
+    const showBulkActions = computed(() => multiselect.selectedCount.value > 0);
 
     const handleBulkActionClick = () => {
       alert(
-        `This will delete ${multiselect.selectedCounter.value} selected item(s)`
+        `This will delete ${multiselect.selectedCount.value} selected item(s)`
       );
     };
 

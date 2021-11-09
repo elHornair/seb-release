@@ -24,7 +24,7 @@
             </button>
           </MenuItem>
           <MenuItem
-            v-if="multiselect.selectedCounter.value > 0"
+            v-if="multiselect.selectedCount.value > 0"
             v-slot="{ active }"
           >
             <button
@@ -37,7 +37,7 @@
               </span>
               <span class="menu__item__label"
                 >Deselect all selected ({{
-                  multiselect.selectedCounter.value
+                  multiselect.selectedCount.value
                 }})</span
               >
             </button>
