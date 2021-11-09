@@ -1,23 +1,6 @@
 import { computed, reactive, readonly } from "vue";
 
-export const useFiltering = () => {
-  const fields = {
-    // Apart from "fields", useInstitutionFiltering() is already generalised
-    // It's ready to be turned into a factory (that gets "fields" as a parameter)
-    // That factory could then be used to create a filtering for another entity
-    name: {
-      label: "Name",
-    },
-    urlSuffix: {
-      label: "URL Suffix",
-    },
-    active: {
-      label: "Status",
-      valueFormatter: (value) =>
-        value === true ? "Active" : value === false ? "Inactive" : "All",
-    },
-  };
-
+export const useFiltering = (fields) => {
   const fieldNames = Object.keys(fields);
   const initialState = fieldNames.reduce((reducedFields, fieldName) => {
     return Object.assign(reducedFields, {
