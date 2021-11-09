@@ -102,7 +102,7 @@ export default {
       required: true,
     },
   },
-  emits: ["institution:change"], // TODO: listen to that event outside
+  emits: ["institution:change"],
   setup(props, context) {
     const { handleActivateRequest, handleDeactivateRequest } =
       useInstitutionStatusToggling();
