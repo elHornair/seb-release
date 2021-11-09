@@ -23,7 +23,7 @@
         <div class="list__item">
           <dt class="term">Status</dt>
           <dd class="details">
-            <status-batch :active="institutionState.active"></status-batch>
+            <status-batch :value="institutionState.active"></status-batch>
           </dd>
         </div>
         <div class="list__item">
