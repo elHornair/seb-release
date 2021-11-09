@@ -354,9 +354,11 @@ export default {
 .table_row {
   @apply block;
   @apply relative;
+  @apply pl-2;
   @apply pr-8;
   @apply py-3;
   @apply sm:table-row;
+  @apply sm:pl-0;
   @apply sm:pr-0;
   @apply sm:py-0;
 
