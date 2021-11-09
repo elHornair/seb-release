@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { useFiltering } from "@/composables/useFiltering";
+import { useInstitutionFiltering } from "@/composables/institution/useInstitutionFiltering";
 import { computed } from "vue";
 import { FilterIcon, XCircleIcon } from "@heroicons/vue/solid";
 import ActionButton from "@/components/misc/ActionButton";
@@ -53,7 +53,7 @@ export default {
     XCircleIcon,
   },
   setup() {
-    const { filteringState, removeAllFilters } = useFiltering();
+    const { filteringState, removeAllFilters } = useInstitutionFiltering();
 
     const activeFilters = computed(() => {
       return Object.keys(filteringState)

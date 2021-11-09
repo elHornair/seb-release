@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { useFiltering } from "@/composables/useFiltering";
+import { useInstitutionFiltering } from "@/composables/institution/useInstitutionFiltering";
 import { computed } from "vue";
 import { XCircleIcon } from "@heroicons/vue/solid";
 
@@ -37,7 +37,8 @@ export default {
     },
   },
   setup(props) {
-    const { removeFilter, getFieldLabel, getFieldValue } = useFiltering();
+    const { removeFilter, getFieldLabel, getFieldValue } =
+      useInstitutionFiltering();
 
     const label = computed(() => {
       return getFieldLabel(props.field);

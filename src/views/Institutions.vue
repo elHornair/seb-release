@@ -194,7 +194,7 @@ import { computed, reactive, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useInstitutionAPI } from "@/composables/institution/useInstitutionAPI";
 import { useInstitutionSorting } from "@/composables/institution/useInstitutionSorting";
-import { useFiltering } from "@/composables/useFiltering";
+import { useInstitutionFiltering } from "@/composables/institution/useInstitutionFiltering";
 import { useMultiselect } from "@/composables/useMultiselect";
 import { useAccessControl } from "@/composables/useAccessControl";
 import { PlusCircleIcon } from "@heroicons/vue/solid";
@@ -237,7 +237,7 @@ export default {
       useMultiselect();
     const { sortingState, sortingApiParam, SORT_DIRECTION } =
       useInstitutionSorting();
-    const { filteringState, filteringApiParam } = useFiltering();
+    const { filteringState, filteringApiParam } = useInstitutionFiltering();
     const { availablePrivileges, availableActions, hasBasePrivilege } =
       useAccessControl();
 

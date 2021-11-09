@@ -69,7 +69,7 @@ import Modal from "@/components/modal/Modal";
 import FormInputText from "@/components/form/FormInputText";
 import FormInputRadio from "@/components/form/FormInputRadio";
 import ActionButton from "@/components/misc/ActionButton";
-import { useFiltering } from "@/composables/useFiltering";
+import { useInstitutionFiltering } from "@/composables/institution/useInstitutionFiltering";
 import { reactive } from "vue";
 
 export default {
@@ -83,7 +83,7 @@ export default {
   emits: ["hide"],
   setup(props, context) {
     const { filteringState, setFilters, getFieldLabel, getFieldValue } =
-      useFiltering();
+      useInstitutionFiltering();
 
     const STATUS_FILTER_OPTIONS = {
       ALL: "ALL",
