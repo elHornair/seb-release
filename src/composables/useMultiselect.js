@@ -47,6 +47,10 @@ export const useMultiselect = (state) => {
 
   const selectedCount = computed(() => state.selectedItems.length);
 
+  const selectedAndVisibleCount = computed(() => {
+    return state.items.filter((item) => isSelected(item.id)).length;
+  });
+
   return {
     addSelected,
     removeSelected,
@@ -56,5 +60,6 @@ export const useMultiselect = (state) => {
     isSelected,
     areAllVisibleSelected,
     selectedCount,
+    selectedAndVisibleCount,
   };
 };

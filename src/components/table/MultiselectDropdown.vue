@@ -27,7 +27,7 @@
             </button>
           </MenuItem>
           <MenuItem
-            v-if="multiselect.selectedCount.value > 0"
+            v-if="multiselect.selectedAndVisibleCount.value > 0"
             v-slot="{ active }"
           >
             <button
@@ -39,7 +39,10 @@
                 <XCircleIcon class="menu__item__icon"></XCircleIcon>
               </span>
               <span class="menu__item__label"
-                >Deselect all visible <span class="sr-only">institutions</span>
+                >Deselect all visible
+                <span class="sr-only">institutions</span> ({{
+                  multiselect.selectedAndVisibleCount.value
+                }})
               </span>
             </button>
           </MenuItem>
