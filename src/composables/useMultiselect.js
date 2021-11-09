@@ -41,7 +41,7 @@ export const useMultiselect = (state) => {
     return state.selectedItems.find((item) => item.id === id);
   };
 
-  const allVisibleSelected = computed(() => {
+  const areAllVisibleSelected = computed(() => {
     return !state.items.find((item) => !isSelected(item.id));
   });
 
@@ -54,7 +54,7 @@ export const useMultiselect = (state) => {
     deselectAllVisible,
     selectAllVisible,
     isSelected,
-    allVisibleSelected,
+    areAllVisibleSelected,
     selectedCount,
   };
 };

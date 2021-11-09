@@ -2,12 +2,12 @@
   <div class="flex">
     <input
       id="select_all"
-      :checked="multiselect.allVisibleSelected.value"
+      :checked="multiselect.areAllVisibleSelected.value"
       name="select_all"
       type="checkbox"
       class="checkbox"
       @change="
-        multiselect.allVisibleSelected.value
+        multiselect.areAllVisibleSelected.value
           ? multiselect.deselectAllVisible()
           : multiselect.selectAllVisible()
       "
