@@ -13,6 +13,10 @@
       "
     />
     <label :for="`select_all`" class="sr-only">Select all institutions</label>
+    <span v-if="multiselect.selectedCount.value > 0" class="badge"
+      >{{ multiselect.selectedCount.value
+      }}<span class="sr-only">institutions are currently selected</span></span
+    >
     <MultiselectDropdown></MultiselectDropdown>
   </div>
 </template>
@@ -39,9 +43,22 @@ export default {
   @apply h-4;
   @apply w-4;
   @apply mt-0.5;
-  @apply mr-1;
+  @apply mr-2;
   @apply text-indigo-600;
   @apply border-gray-300;
   @apply rounded;
+}
+
+.badge {
+  @apply inline-flex;
+  @apply items-center;
+  @apply mr-0.5;
+  @apply px-1.5;
+  @apply py-0.5;
+  @apply rounded-full;
+  @apply text-xs;
+  @apply font-normal;
+  @apply bg-gray-300;
+  @apply text-gray-800;
 }
 </style>

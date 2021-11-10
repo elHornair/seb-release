@@ -78,7 +78,7 @@
                 >
                   <td
                     v-if="isMultiselect"
-                    class="table_cell table_cell--break-out-left sm:w-1/12"
+                    class="table_cell table_cell--break-out-left sm:w-2/12"
                   >
                     <input
                       :id="`select_cb_${institution.id}`"
@@ -312,7 +312,7 @@ export default {
         {
           name: "urlSuffix",
           label: "URL Suffix",
-          width: "4/12",
+          width: "3/12",
           isMain: false,
         },
         {
@@ -346,7 +346,7 @@ export default {
   @apply sm:sr-only;
 
   &.table_caption--multiselect {
-    @apply pl-14;
+    @apply pl-20;
     @apply text-right;
   }
 }
