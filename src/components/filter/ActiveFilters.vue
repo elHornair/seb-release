@@ -11,18 +11,22 @@
         >{{ activeFiltersLabel }}
       </span>
       <div class="pl-2">
-        <active-filter
-          v-for="activeFilter in activeFilters"
-          :key="activeFilter.field"
-          :field="activeFilter.field"
-          :value="activeFilter.value"
-          class="ml-2 my-1"
-        ></active-filter>
+        <div>
+          <active-filter
+            v-for="activeFilter in activeFilters"
+            :key="activeFilter.field"
+            :field="activeFilter.field"
+            :value="activeFilter.value"
+            class="ml-2 my-1"
+          ></active-filter>
+        </div>
 
-        <button class="button" @click="showFilters">Adapt filters</button>
-        <button class="button" @click="removeAllFilters">
-          Remove all <span class="sr-only">filters</span>
-        </button>
+        <div>
+          <button class="button" @click="showFilters">Adapt filters</button>
+          <button class="button" @click="removeAllFilters">
+            Remove all <span class="sr-only">filters</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
