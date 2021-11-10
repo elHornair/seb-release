@@ -30,9 +30,9 @@
                 v-if="currentSorting === SORT_DIRECTION.DSC"
                 aria-hidden="true"
               >
-                <CheckCircleIcon
+                <CheckIcon
                   class="menu__item__icon menu__item__icon--right"
-                ></CheckCircleIcon>
+                ></CheckIcon>
               </span>
             </button>
           </MenuItem>
@@ -51,9 +51,9 @@
                 v-if="currentSorting === SORT_DIRECTION.ASC"
                 aria-hidden="true"
               >
-                <CheckCircleIcon
+                <CheckIcon
                   class="menu__item__icon menu__item__icon--right"
-                ></CheckCircleIcon>
+                ></CheckIcon>
               </span>
             </button>
           </MenuItem>
@@ -84,7 +84,7 @@ import {
   SortDescendingIcon,
   SortAscendingIcon,
   XCircleIcon,
-  CheckCircleIcon,
+  CheckIcon,
 } from "@heroicons/vue/solid";
 import { useInstitutionSorting } from "@/composables/institution/useInstitutionSorting";
 import { computed } from "vue";
@@ -102,7 +102,7 @@ export default {
     SortDescendingIcon,
     SortAscendingIcon,
     XCircleIcon,
-    CheckCircleIcon,
+    CheckIcon,
   },
   props: {
     label: {
