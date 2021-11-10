@@ -39,6 +39,19 @@ watch(filteringApiParam, async () => {
   }
 });
 
+const displayableItems = computed(() => {
+  if (entityCollectionState.keepSelectedOnTop) {
+    return [
+      ...entityCollectionState.selectedItems,
+      ...entityCollectionState.items.filter(
+        (item) => !multiselect.isSelected(item.id)
+      ),
+    ];
+  }
+
+  return entityCollectionState.items;
+});
+
 const tableCaption = "List of institutions";
 const tableDescription = computed(() => {
   let currentSortingInfo;
@@ -66,6 +79,7 @@ const tableDescription = computed(() => {
 export const useInstitutions = () => {
   return {
     institutionsState: entityCollectionState,
+    displayableItems,
     updateInstitutionData,
     isMultiselect,
     tableCaption,

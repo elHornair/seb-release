@@ -67,9 +67,7 @@
               </thead>
               <tbody class="block sm:table-row-group">
                 <tr
-                  v-for="(
-                    institution, institutionIndex
-                  ) in institutionsState.items"
+                  v-for="(institution, institutionIndex) in displayableItems"
                   :key="institution.id"
                   class="table_row"
                   :class="{
@@ -258,6 +256,7 @@ export default {
   setup() {
     const {
       institutionsState,
+      displayableItems,
       updateInstitutionData,
       tableCaption,
       tableDescription,
@@ -292,6 +291,7 @@ export default {
     return {
       filtersVisible,
       institutionsState,
+      displayableItems,
       isMultiselect,
       multiselect,
       showBulkActions,
