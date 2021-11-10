@@ -73,9 +73,8 @@
               class="menu__item"
               :class="{ 'menu__item--active': active }"
               @click="
-                multiselect.setKeepSelectedOnTop(
-                  !institutionsState.keepSelectedOnTop
-                )
+                multiselect.keepSelectedOnTop.value =
+                  !multiselect.keepSelectedOnTop.value
               "
             >
               <span aria-hidden="true">
@@ -86,7 +85,7 @@
                 <span class="sr-only">institutions</span> on top
               </span>
               <span
-                v-if="institutionsState.keepSelectedOnTop"
+                v-if="multiselect.keepSelectedOnTop.value"
                 aria-hidden="true"
               >
                 <CheckIcon
@@ -102,7 +101,6 @@
 </template>
 
 <script>
-import { computed } from "vue";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
 import {
   DotsVerticalIcon,
@@ -129,11 +127,9 @@ export default {
     CheckIcon,
   },
   setup() {
-    const { institutionsState, multiselect } = useInstitutions();
-    const visibleItemsCount = computed(() => institutionsState.items.length);
+    const { multiselect, visibleItemsCount } = useInstitutions();
 
     return {
-      institutionsState,
       multiselect,
       visibleItemsCount,
     };

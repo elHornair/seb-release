@@ -1,4 +1,4 @@
-import { reactive, readonly } from "vue";
+import { computed, reactive, readonly } from "vue";
 import { useMultiselect } from "@/composables/useMultiselect";
 import { usePaging } from "@/composables/usePaging";
 
@@ -21,9 +21,12 @@ export const useEntityCollection = (isMultiselect) => {
     Object.assign(state.items, [], items);
   };
 
+  const visibleItemsCount = computed(() => state.items.length);
+
   return {
     entityCollectionState: readonly(state),
     setItems,
+    visibleItemsCount,
     multiselect,
     paging,
   };
