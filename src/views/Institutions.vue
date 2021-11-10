@@ -174,13 +174,13 @@
               type="button"
               :primary="true"
               :full-xl="true"
-              @click="handleFilterShow"
+              @click="showFilters"
             >
               <template #icon>
                 <FilterIcon class="-ml-1 mr-2 h-5 w-5 text-white" />
               </template>
             </action-button>
-            <Filters v-if="filtersVisible" @hide="handleFilterHide"></Filters>
+            <Filters v-if="filtersVisible" @hide="hideFilters"></Filters>
           </div>
 
           <div class="w-full">
@@ -217,7 +217,7 @@
 </template>
 
 <script>
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import { useAccessControl } from "@/composables/useAccessControl";
 import { PlusCircleIcon } from "@heroicons/vue/solid";
 import { FilterIcon } from "@heroicons/vue/solid";
@@ -266,13 +266,10 @@ export default {
       multiselect,
       paging,
     } = useInstitutions();
-    const { hasActiveFilters } = useInstitutionFiltering();
+    const { hasActiveFilters, filtersVisible, showFilters, hideFilters } =
+      useInstitutionFiltering();
     const { availablePrivileges, availableActions, hasBasePrivilege } =
       useAccessControl();
-
-    const filtersVisible = ref(false);
-    const handleFilterShow = () => (filtersVisible.value = true);
-    const handleFilterHide = () => (filtersVisible.value = false);
 
     const showAddAction = () => {
       return hasBasePrivilege(
@@ -292,7 +289,6 @@ export default {
     updateInstitutionData();
 
     return {
-      filtersVisible,
       displayableItems,
       isMultiselect,
       multiselect,
@@ -301,10 +297,11 @@ export default {
       tableCaption,
       tableDescription,
       hasActiveFilters,
+      filtersVisible,
       showAddAction,
       handleBulkActionClick,
-      handleFilterShow,
-      handleFilterHide,
+      showFilters,
+      hideFilters,
       updateInstitutionData,
       fields: [
         {

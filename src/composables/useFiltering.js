@@ -1,4 +1,4 @@
-import { computed, reactive, readonly } from "vue";
+import { computed, reactive, readonly, ref } from "vue";
 
 export const useFiltering = (fields) => {
   const fieldNames = Object.keys(fields);
@@ -9,6 +9,7 @@ export const useFiltering = (fields) => {
   }, {});
 
   const state = reactive(Object.assign({}, initialState));
+  const filtersVisible = ref(false);
 
   const apiParam = computed(() =>
     Object.keys(state)
@@ -21,6 +22,14 @@ export const useFiltering = (fields) => {
         {}
       )
   );
+
+  const showFilters = () => {
+    filtersVisible.value = true;
+  };
+
+  const hideFilters = () => {
+    filtersVisible.value = false;
+  };
 
   const setFilters = (filters) => {
     Object.assign(state, initialState, filters);
@@ -81,7 +90,10 @@ export const useFiltering = (fields) => {
 
   return {
     filteringState: readonly(state),
-    filteringApiParam: readonly(apiParam),
+    filteringApiParam: apiParam,
+    filtersVisible: readonly(filtersVisible),
+    showFilters,
+    hideFilters,
     setFilters,
     removeFilter,
     removeAllFilters,
