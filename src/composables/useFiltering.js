@@ -60,6 +60,25 @@ export const useFiltering = (fields) => {
     return rawValue;
   };
 
+  const activeFilters = computed(() => {
+    return Object.keys(state)
+      .filter((key) => state[key] !== null)
+      .map((key) => {
+        return { field: key, value: state[key] };
+      });
+  });
+
+  const activeFiltersCount = computed(() => activeFilters.value.length);
+
+  const hasActiveFilters = computed(() => activeFiltersCount.value > 0);
+
+  const activeFiltersLabel = computed(
+    () =>
+      `${activeFiltersCount.value} filter${
+        activeFiltersCount.value > 1 ? "s" : ""
+      }`
+  );
+
   return {
     filteringState: readonly(state),
     filteringApiParam: readonly(apiParam),
@@ -68,5 +87,8 @@ export const useFiltering = (fields) => {
     removeAllFilters,
     getFieldLabel,
     getFieldValue,
+    activeFilters,
+    hasActiveFilters,
+    activeFiltersLabel,
   };
 };

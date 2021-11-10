@@ -60,7 +60,8 @@ export default {
 <style lang="scss" scoped>
 .active-filter {
   @apply inline-flex;
-  @apply justify-center;
+  @apply justify-start;
+  @apply w-full;
   @apply py-2;
   @apply px-4;
   @apply rounded-md;
@@ -70,7 +71,11 @@ export default {
   @apply shadow-sm;
   @apply bg-gray-300;
 
-  max-width: 12rem;
+  @screen sm {
+    max-width: 12rem;
+    @apply justify-center;
+    @apply w-auto;
+  }
 }
 
 .active-filter__label {

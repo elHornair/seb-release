@@ -7,9 +7,7 @@
     <div class="flex space-x-4 divide-x divide-gray-200 text-sm mt-2">
       <span class="flex mt-3 text-gray-700 font-medium whitespace-nowrap">
         <span aria-hidden="true">
-          <FilterIcon
-            class="h-5 w-5 mr-2 text-gray-400 mr-2"
-          ></FilterIcon> </span
+          <FilterIcon class="h-5 w-5 mr-2 text-gray-400"></FilterIcon> </span
         >{{ activeFiltersLabel }}
       </span>
       <div class="pl-2">
@@ -39,7 +37,6 @@
 
 <script>
 import { useInstitutionFiltering } from "@/composables/institution/useInstitutionFiltering";
-import { computed } from "vue";
 import { FilterIcon, XCircleIcon } from "@heroicons/vue/solid";
 import ActionButton from "@/components/misc/ActionButton";
 import ActiveFilter from "@/components/filter/ActiveFilter";
@@ -53,31 +50,18 @@ export default {
     XCircleIcon,
   },
   setup() {
-    const { filteringState, removeAllFilters } = useInstitutionFiltering();
-
-    const activeFilters = computed(() => {
-      return Object.keys(filteringState)
-        .filter((key) => filteringState[key] !== null)
-        .map((key) => {
-          return { field: key, value: filteringState[key] };
-        });
-    });
-
-    const activeFiltersAmount = computed(() => activeFilters.value.length);
-    const hasActiveFilters = computed(() => activeFiltersAmount.value > 0);
-
-    const activeFiltersLabel = computed(
-      () =>
-        `${activeFiltersAmount.value} Filter${
-          activeFiltersAmount.value > 1 ? "s" : ""
-        }`
-    );
-
-    return {
+    const {
+      removeAllFilters,
       activeFilters,
       hasActiveFilters,
       activeFiltersLabel,
+    } = useInstitutionFiltering();
+
+    return {
       removeAllFilters,
+      activeFilters,
+      hasActiveFilters,
+      activeFiltersLabel,
     };
   },
 };

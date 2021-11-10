@@ -1,8 +1,7 @@
 <template>
   <view-split label-aside="Actions">
     <template #main>
-      <ActiveFilters></ActiveFilters>
-
+      <ActiveFilters class="hidden sm:block"></ActiveFilters>
       <div
         class="flex flex-col"
         role="region"
@@ -169,8 +168,9 @@
             "
           >
             <h3 class="text-sm font-medium text-gray-700 pb-1">Filtering</h3>
+            <FiltersSummary class="block sm:hidden"></FiltersSummary>
             <action-button
-              label="Show Filters"
+              :label="`${hasActiveFilters ? 'Adapt' : 'Show'} filters`"
               type="button"
               :primary="true"
               :full-xl="true"
@@ -234,10 +234,13 @@ import InlineActionsDropdown from "@/components/table/InlineActionsDropdown";
 import TableContentField from "@/components/table/TableContentField";
 import MultiselectControls from "@/components/table/MultiselectControls";
 import { useInstitutions } from "@/composables/institution/useInstitutions";
+import FiltersSummary from "@/components/filter/FiltersSummary";
+import { useInstitutionFiltering } from "@/composables/institution/useInstitutionFiltering";
 
 export default {
   name: "Institution",
   components: {
+    FiltersSummary,
     MultiselectControls,
     TableContentField,
     InlineActionsDropdown,
@@ -263,7 +266,7 @@ export default {
       multiselect,
       paging,
     } = useInstitutions();
-
+    const { hasActiveFilters } = useInstitutionFiltering();
     const { availablePrivileges, availableActions, hasBasePrivilege } =
       useAccessControl();
 
@@ -297,6 +300,7 @@ export default {
       showBulkActions,
       tableCaption,
       tableDescription,
+      hasActiveFilters,
       showAddAction,
       handleBulkActionClick,
       handleFilterShow,
