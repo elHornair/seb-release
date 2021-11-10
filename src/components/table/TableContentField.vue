@@ -4,7 +4,6 @@
     scope="row"
     :class="{
       'bg-yellow-50': isSorted,
-      [widthClass]: true,
     }"
   >
     <span class="label">{{ label }}<span :aria-hidden="true">:</span></span>
@@ -33,11 +32,6 @@ export default {
       type: String,
       required: true,
     },
-    width: {
-      type: String,
-      required: false,
-      default: "4/12",
-    },
     isHeader: {
       type: Boolean,
       required: false,
@@ -50,11 +44,6 @@ export default {
     return {
       isSorted: computed(() => sortingState.field === props.fieldName),
     };
-  },
-  computed: {
-    widthClass() {
-      return `sm:w-${this.width}`;
-    },
   },
 };
 </script>

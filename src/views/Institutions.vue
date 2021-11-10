@@ -47,7 +47,7 @@
                   <th
                     v-if="isMultiselect"
                     scope="col"
-                    class="relative px-6 py-3"
+                    class="table_head_cell table_head_cell--selection"
                   >
                     <span class="sr-only">Selection</span>
                   </th>
@@ -60,7 +60,7 @@
                     :first-col="index === 0"
                   ></table-head-field>
 
-                  <th scope="col" class="relative px-6 py-3">
+                  <th scope="col" class="table_head_cell">
                     <span class="sr-only">Actions</span>
                   </th>
                 </tr>
@@ -78,7 +78,8 @@
                 >
                   <td
                     v-if="isMultiselect"
-                    class="table_cell table_cell--break-out-left sm:w-2/12"
+                    class="table_cell table_cell--break-out-left"
+                    style="width: 7rem; min-width: 7rem"
                   >
                     <input
                       :id="`select_cb_${institution.id}`"
@@ -102,7 +103,6 @@
                     class="table_cell"
                     :label="field.label"
                     :field-name="field.name"
-                    :width="field.width"
                     :is-header="field.isMain"
                   >
                     <template v-if="field.renderContentAs">
@@ -306,19 +306,16 @@ export default {
         {
           name: "name",
           label: "Name",
-          width: "4/12",
           isMain: true,
         },
         {
           name: "urlSuffix",
           label: "URL Suffix",
-          width: "3/12",
           isMain: false,
         },
         {
           name: "active",
           label: "Status",
-          width: "2/12",
           isMain: false,
           renderContentAs: "StatusBatch",
         },
@@ -348,6 +345,17 @@ export default {
   &.table_caption--multiselect {
     @apply pl-20;
     @apply text-right;
+  }
+}
+
+.table_head_cell {
+  @apply relative;
+  @apply px-6;
+  @apply py-3;
+
+  &.table_head_cell--selection {
+    width: 7rem;
+    min-width: 7rem;
   }
 }
 
