@@ -77,8 +77,10 @@ export default {
 .label {
   @apply flex;
   @apply mr-2;
+  @apply pt-1;
   @apply pr-2;
   @apply border-r border-gray-600;
+  @apply text-sm;
   @apply text-gray-700;
   @apply font-medium;
 }
