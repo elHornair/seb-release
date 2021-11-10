@@ -16,6 +16,7 @@ const {
   window.location.search === "?multiselect"
 );
 
+// TODO: generalise: most of the code in here can probably be moved to useEntityCollection.js and be shared with other collections
 const { readInstitutions } = useInstitutionAPI();
 const { sortingState, sortingApiParam, SORT_DIRECTION } =
   useInstitutionSorting();
