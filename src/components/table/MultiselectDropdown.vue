@@ -81,8 +81,7 @@
                 <StarIcon class="menu__item__icon"></StarIcon>
               </span>
               <span class="menu__item__label"
-                ><span class="sr-only">Keep</span> Selected
-                <span class="sr-only">institutions</span> on top
+                >Keep selected <span class="sr-only">institutions</span> on top
               </span>
               <span
                 v-if="multiselect.keepSelectedOnTop.value"
