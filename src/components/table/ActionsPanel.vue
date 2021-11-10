@@ -66,7 +66,6 @@
 
 <script>
 import Filters from "@/components/filter/Filters";
-
 import FiltersSummary from "@/components/filter/FiltersSummary";
 import GeneralSortingDropdown from "@/components/table/GeneralSortingDropdown";
 import ActionButton from "@/components/misc/ActionButton";
