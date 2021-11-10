@@ -19,17 +19,10 @@
           class="ml-2 my-1"
         ></active-filter>
 
-        <action-button
-          label="Remove all"
-          :primary="false"
-          type="button"
-          class="ml-2 my-1"
-          @click="removeAllFilters()"
-        >
-          <template #icon>
-            <XCircleIcon class="-ml-1 mr-2 h-5 w-5 text-gray-700"></XCircleIcon>
-          </template>
-        </action-button>
+        <button class="button" @click="showFilters">Adapt filters</button>
+        <button class="button" @click="removeAllFilters">
+          Remove all <span class="sr-only">filters</span>
+        </button>
       </div>
     </div>
   </div>
@@ -37,20 +30,18 @@
 
 <script>
 import { useInstitutionFiltering } from "@/composables/institution/useInstitutionFiltering";
-import { FilterIcon, XCircleIcon } from "@heroicons/vue/solid";
-import ActionButton from "@/components/misc/ActionButton";
+import { FilterIcon } from "@heroicons/vue/solid";
 import ActiveFilter from "@/components/filter/ActiveFilter";
 
 export default {
   name: "ActiveFilters",
   components: {
     ActiveFilter,
-    ActionButton,
     FilterIcon,
-    XCircleIcon,
   },
   setup() {
     const {
+      showFilters,
       removeAllFilters,
       activeFilters,
       hasActiveFilters,
@@ -58,6 +49,7 @@ export default {
     } = useInstitutionFiltering();
 
     return {
+      showFilters,
       removeAllFilters,
       activeFilters,
       hasActiveFilters,
@@ -66,3 +58,13 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.button {
+  @apply text-gray-900;
+  @apply border-b;
+  @apply border-gray-600;
+  @apply mt-2;
+  @apply ml-2;
+}
+</style>
