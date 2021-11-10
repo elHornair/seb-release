@@ -54,9 +54,9 @@
         </div>
       </section>
 
-      <section class="section sm:sr-only">
+      <section class="section section--sorting">
+        <h3 class="title">Sorting</h3>
         <div class="content">
-          <h3 class="title">Sorting</h3>
           <GeneralSortingDropdown :fields="fields"></GeneralSortingDropdown>
         </div>
       </section>
@@ -145,6 +145,10 @@ export default {
   @apply sm:gap-4;
   @apply sm:items-start;
   @apply xl:block;
+
+  &.section--sorting {
+    @apply sm:sr-only;
+  }
 }
 
 .title {
