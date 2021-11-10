@@ -51,6 +51,10 @@ export const useMultiselect = (state) => {
     return state.items.filter((item) => isSelected(item.id)).length;
   });
 
+  const setKeepSelectedOnTop = (value) => {
+    state.keepSelectedOnTop = value;
+  };
+
   return {
     addSelected,
     removeSelected,
@@ -58,6 +62,7 @@ export const useMultiselect = (state) => {
     deselectAllVisible,
     selectAllVisible,
     isSelected,
+    setKeepSelectedOnTop,
     areAllVisibleSelected,
     selectedCount,
     selectedAndVisibleCount,
