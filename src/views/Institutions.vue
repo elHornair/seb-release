@@ -1,7 +1,7 @@
 <template>
   <view-split label-aside="Actions">
     <template #main>
-      <ActiveFilters class="hidden sm:block"></ActiveFilters>
+      <ActiveFilters class="hidden xl:block"></ActiveFilters>
       <div
         class="flex flex-col"
         role="region"
@@ -139,14 +139,7 @@
     <template #aside>
       <div class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
         <h2 class="mb-3">Actions</h2>
-        <div
-          class="
-            flex flex-col-reverse
-            gap-4
-            sm:flex-row sm:items-end sm:justify-between
-            xl:flex-col xl:items-start
-          "
-        >
+        <div class="flex flex-col-reverse gap-4">
           <GeneralSortingDropdown
             class="
               pt-4
@@ -168,7 +161,7 @@
             "
           >
             <h3 class="text-sm font-medium text-gray-700 pb-1">Filtering</h3>
-            <FiltersSummary class="block sm:hidden"></FiltersSummary>
+            <FiltersSummary class="block xl:hidden"></FiltersSummary>
             <action-button
               :label="`${hasActiveFilters ? 'Adapt' : 'Show'} filters`"
               type="button"
