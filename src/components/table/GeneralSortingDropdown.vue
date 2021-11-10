@@ -1,26 +1,23 @@
 <template>
   <div>
-    <h3 class="title">Sorting</h3>
     <label for="sorting" class="sr-only">Sorting</label>
-    <div class="mt-1">
-      <select
-        id="sorting"
-        v-model="currentSorting"
-        name="sorting"
-        autocomplete="off"
-        class="select"
-      >
-        <template v-for="field in fields" :key="field.name">
-          <option :value="createSortingValue(field.name, SORT_DIRECTION.DSC)">
-            By {{ field.label }} A to Z
-          </option>
-          <option :value="createSortingValue(field.name, SORT_DIRECTION.ASC)">
-            By {{ field.label }} Z to A
-          </option>
-        </template>
-        <option :value="NO_SORTING">No Sorting</option>
-      </select>
-    </div>
+    <select
+      id="sorting"
+      v-model="currentSorting"
+      name="sorting"
+      autocomplete="off"
+      class="select"
+    >
+      <template v-for="field in fields" :key="field.name">
+        <option :value="createSortingValue(field.name, SORT_DIRECTION.DSC)">
+          By {{ field.label }} A to Z
+        </option>
+        <option :value="createSortingValue(field.name, SORT_DIRECTION.ASC)">
+          By {{ field.label }} Z to A
+        </option>
+      </template>
+      <option :value="NO_SORTING">No Sorting</option>
+    </select>
   </div>
 </template>
 
@@ -78,12 +75,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.title {
-  @apply block;
-  @apply text-sm;
-  @apply font-medium;
-  @apply text-gray-700;
-}
 .select {
   @apply block;
   @apply w-full;

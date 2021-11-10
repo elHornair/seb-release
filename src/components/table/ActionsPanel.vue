@@ -2,27 +2,13 @@
   <div class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
     <h2 class="mb-3">Actions</h2>
     <div class="flex flex-col-reverse gap-4">
-      <GeneralSortingDropdown
-        class="
-          pt-4
-          border-t border-gray-200
-          sm:border-t-0 sm:pt-0
-          xl:pb-4 xl:border-b
-          sm:sr-only
-        "
-        :fields="fields"
-      ></GeneralSortingDropdown>
+      <section class="section sm:sr-only">
+        <h3 class="title">Sorting</h3>
+        <GeneralSortingDropdown :fields="fields"></GeneralSortingDropdown>
+      </section>
 
-      <div
-        class="
-          pt-4
-          border-t border-gray-200
-          sm:border-t-0 sm:pt-0
-          xl:pb-4 xl:border-b
-          w-full
-        "
-      >
-        <h3 class="text-sm font-medium text-gray-700 pb-1">Filtering</h3>
+      <section class="section">
+        <h3 class="title">Filtering</h3>
         <FiltersSummary class="block xl:hidden"></FiltersSummary>
         <action-button
           :label="`${hasActiveFilters ? 'Adapt' : 'Show'} filters`"
@@ -36,10 +22,10 @@
           </template>
         </action-button>
         <Filters v-if="filtersVisible" @hide="hideFilters"></Filters>
-      </div>
+      </section>
 
-      <div class="w-full">
-        <h3 class="text-sm font-medium text-gray-700 pb-1">Main Actions</h3>
+      <section class="section">
+        <h3 class="title">Main Actions</h3>
         <action-button
           v-if="showAddAction"
           label="Add institution"
@@ -51,9 +37,10 @@
             <plus-circle-icon class="-ml-1 mr-2 h-5 w-5 text-white" />
           </template>
         </action-button>
-      </div>
-      <div v-if="showBulkActions" class="w-full">
-        <h3 class="text-sm font-medium text-gray-700 pb-1">Bulk Actions</h3>
+      </section>
+
+      <section v-if="showBulkActions" class="section">
+        <h3 class="title">Bulk Actions</h3>
         <action-button
           label="Delete Selected"
           type="button"
@@ -64,7 +51,7 @@
             <DocumentRemoveIcon class="-ml-1 mr-2 h-5 w-5 text-white" />
           </template>
         </action-button>
-      </div>
+      </section>
     </div>
   </div>
 </template>
@@ -134,3 +121,23 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="scss">
+.section {
+  @apply pt-4;
+  @apply border-t;
+  @apply border-gray-200;
+  @apply sm:border-t-0;
+  @apply sm:pt-0;
+  @apply xl:pb-4;
+  @apply xl:border-b;
+  @apply w-full;
+}
+
+.title {
+  @apply text-sm;
+  @apply font-medium;
+  @apply text-gray-700;
+  @apply pb-1;
+}
+</style>
