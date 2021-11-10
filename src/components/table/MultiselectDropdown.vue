@@ -42,7 +42,7 @@
               </span>
               <span class="menu__item__label"
                 >Deselect visible <span class="sr-only">institutions</span> ({{
-                  multiselect.selectedAndVisibleCount.value
+                  visibleItemsCount
                 }})
               </span>
             </button>
