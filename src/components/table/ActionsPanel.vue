@@ -4,53 +4,61 @@
     <div class="flex flex-col gap-4">
       <section class="section">
         <h3 class="title">Main Actions</h3>
-        <action-button
-          v-if="showAddAction"
-          label="Add institution"
-          type="link"
-          :full-xl="true"
-          :route-obj="{ name: 'institution-create' }"
-        >
-          <template #icon>
-            <plus-circle-icon class="-ml-1 mr-2 h-5 w-5 text-white" />
-          </template>
-        </action-button>
+        <div class="content">
+          <action-button
+            v-if="showAddAction"
+            label="Add institution"
+            type="link"
+            :full-xl="true"
+            :route-obj="{ name: 'institution-create' }"
+          >
+            <template #icon>
+              <plus-circle-icon class="-ml-1 mr-2 h-5 w-5 text-white" />
+            </template>
+          </action-button>
+        </div>
       </section>
 
       <section v-if="showBulkActions" class="section">
         <h3 class="title">Bulk Actions</h3>
-        <action-button
-          label="Delete Selected"
-          type="button"
-          :full-xl="true"
-          @click="handleBulkActionClick"
-        >
-          <template #icon>
-            <DocumentRemoveIcon class="-ml-1 mr-2 h-5 w-5 text-white" />
-          </template>
-        </action-button>
+        <div class="content">
+          <action-button
+            label="Delete Selected"
+            type="button"
+            :full-xl="true"
+            @click="handleBulkActionClick"
+          >
+            <template #icon>
+              <DocumentRemoveIcon class="-ml-1 mr-2 h-5 w-5 text-white" />
+            </template>
+          </action-button>
+        </div>
       </section>
 
       <section class="section">
         <h3 class="title">Filtering</h3>
-        <FiltersSummary class="block xl:hidden"></FiltersSummary>
-        <action-button
-          :label="`${hasActiveFilters ? 'Adapt' : 'Show'} filters`"
-          type="button"
-          :primary="true"
-          :full-xl="true"
-          @click="showFilters"
-        >
-          <template #icon>
-            <FilterIcon class="-ml-1 mr-2 h-5 w-5 text-white" />
-          </template>
-        </action-button>
-        <Filters v-if="filtersVisible" @hide="hideFilters"></Filters>
+        <div class="content">
+          <FiltersSummary class="block xl:hidden"></FiltersSummary>
+          <action-button
+            :label="`${hasActiveFilters ? 'Adapt' : 'Show'} filters`"
+            type="button"
+            :primary="true"
+            :full-xl="true"
+            @click="showFilters"
+          >
+            <template #icon>
+              <FilterIcon class="-ml-1 mr-2 h-5 w-5 text-white" />
+            </template>
+          </action-button>
+          <Filters v-if="filtersVisible" @hide="hideFilters"></Filters>
+        </div>
       </section>
 
       <section class="section sm:sr-only">
-        <h3 class="title">Sorting</h3>
-        <GeneralSortingDropdown :fields="fields"></GeneralSortingDropdown>
+        <div class="content">
+          <h3 class="title">Sorting</h3>
+          <GeneralSortingDropdown :fields="fields"></GeneralSortingDropdown>
+        </div>
       </section>
     </div>
   </div>
@@ -132,6 +140,12 @@ export default {
   @apply xl:pb-4;
   @apply xl:border-b;
   @apply w-full;
+
+  @apply sm:grid;
+  @apply sm:grid-cols-12;
+  @apply sm:gap-4;
+  @apply sm:items-start;
+  @apply xl:block;
 }
 
 .title {
@@ -139,5 +153,15 @@ export default {
   @apply font-medium;
   @apply text-gray-700;
   @apply pb-1;
+
+  @apply sm:col-span-2;
+  @apply md:col-span-3;
+  @apply lg:col-span-2;
+}
+
+.content {
+  @apply sm:col-span-10;
+  @apply md:col-span-9;
+  @apply lg:col-span-10;
 }
 </style>
