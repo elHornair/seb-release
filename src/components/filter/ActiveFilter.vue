@@ -74,6 +74,7 @@ export default {
 }
 
 .active-filter__label {
+  @apply whitespace-nowrap;
   @apply mx-2;
   @apply pl-2;
   @apply border-l;
