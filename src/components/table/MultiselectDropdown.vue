@@ -9,7 +9,10 @@
     <DropdownTransition>
       <MenuItems class="menu__content menu__content--right">
         <div class="menu__section">
-          <MenuItem v-slot="{ active }">
+          <MenuItem
+            v-if="!multiselect.areAllVisibleSelected.value"
+            v-slot="{ active }"
+          >
             <button
               class="menu__item"
               :class="{ 'menu__item--active': active }"
@@ -100,8 +103,9 @@ export default {
     const visibleItemsCount = computed(() => institutionsState.items.length);
 
     return {
-      visibleItemsCount,
+      institutionsState,
       multiselect,
+      visibleItemsCount,
     };
   },
 };
