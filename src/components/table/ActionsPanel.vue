@@ -1,29 +1,7 @@
 <template>
   <div class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
     <h2 class="mb-3">Actions</h2>
-    <div class="flex flex-col-reverse gap-4">
-      <section class="section sm:sr-only">
-        <h3 class="title">Sorting</h3>
-        <GeneralSortingDropdown :fields="fields"></GeneralSortingDropdown>
-      </section>
-
-      <section class="section">
-        <h3 class="title">Filtering</h3>
-        <FiltersSummary class="block xl:hidden"></FiltersSummary>
-        <action-button
-          :label="`${hasActiveFilters ? 'Adapt' : 'Show'} filters`"
-          type="button"
-          :primary="true"
-          :full-xl="true"
-          @click="showFilters"
-        >
-          <template #icon>
-            <FilterIcon class="-ml-1 mr-2 h-5 w-5 text-white" />
-          </template>
-        </action-button>
-        <Filters v-if="filtersVisible" @hide="hideFilters"></Filters>
-      </section>
-
+    <div class="flex flex-col gap-4">
       <section class="section">
         <h3 class="title">Main Actions</h3>
         <action-button
@@ -51,6 +29,28 @@
             <DocumentRemoveIcon class="-ml-1 mr-2 h-5 w-5 text-white" />
           </template>
         </action-button>
+      </section>
+
+      <section class="section">
+        <h3 class="title">Filtering</h3>
+        <FiltersSummary class="block xl:hidden"></FiltersSummary>
+        <action-button
+          :label="`${hasActiveFilters ? 'Adapt' : 'Show'} filters`"
+          type="button"
+          :primary="true"
+          :full-xl="true"
+          @click="showFilters"
+        >
+          <template #icon>
+            <FilterIcon class="-ml-1 mr-2 h-5 w-5 text-white" />
+          </template>
+        </action-button>
+        <Filters v-if="filtersVisible" @hide="hideFilters"></Filters>
+      </section>
+
+      <section class="section sm:sr-only">
+        <h3 class="title">Sorting</h3>
+        <GeneralSortingDropdown :fields="fields"></GeneralSortingDropdown>
       </section>
     </div>
   </div>
