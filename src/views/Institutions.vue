@@ -130,8 +130,8 @@
               </tbody>
             </table>
             <pagination
-              :current-page="institutionsState.paging.currentPage"
-              :total-pages="institutionsState.paging.totalPages"
+              :current-page="paging.currentPage.value"
+              :total-pages="paging.totalPages.value"
             ></pagination>
           </div>
         </div>
@@ -255,13 +255,13 @@ export default {
   },
   setup() {
     const {
-      institutionsState,
       displayableItems,
       updateInstitutionData,
       tableCaption,
       tableDescription,
       isMultiselect,
       multiselect,
+      paging,
     } = useInstitutions();
 
     const { availablePrivileges, availableActions, hasBasePrivilege } =
@@ -290,10 +290,10 @@ export default {
 
     return {
       filtersVisible,
-      institutionsState,
       displayableItems,
       isMultiselect,
       multiselect,
+      paging,
       showBulkActions,
       tableCaption,
       tableDescription,

@@ -5,7 +5,7 @@ import { useInstitutionFiltering } from "@/composables/institution/useInstitutio
 
 import { computed, watch } from "vue";
 
-const { entityCollectionState, setItems, setPaging, multiselect } =
+const { entityCollectionState, setItems, multiselect, paging } =
   useEntityCollection(
     // temporary hack for demo purposes only: in reality, the entity (here institutions) will define if it's multiselect
     window.location.search === "?multiselect"
@@ -24,7 +24,10 @@ const updateInstitutionData = async () => {
     filteringApiParam.value
   );
 
-  setPaging(institutionData["number_of_pages"], institutionData["page_number"]);
+  paging.setValues(
+    institutionData["page_number"],
+    institutionData["number_of_pages"]
+  );
   setItems(institutionData["content"]);
 };
 
@@ -85,5 +88,6 @@ export const useInstitutions = () => {
     tableCaption,
     tableDescription,
     multiselect,
+    paging,
   };
 };
