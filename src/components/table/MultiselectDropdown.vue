@@ -22,8 +22,7 @@
                 <CheckCircleIcon class="menu__item__icon"></CheckCircleIcon>
               </span>
               <span class="menu__item__label"
-                >Select all visible
-                <span class="sr-only">institutions</span> ({{
+                >Select visible <span class="sr-only">institutions</span> ({{
                   visibleItemsCount
                 }})
               </span>
@@ -42,8 +41,7 @@
                 <XCircleIcon class="menu__item__icon"></XCircleIcon>
               </span>
               <span class="menu__item__label"
-                >Deselect all visible
-                <span class="sr-only">institutions</span> ({{
+                >Deselect visible <span class="sr-only">institutions</span> ({{
                   multiselect.selectedAndVisibleCount.value
                 }})
               </span>
@@ -62,8 +60,7 @@
                 <XCircleIcon class="menu__item__icon"></XCircleIcon>
               </span>
               <span class="menu__item__label"
-                >Deselect all selected
-                <span class="sr-only">institutions</span> ({{
+                >Deselect selected <span class="sr-only">institutions</span> ({{
                   multiselect.selectedCount.value
                 }})</span
               >
