@@ -136,8 +136,8 @@ export default {
   @apply border-gray-200;
   @apply sm:border-t-0;
   @apply sm:pt-0;
-  @apply xl:pb-4;
-  @apply xl:border-b;
+  @apply xl:pt-4;
+  @apply xl:border-t;
   @apply w-full;
 
   @apply sm:grid;
@@ -148,6 +148,13 @@ export default {
 
   &.section--sorting {
     @apply sm:sr-only;
+  }
+
+  &:first-child {
+    @apply pt-0;
+    @apply border-t-0;
+    @apply xl:pt-0;
+    @apply xl:border-t-0;
   }
 }
 
