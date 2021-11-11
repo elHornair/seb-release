@@ -64,7 +64,7 @@ export default {
   @apply w-full;
   @apply py-2;
   @apply px-4;
-  @apply rounded-md;
+  @apply rounded-sm;
   @apply text-sm;
   @apply text-gray-700;
   @apply font-medium;

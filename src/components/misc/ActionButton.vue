@@ -70,7 +70,7 @@ export default {
   @apply py-2;
   @apply px-4;
   @apply border;
-  @apply rounded-md;
+  @apply rounded-sm;
   @apply text-sm;
   @apply font-medium;
   @apply shadow-sm;
