@@ -22,8 +22,10 @@
         </div>
 
         <div>
-          <button class="button" @click="showFilters">Adapt filters</button>
-          <button class="button" @click="removeAllFilters">
+          <button class="link mt-2 ml-2" @click="showFilters">
+            Adapt filters
+          </button>
+          <button class="link mt-2 ml-2" @click="removeAllFilters">
             Remove all <span class="sr-only">filters</span>
           </button>
         </div>
@@ -62,15 +64,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.button {
-  @apply text-gray-900;
-  @apply border-b;
-  @apply border-gray-600;
-  @apply mt-2;
-  @apply ml-2;
-  @apply hover:text-primary-800;
-  @apply hover:border-primary-700;
-}
-</style>

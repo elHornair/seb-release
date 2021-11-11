@@ -21,11 +21,7 @@
         <dt class="sr-only">Logged in as</dt>
         <dd>{{ userName }}</dd>
       </dl>
-      <router-link
-        class="underline hover:text-gray-800"
-        :to="{ name: 'logout' }"
-        >Sign out</router-link
-      >
+      <router-link class="link" :to="{ name: 'logout' }">Sign out</router-link>
     </div>
 
     <ul class="mt-10">

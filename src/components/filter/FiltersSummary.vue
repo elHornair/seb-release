@@ -1,17 +1,17 @@
 <template>
   <div>
     <Disclosure v-if="hasActiveFilters" v-slot="{ open }">
-      <div class="flex mb-1">
+      <div class="flex mb-1 text-normal sm:text-sm">
         <span class="label">
           <span aria-hidden="true">
             <FilterIcon class="icon"></FilterIcon
           ></span>
           {{ activeFiltersLabel }}
         </span>
-        <button class="button" @click="removeAllFilters">
+        <button class="link mr-2" @click="removeAllFilters">
           Remove all <span class="sr-only">filters</span>
         </button>
-        <DisclosureButton class="button">
+        <DisclosureButton class="link mr-2">
           <span v-if="!open">Show</span>
           <span v-if="open">Hide</span>
           details
@@ -91,12 +91,5 @@ export default {
   @apply mt-0.5;
   @apply mr-2;
   @apply text-gray-400;
-}
-
-.button {
-  @apply text-gray-900;
-  @apply border-b;
-  @apply border-gray-600;
-  @apply mr-2;
 }
 </style>
