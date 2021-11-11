@@ -126,6 +126,7 @@
                   >
                     <InlineActionsDropdown
                       :institution="institution"
+                      class="float-right"
                       @institution:change="updateInstitutionData"
                     ></InlineActionsDropdown>
                   </td>
