@@ -79,8 +79,7 @@ export default {
   @apply block;
   @apply w-full;
   @apply border-gray-300;
-  @apply rounded-md;
-  @apply shadow-sm;
+  @apply rounded-sm;
 
   @apply sm:w-auto;
   @apply sm:text-sm;
