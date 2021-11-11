@@ -1,10 +1,17 @@
 <template>
   <teleport to="body">
     <div class="fixed z-30 inset-0 overflow-y-auto bg-black bg-opacity-50">
-      <div class="flex items-center justify-center h-full text-center">
+      <div class="relative flex items-center justify-center h-full text-center">
+        <button
+          class="absolute w-full h-full"
+          aria-hidden="true"
+          type="button"
+          @click="onClose"
+        ></button>
         <div
           class="
             modal_container
+            relative
             bg-white
             rounded
             text-left
