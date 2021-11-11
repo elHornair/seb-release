@@ -217,7 +217,7 @@ export default {
   @apply relative;
   @apply px-4;
   @apply py-3;
-  @apply text-gray-500;
+  @apply text-gray-900;
   @apply text-left;
   @apply text-xs;
   @apply font-medium;
