@@ -17,8 +17,8 @@
       <div>
         <img
           class="mx-auto h-12 w-auto"
-          src="/img/logo.png"
-          alt="Logo SEB Server"
+          src="/img/logo.svg"
+          alt="Logo ETH Zürich"
         />
         <h1 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
           Sign in
@@ -40,7 +40,7 @@
         method="POST"
         @submit.prevent="handleFormSubmit"
       >
-        <div class="rounded-md shadow-sm -space-y-px">
+        <div class="space-y-3">
           <div>
             <label for="user-name" class="sr-only">UserName</label>
             <input
@@ -50,7 +50,7 @@
               type="text"
               autocomplete="off"
               required
-              class="login__input rounded-t-md"
+              class="login__input"
               placeholder="User Name"
             />
           </div>
@@ -63,23 +63,12 @@
               type="password"
               autocomplete="off"
               required
-              class="login__input rounded-b-md"
+              class="login__input"
               placeholder="Password"
             />
           </div>
         </div>
-
-        <button type="submit" class="login__submit">
-          <span
-            class="absolute left-0 inset-y-0 flex items-center pl-3"
-            aria-hidden="true"
-          >
-            <LockClosedIcon
-              class="h-5 w-5 text-primary-500 group-hover:text-primary-400"
-            />
-          </span>
-          Sign In
-        </button>
+        <ActionButton type="submit" label="Sign In" :full="true"></ActionButton>
       </form>
     </div>
   </main>
@@ -88,11 +77,11 @@
 <script>
 import { useAuth } from "@/composables/useAuth";
 import Alert from "@/components/misc/Alert";
-import { LockClosedIcon } from "@heroicons/vue/solid";
+import ActionButton from "@/components/misc/ActionButton";
 
 export default {
   name: "Login",
-  components: { Alert, LockClosedIcon },
+  components: { ActionButton, Alert },
   setup() {
     const { isAuthenticated, authenticateUser } = useAuth();
 
@@ -123,7 +112,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .login__input {
   @apply appearance-none;
   @apply rounded-none;
@@ -132,34 +121,11 @@ export default {
   @apply w-full;
   @apply px-3;
   @apply py-2;
-  @apply border border-gray-300;
+  @apply rounded-sm;
   @apply placeholder-gray-500;
   @apply text-gray-900;
-  @apply focus:outline-none;
-  @apply focus:ring-primary-500;
-  @apply focus:border-primary-500;
-  @apply focus:z-10;
+  @apply border-gray-300;
+  @apply focus:border-primary-600;
   @apply sm:text-sm;
-}
-
-.login__submit {
-  @apply group;
-  @apply relative;
-  @apply w-full;
-  @apply flex;
-  @apply justify-center;
-  @apply py-2;
-  @apply px-4;
-  @apply border border-transparent;
-  @apply text-sm;
-  @apply font-medium;
-  @apply rounded-md;
-  @apply text-white;
-  @apply bg-primary-600;
-  @apply hover:bg-primary-700;
-  @apply focus:outline-none;
-  @apply focus:ring-2;
-  @apply focus:ring-offset-2;
-  @apply focus:ring-primary-500;
 }
 </style>
