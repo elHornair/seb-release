@@ -2,7 +2,7 @@
   <th
     scope="col"
     class="table_head_field"
-    :class="{ 'bg-yellow-100': isSorted }"
+    :class="{ 'bg-primary-100': isSorted }"
     :aria-sort="currentSortingAria"
     :aria-label="label"
   >

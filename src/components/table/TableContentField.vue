@@ -3,7 +3,7 @@
     :is="isHeader ? 'th' : 'td'"
     scope="row"
     :class="{
-      'bg-yellow-50': isSorted,
+      'bg-primary-50': isSorted,
     }"
   >
     <span class="label">{{ label }}<span :aria-hidden="true">:</span></span>
