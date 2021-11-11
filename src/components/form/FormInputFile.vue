@@ -29,12 +29,12 @@
                 bg-white
                 rounded-md
                 font-medium
-                text-indigo-600
-                hover:text-indigo-500
+                text-primary-600
+                hover:text-primary-500
                 focus-within:outline-none
                 focus-within:ring-2
                 focus-within:ring-offset-2
-                focus-within:ring-indigo-500
+                focus-within:ring-primary-500
               "
             >
               <span>Upload a file</span>

@@ -61,7 +61,7 @@ export default {
 .input {
   @apply h-4;
   @apply w-4;
-  @apply text-indigo-600;
+  @apply text-primary-600;
   @apply border-gray-300;
   @apply rounded;
 

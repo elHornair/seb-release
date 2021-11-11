@@ -18,7 +18,7 @@
               :id="`${name}_option-${option.value}`"
               :name="`${name}`"
               type="radio"
-              class="h-4 w-4 text-indigo-600 border-gray-300"
+              class="h-4 w-4 text-primary-600 border-gray-300"
               :value="option.value"
               :checked="modelValue === option.value"
               @change="$emit('update:modelValue', $event.target.value)"

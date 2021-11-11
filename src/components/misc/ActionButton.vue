@@ -89,8 +89,8 @@ export default {
 .button--primary {
   @apply border-transparent;
   @apply text-white;
-  @apply bg-indigo-600;
-  @apply hover:bg-indigo-700;
+  @apply bg-primary-600;
+  @apply hover:bg-primary-700;
 }
 
 .button--secondary {

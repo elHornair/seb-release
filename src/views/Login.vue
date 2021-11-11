@@ -75,7 +75,7 @@
             aria-hidden="true"
           >
             <LockClosedIcon
-              class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
+              class="h-5 w-5 text-primary-500 group-hover:text-primary-400"
             />
           </span>
           Sign In
@@ -136,8 +136,8 @@ export default {
   @apply placeholder-gray-500;
   @apply text-gray-900;
   @apply focus:outline-none;
-  @apply focus:ring-indigo-500;
-  @apply focus:border-indigo-500;
+  @apply focus:ring-primary-500;
+  @apply focus:border-primary-500;
   @apply focus:z-10;
   @apply sm:text-sm;
 }
@@ -155,11 +155,11 @@ export default {
   @apply font-medium;
   @apply rounded-md;
   @apply text-white;
-  @apply bg-indigo-600;
-  @apply hover:bg-indigo-700;
+  @apply bg-primary-600;
+  @apply hover:bg-primary-700;
   @apply focus:outline-none;
   @apply focus:ring-2;
   @apply focus:ring-offset-2;
-  @apply focus:ring-indigo-500;
+  @apply focus:ring-primary-500;
 }
 </style>

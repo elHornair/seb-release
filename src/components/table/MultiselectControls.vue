@@ -44,7 +44,7 @@ export default {
   @apply w-4;
   @apply mt-0.5;
   @apply mr-2;
-  @apply text-indigo-600;
+  @apply text-primary-600;
   @apply border-gray-300;
   @apply rounded;
 }
