@@ -63,6 +63,7 @@ export default {
 }
 
 .content {
+  @apply text-gray-700;
   @apply flex-grow;
 
   &.content--header {
