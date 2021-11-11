@@ -1,7 +1,7 @@
 <template>
   <div>
     <Disclosure v-if="hasActiveFilters" v-slot="{ open }">
-      <div class="flex mb-2">
+      <div class="flex mb-1">
         <span class="label">
           <span aria-hidden="true">
             <FilterIcon class="icon"></FilterIcon
@@ -26,7 +26,7 @@
         leave-from-class="transform scale-100 opacity-100"
         leave-to-class="transform scale-95 opacity-0"
       >
-        <DisclosurePanel class="mb-3">
+        <DisclosurePanel>
           <active-filter
             v-for="activeFilter in activeFilters"
             :key="activeFilter.field"
