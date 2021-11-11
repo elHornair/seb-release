@@ -6,6 +6,11 @@
       'batch--inactive': !value,
     }"
   >
+    <span aria-hidden="true">
+      <svg class="icon" fill="currentColor" viewBox="0 0 8 8">
+        <circle cx="4" cy="4" r="3" />
+      </svg>
+    </span>
     {{ label }}
   </span>
 </template>
@@ -31,21 +36,23 @@ export default {
 .batch {
   @apply inline-flex;
   @apply items-center;
-  @apply -my-0.5;
-  @apply px-3;
-  @apply py-0.5;
-  @apply rounded-full;
-  @apply text-sm;
-  @apply font-medium;
+}
+
+.icon {
+  @apply mr-1;
+  @apply h-2;
+  @apply w-2;
 }
 
 .batch--active {
-  @apply bg-green-100;
-  @apply text-green-800;
+  .icon {
+    @apply text-green-700;
+  }
 }
 
 .batch--inactive {
-  @apply bg-red-100;
-  @apply text-red-800;
+  .icon {
+    @apply text-red-700;
+  }
 }
 </style>
