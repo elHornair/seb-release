@@ -26,13 +26,13 @@
         leave-from-class="transform scale-100 opacity-100"
         leave-to-class="transform scale-95 opacity-0"
       >
-        <DisclosurePanel class="mb-4 sm:flex gap-2">
+        <DisclosurePanel class="mb-3">
           <active-filter
             v-for="activeFilter in activeFilters"
             :key="activeFilter.field"
             :field="activeFilter.field"
             :value="activeFilter.value"
-            class="mt-2"
+            class="my-1 sm:mr-2"
           ></active-filter>
         </DisclosurePanel>
       </transition>
