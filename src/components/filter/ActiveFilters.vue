@@ -70,5 +70,7 @@ export default {
   @apply border-gray-600;
   @apply mt-2;
   @apply ml-2;
+  @apply hover:text-indigo-800;
+  @apply hover:border-indigo-700;
 }
 </style>
