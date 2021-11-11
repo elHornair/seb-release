@@ -15,7 +15,7 @@
           pt-5
           pb-6
           border-2 border-gray-300 border-dashed
-          rounded-md
+          rounded-sm
         "
       >
         <div class="space-y-1 text-center">
@@ -26,15 +26,9 @@
               class="
                 relative
                 cursor-pointer
-                bg-white
-                rounded-md
                 font-medium
                 text-primary-600
                 hover:text-primary-500
-                focus-within:outline-none
-                focus-within:ring-2
-                focus-within:ring-offset-2
-                focus-within:ring-primary-500
               "
             >
               <span>Upload a file</span>

@@ -69,7 +69,7 @@ export default {
   @apply shadow-sm;
   @apply border-gray-300;
   @apply focus:border-primary-600;
-  @apply rounded-md;
+  @apply rounded-sm;
   @apply sm:mt-3 sm:text-sm;
 }
 </style>
