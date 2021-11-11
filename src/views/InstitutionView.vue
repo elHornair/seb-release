@@ -4,14 +4,14 @@
       <p id="info" class="sr-only" aria-hidden="true">
         List of key / value pairs describing this institution
       </p>
-      <dl class="list" aria-describedby="info">
-        <div class="list__item">
+      <dl class="panel" aria-describedby="info">
+        <div class="item">
           <dt class="term">Name</dt>
           <dd class="details">
             {{ institutionState.name }}
           </dd>
         </div>
-        <div class="list__item">
+        <div class="item">
           <dt class="term">URL Suffix</dt>
           <dd v-if="institutionState.urlSuffix" class="details">
             {{ institutionState.urlSuffix }}
@@ -20,13 +20,13 @@
             <span class="sr-only">empty</span><span aria-hidden="true">–</span>
           </dd>
         </div>
-        <div class="list__item">
+        <div class="item">
           <dt class="term">Status</dt>
           <dd class="details">
             <status-batch :value="institutionState.active"></status-batch>
           </dd>
         </div>
-        <div class="list__item">
+        <div class="item">
           <dt class="term">Logo Image</dt>
           <dd class="details">
             <span class="sr-only">empty</span><span aria-hidden="true">–</span>
@@ -35,7 +35,7 @@
       </dl>
     </template>
     <template #aside>
-      <div class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
+      <div class="panel">
         <h2 class="mb-3">Actions</h2>
         <action-button
           v-if="showEditAction"
@@ -119,16 +119,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.list {
-  @apply bg-white;
-  @apply px-4;
-  @apply py-5;
-  @apply shadow;
-  @apply sm:rounded-lg;
-  @apply sm:px-6;
-}
-
-.list__item {
+.item {
   @apply pb-5;
 
   @apply sm:grid;

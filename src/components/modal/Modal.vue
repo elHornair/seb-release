@@ -13,12 +13,12 @@
             modal_container
             relative
             bg-white
-            rounded
             text-left
             overflow-hidden
             shadow
             w-full
             p-2
+            sm:rounded-sm
           "
         >
           <FocusTrap :is-enabled="true" :is-full-height="true">

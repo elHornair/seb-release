@@ -7,7 +7,7 @@
       ></form-institution>
     </template>
     <template #aside>
-      <div class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
+      <div class="panel">
         <h2 class="mb-3">Actions</h2>
         <div class="flex flex-col space-y-2">
           <toggle-institution-status-action

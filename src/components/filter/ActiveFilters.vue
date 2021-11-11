@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="hasActiveFilters"
-    class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6 mb-6"
-  >
+  <div v-if="hasActiveFilters" class="panel mb-6">
     <h2>Active Filters</h2>
     <div class="flex space-x-4 divide-x divide-gray-200 text-sm mt-2">
       <span class="flex mt-3 text-gray-700 font-medium whitespace-nowrap">

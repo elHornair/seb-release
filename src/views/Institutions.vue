@@ -10,7 +10,11 @@
         tabindex="0"
       >
         <div
-          class="overflow-x-auto shadow border-b border-gray-200 sm:rounded-lg"
+          class="
+            overflow-x-auto
+            border border-t-0 border-gray-200
+            sm:rounded-sm
+          "
         >
           <div
             class="

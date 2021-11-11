@@ -1,5 +1,5 @@
 <template>
-  <form class="form" @submit.prevent="handleFormSubmit">
+  <form class="panel" @submit.prevent="handleFormSubmit">
     <div class="space-y-6 sm:space-y-5">
       <form-input-text
         v-model="formState.name"
@@ -8,7 +8,7 @@
         :required="true"
         :min-length="3"
         :max-length="255"
-        class="form__row"
+        class="form_row"
       ></form-input-text>
       <form-input-text
         v-model="formState.urlSuffix"
@@ -16,7 +16,7 @@
         name="url-suffix"
         :min-length="3"
         :max-length="45"
-        class="form__row"
+        class="form_row"
       ></form-input-text>
       <form-input-checkbox
         v-model="formState.active"
@@ -24,12 +24,12 @@
         label="Active"
         description="Status"
         :disabled="true"
-        class="form__row"
+        class="form_row"
       ></form-input-checkbox>
       <form-input-file
         label="Cover photo"
         name="cover-photo"
-        class="form__row"
+        class="form_row"
       ></form-input-file>
     </div>
     <div class="flex justify-end pt-5">
@@ -116,16 +116,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.form {
-  @apply bg-white;
-  @apply px-4;
-  @apply py-5;
-  @apply shadow;
-  @apply sm:rounded-lg;
-  @apply sm:px-6;
-}
-
-.form__row {
+.form_row {
   @apply sm:grid;
   @apply sm:grid-cols-3;
   @apply sm:gap-4;
