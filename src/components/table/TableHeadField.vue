@@ -83,6 +83,7 @@ export default {
   @apply text-xs;
   @apply font-medium;
   @apply uppercase;
+  @apply text-gray-900;
   @apply tracking-wider;
 }
 </style>
