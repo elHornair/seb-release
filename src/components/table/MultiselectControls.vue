@@ -58,7 +58,7 @@ export default {
   @apply rounded-full;
   @apply text-xs;
   @apply font-normal;
-  @apply bg-gray-300;
+  @apply bg-primary-100;
   @apply text-gray-800;
 }
 </style>

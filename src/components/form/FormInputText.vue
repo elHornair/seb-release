@@ -17,15 +17,7 @@
         :maxlength="maxLength"
         type="text"
         autocomplete="off"
-        class="
-          block
-          w-full
-          mt-1
-          shadow-sm
-          border-gray-300
-          rounded-md
-          sm:mt-3 sm:text-sm
-        "
+        class="input"
         @input="$emit('update:modelValue', $event.target.value)"
       />
     </div>
@@ -68,3 +60,16 @@ export default {
   emits: ["update:modelValue"],
 };
 </script>
+
+<style lang="scss" scoped>
+.input {
+  @apply block;
+  @apply w-full;
+  @apply mt-1;
+  @apply shadow-sm;
+  @apply border-gray-300;
+  @apply focus:border-primary-600;
+  @apply rounded-md;
+  @apply sm:mt-3 sm:text-sm;
+}
+</style>

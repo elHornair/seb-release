@@ -8,7 +8,7 @@
     @apply flex;
     @apply items-center;
     @apply text-gray-700;
-    @apply hover:text-primary-700;
+    @apply hover:text-primary-800;
   }
 
   .menu__toggle__icon {
@@ -52,7 +52,7 @@
     @apply text-gray-700;
 
     &.menu__item--active {
-      @apply bg-gray-100;
+      @apply bg-primary-50;
       @apply text-gray-900;
     }
   }
@@ -67,7 +67,6 @@
     @apply h-5;
     @apply w-5;
     @apply text-gray-400;
-    @apply group-hover:text-gray-500;
 
     &.menu__item__icon--right {
       @apply mr-0;

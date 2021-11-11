@@ -27,7 +27,7 @@
                 <slot name="header" />
                 <button
                   ref="closeButtonRef"
-                  class="m-2"
+                  class="m-2 hover:text-primary-800"
                   type="button"
                   :aria-label="closeButtonLabel"
                   @click="onClose"
