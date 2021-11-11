@@ -80,6 +80,8 @@ export default {
   @apply w-full;
   @apply border-gray-300;
   @apply rounded-sm;
+  @apply focus:border-primary-600;
+  box-shadow: none !important; // needed to be more specific than tailwinds form defaults
 
   @apply sm:w-auto;
   @apply sm:text-sm;
