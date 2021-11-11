@@ -30,7 +30,7 @@
 
             <MultiselectControls
               v-if="isMultiselect"
-              class="absolute z-10 top-2 left-4 sm:top-3.5 sm:left-6"
+              class="absolute z-10 top-2 left-4 sm:top-1.5 sm:left-3"
             ></MultiselectControls>
 
             <table class="block sm:table min-w-full divide-y divide-gray-200">
@@ -278,8 +278,8 @@ export default {
   @apply align-top;
   @apply text-gray-500;
   @apply sm:table-cell;
-  @apply sm:px-6;
-  @apply sm:py-4;
+  @apply sm:px-3;
+  @apply sm:py-2;
 
   &.table_cell--break-out-left {
     @apply absolute;
@@ -288,7 +288,7 @@ export default {
     @apply sm:relative;
     @apply sm:top-auto;
     @apply sm:left-auto;
-    @apply sm:px-6;
+    @apply sm:px-3;
   }
 
   &.table_cell--break-out-right {
@@ -298,7 +298,7 @@ export default {
     @apply sm:relative;
     @apply sm:top-auto;
     @apply sm:right-auto;
-    @apply sm:px-6;
+    @apply sm:px-3;
   }
 }
 
