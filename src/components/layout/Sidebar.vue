@@ -1,7 +1,8 @@
 <template>
   <div id="sidebar" class="sidebar" :class="{ 'sidebar--is-open': isOpen }">
     <div class="sidebar_inner" :class="{ 'sidebar_inner--is-open': isOpen }">
-      <img class="sidebar_logo" src="/img/logo.png" alt="Logo SEB Server" />
+      <img class="sidebar_logo" src="/img/logo.svg" alt="Logo ETH Zürich" />
+      <span class="sidebar_title">SEB-Server</span>
 
       <FocusTrap :is-enabled="!isDesktop && isOpen">
         <main-navigation
@@ -110,8 +111,15 @@ export default {
 }
 .sidebar {
   &_logo {
-    @apply mx-auto;
-    @apply pt-4;
+    @apply w-48;
+    @apply py-2;
+    @apply pl-6;
+  }
+
+  &_title {
+    @apply pl-6;
+    @apply font-normal;
+    @apply text-lg;
   }
 
   &_backdrop {
