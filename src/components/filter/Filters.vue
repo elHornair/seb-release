@@ -14,13 +14,13 @@
               v-model="state.name"
               :label="`Filter by ${getFieldLabel('name')}`"
               name="name"
-              class="form__row"
+              class="form_row"
             ></form-input-text>
             <form-input-text
               v-model="state.urlSuffix"
               :label="`Filter by ${getFieldLabel('urlSuffix')}`"
               name="url-suffix"
-              class="form__row"
+              class="form_row"
             ></form-input-text>
             <form-input-radio
               v-model="state.active"
@@ -40,7 +40,7 @@
                   value: STATUS_FILTER_OPTIONS.INACTIVE,
                 },
               ]"
-              class="form__row"
+              class="form_row"
             >
             </form-input-radio>
           </div>
@@ -143,16 +143,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.form {
-  @apply bg-white;
-  @apply px-4;
-  @apply py-5;
-  @apply shadow;
-  @apply sm:rounded-lg;
-  @apply sm:px-6;
-}
-
-.form__row {
+.form_row {
   @apply sm:grid;
   @apply sm:grid-cols-3;
   @apply sm:gap-4;
