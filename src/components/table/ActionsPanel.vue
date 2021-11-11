@@ -12,9 +12,6 @@
             :full-xl="true"
             :route-obj="{ name: 'institution-create' }"
           >
-            <template #icon>
-              <plus-circle-icon class="-ml-1 mr-2 h-5 w-5 text-white" />
-            </template>
           </action-button>
         </div>
       </section>
@@ -28,9 +25,6 @@
             :full-xl="true"
             @click="handleBulkActionClick"
           >
-            <template #icon>
-              <DocumentRemoveIcon class="-ml-1 mr-2 h-5 w-5 text-white" />
-            </template>
           </action-button>
         </div>
       </section>
@@ -46,9 +40,6 @@
             :full-xl="true"
             @click="showFilters"
           >
-            <template #icon>
-              <FilterIcon class="-ml-1 mr-2 h-5 w-5 text-white" />
-            </template>
           </action-button>
           <Filters v-if="filtersVisible" @hide="hideFilters"></Filters>
         </div>
@@ -69,9 +60,6 @@ import Filters from "@/components/filter/Filters";
 import FiltersSummary from "@/components/filter/FiltersSummary";
 import GeneralSortingDropdown from "@/components/table/GeneralSortingDropdown";
 import ActionButton from "@/components/misc/ActionButton";
-import { PlusCircleIcon } from "@heroicons/vue/solid";
-import { FilterIcon } from "@heroicons/vue/solid";
-import { DocumentRemoveIcon } from "@heroicons/vue/solid";
 import { useInstitutionFiltering } from "@/composables/institution/useInstitutionFiltering";
 import { useAccessControl } from "@/composables/useAccessControl";
 import { computed } from "vue";
@@ -84,9 +72,6 @@ export default {
     Filters,
     GeneralSortingDropdown,
     ActionButton,
-    PlusCircleIcon,
-    FilterIcon,
-    DocumentRemoveIcon,
   },
   props: {
     fields: {
