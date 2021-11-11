@@ -6,7 +6,7 @@
       @click="removeFilter(field)"
     >
       <span aria-hidden="true">
-        <XCircleIcon class="h-5 w-5 hover:text-black"></XCircleIcon>
+        <XCircleIcon class="h-5 w-5 hover:text-primary-700"></XCircleIcon>
       </span>
     </button>
     <span class="active-filter__label">
