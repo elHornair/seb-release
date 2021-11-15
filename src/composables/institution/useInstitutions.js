@@ -49,15 +49,6 @@ watch(filteringApiParam, async () => {
 });
 
 const displayableItems = computed(() => {
-  if (entityCollectionState.keepSelectedOnTop) {
-    return [
-      ...entityCollectionState.selectedItems,
-      ...entityCollectionState.items.filter(
-        (item) => !multiselect.isSelected(item.id)
-      ),
-    ];
-  }
-
   return entityCollectionState.items;
 });
 

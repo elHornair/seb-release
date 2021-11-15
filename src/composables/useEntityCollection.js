@@ -11,7 +11,6 @@ export const useEntityCollection = (isMultiselect) => {
       totalPages: 0,
     },
     isMultiselect: isMultiselect,
-    keepSelectedOnTop: false,
   });
 
   const multiselect = useMultiselect(state);

@@ -67,33 +67,6 @@
             </button>
           </MenuItem>
         </div>
-        <div class="menu__section">
-          <MenuItem v-slot="{ active }">
-            <button
-              class="menu__item"
-              :class="{ 'menu__item--active': active }"
-              @click="
-                multiselect.keepSelectedOnTop.value =
-                  !multiselect.keepSelectedOnTop.value
-              "
-            >
-              <span aria-hidden="true">
-                <StarIcon class="menu__item__icon"></StarIcon>
-              </span>
-              <span class="menu__item__label"
-                >Keep selected <span class="sr-only">institutions</span> on top
-              </span>
-              <span
-                v-if="multiselect.keepSelectedOnTop.value"
-                aria-hidden="true"
-              >
-                <CheckIcon
-                  class="menu__item__icon menu__item__icon--right"
-                ></CheckIcon>
-              </span>
-            </button>
-          </MenuItem>
-        </div>
       </MenuItems>
     </DropdownTransition>
   </Menu>
@@ -105,8 +78,6 @@ import {
   DotsVerticalIcon,
   CheckCircleIcon,
   XCircleIcon,
-  StarIcon,
-  CheckIcon,
 } from "@heroicons/vue/solid";
 import { useInstitutions } from "@/composables/institution/useInstitutions";
 import DropdownTransition from "@/components/misc/DropdownTransition";
@@ -122,8 +93,6 @@ export default {
     DotsVerticalIcon,
     CheckCircleIcon,
     XCircleIcon,
-    StarIcon,
-    CheckIcon,
   },
   setup() {
     const { multiselect, visibleItemsCount } = useInstitutions();
