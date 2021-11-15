@@ -1,7 +1,6 @@
 <template>
   <div
     class="
-      bg-white
       px-2
       py-1.5
       flex
