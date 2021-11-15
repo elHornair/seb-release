@@ -3,6 +3,7 @@
     <div class="sidebar_inner" :class="{ 'sidebar_inner--is-open': isOpen }">
       <img class="sidebar_logo" src="/img/logo.svg" alt="Logo ETH Zürich" />
       <span class="sidebar_title">SEB-Server</span>
+      <hr class="sidebar_divider" />
 
       <FocusTrap :is-enabled="!isDesktop && isOpen">
         <main-navigation
@@ -120,6 +121,11 @@ export default {
     @apply pl-6;
     @apply font-normal;
     @apply text-lg;
+  }
+
+  &_divider {
+    @apply mx-6;
+    @apply my-6;
   }
 
   &_backdrop {
