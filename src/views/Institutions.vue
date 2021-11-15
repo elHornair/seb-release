@@ -30,7 +30,7 @@
 
             <MultiselectControls
               v-if="isMultiselect"
-              class="absolute z-10 top-2 left-4 sm:top-1.5 sm:left-3"
+              class="absolute z-10 top-1.5 left-2 sm:top-1.5 sm:left-3"
             ></MultiselectControls>
 
             <table class="block sm:table min-w-full divide-y divide-gray-200">
@@ -220,8 +220,8 @@ export default {
 .table_caption {
   @apply block;
   @apply relative;
-  @apply px-4;
-  @apply py-3;
+  @apply px-2.5;
+  @apply py-2;
   @apply text-gray-900;
   @apply text-left;
   @apply text-xs;
@@ -241,8 +241,8 @@ export default {
 
 .table_head_cell {
   @apply relative;
-  @apply px-6;
-  @apply py-3;
+  @apply px-3;
+  @apply py-1.5;
 
   &.table_head_cell--selection {
     width: 7rem;
@@ -253,16 +253,16 @@ export default {
 .table_row {
   @apply block;
   @apply relative;
-  @apply pl-2;
-  @apply pr-8;
-  @apply py-3;
+  @apply pl-1.5;
+  @apply pr-7;
+  @apply py-1;
   @apply sm:table-row;
   @apply sm:pl-0;
   @apply sm:pr-0;
   @apply sm:py-0;
 
   &.table_row--multiselect {
-    @apply pl-10;
+    @apply pl-8;
     @apply sm:pl-0;
   }
 }
@@ -270,8 +270,8 @@ export default {
 .table_cell {
   @apply flex;
   @apply relative;
-  @apply px-2;
-  @apply py-2;
+  @apply px-1;
+  @apply py-1.5;
   @apply font-normal;
   @apply text-sm;
   @apply text-left;
@@ -283,8 +283,8 @@ export default {
 
   &.table_cell--break-out-left {
     @apply absolute;
-    @apply top-3.5;
-    @apply left-2;
+    @apply top-1.5;
+    @apply left-1;
     @apply sm:relative;
     @apply sm:top-auto;
     @apply sm:left-auto;
@@ -293,7 +293,7 @@ export default {
 
   &.table_cell--break-out-right {
     @apply absolute;
-    @apply top-3;
+    @apply top-1;
     @apply right-0;
     @apply sm:relative;
     @apply sm:top-auto;
