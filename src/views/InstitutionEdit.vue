@@ -25,9 +25,6 @@
               params: { id: $route.params.id },
             }"
           >
-            <template #icon>
-              <SearchIcon class="-ml-1 mr-2 h-5 w-5 text-gray-700"></SearchIcon>
-            </template>
           </action-button>
         </div>
       </div>
@@ -36,7 +33,6 @@
 </template>
 
 <script>
-import { SearchIcon } from "@heroicons/vue/solid";
 import FormInstitution from "@/components/form/FormInstitution";
 import ViewSplit from "@/components/layout/ViewSplit";
 import ToggleInstitutionStatusAction from "@/components/institution/ToggleInstitutionStatusAction";
@@ -49,7 +45,6 @@ export default {
   name: "InstitutionCreate",
   components: {
     ActionButton,
-    SearchIcon,
     ToggleInstitutionStatusAction,
     ViewSplit,
     FormInstitution,

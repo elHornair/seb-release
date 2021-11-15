@@ -6,24 +6,17 @@
     :full="true"
     @click="active ? handleDeactivateClick(id) : handleActivateClick(id)"
   >
-    <template #icon>
-      <component
-        :is="icon"
-        class="-ml-1 mr-2 h-5 w-5 text-gray-700"
-      ></component>
-    </template>
   </action-button>
 </template>
 
 <script>
-import { StatusOnlineIcon, StatusOfflineIcon } from "@heroicons/vue/solid";
 import { useInstitutionStatusToggling } from "@/composables/institution/useInstitutionStatusToggling";
-import ActionButton from "@/components/misc/ActionButton";
 import { computed } from "vue";
+import ActionButton from "@/components/misc/ActionButton";
 
 export default {
   name: "ToggleInstitutionStatusAction",
-  components: { ActionButton, StatusOnlineIcon, StatusOfflineIcon },
+  components: { ActionButton },
   props: {
     id: {
       type: Number,
@@ -40,9 +33,6 @@ export default {
       useInstitutionStatusToggling();
 
     const label = computed(() => (props.active ? "Deactivate" : "Activate"));
-    const icon = computed(() =>
-      props.active ? "StatusOfflineIcon" : "StatusOnlineIcon"
-    );
 
     const handleActivateClick = async () => {
       if (await handleActivateRequest(props.id)) {
@@ -64,7 +54,6 @@ export default {
       handleActivateClick,
       handleDeactivateClick,
       label,
-      icon,
     };
   },
 };

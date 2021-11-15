@@ -48,9 +48,6 @@
             params: { id: $route.params.id },
           }"
         >
-          <template #icon>
-            <search-icon class="-ml-1 mr-2 h-5 w-5 text-gray-700"></search-icon>
-          </template>
         </action-button>
       </div>
     </template>
@@ -65,7 +62,6 @@ import { useAccessControl } from "@/composables/useAccessControl";
 import ViewSplit from "@/components/layout/ViewSplit";
 import ActionButton from "@/components/misc/ActionButton";
 import StatusBatch from "@/components/misc/StatusBatch";
-import { SearchIcon } from "@heroicons/vue/solid";
 
 export default {
   name: "InstitutionView",
@@ -73,7 +69,6 @@ export default {
     ViewSplit,
     ActionButton,
     StatusBatch,
-    SearchIcon,
   },
   setup() {
     const { readInstitution } = useInstitutionAPI();
