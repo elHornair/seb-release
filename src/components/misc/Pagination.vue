@@ -2,13 +2,13 @@
   <div
     class="
       bg-white
-      px-4
-      py-3
+      px-2
+      py-1.5
       flex
       items-center
       justify-between
       border-t border-gray-200
-      sm:px-6
+      sm:px-3
     "
   >
     <p class="text-sm text-gray-700">
