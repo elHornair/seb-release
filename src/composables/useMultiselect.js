@@ -34,7 +34,10 @@ export const useMultiselect = (state) => {
   };
 
   const selectAllVisible = () => {
-    state.selectedItems = [...state.selectedItems, ...state.items];
+    state.selectedItems = [
+      ...state.selectedItems,
+      ...state.items.filter((item) => !isSelected(item.id)),
+    ];
   };
 
   const isSelected = (id) => {
