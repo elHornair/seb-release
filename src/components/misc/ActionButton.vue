@@ -65,8 +65,8 @@ export default {
 
 <style lang="scss" scoped>
 .button {
-  @apply inline-flex;
-  @apply justify-center;
+  @apply inline-block;
+  @apply text-center;
   @apply py-2;
   @apply px-4;
   @apply border;
