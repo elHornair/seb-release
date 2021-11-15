@@ -1,7 +1,7 @@
 <template>
   <div v-if="hasActiveFilters" class="panel mb-6">
     <h2>Active Filters</h2>
-    <div class="flex space-x-4 divide-x divide-gray-200 text-sm mt-2">
+    <div class="flex space-x-3 divide-x divide-gray-200 text-sm mt-1">
       <span class="flex mt-3 text-gray-700 font-medium whitespace-nowrap">
         <span aria-hidden="true">
           <FilterIcon class="h-5 w-5 mr-2 text-gray-400"></FilterIcon> </span
@@ -14,15 +14,13 @@
             :key="activeFilter.field"
             :field="activeFilter.field"
             :value="activeFilter.value"
-            class="ml-2 my-1"
+            class="mr-1 my-1"
           ></active-filter>
         </div>
 
-        <div>
-          <button class="link mt-2 ml-2" @click="showFilters">
-            Adapt filters
-          </button>
-          <button class="link mt-2 ml-2" @click="removeAllFilters">
+        <div class="mt-1">
+          <button class="link mr-2" @click="showFilters">Adapt filters</button>
+          <button class="link" @click="removeAllFilters">
             Remove all <span class="sr-only">filters</span>
           </button>
         </div>

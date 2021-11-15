@@ -63,7 +63,7 @@ export default {
   @apply justify-start;
   @apply w-full;
   @apply py-2;
-  @apply px-4;
+  @apply px-2;
   @apply rounded-sm;
   @apply text-sm;
   @apply text-gray-700;
