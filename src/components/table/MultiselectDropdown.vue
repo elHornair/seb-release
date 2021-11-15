@@ -60,9 +60,8 @@
                 <XCircleIcon class="menu__item__icon"></XCircleIcon>
               </span>
               <span class="menu__item__label"
-                >Deselect selected <span class="sr-only">institutions</span> ({{
-                  multiselect.selectedCount.value
-                }})</span
+                >Reset selection
+                <span class="sr-only">of institutions</span></span
               >
             </button>
           </MenuItem>
