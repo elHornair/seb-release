@@ -82,7 +82,7 @@
                   <td
                     v-if="isMultiselect"
                     class="table_cell table_cell--break-out-left"
-                    style="width: 7rem; min-width: 7rem"
+                    style="width: 6rem; min-width: 6rem"
                   >
                     <input
                       :id="`select_cb_${institution.id}`"
@@ -245,8 +245,8 @@ export default {
   @apply py-1.5;
 
   &.table_head_cell--selection {
-    width: 7rem;
-    min-width: 7rem;
+    width: 6rem;
+    min-width: 6rem;
   }
 }
 
