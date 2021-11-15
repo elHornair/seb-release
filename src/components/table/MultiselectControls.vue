@@ -14,8 +14,8 @@
     />
     <label :for="`select_all`" class="sr-only">Select all institutions</label>
     <span v-if="multiselect.selectedCount.value > 0" class="badge"
-      >{{ multiselect.selectedCount.value }}
-      <span class="sr-only">institutions are currently selected</span></span
+      >{{ multiselect.selectedCount.value
+      }}<span class="sr-only">institutions are currently selected</span></span
     >
     <MultiselectDropdown></MultiselectDropdown>
   </div>
