@@ -1,7 +1,7 @@
 <template>
   <div class="panel">
-    <h2 class="mb-3">Actions</h2>
-    <div class="flex flex-col gap-4">
+    <h2 class="mb-2">Actions</h2>
+    <div class="flex flex-col gap-2">
       <section class="section">
         <h3 class="title">Main Actions</h3>
         <div class="content">
@@ -116,18 +116,18 @@ export default {
 
 <style scoped lang="scss">
 .section {
-  @apply pt-4;
+  @apply pt-2;
   @apply border-t;
   @apply border-gray-200;
   @apply sm:border-t-0;
   @apply sm:pt-0;
-  @apply xl:pt-4;
+  @apply xl:pt-2;
   @apply xl:border-t;
   @apply w-full;
 
   @apply sm:grid;
   @apply sm:grid-cols-12;
-  @apply sm:gap-4;
+  @apply sm:gap-2;
   @apply sm:items-start;
   @apply xl:block;
 
