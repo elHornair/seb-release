@@ -3,141 +3,133 @@
     <template #main>
       <ActiveFilters class="hidden xl:block"></ActiveFilters>
       <div
-        class="flex flex-col"
         role="region"
         aria-describedby="table_description"
         aria-labelledby="table_caption"
         tabindex="0"
+        class="overflow-x-auto border border-t-0 border-gray-200 sm:rounded-sm"
       >
         <div
           class="
-            overflow-x-auto
-            border border-t-0 border-gray-200
-            sm:rounded-sm
+            relative
+            z-0
+            align-middle
+            inline-block
+            min-w-full
+            overflow-hidden
           "
         >
-          <div
-            class="
-              relative
-              z-0
-              align-middle
-              inline-block
-              min-w-full
-              overflow-hidden
-            "
-          >
-            <p id="table_description" class="sr-only">{{ tableDescription }}</p>
+          <p id="table_description" class="sr-only">{{ tableDescription }}</p>
 
-            <MultiselectControls
-              v-if="isMultiselect"
-              class="absolute z-10 top-1.5 left-2 sm:top-1.5 sm:left-3"
-            ></MultiselectControls>
+          <MultiselectControls
+            v-if="isMultiselect"
+            class="absolute z-10 top-1.5 left-2 sm:top-1.5 sm:left-3"
+          ></MultiselectControls>
 
-            <table class="block sm:table min-w-full divide-y divide-gray-200">
-              <caption
-                id="table_caption"
+          <table class="block sm:table min-w-full divide-y divide-gray-200">
+            <caption
+              id="table_caption"
+              :class="{
+                table_caption: true,
+                'table_caption--multiselect': isMultiselect,
+              }"
+            >
+              {{
+                tableCaption
+              }}
+            </caption>
+            <thead class="hidden sm:table-header-group bg-gray-50">
+              <tr class="hidden sm:table-row">
+                <th
+                  v-if="isMultiselect"
+                  scope="col"
+                  class="table_head_cell table_head_cell--selection"
+                >
+                  <span class="sr-only">Selection</span>
+                </th>
+
+                <table-head-field
+                  v-for="(field, index) in fields"
+                  :key="field.name"
+                  :field-name="field.name"
+                  :label="field.label"
+                  :first-col="index === 0"
+                ></table-head-field>
+
+                <th scope="col" class="table_head_cell">
+                  <span class="sr-only">Actions</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="block sm:table-row-group">
+              <tr
+                v-for="(institution, institutionIndex) in displayableItems"
+                :key="institution.id"
+                class="table_row"
                 :class="{
-                  table_caption: true,
-                  'table_caption--multiselect': isMultiselect,
+                  'table_row--multiselect': isMultiselect,
+                  'bg-white': institutionIndex % 2 === 0,
+                  'bg-gray-50': institutionIndex % 2 !== 0,
                 }"
               >
-                {{
-                  tableCaption
-                }}
-              </caption>
-              <thead class="hidden sm:table-header-group bg-gray-50">
-                <tr class="hidden sm:table-row">
-                  <th
-                    v-if="isMultiselect"
-                    scope="col"
-                    class="table_head_cell table_head_cell--selection"
-                  >
-                    <span class="sr-only">Selection</span>
-                  </th>
-
-                  <table-head-field
-                    v-for="(field, index) in fields"
-                    :key="field.name"
-                    :field-name="field.name"
-                    :label="field.label"
-                    :first-col="index === 0"
-                  ></table-head-field>
-
-                  <th scope="col" class="table_head_cell">
-                    <span class="sr-only">Actions</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="block sm:table-row-group">
-                <tr
-                  v-for="(institution, institutionIndex) in displayableItems"
-                  :key="institution.id"
-                  class="table_row"
-                  :class="{
-                    'table_row--multiselect': isMultiselect,
-                    'bg-white': institutionIndex % 2 === 0,
-                    'bg-gray-50': institutionIndex % 2 !== 0,
-                  }"
+                <td
+                  v-if="isMultiselect"
+                  class="table_cell table_cell--break-out-left"
+                  style="width: 6rem; min-width: 6rem"
                 >
-                  <td
-                    v-if="isMultiselect"
-                    class="table_cell table_cell--break-out-left"
-                    style="width: 6rem; min-width: 6rem"
-                  >
-                    <input
-                      :id="`select_cb_${institution.id}`"
-                      :name="`select_cb_${institution.id}`"
-                      :checked="multiselect.isSelected(institution.id)"
-                      type="checkbox"
-                      class="table__checkbox"
-                      @change="
-                        multiselect.isSelected(institution.id)
-                          ? multiselect.removeSelected(institution.id)
-                          : multiselect.addSelected(institution.id)
-                      "
-                    />
-                    <label :for="`select_cb_${institution.id}`" class="sr-only"
-                      >Select this institution</label
-                    >
-                  </td>
-                  <TableContentField
-                    v-for="field in fields"
-                    :key="`${institutionIndex}_${field.name}`"
-                    class="table_cell"
-                    :label="field.label"
-                    :field-name="field.name"
-                    :is-header="field.isMain"
-                  >
-                    <template v-if="field.renderContentAs">
-                      <component
-                        :is="field.renderContentAs"
-                        :value="institution[field.name]"
-                      ></component>
-                    </template>
-                    <template v-else>
-                      {{ institution[field.name] }}
-                    </template>
-                  </TableContentField>
-                  <td
-                    class="
-                      table_cell table_cell--break-out-right
-                      sm:w-1/12 sm:text-right
+                  <input
+                    :id="`select_cb_${institution.id}`"
+                    :name="`select_cb_${institution.id}`"
+                    :checked="multiselect.isSelected(institution.id)"
+                    type="checkbox"
+                    class="table__checkbox"
+                    @change="
+                      multiselect.isSelected(institution.id)
+                        ? multiselect.removeSelected(institution.id)
+                        : multiselect.addSelected(institution.id)
                     "
+                  />
+                  <label :for="`select_cb_${institution.id}`" class="sr-only"
+                    >Select this institution</label
                   >
-                    <InlineActionsDropdown
-                      :institution="institution"
-                      class="float-right"
-                      @institution:change="updateInstitutionData"
-                    ></InlineActionsDropdown>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <pagination
-              :current-page="paging.currentPage.value"
-              :total-pages="paging.totalPages.value"
-            ></pagination>
-          </div>
+                </td>
+                <TableContentField
+                  v-for="field in fields"
+                  :key="`${institutionIndex}_${field.name}`"
+                  class="table_cell"
+                  :label="field.label"
+                  :field-name="field.name"
+                  :is-header="field.isMain"
+                >
+                  <template v-if="field.renderContentAs">
+                    <component
+                      :is="field.renderContentAs"
+                      :value="institution[field.name]"
+                    ></component>
+                  </template>
+                  <template v-else>
+                    {{ institution[field.name] }}
+                  </template>
+                </TableContentField>
+                <td
+                  class="
+                    table_cell table_cell--break-out-right
+                    sm:w-1/12 sm:text-right
+                  "
+                >
+                  <InlineActionsDropdown
+                    :institution="institution"
+                    class="float-right"
+                    @institution:change="updateInstitutionData"
+                  ></InlineActionsDropdown>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <pagination
+            :current-page="paging.currentPage.value"
+            :total-pages="paging.totalPages.value"
+          ></pagination>
         </div>
       </div>
     </template>
