@@ -4,24 +4,9 @@
     <div class="flex flex-col gap-2">
       <section class="section">
         <h3 class="title">Main Actions</h3>
+
         <div class="content">
-          <action-button
-            v-if="showAddAction"
-            label="Add institution"
-            type="link"
-            :full-xl="true"
-            :route-obj="{ name: 'institution-create' }"
-          >
-          </action-button>
-          <action-button
-            label="Delete Selected"
-            class="mt-1 ml-0 sm:mt-0 sm:ml-1 xl:mt-1 xl:ml-0"
-            type="button"
-            :full-xl="true"
-            :disabled="!showBulkActions"
-            @click="handleBulkActionClick"
-          >
-          </action-button>
+          <GeneralActions></GeneralActions>
         </div>
       </section>
 
@@ -52,18 +37,17 @@
 </template>
 
 <script>
+import { useInstitutionFiltering } from "@/composables/institution/useInstitutionFiltering";
 import Filters from "@/components/filter/Filters";
 import FiltersSummary from "@/components/filter/FiltersSummary";
 import GeneralSortingDropdown from "@/components/table/GeneralSortingDropdown";
 import ActionButton from "@/components/misc/ActionButton";
-import { useInstitutionFiltering } from "@/composables/institution/useInstitutionFiltering";
-import { useAccessControl } from "@/composables/useAccessControl";
-import { computed } from "vue";
-import { useInstitutions } from "@/composables/institution/useInstitutions";
+import GeneralActions from "@/components/table/GeneralActions";
 
 export default {
   name: "ActionsPanel",
   components: {
+    GeneralActions,
     FiltersSummary,
     Filters,
     GeneralSortingDropdown,
@@ -76,35 +60,14 @@ export default {
     },
   },
   setup() {
-    const { availablePrivileges, availableActions, hasBasePrivilege } =
-      useAccessControl();
-    const { multiselect } = useInstitutions();
     const { filtersVisible, hasActiveFilters, showFilters, hideFilters } =
       useInstitutionFiltering();
-
-    const showAddAction = () => {
-      return hasBasePrivilege(
-        availablePrivileges.INSTITUTION,
-        availableActions.WRITE
-      );
-    };
-
-    const showBulkActions = computed(() => multiselect.selectedCount.value > 0);
-
-    const handleBulkActionClick = () => {
-      alert(
-        `This will delete ${multiselect.selectedCount.value} selected item(s)`
-      );
-    };
 
     return {
       filtersVisible,
       hasActiveFilters,
       showFilters,
       hideFilters,
-      showAddAction,
-      showBulkActions,
-      handleBulkActionClick,
     };
   },
 };
