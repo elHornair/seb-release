@@ -12,7 +12,10 @@
         </div>
       </section>
 
-      <section class="section">
+      <section
+        class="section"
+        :class="{ 'section--xl-only': hasActiveFilters }"
+      >
         <h3 class="title title--extra-spaced">Filter</h3>
         <div class="content">
           <action-button
@@ -23,18 +26,20 @@
             @click="showFilters"
           >
           </action-button>
-          <Filters v-if="filtersVisible" @hide="hideFilters"></Filters>
         </div>
       </section>
 
       <section v-if="hasActiveFilters" class="section section--active-filters">
         <span class="title">
+          <span class="sr-only">Active filters</span>
           {{ activeFiltersLabel }}
         </span>
         <div class="content">
           <FiltersSummary></FiltersSummary>
         </div>
       </section>
+
+      <Filters v-if="filtersVisible" @hide="hideFilters"></Filters>
 
       <section class="section section--sorting">
         <h3 class="title title--extra-spaced">Sort</h3>
@@ -101,6 +106,11 @@ export default {
   @apply xl:pt-2;
   @apply xl:border-t;
   @apply xl:border-gray-200;
+
+  &.section--xl-only {
+    @apply hidden;
+    @apply xl:block;
+  }
 
   &.section--sorting {
     @apply sm:sr-only;

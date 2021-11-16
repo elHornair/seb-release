@@ -1,6 +1,9 @@
 <template>
   <Disclosure v-slot="{ open }">
     <div class="flex mb-1 text-sm">
+      <button class="link mr-2" @click="showFilters()">
+        Adapt <span class="sr-only">filters</span>
+      </button>
       <button class="link mr-2" @click="removeAllFilters">
         Remove all <span class="sr-only">filters</span>
       </button>
@@ -46,9 +49,11 @@ export default {
     ActiveFilter,
   },
   setup() {
-    const { removeAllFilters, activeFilters } = useInstitutionFiltering();
+    const { showFilters, removeAllFilters, activeFilters } =
+      useInstitutionFiltering();
 
     return {
+      showFilters,
       removeAllFilters,
       activeFilters,
     };
