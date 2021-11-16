@@ -58,8 +58,8 @@
             </button>
           </MenuItem>
         </div>
-        <div v-if="currentSorting" class="menu__section">
-          <MenuItem v-slot="{ active }">
+        <div class="menu__section">
+          <MenuItem v-slot="{ active }" :disabled="!currentSorting">
             <button
               class="menu__item"
               :class="{ 'menu__item--active': active }"

@@ -55,6 +55,15 @@
       @apply bg-primary-50;
       @apply text-gray-900;
     }
+
+    &:disabled {
+      @apply text-gray-300;
+      @apply cursor-not-allowed;
+
+      .menu__item__icon {
+        @apply text-gray-200;
+      }
+    }
   }
 
   .menu__item__label {

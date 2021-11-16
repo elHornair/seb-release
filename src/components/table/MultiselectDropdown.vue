@@ -10,8 +10,8 @@
       <MenuItems class="menu__content menu__content--right">
         <div class="menu__section">
           <MenuItem
-            v-if="!multiselect.areAllVisibleSelected.value"
             v-slot="{ active }"
+            :disabled="multiselect.areAllVisibleSelected.value"
           >
             <button
               class="menu__item"
@@ -29,8 +29,8 @@
             </button>
           </MenuItem>
           <MenuItem
-            v-if="multiselect.selectedAndVisibleCount.value > 0"
             v-slot="{ active }"
+            :disabled="multiselect.selectedAndVisibleCount.value <= 0"
           >
             <button
               class="menu__item"
@@ -48,8 +48,8 @@
             </button>
           </MenuItem>
           <MenuItem
-            v-if="multiselect.selectedCount.value > 0"
             v-slot="{ active }"
+            :disabled="multiselect.selectedCount.value <= 0"
           >
             <button
               class="menu__item"
