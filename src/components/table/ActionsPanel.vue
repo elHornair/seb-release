@@ -2,7 +2,7 @@
   <div class="panel">
     <h2 class="sr-only sm:not-sr-only sm:mb-2">Controls</h2>
     <div class="flex flex-col gap-2">
-      <section class="section">
+      <section class="section section--actions">
         <h3 class="title title--extra-spaced">
           <span class="hidden sm:block">Actions</span>
         </h3>
@@ -110,6 +110,18 @@ export default {
   &.section--xl-only {
     @apply hidden;
     @apply xl:block;
+  }
+
+  &.section--actions {
+    @apply fixed;
+    @apply w-auto;
+    @apply top-0.5;
+    @apply right-0.5;
+    @apply z-10;
+
+    @apply sm:relative;
+    @apply sm:w-full;
+    @apply sm:z-0;
   }
 
   &.section--sorting {
