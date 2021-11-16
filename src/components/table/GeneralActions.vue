@@ -2,7 +2,7 @@
   <div class="mt-2 float-right sm:hidden">
     <Menu as="div" class="menu">
       <MenuButton class="menu__toggle">
-        <span class="sr-only">Select general institution action</span>
+        <h3 class="text-sm font-medium text-gray-700">Main actions</h3>
         <span aria-hidden="true">
           <DotsVerticalIcon class="menu__toggle__icon" />
         </span>
