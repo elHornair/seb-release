@@ -14,11 +14,11 @@
           >
           </action-button>
           <action-button
-            v-if="showBulkActions"
             label="Delete Selected"
             class="mt-1"
             type="button"
             :full-xl="true"
+            :disabled="!showBulkActions"
             @click="handleBulkActionClick"
           >
           </action-button>

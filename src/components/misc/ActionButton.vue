@@ -10,6 +10,7 @@
       'button--full': full,
       'button--full-xl': fullXl,
     }"
+    :disabled="disabled"
   >
     <span aria-hidden="true">
       <slot name="icon"></slot>
@@ -36,6 +37,10 @@ export default {
     primary: {
       type: Boolean,
       default: true,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
     full: {
       type: Boolean,
@@ -91,6 +96,12 @@ export default {
   @apply text-white;
   @apply bg-primary-600;
   @apply hover:bg-primary-700;
+
+  &:disabled {
+    @apply bg-gray-200;
+    @apply text-gray-400;
+    @apply cursor-not-allowed;
+  }
 }
 
 .button--secondary {
