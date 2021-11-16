@@ -13,7 +13,7 @@
       </section>
 
       <section class="section">
-        <h3 class="title title--extra-spaced">Filtering</h3>
+        <h3 class="title title--extra-spaced">Filter</h3>
         <div class="content">
           <action-button
             :label="`${hasActiveFilters ? 'Adapt' : 'Show'} filters`"
@@ -37,7 +37,7 @@
       </section>
 
       <section class="section section--sorting">
-        <h3 class="title title--extra-spaced">Sorting</h3>
+        <h3 class="title title--extra-spaced">Sort</h3>
         <div class="content">
           <GeneralSortingDropdown :fields="fields"></GeneralSortingDropdown>
         </div>
@@ -123,8 +123,8 @@ export default {
   @apply text-sm;
   @apply font-medium;
   @apply text-gray-700;
-  @apply col-span-4;
 
+  @apply col-span-3;
   @apply sm:col-span-2;
   @apply md:col-span-3;
   @apply lg:col-span-2;
@@ -137,7 +137,7 @@ export default {
 }
 
 .content {
-  @apply col-span-8;
+  @apply col-span-9;
   @apply sm:col-span-10;
   @apply md:col-span-9;
   @apply lg:col-span-10;
