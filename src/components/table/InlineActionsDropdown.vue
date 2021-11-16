@@ -40,7 +40,7 @@
               <span class="menu__item__label">Edit</span>
             </router-link>
           </MenuItem>
-          <MenuItem v-slot="{ active }" :disabled="institution.active">
+          <MenuItem v-if="!institution.active" v-slot="{ active }">
             <button
               class="menu__item"
               :class="{ 'menu__item--active': active }"
@@ -52,7 +52,7 @@
               <span class="menu__item__label">Activate</span>
             </button>
           </MenuItem>
-          <MenuItem v-slot="{ active }" :disabled="!institution.active">
+          <MenuItem v-if="institution.active" v-slot="{ active }">
             <button
               class="menu__item"
               :class="{ 'menu__item--active': active }"
