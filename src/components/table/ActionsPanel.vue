@@ -112,20 +112,16 @@ export default {
 
 <style scoped lang="scss">
 .section {
-  @apply pt-2;
-  @apply border-t;
-  @apply border-gray-200;
-  @apply sm:border-t-0;
-  @apply sm:pt-0;
-  @apply xl:pt-2;
-  @apply xl:border-t;
+  @apply grid;
+  @apply grid-cols-12;
+  @apply gap-2;
+  @apply items-start;
   @apply w-full;
 
-  @apply sm:grid;
-  @apply sm:grid-cols-12;
-  @apply sm:gap-2;
-  @apply sm:items-start;
   @apply xl:block;
+  @apply xl:pt-2;
+  @apply xl:border-t;
+  @apply xl:border-gray-200;
 
   &.section--sorting {
     @apply sm:sr-only;
@@ -140,17 +136,20 @@ export default {
 }
 
 .title {
+  @apply mt-2;
   @apply text-sm;
   @apply font-medium;
   @apply text-gray-700;
-  @apply pb-1;
+  @apply col-span-4;
 
   @apply sm:col-span-2;
   @apply md:col-span-3;
   @apply lg:col-span-2;
+  @apply xl:mt-0;
 }
 
 .content {
+  @apply col-span-8;
   @apply sm:col-span-10;
   @apply md:col-span-9;
   @apply lg:col-span-10;
