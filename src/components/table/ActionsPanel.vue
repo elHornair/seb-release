@@ -1,6 +1,6 @@
 <template>
   <div class="panel">
-    <h2 class="mb-2">Actions</h2>
+    <h2 class="sr-only sm:not-sr-only sm:mb-2">Actions</h2>
     <div class="flex flex-col gap-2">
       <section class="section">
         <h3 class="title">Main Actions</h3>
