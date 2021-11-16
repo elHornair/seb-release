@@ -1,49 +1,40 @@
 <template>
-  <div>
-    <Disclosure v-if="hasActiveFilters" v-slot="{ open }">
-      <div class="flex mb-1 text-normal sm:text-sm">
-        <span class="label">
-          <span aria-hidden="true">
-            <FilterIcon class="icon"></FilterIcon
-          ></span>
-          {{ activeFiltersLabel }}
-        </span>
-        <button class="link mr-2" @click="removeAllFilters">
-          Remove all <span class="sr-only">filters</span>
-        </button>
-        <DisclosureButton class="link mr-2">
-          <span v-if="!open">Show</span>
-          <span v-if="open">Hide</span>
-          details
-          <span v-if="!open" class="sr-only">to remove some filters</span>
-        </DisclosureButton>
-      </div>
-      <transition
-        enter-active-class="transition duration-100 ease-out"
-        enter-from-class="transform scale-95 opacity-0"
-        enter-to-class="transform scale-100 opacity-100"
-        leave-active-class="transition duration-75 ease-out"
-        leave-from-class="transform scale-100 opacity-100"
-        leave-to-class="transform scale-95 opacity-0"
-      >
-        <DisclosurePanel class="mb-1">
-          <active-filter
-            v-for="activeFilter in activeFilters"
-            :key="activeFilter.field"
-            :field="activeFilter.field"
-            :value="activeFilter.value"
-            class="my-0.5 sm:mr-2"
-          ></active-filter>
-        </DisclosurePanel>
-      </transition>
-    </Disclosure>
-  </div>
+  <Disclosure v-slot="{ open }">
+    <div class="flex mb-1 text-sm">
+      <button class="link mr-2" @click="removeAllFilters">
+        Remove all <span class="sr-only">filters</span>
+      </button>
+      <DisclosureButton class="link mr-2">
+        <span v-if="!open">Show</span>
+        <span v-if="open">Hide</span>
+        details
+        <span v-if="!open" class="sr-only">to remove some filters</span>
+      </DisclosureButton>
+    </div>
+    <transition
+      enter-active-class="transition duration-100 ease-out"
+      enter-from-class="transform scale-95 opacity-0"
+      enter-to-class="transform scale-100 opacity-100"
+      leave-active-class="transition duration-75 ease-out"
+      leave-from-class="transform scale-100 opacity-100"
+      leave-to-class="transform scale-95 opacity-0"
+    >
+      <DisclosurePanel class="mb-1">
+        <active-filter
+          v-for="activeFilter in activeFilters"
+          :key="activeFilter.field"
+          :field="activeFilter.field"
+          :value="activeFilter.value"
+          class="my-0.5 sm:mr-1"
+        ></active-filter>
+      </DisclosurePanel>
+    </transition>
+  </Disclosure>
 </template>
 
 <script>
 import { useInstitutionFiltering } from "@/composables/institution/useInstitutionFiltering";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
-import { FilterIcon } from "@heroicons/vue/solid";
 import ActiveFilter from "@/components/filter/ActiveFilter";
 
 export default {
@@ -52,44 +43,15 @@ export default {
     Disclosure,
     DisclosureButton,
     DisclosurePanel,
-    FilterIcon,
     ActiveFilter,
   },
   setup() {
-    const {
-      removeAllFilters,
-      activeFilters,
-      hasActiveFilters,
-      activeFiltersLabel,
-    } = useInstitutionFiltering();
+    const { removeAllFilters, activeFilters } = useInstitutionFiltering();
 
     return {
       removeAllFilters,
       activeFilters,
-      hasActiveFilters,
-      activeFiltersLabel,
     };
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.label {
-  @apply flex;
-  @apply mr-2;
-  @apply pt-1;
-  @apply pr-2;
-  @apply border-r border-gray-600;
-  @apply text-sm;
-  @apply text-gray-700;
-  @apply font-medium;
-}
-
-.icon {
-  @apply h-5;
-  @apply w-5;
-  @apply mt-0.5;
-  @apply mr-2;
-  @apply text-gray-400;
-}
-</style>
