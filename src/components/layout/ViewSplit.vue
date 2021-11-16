@@ -3,7 +3,7 @@
     <h1 class="layout__mainheading">
       {{ routeDisplayName }}
     </h1>
-    <div class="grid grid-cols-12 gap-6 pt-6 xl:pt-0">
+    <div class="grid grid-cols-12 sm:gap-6">
       <div class="col-span-12 xl:col-span-9 order-2 xl:order-1">
         <slot name="main"></slot>
       </div>
