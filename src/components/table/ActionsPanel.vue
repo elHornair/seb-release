@@ -111,6 +111,7 @@ export default {
   @apply md:col-span-3;
   @apply lg:col-span-2;
   @apply xl:mt-0;
+  @apply xl:mb-1;
 }
 
 .content {
