@@ -61,7 +61,7 @@
                 </th>
               </tr>
             </thead>
-            <tbody class="block sm:table-row-group">
+            <tbody class="table_body">
               <tr
                 v-for="(institution, institutionIndex) in displayableItems"
                 :key="institution.id"
@@ -240,6 +240,16 @@ export default {
     width: 6rem;
     min-width: 6rem;
   }
+}
+
+.table_body {
+  @apply block;
+  @apply overflow-y-scroll;
+  height: 80vh;
+
+  @apply sm:table-row-group;
+  @apply sm:overflow-y-auto;
+  @apply sm:h-auto;
 }
 
 .table_row {
