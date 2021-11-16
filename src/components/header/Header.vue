@@ -42,7 +42,7 @@ export default {
     @apply items-center;
 
     @screen sm {
-      @apply px-6;
+      @apply px-0;
     }
   }
 }
