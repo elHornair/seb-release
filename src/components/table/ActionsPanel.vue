@@ -13,14 +13,10 @@
             :route-obj="{ name: 'institution-create' }"
           >
           </action-button>
-        </div>
-      </section>
-
-      <section v-if="showBulkActions" class="section">
-        <h3 class="title">Bulk Actions</h3>
-        <div class="content">
           <action-button
+            v-if="showBulkActions"
             label="Delete Selected"
+            class="mt-1"
             type="button"
             :full-xl="true"
             @click="handleBulkActionClick"
