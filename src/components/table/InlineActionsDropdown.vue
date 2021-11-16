@@ -40,18 +40,6 @@
               <span class="menu__item__label">Edit</span>
             </router-link>
           </MenuItem>
-          <MenuItem v-slot="{ active }" :disabled="!institution.active">
-            <button
-              class="menu__item"
-              :class="{ 'menu__item--active': active }"
-              @click="handleDeactivateClick"
-            >
-              <span aria-hidden="true">
-                <StatusOfflineIcon class="menu__item__icon"></StatusOfflineIcon>
-              </span>
-              <span class="menu__item__label">Deactivate</span>
-            </button>
-          </MenuItem>
           <MenuItem v-slot="{ active }" :disabled="institution.active">
             <button
               class="menu__item"
@@ -62,6 +50,18 @@
                 <StatusOnlineIcon class="menu__item__icon"></StatusOnlineIcon>
               </span>
               <span class="menu__item__label">Activate</span>
+            </button>
+          </MenuItem>
+          <MenuItem v-slot="{ active }" :disabled="!institution.active">
+            <button
+              class="menu__item"
+              :class="{ 'menu__item--active': active }"
+              @click="handleDeactivateClick"
+            >
+              <span aria-hidden="true">
+                <StatusOfflineIcon class="menu__item__icon"></StatusOfflineIcon>
+              </span>
+              <span class="menu__item__label">Deactivate</span>
             </button>
           </MenuItem>
         </div>
