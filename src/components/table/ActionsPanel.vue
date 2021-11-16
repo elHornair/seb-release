@@ -1,10 +1,10 @@
 <template>
   <div class="panel">
-    <h2 class="sr-only sm:not-sr-only sm:mb-2">Actions</h2>
+    <h2 class="sr-only sm:not-sr-only sm:mb-2">Controls</h2>
     <div class="flex flex-col gap-2">
       <section class="section">
         <h3 class="title title--extra-spaced">
-          <span class="hidden sm:block">Main Actions</span>
+          <span class="hidden sm:block">Actions</span>
         </h3>
 
         <div class="content">
@@ -126,8 +126,6 @@ export default {
 
   @apply col-span-3;
   @apply sm:col-span-2;
-  @apply md:col-span-3;
-  @apply lg:col-span-2;
   @apply xl:mb-1;
 
   &.title--extra-spaced {
@@ -138,8 +136,6 @@ export default {
 
 .content {
   @apply col-span-9;
-  @apply sm:col-span-10;
-  @apply md:col-span-9;
   @apply lg:col-span-10;
 }
 </style>
