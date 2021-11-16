@@ -11,7 +11,7 @@
       <DropdownTransition>
         <MenuItems class="menu__content">
           <div class="menu__section">
-            <MenuItem v-if="showAddAction" v-slot="{ active }">
+            <MenuItem v-slot="{ active }" :disabled="!showAddAction()">
               <router-link
                 :to="{
                   name: 'institution-create',
@@ -41,7 +41,7 @@
   </div>
   <div class="hidden sm:block">
     <action-button
-      v-if="showAddAction"
+      :disabled="!showAddAction()"
       label="Add institution"
       type="link"
       :full-xl="true"

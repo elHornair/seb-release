@@ -2,7 +2,7 @@
   <component
     :is="componentType"
     :type="isLink ? null : type"
-    :to="isLink ? routeObj : null"
+    :to="isLink || !disabled ? routeObj : null"
     class="button"
     :class="{
       'button--primary': primary,
@@ -62,7 +62,7 @@ export default {
       return this.type === "link";
     },
     componentType() {
-      return this.isLink ? "router-link" : "button";
+      return this.isLink && !this.disabled ? "router-link" : "button";
     },
   },
 };
