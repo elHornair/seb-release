@@ -15,7 +15,7 @@
           </action-button>
           <action-button
             label="Delete Selected"
-            class="mt-1"
+            class="mt-1 ml-0 sm:mt-0 sm:ml-1 xl:mt-1 xl:ml-0"
             type="button"
             :full-xl="true"
             :disabled="!showBulkActions"
