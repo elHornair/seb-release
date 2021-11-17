@@ -115,14 +115,18 @@ export default {
 </script>
 <style lang="scss" scoped>
 .item {
-  @apply pb-5;
+  @apply pb-3;
 
   @apply sm:grid;
   @apply sm:grid-cols-3;
   @apply sm:items-start;
   @apply sm:border-b;
   @apply sm:border-gray-200;
-  @apply sm:py-5;
+  @apply sm:py-3;
+
+  &:last-child {
+    @apply sm:border-b-0;
+  }
 }
 
 .term,
@@ -139,7 +143,7 @@ export default {
 
 .details {
   @apply sm:col-span-2;
-  @apply pt-2;
+  @apply pt-1;
   @apply sm:pt-0;
 }
 </style>
