@@ -78,6 +78,8 @@ export default {
 .select {
   @apply block;
   @apply w-full;
+  @apply px-2;
+  @apply py-1.5;
   @apply border-gray-300;
   @apply rounded-sm;
   @apply focus:border-primary-600;
