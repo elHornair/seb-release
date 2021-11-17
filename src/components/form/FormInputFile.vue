@@ -2,7 +2,7 @@
   <div>
     <label
       :for="name"
-      class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+      class="block text-sm font-medium text-gray-700 sm:mt-0 sm:pt-1.5"
     >
       {{ label }}
     </label>

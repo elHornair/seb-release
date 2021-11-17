@@ -2,7 +2,7 @@
   <div>
     <label
       :for="name"
-      class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-5"
+      class="block text-sm font-medium text-gray-700 sm:mt-0 sm:pt-1.5"
     >
       {{ label
       }}<span v-if="required" aria-hidden="true" class="text-red-700">*</span>
@@ -66,10 +66,14 @@ export default {
   @apply block;
   @apply w-full;
   @apply mt-1;
+  @apply px-2;
+  @apply py-1.5;
   @apply shadow-sm;
   @apply border-gray-300;
   @apply focus:border-primary-600;
   @apply rounded-sm;
-  @apply sm:mt-3 sm:text-sm;
+
+  @apply sm:mt-0;
+  @apply sm:text-sm;
 }
 </style>

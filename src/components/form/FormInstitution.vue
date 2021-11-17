@@ -1,6 +1,6 @@
 <template>
   <form class="panel" @submit.prevent="handleFormSubmit">
-    <div class="space-y-6 sm:space-y-5">
+    <div class="space-y-4 sm:space-y-3">
       <form-input-text
         v-model="formState.name"
         label="Name"
@@ -32,7 +32,7 @@
         class="form_row"
       ></form-input-file>
     </div>
-    <div class="flex justify-end pt-5">
+    <div class="flex justify-end pt-5 sm:pt-3">
       <action-button
         label="Cancel"
         type="reset"
@@ -123,6 +123,6 @@ export default {
   @apply sm:items-start;
   @apply sm:border-b;
   @apply sm:border-gray-200;
-  @apply sm:pb-5;
+  @apply sm:pb-3;
 }
 </style>

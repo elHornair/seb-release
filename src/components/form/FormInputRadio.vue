@@ -2,13 +2,13 @@
   <div role="group" :aria-labelledby="`label-${name}`">
     <div
       :id="`label-${name}`"
-      class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-0"
+      class="block text-sm font-medium text-gray-700 sm:mt-0 sm:pt-0"
     >
       {{ label }}
     </div>
-    <div class="mt-1 sm:mt-2 sm:col-span-2">
+    <div class="mt-1 sm:mt-0 sm:col-span-2">
       <div class="max-w-lg">
-        <div class="space-y-4">
+        <div class="space-y-1">
           <div
             v-for="option in options"
             :key="option.value"

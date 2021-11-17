@@ -2,11 +2,11 @@
   <div>
     <span
       aria-hidden="true"
-      class="text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+      class="block text-sm font-medium text-gray-700 sm:-mt-1"
     >
       {{ description }}
     </span>
-    <div class="mt-1 sm:mt-0 sm:col-span-2">
+    <div class="mt-0 sm:-my-1.5 sm:col-span-2">
       <input
         :id="name"
         :name="name"
@@ -76,8 +76,6 @@ export default {
   @apply text-sm;
   @apply font-medium;
   @apply text-gray-700;
-  @apply sm:mt-px;
-  @apply sm:pt-2;
 
   &.label--disabled {
     @apply cursor-not-allowed;
