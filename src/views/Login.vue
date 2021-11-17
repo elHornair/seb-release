@@ -119,8 +119,8 @@ export default {
   @apply relative;
   @apply block;
   @apply w-full;
-  @apply px-3;
-  @apply py-2;
+  @apply px-2;
+  @apply py-1.5;
   @apply rounded-sm;
   @apply placeholder-gray-500;
   @apply text-gray-900;
