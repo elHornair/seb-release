@@ -72,10 +72,10 @@ export default {
 .table_head_field {
   @apply relative;
   @apply px-3;
-  @apply sm:pt-1.5;
-  @apply sm:pb-1;
   @apply text-gray-500;
   @apply whitespace-nowrap;
+  @apply sm:pt-2.5;
+  @apply sm:pb-2;
 }
 
 .table_head_field__text {

@@ -23,7 +23,7 @@
 
           <MultiselectControls
             v-if="isMultiselect"
-            class="absolute z-10 top-1.5 left-2 sm:top-1.5 sm:left-3"
+            class="absolute z-10 top-1.5 left-2 sm:top-2.5 sm:left-3"
           ></MultiselectControls>
 
           <table class="block sm:table min-w-full divide-y divide-gray-200">
@@ -281,7 +281,7 @@ export default {
   @apply text-gray-500;
   @apply sm:table-cell;
   @apply sm:px-3;
-  @apply sm:py-2;
+  @apply sm:py-2.5;
 
   &.table_cell--break-out-left {
     @apply absolute;
