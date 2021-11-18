@@ -15,7 +15,6 @@
         :label="label"
         :field-name="fieldName"
         :open-right="firstCol"
-        :aria-hidden="true"
         class="hidden sm:block"
       ></SortingDropdown>
     </div>

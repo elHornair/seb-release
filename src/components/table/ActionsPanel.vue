@@ -126,6 +126,10 @@ export default {
 
   &.section--sorting {
     @apply sm:sr-only;
+
+    &:focus-within {
+      @apply sm:not-sr-only;
+    }
   }
 
   &.section--active-filters {
