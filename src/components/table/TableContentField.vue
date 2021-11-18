@@ -1,6 +1,7 @@
 <template>
   <component
     :is="isHeader ? 'th' : 'td'"
+    :role="isHeader ? 'rowheader' : 'cell'"
     scope="row"
     :class="{
       'bg-primary-50': isSorted,

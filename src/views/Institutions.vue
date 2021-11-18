@@ -26,7 +26,10 @@
             class="absolute z-10 top-1.5 left-2 sm:top-1.5 sm:left-3"
           ></MultiselectControls>
 
-          <table class="block sm:table min-w-full divide-y divide-gray-200">
+          <table
+            role="table"
+            class="block sm:table min-w-full divide-y divide-gray-200"
+          >
             <caption
               id="table_caption"
               :class="{
@@ -38,10 +41,14 @@
                 tableCaption
               }}
             </caption>
-            <thead class="hidden sm:table-header-group bg-gray-50">
-              <tr class="hidden sm:table-row">
+            <thead
+              role="rowgroup"
+              class="hidden sm:table-header-group bg-gray-50"
+            >
+              <tr role="row" class="hidden sm:table-row">
                 <th
                   v-if="isMultiselect"
+                  role="columnheader"
                   scope="col"
                   class="table_head_cell table_head_cell--selection"
                 >
@@ -56,15 +63,16 @@
                   :first-col="index === 0"
                 ></table-head-field>
 
-                <th scope="col" class="table_head_cell">
+                <th role="columnheader" scope="col" class="table_head_cell">
                   <span class="sr-only">Actions</span>
                 </th>
               </tr>
             </thead>
-            <tbody class="table_body">
+            <tbody role="rowgroup" class="table_body">
               <tr
                 v-for="(institution, institutionIndex) in displayableItems"
                 :key="institution.id"
+                role="row"
                 class="table_row"
                 :class="{
                   'bg-white': institutionIndex % 2 === 0,
@@ -73,8 +81,8 @@
               >
                 <td
                   v-if="isMultiselect"
-                  class="table_cell table_cell--selection"
                   role="cell"
+                  class="table_cell table_cell--selection"
                 >
                   <input
                     :id="`select_cb_${institution.id}`"
@@ -92,7 +100,7 @@
                     >Select this institution</label
                   >
                 </td>
-                <td class="table_cell table_cell--actions-mobile" role="cell">
+                <td role="cell" class="table_cell table_cell--actions-mobile">
                   <InlineActionsDropdown
                     :institution="institution"
                     class="float-right"
@@ -120,7 +128,7 @@
                     {{ institution[field.name] }}
                   </template>
                 </TableContentField>
-                <td class="table_cell table_cell--actions-sm" role="cell">
+                <td role="cell" class="table_cell table_cell--actions-sm">
                   <InlineActionsDropdown
                     :institution="institution"
                     class="float-right"
