@@ -73,7 +73,7 @@ const tableDescription = computed(() => {
     currentSortingInfo = "Currently not sorted";
   }
 
-  return `${tableCaption}. ${currentFilteringInfo}. ${currentSortingInfo}. Go to controls landmark to adapt filtering and sorting.`;
+  return `${tableCaption}. ${currentFilteringInfo}. ${currentSortingInfo}. Go to table actions landmark to adapt filtering and sorting.`;
 });
 
 export const useInstitutions = () => {

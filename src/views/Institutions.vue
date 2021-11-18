@@ -1,5 +1,5 @@
 <template>
-  <view-split label-aside="Controls">
+  <view-split label-aside="Table Actions">
     <template #main>
       <ActiveFilters class="hidden xl:block"></ActiveFilters>
       <div

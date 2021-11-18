@@ -1,6 +1,6 @@
 <template>
   <div class="panel">
-    <h2 class="sr-only sm:not-sr-only sm:mb-2">Controls</h2>
+    <h2 class="sr-only sm:not-sr-only sm:mb-2">Table Actions</h2>
     <div class="flex flex-col gap-2">
       <section class="section section--actions">
         <h3 class="title title--extra-spaced">
