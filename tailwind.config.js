@@ -9,6 +9,10 @@ module.exports = {
     extend: {
       colors: {
         primary: colors.blueGray,
+        eth: {
+          red: "rgb(210, 32, 53)",
+          green: "rgb(100, 201, 79)",
+        },
       },
     },
   },
