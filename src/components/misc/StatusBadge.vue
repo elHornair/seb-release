@@ -14,7 +14,7 @@
 import { computed } from "vue";
 
 export default {
-  name: "StatusBatch",
+  name: "StatusBadge",
   props: {
     value: {
       type: Boolean,

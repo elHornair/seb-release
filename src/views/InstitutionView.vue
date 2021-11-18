@@ -23,7 +23,7 @@
         <div class="item">
           <dt class="term">Status</dt>
           <dd class="details">
-            <status-batch :value="institutionState.active"></status-batch>
+            <StatusBadge :value="institutionState.active"></StatusBadge>
           </dd>
         </div>
         <div class="item">
@@ -61,14 +61,14 @@ import { reactive } from "vue";
 import { useAccessControl } from "@/composables/useAccessControl";
 import ViewSplit from "@/components/layout/ViewSplit";
 import ActionButton from "@/components/misc/ActionButton";
-import StatusBatch from "@/components/misc/StatusBatch";
+import StatusBadge from "@/components/misc/StatusBadge";
 
 export default {
   name: "InstitutionView",
   components: {
     ViewSplit,
     ActionButton,
-    StatusBatch,
+    StatusBadge,
   },
   setup() {
     const { readInstitution } = useInstitutionAPI();

@@ -155,7 +155,7 @@
 import Pagination from "@/components/misc/Pagination";
 import TableHeadField from "@/components/table/TableHeadField";
 import ViewSplit from "@/components/layout/ViewSplit";
-import StatusBatch from "@/components/misc/StatusBatch";
+import StatusBadge from "@/components/misc/StatusBadge";
 import ActiveFilters from "@/components/filter/ActiveFilters";
 import InlineActionsDropdown from "@/components/table/InlineActionsDropdown";
 import TableContentField from "@/components/table/TableContentField";
@@ -174,7 +174,7 @@ export default {
     ViewSplit,
     TableHeadField,
     Pagination,
-    StatusBatch,
+    StatusBadge,
   },
   setup() {
     const {
@@ -212,7 +212,7 @@ export default {
           name: "active",
           label: "Status",
           isMain: false,
-          renderContentAs: "StatusBatch",
+          renderContentAs: "StatusBadge",
         },
       ],
     };
