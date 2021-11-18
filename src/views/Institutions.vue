@@ -67,22 +67,21 @@
                 :key="institution.id"
                 class="table_row"
                 :class="{
-                  'table_row--multiselect': isMultiselect,
                   'bg-white': institutionIndex % 2 === 0,
                   'bg-gray-50': institutionIndex % 2 !== 0,
                 }"
               >
                 <td
                   v-if="isMultiselect"
-                  class="table_cell table_cell--break-out-left"
-                  style="width: 6rem; min-width: 6rem"
+                  class="table_cell table_cell--selection"
+                  role="cell"
                 >
                   <input
                     :id="`select_cb_${institution.id}`"
                     :name="`select_cb_${institution.id}`"
                     :checked="multiselect.isSelected(institution.id)"
                     type="checkbox"
-                    class="table__checkbox"
+                    class="table_checkbox"
                     @change="
                       multiselect.isSelected(institution.id)
                         ? multiselect.removeSelected(institution.id)
@@ -93,10 +92,20 @@
                     >Select this institution</label
                   >
                 </td>
+                <td class="table_cell table_cell--actions-mobile" role="cell">
+                  <InlineActionsDropdown
+                    :institution="institution"
+                    class="float-right"
+                    @institution:change="updateInstitutionData"
+                  ></InlineActionsDropdown>
+                </td>
                 <TableContentField
                   v-for="field in fields"
                   :key="`${institutionIndex}_${field.name}`"
-                  class="table_cell"
+                  :class="{
+                    table_cell: true,
+                    'table_cell--spaced-left': isMultiselect,
+                  }"
                   :label="field.label"
                   :field-name="field.name"
                   :is-header="field.isMain"
@@ -111,12 +120,7 @@
                     {{ institution[field.name] }}
                   </template>
                 </TableContentField>
-                <td
-                  class="
-                    table_cell table_cell--break-out-right
-                    sm:w-1/12 sm:text-right
-                  "
-                >
+                <td class="table_cell table_cell--actions-sm" role="cell">
                   <InlineActionsDropdown
                     :institution="institution"
                     class="float-right"
@@ -209,6 +213,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$selection-column-width: 1.5rem;
+$selection-column-width-sm: 6rem;
+
 .table_caption {
   @apply block;
   @apply relative;
@@ -237,8 +244,8 @@ export default {
   @apply py-1.5;
 
   &.table_head_cell--selection {
-    width: 6rem;
-    min-width: 6rem;
+    width: $selection-column-width-sm;
+    min-width: $selection-column-width-sm;
   }
 }
 
@@ -253,25 +260,19 @@ export default {
 }
 
 .table_row {
-  @apply block;
-  @apply relative;
-  @apply pl-1.5;
-  @apply pr-7;
-  @apply py-1;
-  @apply sm:table-row;
-  @apply sm:pl-0;
-  @apply sm:pr-0;
-  @apply sm:py-0;
-
-  &.table_row--multiselect {
-    @apply pl-8;
-    @apply sm:pl-0;
-  }
+  /*
+    a11y note: don't change the display property of this, as this will make screenreaders not interpret them as table
+    columns anymore. This in turn means that "position: relative" doesn't work, which is why the first and last column
+    are positioned in a very cumbersome way with floats (because we can't use "position: absolute" for them).
+   */
 }
 
 .table_cell {
   @apply flex;
   @apply relative;
+  @apply ml-1.5;
+  @apply mr-7;
+  @apply my-1;
   @apply px-1;
   @apply py-1.5;
   @apply font-normal;
@@ -279,36 +280,54 @@ export default {
   @apply text-left;
   @apply align-top;
   @apply text-gray-500;
+
   @apply sm:table-cell;
+  @apply sm:m-0;
   @apply sm:px-3;
   @apply sm:py-2;
 
-  &.table_cell--break-out-left {
-    @apply absolute;
-    @apply top-1.5;
-    @apply left-1;
-    @apply sm:relative;
-    @apply sm:top-auto;
-    @apply sm:left-auto;
-    @apply sm:px-3;
+  &.table_cell--selection {
+    width: $selection-column-width;
+    min-width: $selection-column-width;
+    @apply float-left;
+    @apply m-0;
+    @apply mt-1.5;
+    @apply ml-1;
+
+    @screen sm {
+      width: $selection-column-width-sm;
+      min-width: $selection-column-width-sm;
+      @apply float-none;
+      @apply m-0;
+    }
   }
 
-  &.table_cell--break-out-right {
-    @apply absolute;
-    @apply top-1;
-    @apply right-0;
-    @apply sm:relative;
-    @apply sm:top-auto;
-    @apply sm:right-auto;
-    @apply sm:px-3;
+  &.table_cell--actions-mobile {
+    width: $selection-column-width;
+    min-width: $selection-column-width;
+    @apply float-right;
+    @apply m-0;
+    @apply mt-1;
+    @apply sm:hidden;
+  }
+
+  &.table_cell--actions-sm {
+    @apply hidden;
+    @apply sm:table-cell;
+  }
+
+  &.table_cell--spaced-left {
+    @apply ml-8;
+    @apply sm:m-0;
   }
 }
 
-.table__checkbox {
+.table_checkbox {
   @apply h-4;
   @apply w-4;
   @apply text-primary-600;
   @apply border-gray-300;
   @apply rounded;
+  @apply sm:-mt-1;
 }
 </style>
