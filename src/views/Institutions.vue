@@ -97,7 +97,7 @@
                     "
                   />
                   <label :for="`select_cb_${institution.id}`" class="sr-only"
-                    >Select this institution</label
+                    >Select institution "{{ institution.name }}"</label
                   >
                 </td>
                 <td role="cell" class="table_cell table_cell--actions-mobile">

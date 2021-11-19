@@ -1,7 +1,9 @@
 <template>
   <Menu as="div" class="menu">
     <MenuButton class="menu__toggle">
-      <span class="sr-only">Open actions for this institution</span>
+      <span class="sr-only"
+        >Actions for institution "{{ institution.name }}"</span
+      >
       <span aria-hidden="true">
         <DotsVerticalIcon class="menu__toggle__icon" />
       </span>
