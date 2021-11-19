@@ -28,6 +28,7 @@ const focusableElementsSelector = join(",", [
 
 const tagNameIgnoreList = ["SCRIPT", "NOSCRIPT", "STYLE"];
 const focusTrapAttribute = "data-ft-ctl";
+const focusTrapAttributeForRole = "data-ft-ctl-role";
 
 export default {
   name: "FocusTrap",
@@ -73,6 +74,7 @@ export default {
     };
 
     const getElementsToHide = (containerElement) => {
+      // TODO: potential bug: this should not return elements, that already have aria-hidden="true" set. Otherwise the attribute will be removed after the focus trap is disabled leading to a different state than before
       const elements = [];
       const visitNode = (node) => {
         for (let sibling of node.parentNode.children) {
@@ -105,13 +107,41 @@ export default {
         }
       });
 
+    const disableRelevantParentElements = (containerElement) => {
+      Array.from(document.querySelectorAll("[role], main, table, caption"))
+        .filter((element) => element.contains(containerElement))
+        .map((element) => {
+          const originalRole = element.getAttribute("role") || "null";
+          element.setAttribute(focusTrapAttributeForRole, originalRole);
+          element.setAttribute("role", "presentation");
+        });
+    };
+
+    const enableRelevantParentElements = () => {
+      Array.from(
+        document.querySelectorAll(`[${focusTrapAttributeForRole}]`)
+      ).map((element) => {
+        const originalRole = element.getAttribute(focusTrapAttributeForRole);
+
+        if (originalRole === "null") {
+          element.removeAttribute("presentation");
+        } else {
+          element.setAttribute("role", originalRole);
+        }
+
+        element.removeAttribute(focusTrapAttributeForRole);
+      });
+    };
+
     const enableTrap = () => {
       hiddenElements = getElementsToHide(containerRef.value);
       addAriaHiddenOnElements(hiddenElements, true);
+      disableRelevantParentElements(containerRef.value);
     };
     const disableTrap = () => {
       removeAriaHiddenOnElements(hiddenElements);
       hiddenElements = [];
+      enableRelevantParentElements();
     };
 
     watch(isEnabled, (enabled) => (enabled ? enableTrap() : disableTrap()));
