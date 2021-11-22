@@ -26,6 +26,8 @@ const updateInstitutionData = async () => {
   const institutionData = await readInstitutions(
     {
       sort: sortingApiParam.value,
+      itemsPerPage: paging.itemsPerPage.value,
+      pageIndex: paging.apiParamPageIndex.value,
     },
     filteringApiParam.value
   );
@@ -39,6 +41,7 @@ const updateInstitutionData = async () => {
 
 const isMultiselect = computed(() => entityCollectionState.isMultiselect);
 
+watch(paging.apiParamPageIndex, () => updateInstitutionData());
 watch(sortingApiParam, () => updateInstitutionData());
 watch(filteringApiParam, async () => {
   await updateInstitutionData();

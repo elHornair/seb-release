@@ -139,6 +139,14 @@ const readInstitutions = (params = {}, filterCriteria = {}) => {
     cleanParams.sort = params.sort;
   }
 
+  if (params.pageIndex) {
+    cleanParams.page_number = params.pageIndex;
+  }
+
+  if (params.itemsPerPage) {
+    cleanParams.page_size = params.itemsPerPage;
+  }
+
   Object.assign(cleanParams, filterCriteria);
 
   return axios({

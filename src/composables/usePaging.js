@@ -1,6 +1,6 @@
-import { computed, readonly } from "vue";
+import { computed, readonly, ref } from "vue";
 
-const itemsPerPage = 10; // TODO: use this for consuming the API
+const itemsPerPage = ref(10);
 
 export const usePaging = (state) => {
   const setValues = (currentPage, totalPages) => {
@@ -10,20 +10,31 @@ export const usePaging = (state) => {
     });
   };
 
+  const desiredPage = ref(state.paging.currentPage);
+  const apiParamPageIndex = computed(() => desiredPage.value);
+
+  const goToPage = (index) => {
+    desiredPage.value = index;
+  };
+
   const currentPage = computed(() => parseInt(state.paging.currentPage));
   const totalPages = computed(() => parseInt(state.paging.totalPages));
 
   const totalItems = computed(() => {
     // this is an estimate, because the API doesn't expose this
-    return Math.round(totalPages.value * itemsPerPage - totalPages.value / 2);
+    return Math.round(
+      totalPages.value * itemsPerPage.value - totalPages.value / 2
+    );
 
     // TODO: if there is only one page, we can show the EXACT number
   });
 
   const firstVisibleItem = computed(
-    () => itemsPerPage * currentPage.value - itemsPerPage + 1
+    () => itemsPerPage.value * currentPage.value - itemsPerPage.value + 1
   );
-  const lastVisibleItem = computed(() => itemsPerPage * currentPage.value);
+  const lastVisibleItem = computed(
+    () => itemsPerPage.value * currentPage.value
+  );
 
   const prevPage = computed(() =>
     currentPage.value > 1 ? currentPage.value - 1 : 0
@@ -64,7 +75,9 @@ export const usePaging = (state) => {
 
   return {
     setValues,
+    goToPage,
     itemsPerPage: readonly(itemsPerPage),
+    apiParamPageIndex,
     firstVisibleItem,
     lastVisibleItem,
     currentPage,

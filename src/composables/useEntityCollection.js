@@ -7,8 +7,8 @@ export const useEntityCollection = (isMultiselect) => {
     items: [],
     selectedItems: [],
     paging: {
-      currentPage: 0,
-      totalPages: 0,
+      currentPage: 1,
+      totalPages: 1,
     },
     isMultiselect: isMultiselect,
   });

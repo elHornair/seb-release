@@ -18,41 +18,67 @@
       </p>
 
       <nav class="nav" aria-label="Pagination">
-        <a v-if="paging.prevPage.value !== 0" href="#" class="item item--first">
+        <button
+          v-if="paging.prevPage.value !== 0"
+          class="item item--first"
+          @click="paging.goToPage(paging.prevPage.value)"
+        >
           <span class="sr-only">Previous</span>
           <div aria-hidden="true">
             <ChevronLeftIcon class="h-5 w-5" aria-hidden="true" />
           </div>
-        </a>
-        <a v-if="paging.showFirstPage.value" href="#" class="item">1</a>
+        </button>
+        <button
+          v-if="paging.showFirstPage.value"
+          class="item"
+          @click="paging.goToPage(1)"
+        >
+          1
+        </button>
         <span
           v-if="paging.showFillerAfterFirstPage.value"
           class="item item--filler"
           >...</span
         >
-        <a v-if="paging.prevPage.value !== 0" href="#" class="item">{{
-          paging.prevPage.value
-        }}</a>
-        <a href="#" aria-current="page" class="item item--current">{{
+        <button
+          v-if="paging.prevPage.value !== 0"
+          class="item"
+          @click="paging.goToPage(paging.prevPage.value)"
+        >
+          {{ paging.prevPage.value }}
+        </button>
+        <span aria-current="page" class="item item--current">{{
           paging.currentPage.value
-        }}</a>
-        <a v-if="paging.nextPage.value !== 0" href="#" class="item">{{
-          paging.nextPage.value
-        }}</a>
+        }}</span>
+        <button
+          v-if="paging.nextPage.value !== 0"
+          class="item"
+          @click="paging.goToPage(paging.nextPage.value)"
+        >
+          {{ paging.nextPage.value }}
+        </button>
         <span
           v-if="paging.showFillerBeforeLastPage.value"
           class="item item--filler"
           >...</span
         >
-        <a v-if="paging.showLastPage.value" href="#" class="item">{{
-          paging.totalPages.value
-        }}</a>
-        <a v-if="paging.nextPage.value !== 0" href="#" class="item item--last">
+        <button
+          v-if="paging.showLastPage.value"
+          class="item"
+          @click="paging.goToPage(paging.totalPages.value)"
+        >
+          {{ paging.totalPages.value }}
+        </button>
+        <button
+          v-if="paging.nextPage.value !== 0"
+          class="item item--last"
+          @click="paging.goToPage(paging.nextPage.value)"
+        >
           <span class="sr-only">Next</span>
           <div aria-hidden="true">
             <ChevronRightIcon class="h-5 w-5" aria-hidden="true" />
           </div>
-        </a>
+        </button>
       </nav>
     </div>
   </div>
