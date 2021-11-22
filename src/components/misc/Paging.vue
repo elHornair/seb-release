@@ -44,7 +44,7 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/solid";
 
 export default {
-  name: "Pagination",
+  name: "Paging",
   components: {
     ChevronLeftIcon,
     ChevronRightIcon,

@@ -138,10 +138,10 @@
               </tr>
             </tbody>
           </table>
-          <pagination
+          <Paging
             :current-page="paging.currentPage.value"
             :total-pages="paging.totalPages.value"
-          ></pagination>
+          ></Paging>
         </div>
       </div>
     </template>
@@ -152,7 +152,7 @@
 </template>
 
 <script>
-import Pagination from "@/components/misc/Pagination";
+import Paging from "@/components/misc/Paging";
 import TableHeadField from "@/components/table/TableHeadField";
 import ViewSplit from "@/components/layout/ViewSplit";
 import StatusBadge from "@/components/misc/StatusBadge";
@@ -173,7 +173,7 @@ export default {
     ActiveFilters,
     ViewSplit,
     TableHeadField,
-    Pagination,
+    Paging,
     StatusBadge,
   },
   setup() {
