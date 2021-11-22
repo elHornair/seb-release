@@ -21,7 +21,7 @@
         <button
           v-if="paging.prevPage.value !== 0"
           class="item item--first"
-          @click="paging.goToPage(paging.prevPage.value)"
+          @click="goToPage(paging.prevPage.value, false)"
         >
           <span class="sr-only">Previous</span>
           <div aria-hidden="true">
@@ -31,7 +31,7 @@
         <button
           v-if="paging.showFirstPage.value"
           class="item"
-          @click="paging.goToPage(1)"
+          @click="goToPage(1)"
         >
           1
         </button>
@@ -43,17 +43,21 @@
         <button
           v-if="paging.prevPage.value !== 0"
           class="item"
-          @click="paging.goToPage(paging.prevPage.value)"
+          @click="goToPage(paging.prevPage.value)"
         >
           {{ paging.prevPage.value }}
         </button>
-        <span aria-current="page" class="item item--current">{{
-          paging.currentPage.value
-        }}</span>
+        <button
+          ref="currentPageNode"
+          aria-current="page"
+          class="item item--current"
+        >
+          {{ paging.currentPage.value }}
+        </button>
         <button
           v-if="paging.nextPage.value !== 0"
           class="item"
-          @click="paging.goToPage(paging.nextPage.value)"
+          @click="goToPage(paging.nextPage.value)"
         >
           {{ paging.nextPage.value }}
         </button>
@@ -65,14 +69,14 @@
         <button
           v-if="paging.showLastPage.value"
           class="item"
-          @click="paging.goToPage(paging.totalPages.value)"
+          @click="goToPage(paging.totalPages.value)"
         >
           {{ paging.totalPages.value }}
         </button>
         <button
           v-if="paging.nextPage.value !== 0"
           class="item item--last"
-          @click="paging.goToPage(paging.nextPage.value)"
+          @click="goToPage(paging.nextPage.value, false)"
         >
           <span class="sr-only">Next</span>
           <div aria-hidden="true">
@@ -87,6 +91,7 @@
 <script>
 import { useInstitutions } from "@/composables/institution/useInstitutions";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/solid";
+import { ref, watch } from "vue";
 
 export default {
   name: "Paging",
@@ -96,9 +101,23 @@ export default {
   },
   setup() {
     const { paging } = useInstitutions();
+    const currentPageNode = ref(null);
+
+    const goToPage = (index, focusCurrentPageAfterUpdate = true) => {
+      if (focusCurrentPageAfterUpdate) {
+        const stopWatching = watch(paging.currentPage, () => {
+          currentPageNode.value.focus();
+          stopWatching();
+        });
+      }
+
+      paging.goToPage(index);
+    };
 
     return {
       paging,
+      goToPage,
+      currentPageNode,
     };
   },
 };
