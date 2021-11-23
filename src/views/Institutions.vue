@@ -7,7 +7,7 @@
         aria-describedby="table_description"
         aria-labelledby="table_caption"
         tabindex="0"
-        class="overflow-x-auto border border-t-0 border-gray-200 sm:rounded-sm"
+        class="overflow-x-auto sm:rounded-sm"
       >
         <div
           class="
@@ -17,6 +17,7 @@
             inline-block
             min-w-full
             overflow-hidden
+            pb-12
           "
         >
           <p id="table_description" class="sr-only">{{ tableDescription }}</p>
@@ -28,7 +29,13 @@
 
           <table
             role="table"
-            class="block sm:table min-w-full divide-y divide-gray-200"
+            class="
+              block
+              sm:table
+              min-w-full
+              divide-y divide-gray-200
+              border border-t-0 border-gray-200
+            "
           >
             <caption
               id="table_caption"

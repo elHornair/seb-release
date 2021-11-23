@@ -142,8 +142,7 @@ export default {
   @apply flex;
   @apply items-center;
   @apply justify-between;
-  @apply border-t border-gray-200;
-  @apply sm:px-3;
+  @apply sm:px-0;
 }
 
 .wrapper__inner {
