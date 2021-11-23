@@ -17,7 +17,7 @@ export const useEntityCollection = (isMultiselect) => {
   const paging = usePaging(state);
 
   const setItems = (items) => {
-    Object.assign(state.items, [], items);
+    state.items = Object.assign([], items);
   };
 
   const visibleItemsCount = computed(() => state.items.length);
