@@ -2,6 +2,7 @@
   <div class="wrapper">
     <div class="wrapper__inner">
       <p class="summary">
+        <span class="sr-only">Table{{ " " }}</span>
         Showing
         {{ " " }}
         <span class="font-medium">{{ paging.firstVisibleItem.value }}</span>
@@ -17,17 +18,13 @@
         results
       </p>
 
-      <nav
-        v-if="paging.totalPages.value > 1"
-        class="nav"
-        aria-label="Pagination"
-      >
+      <nav v-if="paging.totalPages.value > 1" class="nav" aria-label="Paging">
         <button
           v-if="paging.prevPage.value !== 0"
           class="item item--prev"
-          @click="goToPage(paging.prevPage.value, false)"
+          @click="goToPage(paging.prevPage.value)"
         >
-          <span class="sr-only">Previous</span>
+          <span class="sr-only">Go to previous page</span>
           <div aria-hidden="true">
             <ChevronLeftIcon class="h-5 w-5" aria-hidden="true" />
           </div>
@@ -37,11 +34,13 @@
           class="item"
           @click="goToPage(1)"
         >
+          <span class="sr-only">Go to page </span>
           1
         </button>
         <span
           v-if="paging.showFillerAfterFirstPage.value"
           class="item item--filler"
+          :aria-hidden="true"
           >...</span
         >
         <button
@@ -49,6 +48,7 @@
           class="item"
           @click="goToPage(paging.prevPage.value)"
         >
+          <span class="sr-only">Go to page </span>
           {{ paging.prevPage.value }}
         </button>
         <span
@@ -56,18 +56,21 @@
           aria-current="page"
           class="item item--current"
         >
-          {{ paging.currentPage.value }}
+          <span class="sr-only">Page{{ " " }}</span
+          >{{ paging.currentPage.value }}
         </span>
         <button
           v-if="paging.nextPage.value !== 0"
           class="item"
           @click="goToPage(paging.nextPage.value)"
         >
+          <span class="sr-only">Go to page </span>
           {{ paging.nextPage.value }}
         </button>
         <span
           v-if="paging.showFillerBeforeLastPage.value"
           class="item item--filler"
+          :aria-hidden="true"
           >...</span
         >
         <button
@@ -75,14 +78,15 @@
           class="item"
           @click="goToPage(paging.totalPages.value)"
         >
+          <span class="sr-only">Go to page </span>
           {{ paging.totalPages.value }}
         </button>
         <button
           v-if="paging.nextPage.value !== 0"
           class="item item--next"
-          @click="goToPage(paging.nextPage.value, false)"
+          @click="goToPage(paging.nextPage.value)"
         >
-          <span class="sr-only">Next</span>
+          <span class="sr-only">Go to next page</span>
           <div aria-hidden="true">
             <ChevronRightIcon class="h-5 w-5" aria-hidden="true" />
           </div>
@@ -108,13 +112,11 @@ export default {
     const { paging } = useInstitutions();
     const currentPageNode = ref(null);
 
-    const goToPage = (index, focusCurrentPageAfterUpdate = true) => {
-      if (focusCurrentPageAfterUpdate) {
-        const stopWatching = watch(paging.currentPage, () => {
-          focusElement(currentPageNode.value, 300);
-          stopWatching();
-        });
-      }
+    const goToPage = (index) => {
+      const stopWatching = watch(paging.currentPage, () => {
+        focusElement(currentPageNode.value, 300);
+        stopWatching();
+      });
 
       paging.goToPage(index);
     };

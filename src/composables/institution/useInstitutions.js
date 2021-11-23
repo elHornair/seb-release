@@ -62,6 +62,7 @@ const tableDescription = computed(() => {
   let currentFilteringInfo = Object.keys(filteringState)
     .filter((fieldKey) => filteringState[fieldKey] !== null)
     .join(", ");
+  let pagingInfo = "";
 
   if (currentFilteringInfo) {
     currentFilteringInfo = `Currently filtered by ${currentFilteringInfo}`;
@@ -77,7 +78,12 @@ const tableDescription = computed(() => {
     currentSortingInfo = "Currently not sorted";
   }
 
-  return `${tableCaption}. ${currentFilteringInfo}. ${currentSortingInfo}. Go to table actions landmark to adapt filtering and sorting.`;
+  if (paging.totalPages.value > 1) {
+    pagingInfo += `You are on page ${paging.currentPage.value} of ${paging.totalPages.value}. `;
+    pagingInfo += "Go to paging navigation landmark to switch page.";
+  }
+
+  return `${tableCaption}. ${currentFilteringInfo}. ${currentSortingInfo}. Go to table actions landmark to adapt filtering and sorting. ${pagingInfo}`;
 });
 
 export const useInstitutions = () => {
