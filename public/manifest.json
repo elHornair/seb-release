@@ -2,6 +2,10 @@
  "name": "SEB-Server Web-Client",
  "short_name": "SEB-Server",
  "theme_color": "#FFFFFF",
+ "start_url": "/",
+ "display": "standalone",
+ "background_color": "#FFFFFF",
+ "description": "SEB-Server Web-Client",
  "icons": [
   {
    "src": "/img/android-icon-36x36.png",
