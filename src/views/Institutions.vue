@@ -9,17 +9,7 @@
         tabindex="0"
         class="overflow-x-auto sm:rounded-sm"
       >
-        <div
-          class="
-            relative
-            z-0
-            align-middle
-            inline-block
-            min-w-full
-            overflow-hidden
-            pb-12
-          "
-        >
+        <div class="table_wrapper">
           <p id="table_description" class="sr-only">{{ tableDescription }}</p>
 
           <MultiselectControls
@@ -27,16 +17,7 @@
             class="absolute z-10 top-1.5 left-2 sm:top-1.5 sm:left-3"
           ></MultiselectControls>
 
-          <table
-            role="table"
-            class="
-              block
-              sm:table
-              min-w-full
-              divide-y divide-gray-200
-              border border-t-0 border-gray-200
-            "
-          >
+          <table role="table" class="table">
             <caption
               id="table_caption"
               :class="{
@@ -230,6 +211,28 @@ export default {
 <style lang="scss" scoped>
 $selection-column-width: 1.5rem;
 $selection-column-width-sm: 6rem;
+
+.table_wrapper {
+  @apply relative;
+  @apply z-0;
+  @apply align-middle;
+  @apply inline-block;
+  @apply min-w-full;
+  @apply overflow-hidden;
+  @apply pb-12;
+}
+
+.table {
+  @apply block;
+  @apply min-w-full;
+  @apply divide-y;
+  @apply divide-gray-200;
+  @apply border;
+  @apply border-t-0;
+  @apply border-gray-200;
+
+  @apply sm:table;
+}
 
 .table_caption {
   @apply block;
