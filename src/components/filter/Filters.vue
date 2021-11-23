@@ -9,7 +9,7 @@
         @submit.prevent="handleFormSubmit"
       >
         <div class="absolute inset-0 overflow-y-auto px-3">
-          <div class="space-y-4 sm:space-y-3">
+          <div class="space-y-4 sm:space-y-3 pt-1">
             <form-input-text
               v-model="state.name"
               :label="`Filter by ${getFieldLabel('name')}`"
