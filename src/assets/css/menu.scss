@@ -59,7 +59,6 @@
     &:disabled,
     &[disabled="true"] {
       @apply text-gray-300;
-      @apply cursor-not-allowed;
       @apply pointer-events-none;
 
       .menu__item__icon {
