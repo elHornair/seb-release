@@ -1,8 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="wrapper__inner">
-      <p class="summary">
-        <span class="sr-only">Table{{ " " }}</span>
+      <p class="summary" :aria-hidden="true">
         Showing
         {{ " " }}
         <span class="font-medium">{{ paging.firstVisibleItem.value }}</span>
@@ -17,6 +16,11 @@
         {{ " " }}
         results
       </p>
+      <span class="sr-only"
+        >Table showing {{ paging.firstVisibleItem.value }} to
+        {{ paging.lastVisibleItem.value }} of
+        {{ paging.totalItems.value }} results</span
+      >
 
       <nav v-if="paging.totalPages.value > 1" class="nav" aria-label="Paging">
         <button
@@ -56,8 +60,8 @@
           aria-current="page"
           class="item item--current"
         >
-          <span class="sr-only">Page{{ " " }}</span
-          >{{ paging.currentPage.value }}
+          <span class="sr-only">Page {{ paging.currentPage.value }}</span>
+          <span :aria-hidden="true">{{ paging.currentPage.value }}</span>
         </span>
         <button
           v-if="paging.nextPage.value !== 0"
