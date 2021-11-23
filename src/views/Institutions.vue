@@ -92,7 +92,7 @@
                   <InlineActionsDropdown
                     :institution="institution"
                     class="float-right"
-                    @institution:change="updateInstitutionData"
+                    @institution:change="updateData"
                   ></InlineActionsDropdown>
                 </td>
                 <TableContentField
@@ -120,7 +120,7 @@
                   <InlineActionsDropdown
                     :institution="institution"
                     class="float-right"
-                    @institution:change="updateInstitutionData"
+                    @institution:change="updateData"
                   ></InlineActionsDropdown>
                 </td>
               </tr>
@@ -167,7 +167,7 @@ export default {
   setup() {
     const {
       displayableItems,
-      updateInstitutionData,
+      updateData,
       tableCaption,
       tableDescription,
       isMultiselect,
@@ -175,7 +175,7 @@ export default {
       paging,
     } = useInstitutions();
 
-    updateInstitutionData();
+    updateData();
 
     return {
       displayableItems,
@@ -184,7 +184,7 @@ export default {
       paging,
       tableCaption,
       tableDescription,
-      updateInstitutionData,
+      updateData,
       fields: [
         {
           name: "name",
