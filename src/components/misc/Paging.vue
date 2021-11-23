@@ -171,7 +171,7 @@ export default {
   @apply font-normal;
 
   &:focus {
-    @apply z-10;
+    @apply z-20;
   }
 
   &.item--current {
