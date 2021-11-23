@@ -164,8 +164,8 @@ export default {
   @apply relative;
   @apply inline-flex;
   @apply items-center;
-  @apply px-4;
-  @apply py-2;
+  @apply px-2.5;
+  @apply py-1;
   @apply border;
   @apply text-sm;
   @apply font-normal;
@@ -189,12 +189,12 @@ export default {
 
   &.item--first {
     @apply rounded-l-sm;
-    @apply px-2;
+    @apply px-1;
   }
 
   &.item--last {
     @apply rounded-r-sm;
-    @apply px-2;
+    @apply px-1;
   }
 }
 </style>
