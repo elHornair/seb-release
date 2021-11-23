@@ -24,8 +24,8 @@
 
       <nav v-if="paging.totalPages.value > 1" class="nav" aria-label="Paging">
         <button
-          v-if="paging.prevPage.value !== 0"
           class="item item--prev"
+          :disabled="paging.prevPage.value === 0"
           @click="goToPage(paging.prevPage.value)"
         >
           <span class="sr-only">Go to previous page</span>
@@ -86,8 +86,8 @@
           {{ paging.totalPages.value }}
         </button>
         <button
-          v-if="paging.nextPage.value !== 0"
           class="item item--next"
+          :disabled="paging.nextPage.value === 0"
           @click="goToPage(paging.nextPage.value)"
         >
           <span class="sr-only">Go to next page</span>
@@ -182,6 +182,11 @@ export default {
 
   &:focus {
     @apply z-20;
+  }
+
+  &:disabled {
+    @apply text-gray-200;
+    @apply pointer-events-none;
   }
 
   &.item--current {
