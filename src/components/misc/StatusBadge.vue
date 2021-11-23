@@ -47,6 +47,7 @@ export default {
 .batch {
   @apply inline-flex;
   @apply relative;
+  @apply z-0;
   @apply items-center;
   @apply border-l-8;
   @apply pl-1.5;
