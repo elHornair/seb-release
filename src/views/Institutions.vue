@@ -289,10 +289,16 @@ $selection-column-width-sm: 6rem;
   @apply align-top;
   @apply text-gray-500;
 
-  @apply sm:table-cell;
-  @apply sm:m-0;
-  @apply sm:px-3;
-  @apply sm:py-2;
+  // manually calculate the correct width, as we can't use "width: 100%" because of the table_row's display property
+  width: calc(100vw - 2.25rem);
+
+  @screen sm {
+    @apply table-cell;
+    @apply m-0;
+    @apply px-3;
+    @apply py-2;
+    width: auto;
+  }
 
   &.table_cell--selection {
     width: $selection-column-width;
@@ -326,7 +332,14 @@ $selection-column-width-sm: 6rem;
 
   &.table_cell--spaced-left {
     @apply ml-8;
-    @apply sm:m-0;
+
+    // manually calculate the correct width, as we can't use "width: 100%" because of the table_row's display property
+    width: calc(100vw - 4rem);
+
+    @screen sm {
+      @apply m-0;
+      width: auto;
+    }
   }
 }
 
