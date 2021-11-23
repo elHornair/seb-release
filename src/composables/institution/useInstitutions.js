@@ -36,6 +36,7 @@ const updateInstitutionData = async () => {
     institutionData["page_number"],
     institutionData["number_of_pages"]
   );
+
   setItems(institutionData["content"]);
 };
 

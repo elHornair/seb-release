@@ -2,7 +2,7 @@ import { computed, readonly, ref } from "vue";
 
 const itemsPerPage = ref(10);
 
-export const usePaging = (state) => {
+export const usePaging = (state, visibleItemsCount) => {
   const setValues = (currentPage, totalPages) => {
     Object.assign(state.paging, {
       currentPage,
@@ -21,20 +21,28 @@ export const usePaging = (state) => {
   const totalPages = computed(() => parseInt(state.paging.totalPages));
 
   const totalItems = computed(() => {
-    // this is an estimate, because the API doesn't expose this
-    return Math.round(
-      totalPages.value * itemsPerPage.value - totalPages.value / 2
-    );
+    if (currentPage.value === totalPages.value) {
+      return (
+        (totalPages.value - 1) * itemsPerPage.value + visibleItemsCount.value
+      );
+    }
 
-    // TODO: if there is only one page, we can show the EXACT number
+    // this is an estimate, because the API doesn't expose this information
+    return (
+      (totalPages.value - 1) * itemsPerPage.value +
+      Math.round(itemsPerPage.value / 2)
+    );
   });
 
-  const firstVisibleItem = computed(
-    () => itemsPerPage.value * currentPage.value - itemsPerPage.value + 1
-  );
-  const lastVisibleItem = computed(
-    () => itemsPerPage.value * currentPage.value
-  );
+  const firstVisibleItem = computed(() => {
+    return itemsPerPage.value * currentPage.value - itemsPerPage.value + 1;
+  });
+
+  const lastVisibleItem = computed(() => {
+    return (
+      itemsPerPage.value * (currentPage.value - 1) + visibleItemsCount.value
+    );
+  });
 
   const prevPage = computed(() =>
     currentPage.value > 1 ? currentPage.value - 1 : 0

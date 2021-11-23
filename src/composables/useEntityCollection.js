@@ -13,14 +13,14 @@ export const useEntityCollection = (isMultiselect) => {
     isMultiselect: isMultiselect,
   });
 
-  const multiselect = useMultiselect(state);
-  const paging = usePaging(state);
-
   const setItems = (items) => {
     state.items = Object.assign([], items);
   };
 
   const visibleItemsCount = computed(() => state.items.length);
+
+  const multiselect = useMultiselect(state);
+  const paging = usePaging(state, visibleItemsCount);
 
   return {
     entityCollectionState: readonly(state),
