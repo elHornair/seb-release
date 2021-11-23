@@ -24,7 +24,7 @@
       >
         <button
           v-if="paging.prevPage.value !== 0"
-          class="item item--first"
+          class="item item--prev"
           @click="goToPage(paging.prevPage.value, false)"
         >
           <span class="sr-only">Previous</span>
@@ -79,7 +79,7 @@
         </button>
         <button
           v-if="paging.nextPage.value !== 0"
-          class="item item--last"
+          class="item item--next"
           @click="goToPage(paging.nextPage.value, false)"
         >
           <span class="sr-only">Next</span>
@@ -141,17 +141,15 @@ export default {
 }
 
 .wrapper__inner {
-  @apply sm:flex-1;
-  @apply sm:flex;
-  @apply sm:items-center;
-  @apply sm:justify-between;
+  @apply flex-1;
+  @apply flex;
+  @apply items-center;
+  @apply justify-between;
 }
 
 .summary {
   @apply text-sm;
   @apply text-gray-700;
-  @apply mb-2;
-  @apply sm:mb-0;
 }
 
 .nav {
@@ -162,24 +160,27 @@ export default {
 }
 
 .item {
+  @apply hidden;
+  @apply relative;
+  @apply items-center;
   @apply bg-white;
   @apply border-gray-300;
   @apply text-gray-500;
   @apply hover:bg-primary-50;
-  @apply relative;
-  @apply inline-flex;
-  @apply items-center;
   @apply px-2.5;
   @apply py-1;
   @apply border;
   @apply text-sm;
   @apply font-normal;
 
+  @apply sm:inline-flex;
+
   &:focus {
     @apply z-20;
   }
 
   &.item--current {
+    @apply inline-flex;
     @apply z-10;
     @apply bg-primary-50;
     @apply border-primary-500;
@@ -192,12 +193,14 @@ export default {
     @apply hover:bg-white;
   }
 
-  &.item--first {
+  &.item--prev {
+    @apply inline-flex;
     @apply rounded-l-sm;
     @apply px-1;
   }
 
-  &.item--last {
+  &.item--next {
+    @apply inline-flex;
     @apply rounded-r-sm;
     @apply px-1;
   }
