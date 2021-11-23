@@ -17,7 +17,11 @@
         results
       </p>
 
-      <nav v-if="paging.totalPages > 1" class="nav" aria-label="Pagination">
+      <nav
+        v-if="paging.totalPages.value > 1"
+        class="nav"
+        aria-label="Pagination"
+      >
         <button
           v-if="paging.prevPage.value !== 0"
           class="item item--first"
