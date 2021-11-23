@@ -51,13 +51,13 @@
         >
           {{ paging.prevPage.value }}
         </button>
-        <button
+        <span
           ref="currentPageNode"
           aria-current="page"
           class="item item--current"
         >
           {{ paging.currentPage.value }}
-        </button>
+        </span>
         <button
           v-if="paging.nextPage.value !== 0"
           class="item"
@@ -96,6 +96,7 @@
 import { useInstitutions } from "@/composables/institution/useInstitutions";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/solid";
 import { ref, watch } from "vue";
+import { focusElement } from "@/utils/focus";
 
 export default {
   name: "Paging",
@@ -110,7 +111,7 @@ export default {
     const goToPage = (index, focusCurrentPageAfterUpdate = true) => {
       if (focusCurrentPageAfterUpdate) {
         const stopWatching = watch(paging.currentPage, () => {
-          currentPageNode.value.focus();
+          focusElement(currentPageNode.value, 300);
           stopWatching();
         });
       }
