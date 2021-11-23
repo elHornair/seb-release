@@ -2,7 +2,7 @@ import { computed, reactive, readonly } from "vue";
 import { useMultiselect } from "@/composables/useMultiselect";
 import { usePaging } from "@/composables/usePaging";
 
-export const useEntityCollection = (isMultiselect) => {
+export const useEntityCollection = (sorting, filtering, isMultiselect) => {
   const state = reactive({
     items: [],
     selectedItems: [],
@@ -28,5 +28,7 @@ export const useEntityCollection = (isMultiselect) => {
     visibleItemsCount,
     multiselect,
     paging,
+    sorting,
+    filtering,
   };
 };
