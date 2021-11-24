@@ -2,7 +2,7 @@
   <div class="panel">
     <h2 class="sr-only sm:not-sr-only sm:mb-2">Table Actions</h2>
     <div class="flex flex-col gap-2">
-      <section class="section section--actions">
+      <section class="section section--actions" aria-label="Actions">
         <h3 class="title title--extra-spaced">
           <span class="hidden sm:block">Actions</span>
         </h3>
@@ -15,6 +15,7 @@
       <section
         class="section"
         :class="{ 'section--xl-only': hasActiveFilters }"
+        aria-label="Filter"
       >
         <h3 class="title title--extra-spaced">Filter</h3>
         <div class="content">
@@ -29,7 +30,11 @@
         </div>
       </section>
 
-      <section v-if="hasActiveFilters" class="section section--active-filters">
+      <section
+        v-if="hasActiveFilters"
+        class="section section--active-filters"
+        aria-label="Active filters"
+      >
         <span class="title">
           <span class="sr-only">Active filters</span>
           {{ activeFiltersLabel }}
@@ -41,7 +46,7 @@
 
       <Filters v-if="filtersVisible" @hide="hideFilters"></Filters>
 
-      <section class="section section--sorting">
+      <section class="section section--sorting" aria-label="Sort">
         <h3 class="title title--extra-spaced">Sort</h3>
         <div class="content">
           <GeneralSortingDropdown :fields="fields"></GeneralSortingDropdown>

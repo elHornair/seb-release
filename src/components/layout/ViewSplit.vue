@@ -1,5 +1,5 @@
 <template>
-  <main id="main-content">
+  <main id="main-content" aria-label="Main Content">
     <h1 class="layout__mainheading">
       {{ routeDisplayName }}
     </h1>
