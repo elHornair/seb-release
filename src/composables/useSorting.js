@@ -17,6 +17,20 @@ export const useSorting = () => {
       : null;
   });
 
+  const textualInfo = computed(() => {
+    let text = "";
+
+    if (state.field) {
+      text = `Currently sorted by ${state.field} ${
+        state.direction === SORT_DIRECTION.ASC ? "Z to A" : "A to Z"
+      }.`;
+    } else {
+      text = "Currently not sorted.";
+    }
+
+    return text;
+  });
+
   const setSorting = (field, direction) => {
     if (!Object.values(SORT_DIRECTION).includes(direction)) {
       console.error(`Unknown sorting direction "${direction}"`);
@@ -41,5 +55,6 @@ export const useSorting = () => {
     sortingApiParam: readonly(apiParam),
     setSorting,
     removeSorting,
+    textualInfo,
   };
 };

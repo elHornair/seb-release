@@ -23,6 +23,20 @@ export const useFiltering = (fields) => {
       )
   );
 
+  const textualInfo = computed(() => {
+    let text = Object.keys(state)
+      .filter((fieldKey) => state[fieldKey] !== null)
+      .join(", ");
+
+    if (text) {
+      text = `Currently filtered by ${text}.`;
+    } else {
+      text = "Currently not filtered.";
+    }
+
+    return text;
+  });
+
   const showFilters = () => {
     filtersVisible.value = true;
   };
@@ -102,5 +116,6 @@ export const useFiltering = (fields) => {
     activeFilters,
     hasActiveFilters,
     activeFiltersLabel,
+    textualInfo,
   };
 };

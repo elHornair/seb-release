@@ -81,6 +81,19 @@ export const usePaging = (state, visibleItemsCount) => {
     );
   });
 
+  const textualInfo = computed(() => {
+    let text = "";
+
+    if (totalPages.value > 1) {
+      text += `You are on page ${currentPage.value} of ${totalPages.value}. `;
+      text += "Go to paging navigation landmark to switch page.";
+    } else {
+      text += "All items are shown. There is no paging.";
+    }
+
+    return text;
+  });
+
   return {
     setValues,
     goToPage,
@@ -97,5 +110,6 @@ export const usePaging = (state, visibleItemsCount) => {
     showLastPage,
     showFillerAfterFirstPage,
     showFillerBeforeLastPage,
+    textualInfo,
   };
 };
