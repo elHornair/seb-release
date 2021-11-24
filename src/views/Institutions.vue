@@ -72,6 +72,9 @@
                   role="cell"
                   class="table_cell table_cell--selection"
                 >
+                  <label :for="`select_cb_${institution.id}`" class="sr-only"
+                    >Select institution "{{ institution.name }}"</label
+                  >
                   <input
                     :id="`select_cb_${institution.id}`"
                     :name="`select_cb_${institution.id}`"
@@ -84,9 +87,6 @@
                         : multiselect.addSelected(institution.id)
                     "
                   />
-                  <label :for="`select_cb_${institution.id}`" class="sr-only"
-                    >Select institution "{{ institution.name }}"</label
-                  >
                 </td>
                 <td role="cell" class="table_cell table_cell--actions-mobile">
                   <InlineActionsDropdown
