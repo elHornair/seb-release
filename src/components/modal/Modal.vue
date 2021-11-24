@@ -61,8 +61,8 @@
 
 <script>
 import { onBeforeUnmount, onMounted, ref } from "vue";
-import FocusTrap from "../focus-trap/FocusTrap.vue";
 import { useScrollLock } from "@/composables/useScrollLock";
+import FocusTrap from "@/components/focus-trap/FocusTrap.vue";
 
 export default {
   name: "Modal",

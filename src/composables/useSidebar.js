@@ -1,5 +1,5 @@
 import { ref, watch } from "vue";
-import { useScrollLock } from "./useScrollLock";
+import { useScrollLock } from "@/composables/useScrollLock";
 
 const isOpen = ref(false);
 const setIsOpen = (val) => (isOpen.value = val);

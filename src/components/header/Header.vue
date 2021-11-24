@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import MenuButton from "./MenuButton.vue";
-import { getDisplayNameByRouteName } from "../../router";
+import { getDisplayNameByRouteName } from "@/router";
+import MenuButton from "@/components/header/MenuButton.vue";
 
 export default {
   name: "Header",

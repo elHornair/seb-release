@@ -12,7 +12,8 @@
 </template>
 
 <script>
-import { getDisplayNameByRouteName } from "../../router";
+import { getDisplayNameByRouteName } from "@/router";
+
 export default {
   props: {
     route: {

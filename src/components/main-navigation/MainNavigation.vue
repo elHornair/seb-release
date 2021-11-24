@@ -54,13 +54,13 @@
 </template>
 
 <script>
-import MainNavigationHeader from "./MainNavigationHeader.vue";
-import MainNavigationItem from "./MainNavigationItem.vue";
-import MainNavigationItemExternal from "./MainNavigationItemExternal.vue";
-import { useAccessControl } from "@/composables/useAccessControl";
-import { useSidebar } from "../../composables/useSidebar";
 import { ref } from "vue";
+import { useAccessControl } from "@/composables/useAccessControl";
+import { useSidebar } from "@/composables/useSidebar";
 import { useAuth } from "@/composables/useAuth";
+import MainNavigationHeader from "@/components/main-navigation/MainNavigationHeader.vue";
+import MainNavigationItem from "@/components/main-navigation/MainNavigationItem.vue";
+import MainNavigationItemExternal from "@/components/main-navigation/MainNavigationItemExternal.vue";
 
 export default {
   name: "MainNavigation",

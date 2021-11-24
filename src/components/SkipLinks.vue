@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { focusElement } from "../utils/focus";
+import { focusElement } from "@/utils/focus";
 
 export default {
   setup() {

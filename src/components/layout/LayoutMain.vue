@@ -20,11 +20,11 @@
 </template>
 
 <script>
-import Header from "../header/Header.vue";
-import Sidebar from "./Sidebar.vue";
-import SkipLinks from "../SkipLinks.vue";
 import { getDisplayNameByRouteName } from "@/router";
 import { useAccessControl } from "@/composables/useAccessControl";
+import Header from "@/components/header/Header.vue";
+import Sidebar from "@/components/layout/Sidebar.vue";
+import SkipLinks from "@/components/SkipLinks.vue";
 import Alert from "@/components/misc/Alert";
 
 export default {

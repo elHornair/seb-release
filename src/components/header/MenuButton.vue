@@ -16,7 +16,7 @@
 
 <script>
 import { MenuIcon } from "@heroicons/vue/solid";
-import { useSidebar } from "../../composables/useSidebar";
+import { useSidebar } from "@/composables/useSidebar";
 
 export default {
   name: "MenuButton",

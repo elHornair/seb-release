@@ -22,11 +22,11 @@
 </template>
 
 <script>
-import MainNavigation from "../main-navigation/MainNavigation.vue";
-import { useSidebar } from "../../composables/useSidebar";
-import { useViewport } from "../../composables/useViewport";
-import FocusTrap from "../focus-trap/FocusTrap.vue";
 import { nextTick, ref, watch } from "vue";
+import { useSidebar } from "@/composables/useSidebar";
+import { useViewport } from "@/composables/useViewport";
+import MainNavigation from "@/components/main-navigation/MainNavigation.vue";
+import FocusTrap from "@/components/focus-trap/FocusTrap.vue";
 
 export default {
   name: "Sidebar",

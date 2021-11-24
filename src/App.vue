@@ -5,11 +5,11 @@
 <script>
 import { computed, nextTick } from "vue";
 import { useHead } from "@vueuse/head";
-import LayoutMain from "./components/layout/LayoutMain.vue";
+import LayoutMain from "@/components/layout/LayoutMain.vue";
 import LayoutEmpty from "@/components/layout/LayoutEmpty";
-import { useSidebar } from "./composables/useSidebar";
-import { focusElement } from "./utils/focus";
-import { getDisplayNameByRouteName } from "./router";
+import { useSidebar } from "@/composables/useSidebar";
+import { focusElement } from "@/utils/focus";
+import { getDisplayNameByRouteName } from "@/router";
 import { useRoute } from "vue-router";
 
 export default {
