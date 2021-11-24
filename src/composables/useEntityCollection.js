@@ -44,7 +44,7 @@ export const useEntityCollection = (
   const visibleItemsCount = computed(() => displayableItems.value.length);
   const multiselect = useMultiselect(state);
   const paging = usePaging(state, visibleItemsCount);
-  const tableCaption = `List of ${collectionName}`;
+  const tableCaption = `Table of ${collectionName}`;
 
   const tableDescription = computed(() => {
     return `${tableCaption}. ${filtering.textualInfo.value} ${sorting.textualInfo.value} Go to table actions landmark to adapt filtering and sorting. ${paging.textualInfo.value}`;
