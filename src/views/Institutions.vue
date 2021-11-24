@@ -112,6 +112,9 @@
                       :value="institution[field.name]"
                     ></component>
                   </template>
+                  <template v-else-if="isEmptyValue(institution[field.name])">
+                    <span class="sr-only">empty</span>
+                  </template>
                   <template v-else>
                     {{ institution[field.name] }}
                   </template>
@@ -177,6 +180,8 @@ export default {
 
     updateData();
 
+    const isEmptyValue = (value) => [null, undefined, ""].includes(value);
+
     return {
       displayableItems,
       isMultiselect,
@@ -185,6 +190,7 @@ export default {
       tableCaption,
       tableDescription,
       updateData,
+      isEmptyValue,
       fields: [
         {
           name: "name",
