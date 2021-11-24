@@ -6,7 +6,7 @@ const {
   deactivateInstitution,
 } = useInstitutionAPI();
 
-const checkDependencies = async (id) => {
+const checkDependencies = async (id: number) => {
   const dependencies = await getInstitutionDependencies(id);
 
   if (!dependencies || dependencies.length < 1) {
@@ -18,7 +18,7 @@ const checkDependencies = async (id) => {
   );
 };
 
-const processToggleResult = (res) => {
+const processToggleResult = (res: { errors: string[] }) => {
   if (res.errors.length > 0) {
     alert(
       "There was an error while updating the active status of this institution."
@@ -30,11 +30,11 @@ const processToggleResult = (res) => {
   return true;
 };
 
-const handleActivateRequest = async (id) => {
+const handleActivateRequest = async (id: number) => {
   return processToggleResult(await activateInstitution(id));
 };
 
-const handleDeactivateRequest = async (id) => {
+const handleDeactivateRequest = async (id: number) => {
   if (!(await checkDependencies(id))) {
     return false;
   }

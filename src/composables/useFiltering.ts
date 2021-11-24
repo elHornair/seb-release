@@ -1,6 +1,11 @@
 import { computed, reactive, readonly, ref } from "vue";
 
-export const useFiltering = (fields) => {
+export const useFiltering = (fields: {
+  [key: string]: {
+    label: string;
+    valueFormatter?: Function;
+  };
+}) => {
   const fieldNames = Object.keys(fields);
   const initialState = fieldNames.reduce((reducedFields, fieldName) => {
     return Object.assign(reducedFields, {
@@ -8,7 +13,9 @@ export const useFiltering = (fields) => {
     });
   }, {});
 
-  const state = reactive(Object.assign({}, initialState));
+  const state: {
+    [key: string]: string;
+  } = reactive(Object.assign({}, initialState));
   const filtersVisible = ref(false);
 
   const apiParam = computed(() =>
@@ -45,11 +52,11 @@ export const useFiltering = (fields) => {
     filtersVisible.value = false;
   };
 
-  const setFilters = (filters) => {
+  const setFilters = (filters: { [key: string]: string }) => {
     Object.assign(state, initialState, filters);
   };
 
-  const removeFilter = (field) => {
+  const removeFilter = (field: string) => {
     if (!fieldNames.includes(field)) {
       throw new Error(`Unknown field "${field}"`);
     }
@@ -63,7 +70,7 @@ export const useFiltering = (fields) => {
     Object.assign(state, initialState);
   };
 
-  const getFieldLabel = (field) => {
+  const getFieldLabel = (field: string) => {
     if (!fieldNames.includes(field)) {
       throw new Error(`Unknown field "${field}"`);
     }
@@ -71,16 +78,15 @@ export const useFiltering = (fields) => {
     return fields[field].label;
   };
 
-  const getFieldValue = (field, rawValue) => {
+  const getFieldValue = (field: string, rawValue: string | boolean) => {
     if (!fieldNames.includes(field)) {
       throw new Error(`Unknown field "${field}"`);
     }
 
-    if (fields[field].valueFormatter) {
-      return fields[field].valueFormatter(rawValue);
-    }
+    const formattingFunction =
+      fields[field].valueFormatter || ((val: string | boolean) => val);
 
-    return rawValue;
+    return formattingFunction(rawValue);
   };
 
   const activeFilters = computed(() => {

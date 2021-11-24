@@ -2,13 +2,13 @@ import { ref, watch } from "vue";
 import { useScrollLock } from "@/composables/useScrollLock";
 
 const isOpen = ref(false);
-const setIsOpen = (val) => (isOpen.value = val);
+const setIsOpen = (val: boolean) => (isOpen.value = val);
 const toggleIsOpen = () => (isOpen.value = !isOpen.value);
 const closeSidebar = () => (isOpen.value = false);
 
 const scrollLock = useScrollLock();
 
-const keydownHandler = (e) => {
+const keydownHandler = (e: KeyboardEvent) => {
   if (e.key === "Escape") {
     closeSidebar();
   }

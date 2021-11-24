@@ -1,0 +1,3 @@
+type EntityCollectionItem = {
+  id: number;
+};

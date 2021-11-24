@@ -6,13 +6,13 @@ const { authToken } = useAuth();
 
 const API_PREFIX = "/admin-api/v1/";
 
-const assureValidId = (id) => {
+const assureValidId = (id: number) => {
   if (!Number.isInteger(id) || id < 0) {
     throw new Error("Invalid ID");
   }
 };
 
-const createInstitution = (name, urlSuffix = "") => {
+const createInstitution = (name: string, urlSuffix: string = "") => {
   const payload = {
     name,
     urlSuffix,
@@ -31,7 +31,7 @@ const createInstitution = (name, urlSuffix = "") => {
   });
 };
 
-const readInstitution = (id) => {
+const readInstitution = (id: number) => {
   assureValidId(id);
 
   return axios({
@@ -47,7 +47,11 @@ const readInstitution = (id) => {
   });
 };
 
-const updateInstitution = (id, name, urlSuffix = "") => {
+const updateInstitution = (
+  id: number,
+  name: string,
+  urlSuffix: string = ""
+) => {
   const payload = {
     id,
     name,
@@ -67,7 +71,7 @@ const updateInstitution = (id, name, urlSuffix = "") => {
   });
 };
 
-const getInstitutionDependencies = (id) => {
+const getInstitutionDependencies = (id: number): Promise<string[]> => {
   assureValidId(id);
 
   return axios({
@@ -86,7 +90,7 @@ const getInstitutionDependencies = (id) => {
   });
 };
 
-const activateInstitution = (id) => {
+const activateInstitution = (id: number) => {
   assureValidId(id);
 
   return axios({
@@ -102,7 +106,7 @@ const activateInstitution = (id) => {
   });
 };
 
-const deactivateInstitution = (id) => {
+const deactivateInstitution = (id: number) => {
   assureValidId(id);
 
   return axios({
@@ -118,22 +122,15 @@ const deactivateInstitution = (id) => {
   });
 };
 
-const readInstitutions = (params = {}, filterCriteria = {}) => {
-  // params:
-  // {
-  //   page_number: 1,
-  //   page_size: 2,
-  //   sort: "name",
-  //   institutionId: "3",
-  // }
-  //
-  // filterCriteria:
-  // {
-  //   name: 'Insti',
-  //   urlSuffix: 'eth',
-  //   active: true,
-  // }
-  const cleanParams = {};
+const readInstitutions = (
+  params: { sort?: string; pageIndex?: number; itemsPerPage?: number },
+  filterCriteria: { name?: string; urlSuffix?: string; active?: boolean } = {}
+) => {
+  const cleanParams: {
+    sort?: string;
+    page_number?: number;
+    page_size?: number;
+  } = {};
 
   if (params.sort) {
     cleanParams.sort = params.sort;

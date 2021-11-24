@@ -1,7 +1,7 @@
 import { ref, watch } from "vue";
 
 const isEnabled = ref(false);
-const setIsEnabled = (val) => (isEnabled.value = val);
+const setIsEnabled = (val: boolean) => (isEnabled.value = val);
 const enable = () => setIsEnabled(true);
 const disable = () => setIsEnabled(false);
 

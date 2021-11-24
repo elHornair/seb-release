@@ -4,7 +4,21 @@ import { computed, reactive, readonly, watch } from "vue";
 
 const LOCALSTORAGE_KEY = "AUTH";
 
-const authData = reactive({
+const authData: {
+  token: string | null;
+  expiration: Date | null;
+  privileges: {
+    [key: string]: {
+      basePrivilege: string[];
+      institutionalPrivilege: string[];
+      ownershipPrivilege: string[];
+    };
+  } | null;
+  user: {
+    name: string;
+    roles: string[];
+  } | null;
+} = reactive({
   token: null,
   expiration: null,
   privileges: null,
@@ -13,7 +27,7 @@ const authData = reactive({
 
 const isAuthenticated = computed(() => authData.token !== null);
 const userName = computed(() =>
-  isAuthenticated.value ? authData.user.name : null
+  isAuthenticated.value && authData.user ? authData.user.name : null
 );
 const authToken = computed(() =>
   isAuthenticated.value ? authData.token : null
@@ -58,13 +72,17 @@ watch(authData, (newValue) => {
   }
 });
 
-const isKnownPrivilege = (privilege) =>
+const isKnownPrivilege = (privilege: string) =>
   Object.values(availablePrivileges).includes(privilege);
 
-const isKnownAction = (action) =>
+const isKnownAction = (action: string) =>
   Object.values(availableActions).includes(action);
 
-const hasPrivilege = (realm, privilege, action) => {
+const hasPrivilege = (
+  realm: "basePrivilege" | "institutionalPrivilege" | "ownershipPrivilege",
+  privilege: string,
+  action: string
+) => {
   if (!(isKnownPrivilege(privilege) && isKnownAction(action))) {
     return false;
   }
@@ -77,10 +95,13 @@ const hasPrivilege = (realm, privilege, action) => {
 };
 
 const getPersistedAuthData = () => {
-  const persistedAuth = JSON.parse(
-    window.localStorage.getItem(LOCALSTORAGE_KEY)
-  );
+  const rawData = window.localStorage.getItem(LOCALSTORAGE_KEY);
 
+  if (!rawData) {
+    return null;
+  }
+
+  const persistedAuth = JSON.parse(rawData);
   if (
     persistedAuth &&
     persistedAuth.token &&
@@ -117,7 +138,7 @@ const invalidateUser = async () => {
   }
 };
 
-const fetchAndStoreAuthToken = async (username, password) => {
+const fetchAndStoreAuthToken = async (username: string, password: string) => {
   try {
     const response = await axios({
       method: "POST",
@@ -145,9 +166,27 @@ const fetchAndStoreAuthToken = async (username, password) => {
   }
 };
 
-const fetchAndStorePrivileges = async (authToken) => {
+const fetchAndStorePrivileges = async (authToken: string) => {
   try {
-    const responses = await Promise.all([
+    const responses: [
+      {
+        data: {
+          username: string;
+          userRoles: string[];
+        };
+      },
+      {
+        data: {
+          roleTypeKey: {
+            userRole: string;
+            entityType: string;
+          };
+          basePrivilege: "WRITE" | "MODIFY" | "READ" | "NONE";
+          institutionalPrivilege: "WRITE" | "MODIFY" | "READ" | "NONE";
+          ownershipPrivilege: "WRITE" | "MODIFY" | "READ" | "NONE";
+        }[];
+      }
+    ] = await Promise.all([
       axios({
         method: "GET",
         url: "/admin-api/v1/useraccount/me",
@@ -173,7 +212,13 @@ const fetchAndStorePrivileges = async (authToken) => {
     };
 
     // prepare privileges
-    const userPrivileges = {};
+    const userPrivileges: {
+      [key: string]: {
+        basePrivilege: string[];
+        institutionalPrivilege: string[];
+        ownershipPrivilege: string[];
+      };
+    } = {};
     Object.values(availablePrivileges).forEach((privilege) => {
       userPrivileges[privilege] = {
         basePrivilege: [],
@@ -227,8 +272,13 @@ const fetchAndStorePrivileges = async (authToken) => {
   }
 };
 
-const authenticateUser = async (username, password) => {
+const authenticateUser = async (username: string, password: string) => {
   await fetchAndStoreAuthToken(username, password);
+
+  if (authData.token === null) {
+    return;
+  }
+
   await fetchAndStorePrivileges(authData.token);
 };
 

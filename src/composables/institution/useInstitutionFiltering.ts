@@ -9,7 +9,7 @@ const institutionFiltering = useFiltering({
   },
   active: {
     label: "Status",
-    valueFormatter: (value) =>
+    valueFormatter: (value: boolean) =>
       value === true ? "Active" : value === false ? "Inactive" : "All",
   },
 });

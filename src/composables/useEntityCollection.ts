@@ -3,11 +3,25 @@ import { useMultiselect } from "@/composables/useMultiselect";
 import { usePaging } from "@/composables/usePaging";
 
 export const useEntityCollection = (
-  collectionName,
-  sorting,
-  filtering,
-  readListAPIFunction,
-  isMultiselect
+  collectionName: string,
+  sorting: {
+    sortingApiParam: {
+      value: string | null;
+    };
+    textualInfo: {
+      value: string;
+    };
+  },
+  filtering: {
+    filteringApiParam: {
+      value: {};
+    };
+    textualInfo: {
+      value: string;
+    };
+  },
+  readListAPIFunction: Function,
+  isMultiselect: boolean
 ) => {
   const state = reactive({
     items: [],
@@ -18,7 +32,7 @@ export const useEntityCollection = (
     },
   });
 
-  const setItems = (items) => {
+  const setItems = (items: {}[]) => {
     state.items = Object.assign([], items);
   };
 

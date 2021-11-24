@@ -1,7 +1,10 @@
 import { computed } from "vue";
 
-export const useMultiselect = (state) => {
-  const addSelected = (id) => {
+export const useMultiselect = (state: {
+  items: EntityCollectionItem[];
+  selectedItems: EntityCollectionItem[];
+}) => {
+  const addSelected = (id: number) => {
     const item = state.items.find((item) => item.id === id);
 
     if (!item) {
@@ -15,7 +18,7 @@ export const useMultiselect = (state) => {
     state.selectedItems = [...state.selectedItems, item];
   };
 
-  const removeSelected = (id) => {
+  const removeSelected = (id: number) => {
     state.selectedItems = [
       ...state.selectedItems.filter((item) => item.id !== id),
     ];
@@ -40,7 +43,7 @@ export const useMultiselect = (state) => {
     ];
   };
 
-  const isSelected = (id) => {
+  const isSelected = (id: number) => {
     return state.selectedItems.find((item) => item.id === id);
   };
 

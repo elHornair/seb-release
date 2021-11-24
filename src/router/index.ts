@@ -1,4 +1,9 @@
-import { createRouter, createWebHistory } from "vue-router";
+import {
+  createRouter,
+  createWebHistory,
+  NavigationGuardWithThis,
+  RouteLocationNormalized,
+} from "vue-router";
 import { useAuth } from "@/composables/useAuth";
 import { useAccessControl } from "@/composables/useAccessControl";
 
@@ -6,9 +11,9 @@ import Institutions from "@/views/Institutions.vue";
 import Login from "@/views/Login.vue";
 import Dummy from "@/views/Dummy.vue";
 import NotFound from "@/views/NotFound.vue";
-import InstitutionCreate from "@/views/InstitutionCreate";
-import InstitutionEdit from "@/views/InstitutionEdit";
-import InstitutionView from "@/views/InstitutionView";
+import InstitutionCreate from "@/views/InstitutionCreate.vue";
+import InstitutionEdit from "@/views/InstitutionEdit.vue";
+import InstitutionView from "@/views/InstitutionView.vue";
 
 const { isAuthenticated, invalidateUser } = useAuth();
 const {
@@ -141,7 +146,9 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach(async (to) => {
+router.beforeEach(async (to: any) => {
+  // TODO: this shouldn't use "any". Improve and refactor the routing (see https://github.com/AlexBrohshtut/vue-ts-realworld-app/blob/class-api/src/router/index.ts for a good example)
+
   if (!to.meta.accessControl.public && !isAuthenticated.value) {
     return { name: "login" };
   }
@@ -151,7 +158,7 @@ router.beforeEach(async (to) => {
   }
 
   if (to.name === "logout") {
-    invalidateUser();
+    await invalidateUser();
     return { name: "login" };
   }
 
@@ -179,8 +186,10 @@ router.beforeEach(async (to) => {
   }
 });
 
-export const getDisplayNameByRouteName = (routeName) =>
-  ({
+export const getDisplayNameByRouteName = (routeName: string) => {
+  const mapping: {
+    [key: string]: string;
+  } = {
     institutions: "Institutions",
     "institution-view": "Institution",
     "institution-create": "Add institution",
@@ -188,6 +197,13 @@ export const getDisplayNameByRouteName = (routeName) =>
     "user-account": "User Account",
     "user-logs": "User Logs",
     "not-found": "Page not found",
-  }[routeName] || "");
+  };
+
+  if (Object.keys(mapping).includes(routeName)) {
+    return mapping[routeName];
+  }
+
+  return "";
+};
 
 export default router;

@@ -13,16 +13,16 @@ const denyAccessToCurrentRoute = () => {
   accessToCurrentRouteGranted.value = false;
 };
 
-const hasBasePrivilege = (privilege, action) => {
+const hasBasePrivilege = (privilege: string, action: string) => {
   return hasPrivilege("basePrivilege", privilege, action);
 };
 
-const hasInstitutionalPrivilege = (privilege, action) => {
+const hasInstitutionalPrivilege = (privilege: string, action: string) => {
   // TODO: here we should probably also check that the user belongs to the correct institution
   return hasPrivilege("institutionalPrivilege", privilege, action);
 };
 
-const hasOwnershipPrivilege = (privilege, action) => {
+const hasOwnershipPrivilege = (privilege: string, action: string) => {
   // TODO: here we should probably also check that the user owns the respective resource
   console.error("hasOwnershipPrivilege is not implemented yet.");
   return hasPrivilege("ownershipPrivilege", privilege, action);

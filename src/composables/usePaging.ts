@@ -2,8 +2,18 @@ import { computed, readonly, ref } from "vue";
 
 const itemsPerPage = ref(10);
 
-export const usePaging = (state, visibleItemsCount) => {
-  const setValues = (currentPage, totalPages) => {
+export const usePaging = (
+  state: {
+    paging: {
+      currentPage: number;
+      totalPages: number;
+    };
+  },
+  visibleItemsCount: {
+    value: number;
+  }
+) => {
+  const setValues = (currentPage: number, totalPages: number) => {
     Object.assign(state.paging, {
       currentPage,
       totalPages,
@@ -13,12 +23,12 @@ export const usePaging = (state, visibleItemsCount) => {
   const desiredPage = ref(state.paging.currentPage);
   const apiParamPageIndex = computed(() => desiredPage.value);
 
-  const goToPage = (index) => {
+  const goToPage = (index: number) => {
     desiredPage.value = index;
   };
 
-  const currentPage = computed(() => parseInt(state.paging.currentPage));
-  const totalPages = computed(() => parseInt(state.paging.totalPages));
+  const currentPage = computed(() => state.paging.currentPage);
+  const totalPages = computed(() => state.paging.totalPages);
 
   const totalItems = computed(() => {
     if (currentPage.value === totalPages.value) {
