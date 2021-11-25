@@ -1,6 +1,6 @@
 <template>
   <Menu as="div" class="menu">
-    <MenuButton class="menu__toggle">
+    <MenuButton ref="menuButtonRef" class="menu__toggle">
       <span class="sr-only"
         >Actions for institution "{{ institution.name }}"</span
       >
@@ -66,6 +66,18 @@
               <span class="menu__item__label">Deactivate</span>
             </button>
           </MenuItem>
+          <MenuItem v-slot="{ active }">
+            <button
+              class="menu__item sr-only"
+              :class="{ 'menu__item--active not-sr-only': active }"
+              @click="handleCloseClick"
+            >
+              <span aria-hidden="true">
+                <XCircleIcon class="menu__item__icon"></XCircleIcon>
+              </span>
+              <span class="menu__item__label">Close Menu</span>
+            </button>
+          </MenuItem>
         </div>
       </MenuItems>
     </DropdownTransition>
@@ -80,9 +92,11 @@ import {
   PencilAltIcon,
   StatusOfflineIcon,
   StatusOnlineIcon,
+  XCircleIcon,
 } from "@heroicons/vue/solid";
 import { useInstitutionStatusToggling } from "@/composables/institution/useInstitutionStatusToggling";
 import DropdownTransition from "@/components/misc/DropdownTransition";
+import { ref } from "vue";
 
 export default {
   name: "InlineActionsDropdown",
@@ -96,6 +110,7 @@ export default {
     PencilAltIcon,
     StatusOfflineIcon,
     StatusOnlineIcon,
+    XCircleIcon,
     DropdownTransition,
   },
   props: {
@@ -108,6 +123,8 @@ export default {
   setup(props, context) {
     const { handleActivateRequest, handleDeactivateRequest } =
       useInstitutionStatusToggling();
+
+    const menuButtonRef = ref(null);
 
     const handleActivateClick = async () => {
       if (await handleActivateRequest(props.institution.id)) {
@@ -125,9 +142,15 @@ export default {
       }
     };
 
+    const handleCloseClick = () => {
+      menuButtonRef.value.el.click();
+    };
+
     return {
       handleActivateClick,
       handleDeactivateClick,
+      handleCloseClick,
+      menuButtonRef,
     };
   },
 };

@@ -1,6 +1,6 @@
 <template>
   <Menu as="div" class="menu">
-    <MenuButton class="menu__toggle">
+    <MenuButton ref="menuButtonRef" class="menu__toggle">
       <span class="sr-only">Open multiselect actions</span>
       <span aria-hidden="true">
         <DotsVerticalIcon class="menu__toggle__icon" />
@@ -65,6 +65,18 @@
               >
             </button>
           </MenuItem>
+          <MenuItem v-slot="{ active }">
+            <button
+              class="menu__item sr-only"
+              :class="{ 'menu__item--active not-sr-only': active }"
+              @click="handleCloseClick"
+            >
+              <span aria-hidden="true">
+                <XCircleIcon class="menu__item__icon"></XCircleIcon>
+              </span>
+              <span class="menu__item__label">Close Menu</span>
+            </button>
+          </MenuItem>
         </div>
       </MenuItems>
     </DropdownTransition>
@@ -80,6 +92,7 @@ import {
 } from "@heroicons/vue/solid";
 import { useInstitutions } from "@/composables/institution/useInstitutions";
 import DropdownTransition from "@/components/misc/DropdownTransition";
+import { ref } from "vue";
 
 export default {
   name: "MultiselectDropdown",
@@ -96,9 +109,17 @@ export default {
   setup() {
     const { multiselect, visibleItemsCount } = useInstitutions();
 
+    const menuButtonRef = ref(null);
+
+    const handleCloseClick = () => {
+      menuButtonRef.value.el.click();
+    };
+
     return {
       multiselect,
       visibleItemsCount,
+      handleCloseClick,
+      menuButtonRef,
     };
   },
 };

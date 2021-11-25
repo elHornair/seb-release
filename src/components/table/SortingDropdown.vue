@@ -1,6 +1,6 @@
 <template>
   <Menu as="div" class="menu">
-    <MenuButton class="menu__toggle">
+    <MenuButton ref="menuButtonRef" class="menu__toggle">
       <span class="sr-only">Open {{ label }} sorting options</span>
       <span aria-hidden="true">
         <component :is="currentIcon" class="menu__toggle__icon" />
@@ -71,6 +71,18 @@
               <span class="menu__item__label">Remove Sorting</span>
             </button>
           </MenuItem>
+          <MenuItem v-slot="{ active }">
+            <button
+              class="menu__item sr-only"
+              :class="{ 'menu__item--active not-sr-only': active }"
+              @click="handleCloseClick"
+            >
+              <span aria-hidden="true">
+                <XCircleIcon class="menu__item__icon"></XCircleIcon>
+              </span>
+              <span class="menu__item__label">Close Menu</span>
+            </button>
+          </MenuItem>
         </div>
       </MenuItems>
     </DropdownTransition>
@@ -87,7 +99,7 @@ import {
   CheckIcon,
 } from "@heroicons/vue/solid";
 import { useInstitutionSorting } from "@/composables/institution/useInstitutionSorting";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import DropdownTransition from "@/components/misc/DropdownTransition";
 
 export default {
@@ -122,6 +134,8 @@ export default {
     const { sortingState, setSorting, removeSorting, SORT_DIRECTION } =
       useInstitutionSorting();
 
+    const menuButtonRef = ref(null);
+
     const sortDirectionToIcon = {
       [SORT_DIRECTION.DSC]: "SortDescendingIcon",
       [SORT_DIRECTION.ASC]: "SortAscendingIcon",
@@ -139,6 +153,10 @@ export default {
       return "SwitchVerticalIcon";
     });
 
+    const handleCloseClick = () => {
+      menuButtonRef.value.el.click();
+    };
+
     return {
       sortingState,
       SORT_DIRECTION,
@@ -146,6 +164,8 @@ export default {
       currentIcon,
       setSorting,
       removeSorting,
+      handleCloseClick,
+      menuButtonRef,
     };
   },
 };
