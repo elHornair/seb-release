@@ -130,7 +130,7 @@ const readInstitutions = (params = {}, filterCriteria = {}) => {
   // filterCriteria:
   // {
   //   name: 'Insti',
-  //   urlSuffix: 'eth',
+  //   urlsuffix: 'eth',// lower case, not camel case!!!
   //   active: true,
   // }
   const cleanParams = {};
@@ -147,7 +147,14 @@ const readInstitutions = (params = {}, filterCriteria = {}) => {
     cleanParams.page_size = params.itemsPerPage;
   }
 
-  Object.assign(cleanParams, filterCriteria);
+  // make sure filter param keys are lower case (API doesn't accept camel case for these but will silently ignore them)
+  const cleanFilterCriteria = Object.keys(filterCriteria)
+    .map((key) => {
+      return { [key.toLowerCase()]: filterCriteria[key] };
+    })
+    .reduce((prev, curr) => Object.assign(prev, curr), {});
+
+  Object.assign(cleanParams, cleanFilterCriteria);
 
   return axios({
     method: "GET",
