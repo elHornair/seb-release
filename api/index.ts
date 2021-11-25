@@ -1,17 +1,20 @@
 const app = require("express")();
 const { createProxyMiddleware } = require("http-proxy-middleware");
 
-const btoa = (text) => {
-  return Buffer.from(text, "binary").toString("base64");
-};
+const btoaShim =
+  btoa ||
+  ((text: string) => {
+    // @ts-ignore
+    return Buffer.from(text, "binary").toString("base64");
+  });
 
 app.use(
   "^/oauth",
   createProxyMiddleware({
     target: process.env.API_URL,
     changeOrigin: true,
-    onProxyReq(proxyReq) {
-      const basicAuthHeader = `Basic ${btoa(
+    onProxyReq(proxyReq: any) {
+      const basicAuthHeader = `Basic ${btoaShim(
         process.env.BASIC_AUTH_USER + ":" + process.env.BASIC_AUTH_PASSWORD
       )}`;
 
