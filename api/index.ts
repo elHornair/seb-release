@@ -1,12 +1,12 @@
 const app = require("express")();
 const { createProxyMiddleware } = require("http-proxy-middleware");
 
-const btoaShim =
-  btoa ||
-  ((text: string) => {
-    // @ts-ignore
-    return Buffer.from(text, "binary").toString("base64");
-  });
+// @ts-ignore
+// TODO: @ts-ignore is a quick workaround. The proper fix would be to tell TS that index.ts runs in a Node environment
+const btoa = (text: string) => {
+  // @ts-ignore
+  return Buffer.from(text, "binary").toString("base64");
+};
 
 app.use(
   "^/oauth",
@@ -14,7 +14,7 @@ app.use(
     target: process.env.API_URL,
     changeOrigin: true,
     onProxyReq(proxyReq: any) {
-      const basicAuthHeader = `Basic ${btoaShim(
+      const basicAuthHeader = `Basic ${btoa(
         process.env.BASIC_AUTH_USER + ":" + process.env.BASIC_AUTH_PASSWORD
       )}`;
 
