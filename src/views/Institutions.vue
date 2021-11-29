@@ -168,6 +168,12 @@ export default {
     StatusBadge,
   },
   setup() {
+    /*
+     * In regards to a11y, the table follows for the most parts the approach described by the following blogpost:
+     * https://adrianroselli.com/2017/11/a-responsive-accessible-table.html
+     * If you need to make adaptions to the table (especially in terms of a11y), be sure to read the blogpost so you
+     * know what you're doing.
+     */
     const {
       displayableItems,
       updateData,

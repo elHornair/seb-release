@@ -124,7 +124,7 @@ const deactivateInstitution = (id: number) => {
 
 const readInstitutions = (
   params: { sort?: string; pageIndex?: number; itemsPerPage?: number },
-  filterCriteria: { name?: string; urlSuffix?: string; active?: boolean } = {}
+  filterCriteria: { [key: string]: string | boolean } = {}
 ) => {
   const cleanParams: {
     sort?: string;
@@ -144,7 +144,14 @@ const readInstitutions = (
     cleanParams.page_size = params.itemsPerPage;
   }
 
-  Object.assign(cleanParams, filterCriteria);
+  // make sure filter param keys are lower case (API doesn't accept camel case for these but will silently ignore them)
+  const cleanFilterCriteria = Object.keys(filterCriteria)
+    .map((key) => {
+      return { [key.toLowerCase()]: filterCriteria[key] };
+    })
+    .reduce((prev, curr) => Object.assign(prev, curr), {});
+
+  Object.assign(cleanParams, cleanFilterCriteria);
 
   return axios({
     method: "GET",
