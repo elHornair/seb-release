@@ -2,15 +2,15 @@
   <component :is="layout"></component>
 </template>
 
-<script>
+<script lang="ts">
 import { computed, nextTick } from "vue";
-import { useHead } from "@vueuse/head";
-import LayoutMain from "@/components/layout/LayoutMain.vue";
-import LayoutEmpty from "@/components/layout/LayoutEmpty";
-import { useSidebar } from "@/composables/useSidebar";
-import { focusElement } from "@/utils/focus";
-import { getDisplayNameByRouteName } from "@/router";
 import { useRoute } from "vue-router";
+import { useHead } from "@vueuse/head";
+import { getDisplayNameByRouteName } from "@/router";
+import { focusElement } from "@/utils/focus";
+import { useSidebar } from "@/composables/useSidebar";
+import LayoutMain from "@/components/layout/LayoutMain.vue";
+import LayoutEmpty from "@/components/layout/LayoutEmpty.vue";
 
 export default {
   name: "App",
@@ -24,9 +24,17 @@ export default {
     const { isOpen, closeSidebar } = useSidebar();
     const route = useRoute();
     useHead({
-      title: computed(
-        () => `SEB Server Web-Client - ${getDisplayNameByRouteName(route.name)}`
-      ),
+      title: computed(() => {
+        const basicTitle = "SEB Server Web-Client";
+
+        if (route.name) {
+          return `${basicTitle} - ${getDisplayNameByRouteName(
+            route.name.toString()
+          )}`;
+        }
+
+        return basicTitle;
+      }),
     });
 
     return {
