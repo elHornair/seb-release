@@ -52,14 +52,7 @@ This is not required, but can help understand how the current application works.
 * Linting: `npm run lint`
 * Configure your editor so it respects and autofixes the rules defined in `.eslintrc.js`
 
-## General useful information
-
-* There is a [test server](https://seb.test-swissmooc.ch/sms) that can be used as an API end point when deploying to a
-  Vercel test / staging environment. The test server includes both the GUI and the API webservice. This is a simplified
-  setup with some caveats: 1. The API redirects to the GUI if it receives an incorrect request. 2. Don't delete users
-  here, as other people are using this service for testing
-* The Java code for both the webservice and the current GUI is available on
-  [Github](https://github.com/SafeExamBrowser/seb-server)
+## Technical information
 
 ## Deployment
 
@@ -78,6 +71,33 @@ deployed to
 
 If you want to run the Vercel setup (including the serverless functions) locally for debugging purposes,
 run `npm run vercel`. You will have to answer some questions regarding config like the Github repo to use etc.
+
+### Test environment
+
+There is a [test server](https://seb.test-swissmooc.ch/sms) that can be used as an API end point when deploying to a
+Vercel test / staging environment. The test server includes both the GUI and the API webservice. This is a simplified
+setup with some caveats: 1. The API redirects to the GUI if it receives an incorrect request. 2. Don't delete users
+here, as other people are using this service for testing
+
+### Tech stack
+
+* Language: [TypeScript](https://www.typescriptlang.org/). Most Vue components are still written in vanilla JavaScript,
+  but they should be migrated to TypeScript in the future.
+* JavaScript framework: [Vue3](https://v3.vuejs.org/)
+* Routing: [Vue Router v3](https://router.vuejs.org/)
+* CSS: [TailwindCSS](https://tailwindcss.com/) with [PostCSS](https://postcss.org/) and
+  [SCSS](https://sass-lang.com/)
+* Accessible components: mostly custom developed, with some [HeadlessUI](https://headlessui.dev/) sprinkled in
+* Icons: [Heroicons](https://heroicons.dev/)
+
+### Miscellaneous information
+
+* This is a [single-page application](https://developer.mozilla.org/docs/Glossary/SPA)
+* This uses Vue3's [composition API](https://v3.vuejs.org/api/composition-api.html)
+* Authentication state is stored in [Local Storage](https://developer.mozilla.org/docs/Web/API/Window/localStorage)
+* To get familiar with the code, probably the best is to start with `main.js` / `App.vue` and follow the dependency tree
+* The Java code for both the webservice and the current GUI is available on
+  [Github](https://github.com/SafeExamBrowser/seb-server)
 
 ## Features
 
@@ -138,7 +158,37 @@ run `npm run vercel`. You will have to answer some questions regarding config li
 As this project was a time boxed proof of concept, it is by definition incomplete. There are several optimisations and
 features that could be done in the future. This is an incomplete list of them:
 
-* TODO
+* New action: show / hide secondary columns (toggle so only "important" columns are visible). This saves space,
+  especially on mobile. However it should always be possible for the user to display all columns.
+* Alerts / confirmations: nice alert box instead of system dialog (currently used for warnings in edit forms,
+  deactivating of institutions, ...). Something like the Modal.
+* Implement example bulk action: Modal with list of all currently selected items. Possibility to adapt selection.
+  Possibility to select further settings for this particular bulk action. Confirm / cancel button.
+* Better scrolling / fixed header on mobile
+* Migrate all Vue components from vanilla JavaScript to TypeScript (basic setup is already done, see
+  branch `typescript`)
+* Paging: add dropdown "show x elements per page". Or maybe wo could just make this more than 10 by default.
+* A11y: focus styling could be adapted so it generates more attention (currently we use the same styling as the Edu-App)
+* Empty state / loading animation: while loading data from the API (e.g. when sorting / filtering / paging), there is a
+  delay. During this, we should give the user an optical feedback, so it's clear that something is happening.
+* Further design improvements on mobile (e.g. spacings)
+* Auto logout / refresh: when authentication token expires (after 12h), the user should be automatically redirected
+  to `/login`. Currently nothing happens (i.e. the application is blocked) and the user needs to manually reload or
+  navigate to the login page.
+* Config (GET parameter for demonstration purpose): show action buttons as normal links on mobile+ screens
+* Config (GET parameter for demonstration purpose): set theming, so interactive elements are shown in different colours
+* Safe sorting / filtering / paging settings in Local Storage. Currently the settings are lost upon a hard reload or a
+  logout
+* Print styles (Ctrl + P / save as PDF): make sure that contents (e.g. a list of institutions) are displayed correctly
+* Prepare for E2E testing: set distinct data attributes on DOM elements
+* Current SEB server feature: realtime monitoring (probably as an aria live region)
+* Current SEB server feature: exam configuration (complex, dynamic form with several tabs)
+* Current SEB server feature: date picker / date time picker form control
+* Current SEB server feature: color picker form control
+* Current SEB server feature: collection form control
+* Use translation mechanism (currently all texts are hardcoded in English)
+* Error logging service (Edu-App uses Sentry)
+* Custom design / using ETH corporate design
 
 ## Contact
 
