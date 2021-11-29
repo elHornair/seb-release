@@ -78,3 +78,69 @@ deployed to
 
 If you want to run the Vercel setup (including the serverless functions) locally for debugging purposes,
 run `npm run vercel`. You will have to answer some questions regarding config like the Github repo to use etc.
+
+## Features
+
+* Accessibility: the overall architecture of the application has been reviewed by an accessibility expert. The
+  application has been tested on NVDA on windows, VoiceOver for Mac, VoiceOver for iOS and TalkBack on Android.
+* Filtering: filter selection by different field types (text, boolean), show current filters, adapt/remove current
+  filters
+* Sorting: inline sorting in table headers, general sorting in actions, alphabetical sorting ASC & DSC
+* Inline actions: dropdown for all actions concerning a single table entry
+* General actions: actions concerning multiple table enties
+* Multiselect / Bulk actions (turn on feature by adding `?multiselect` to the URL): possibility to select/deselect each
+  single table entry, helper menu to select/deselect many entries at once.
+* Paging: go the next, previous, first, last page
+* Mobile ready and responsive, basic PWA functionality
+* Application navigation and routing
+* CRUD institutions: forms for creating new institutions and editing existing ones. Viewing one or many institutions.
+* Authentication / Permissions
+* Simplistic design, ready for theming
+
+## Decisions
+
+* Changing page and adapting sorting keeps the current selection, while filtering resets it. This is probably what the
+  user expects. Also it avoids logical problems, where a selected item might not be in the current table anymore (
+  because of updated filter criteria).
+* Inline sorting buttons are read as part of the row description on NVDA. We couldn't find a way to make it not do this,
+  without hiding the inline sorting buttons altogether. As this is an important feature, we decided to live with this
+  tradeoff for NVDA.
+* Bulk actions: as bulk actions will be very different from case to case, we decided to now just show a generic alert
+  message when a bulk action is triggered. Instead of this, we imagine that bulk actions would then allow for further
+  settings in a Modal. Depending on the case, the modal might just display a confirmation button and a list of items,
+  that would be affected by the bulk action.
+* Evtl. ein bisschen Features dokumentieren (bulk-actions exemplarisch -> bedingen entweder bestimmtes muster)
+* For ease of development and a quick start, we decided to mirror the application
+  to [this](https://github.com/elHornair/seb-release) Github repository, so we can use the free and automatic CI/CD
+  features of Vercel. This is not a long term solution (Vercel should be connected to the original Github repo).
+* Security: storing the authentication token in the browsers Local Storage might or might not have unwanted security
+  implications. For the POC we decided to accept that. For a production application, this should be looked into further.
+
+## Sources
+
+**General:**
+
+* https://www.accessibility-developer-guide.com/
+* https://developer.mozilla.org/en-US/docs/Web/Accessibility
+* https://www.a11ymatters.com/
+* https://www.a11y-101.com/
+* https://www.digitala11y.com/wcag-checklist/
+
+**Accessible tables**:
+
+* https://adrianroselli.com/2017/11/a-responsive-accessible-table.html (das war der Wertvollste)
+* https://www.a11y-101.com/development/tables
+* https://adrianroselli.com/2021/04/sortable-table-columns.html
+* https://adrianroselli.com/2020/11/under-engineered-responsive-tables.html
+
+## Possible future improvements
+
+As this project was a time boxed proof of concept, it is by definition incomplete. There are several optimisations and
+features that could be done in the future. This is an incomplete list of them:
+
+* TODO
+
+## Contact
+
+This project was developed by [me](https://www.alainhorner.ch/). Contact me on my website if you need help or have any
+further questions.
