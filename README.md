@@ -155,11 +155,11 @@ here, as other people are using this service for testing
 
 ## Possible future improvements
 
-As this project was a time boxed proof of concept, it is by definition incomplete. There are several optimisations and
-features that could be done in the future. This is an incomplete list of them:
+As this project was a timeboxed proof of concept, it is by definition incomplete. There are several optimisations and
+features that could / should be done in the future. This is an incomplete list of them:
 
 * New action: show / hide secondary columns (toggle so only "important" columns are visible). This saves space,
-  especially on mobile. However it should always be possible for the user to display all columns.
+  especially on mobile. However, it should always be possible for the user to display all columns.
 * Alerts / confirmations: nice alert box instead of system dialog (currently used for warnings in edit forms,
   deactivating of institutions, ...). Something like the Modal.
 * Implement example bulk action: Modal with list of all currently selected items. Possibility to adapt selection.
