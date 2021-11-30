@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { computed, nextTick } from "vue";
+import { computed, nextTick, defineComponent } from "vue";
 import { useRoute } from "vue-router";
 import { useHead } from "@vueuse/head";
 import { getDisplayNameByRouteName } from "@/router";
@@ -12,7 +12,7 @@ import { useSidebar } from "@/composables/useSidebar";
 import LayoutMain from "@/components/layout/LayoutMain.vue";
 import LayoutEmpty from "@/components/layout/LayoutEmpty.vue";
 
-export default {
+export default defineComponent({
   name: "App",
 
   components: {
@@ -78,5 +78,5 @@ export default {
       }
     },
   },
-};
+});
 </script>
