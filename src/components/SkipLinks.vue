@@ -16,6 +16,14 @@
         >Go to main content</a
       >
     </li>
+    <li class="skiplinks_item">
+      <a
+        href="#secondary-content"
+        class="skiplinks_link"
+        @click.prevent="linkClickHandler('#secondary-content')"
+        >Go to table actions</a
+      >
+    </li>
   </ul>
 </template>
 

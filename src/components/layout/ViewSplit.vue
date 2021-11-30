@@ -8,6 +8,7 @@
         <slot name="main"></slot>
       </div>
       <aside
+        id="secondary-content"
         class="col-span-12 xl:col-span-3 order-1 xl:order-2"
         :aria-label="labelAside"
       >
