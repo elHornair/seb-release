@@ -1,6 +1,7 @@
 import { computed, reactive, watch } from "vue";
 import { useMultiselect } from "@/composables/useMultiselect";
 import { usePaging } from "@/composables/usePaging";
+import { useColumns } from "@/composables/useColumns";
 
 export const useEntityCollection = (
   collectionName: string,
@@ -58,8 +59,8 @@ export const useEntityCollection = (
   const visibleItemsCount = computed(() => displayableItems.value.length);
   const multiselect = useMultiselect(state);
   const paging = usePaging(state, visibleItemsCount);
+  const columns = useColumns();
   const tableCaption = `Table of ${collectionName}`;
-
   const tableDescription = computed(() => {
     return `${tableCaption}. ${filtering.textualInfo.value} ${sorting.textualInfo.value} Go to table actions landmark to adapt filtering and sorting. ${paging.textualInfo.value}`;
   });
@@ -83,5 +84,6 @@ export const useEntityCollection = (
     tableDescription,
     multiselect,
     paging,
+    columns,
   };
 };

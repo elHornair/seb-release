@@ -13,6 +13,7 @@ const {
   tableDescription,
   multiselect,
   paging,
+  columns,
 } = useEntityCollection(
   "institutions",
   useInstitutionSorting(),
@@ -32,5 +33,6 @@ export const useInstitutions = () => {
     tableDescription,
     multiselect,
     paging,
+    columns,
   };
 };

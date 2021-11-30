@@ -22,6 +22,15 @@
                 <span class="menu__item__label">Add institution</span>
               </router-link>
             </MenuItem>
+            <MenuItem v-slot="{ active }">
+              <button
+                class="menu__item"
+                :class="{ 'menu__item--active': active }"
+                @click="handleToggleColumnsClick"
+              >
+                <span class="menu__item__label">{{ toggleColumnsLabel }}</span>
+              </button>
+            </MenuItem>
             <MenuItem v-slot="{ active }" :disabled="!showBulkActions">
               <button
                 class="menu__item"
@@ -61,6 +70,14 @@
     >
     </action-button>
     <action-button
+      :label="toggleColumnsLabel"
+      class="mt-1 ml-0 sm:mt-0 sm:ml-1 xl:mt-1 xl:ml-0"
+      type="button"
+      :full-xl="true"
+      @click="handleToggleColumnsClick"
+    >
+    </action-button>
+    <action-button
       label="Delete Selected"
       class="mt-1 ml-0 sm:mt-0 sm:ml-1 xl:mt-1 xl:ml-0"
       type="button"
@@ -97,7 +114,7 @@ export default {
   setup() {
     const { availablePrivileges, availableActions, hasBasePrivilege } =
       useAccessControl();
-    const { multiselect } = useInstitutions();
+    const { multiselect, columns } = useInstitutions();
 
     const menuButtonRef = ref(null);
 
@@ -116,6 +133,14 @@ export default {
       );
     };
 
+    const handleToggleColumnsClick = () => {
+      columns.toggleColumns();
+    };
+
+    const toggleColumnsLabel = computed(() =>
+      columns.allColumnsVisible.value ? "Hide some columns" : "Show all columns"
+    );
+
     const handleCloseClick = () => {
       menuButtonRef.value.el.click();
     };
@@ -124,8 +149,10 @@ export default {
       showAddAction,
       showBulkActions,
       handleBulkActionClick,
+      handleToggleColumnsClick,
       handleCloseClick,
       menuButtonRef,
+      toggleColumnsLabel,
     };
   },
 };

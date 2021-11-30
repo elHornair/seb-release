@@ -44,7 +44,7 @@
                 </th>
 
                 <table-head-field
-                  v-for="(field, index) in fields"
+                  v-for="(field, index) in visibleFields"
                   :key="field.name"
                   :field-name="field.name"
                   :label="field.label"
@@ -96,7 +96,7 @@
                   ></InlineActionsDropdown>
                 </td>
                 <TableContentField
-                  v-for="field in fields"
+                  v-for="field in visibleFields"
                   :key="`${institutionIndex}_${field.name}`"
                   :class="{
                     table_cell: true,
@@ -137,7 +137,7 @@
       </div>
     </template>
     <template #aside>
-      <ActionsPanel :fields="fields"></ActionsPanel>
+      <ActionsPanel :fields="visibleFields"></ActionsPanel>
     </template>
   </view-split>
 </template>
@@ -153,6 +153,7 @@ import TableContentField from "@/components/table/TableContentField";
 import MultiselectControls from "@/components/table/MultiselectControls";
 import ActionsPanel from "@/components/table/ActionsPanel";
 import { useInstitutions } from "@/composables/institution/useInstitutions";
+import { computed } from "vue";
 
 export default {
   name: "Institution",
@@ -182,11 +183,58 @@ export default {
       isMultiselect,
       multiselect,
       paging,
+      columns,
     } = useInstitutions();
 
-    updateData();
+    const fields = [
+      {
+        name: "name",
+        label: "Name",
+        isMain: true,
+        isSecondary: false,
+      },
+      {
+        name: "urlSuffix",
+        label: "URL Suffix",
+        isMain: false,
+        isSecondary: false,
+      },
+      {
+        name: "theme",
+        label: "Theme",
+        isMain: false,
+        isSecondary: true,
+      },
+      {
+        name: "alias",
+        label: "Alias",
+        isMain: false,
+        isSecondary: true,
+      },
+      {
+        name: "date",
+        label: "Founding date",
+        isMain: false,
+        isSecondary: true,
+      },
+      {
+        name: "active",
+        label: "Status",
+        isMain: false,
+        isSecondary: false,
+        renderContentAs: "StatusBadge",
+      },
+    ];
 
     const isEmptyValue = (value) => [null, undefined, ""].includes(value);
+
+    const visibleFields = computed(() =>
+      fields.filter(
+        (field) => columns.allColumnsVisible.value || !field.isSecondary
+      )
+    );
+
+    updateData();
 
     return {
       displayableItems,
@@ -197,24 +245,7 @@ export default {
       tableDescription,
       updateData,
       isEmptyValue,
-      fields: [
-        {
-          name: "name",
-          label: "Name",
-          isMain: true,
-        },
-        {
-          name: "urlSuffix",
-          label: "URL Suffix",
-          isMain: false,
-        },
-        {
-          name: "active",
-          label: "Status",
-          isMain: false,
-          renderContentAs: "StatusBadge",
-        },
-      ],
+      visibleFields,
     };
   },
 };
