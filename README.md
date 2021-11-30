@@ -165,8 +165,9 @@ features that could be done in the future. This is an incomplete list of them:
 * Implement example bulk action: Modal with list of all currently selected items. Possibility to adapt selection.
   Possibility to select further settings for this particular bulk action. Confirm / cancel button.
 * Better scrolling / fixed header on mobile
-* Migrate all Vue components from vanilla JavaScript to TypeScript (basic setup is already done, see
-  branch `typescript`)
+* Migrate all Vue components from vanilla JavaScript to TypeScript. Basic TypeScript setup is done, and all JavaScript
+  files (e.g. composables) have been migrated to TypeScript. However, most Vue components haven't been migrated to
+  TypeScript yet. This should be done. See `App.vue` for an example of a Vue component written in TypeScript.
 * Paging: add dropdown "show x elements per page". Or maybe wo could just make this more than 10 by default.
 * A11y: focus styling could be adapted so it generates more attention (currently we use the same styling as the Edu-App)
 * Empty state / loading animation: while loading data from the API (e.g. when sorting / filtering / paging), there is a
