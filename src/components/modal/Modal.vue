@@ -80,8 +80,8 @@ export default {
   },
   setup(props) {
     const scrollLock = useScrollLock();
-    let lastElementWithFocus = null;
     const closeButtonRef = ref();
+    let lastElementWithFocus = null;
 
     const keydownHandler = (e) => {
       if (e.key === "Escape") {

@@ -1,27 +1,15 @@
 <template>
   <ul class="skiplinks_list">
-    <li class="skiplinks_item hidden md:block">
+    <li
+      v-for="skipLink in skipLinks"
+      :key="'skiplink_' + skipLink.selector"
+      class="skiplinks_item hidden md:block"
+    >
       <a
-        href="#main-navigation"
+        :href="skipLink.selector"
         class="skiplinks_link"
-        @click.prevent="linkClickHandler('#main-navigation')"
-        >Go to main navigation</a
-      >
-    </li>
-    <li class="skiplinks_item">
-      <a
-        href="#main-content"
-        class="skiplinks_link"
-        @click.prevent="linkClickHandler('#main-content')"
-        >Go to main content</a
-      >
-    </li>
-    <li class="skiplinks_item">
-      <a
-        href="#secondary-content"
-        class="skiplinks_link"
-        @click.prevent="linkClickHandler('#secondary-content')"
-        >Go to table actions</a
+        @click.prevent="focusElementBySelector(skipLink.selector)"
+        >{{ skipLink.label }}</a
       >
     </li>
   </ul>
@@ -29,16 +17,60 @@
 
 <script>
 import { focusElement } from "@/utils/focus";
+import { onBeforeUnmount, onMounted } from "vue";
 
 export default {
   setup() {
-    const linkClickHandler = (selector) => {
-      const targetElement = document.querySelector(selector);
-      focusElement(targetElement);
+    const basicShortcut = "Ctrl+Shift+";
+    const skipLinks = [
+      {
+        label: `Go to main navigation (${basicShortcut}n)`,
+        selector: "#main-navigation",
+        keyCode: 78, // => n / N
+      },
+      {
+        label: `Go to main content (${basicShortcut}m)`,
+        selector: "#main-content",
+        keyCode: 77, // => m / M
+      },
+      {
+        label: `Go to table actions (${basicShortcut}a)`,
+        selector: "#secondary-content",
+        keyCode: 65, // => a / A
+      },
+    ];
+
+    const focusElementBySelector = (selector) => {
+      focusElement(document.querySelector(selector));
     };
 
+    const keydownHandler = (e) => {
+      if (e.ctrlKey && e.shiftKey) {
+        // keyCode instead of key name is used, because we want e.g. "a" and "A" to behave the same
+        const relevantSkipLink = skipLinks.find(
+          (skipLink) => skipLink.keyCode === e.keyCode
+        );
+
+        if (relevantSkipLink) {
+          console.log("keydown");
+          console.log(relevantSkipLink);
+          focusElementBySelector(relevantSkipLink.selector);
+        }
+      }
+    };
+
+    onMounted(() => {
+      window.addEventListener("keydown", keydownHandler);
+    });
+
+    onBeforeUnmount(() => {
+      window.removeEventListener("keydown", keydownHandler);
+    });
+
     return {
-      linkClickHandler,
+      focusElementBySelector,
+      keydownHandler,
+      skipLinks,
     };
   },
 };
