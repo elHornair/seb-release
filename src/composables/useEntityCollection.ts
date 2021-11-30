@@ -2,6 +2,7 @@ import { computed, reactive, watch } from "vue";
 import { useMultiselect } from "@/composables/useMultiselect";
 import { usePaging } from "@/composables/usePaging";
 import { useColumns } from "@/composables/useColumns";
+import { useDummyData } from "@/composables/useDummyData";
 
 export const useEntityCollection = (
   collectionName: string,
@@ -33,8 +34,11 @@ export const useEntityCollection = (
     },
   });
 
-  const setItems = (items: {}[]) => {
-    state.items = Object.assign([], items);
+  const setItems = (items: { id: number }[]) => {
+    state.items = Object.assign(
+      [],
+      dummyData.decorateItemsWithDummyData(items)
+    );
   };
 
   const updateData = async () => {
@@ -60,6 +64,7 @@ export const useEntityCollection = (
   const multiselect = useMultiselect(state);
   const paging = usePaging(state, visibleItemsCount);
   const columns = useColumns();
+  const dummyData = useDummyData();
   const tableCaption = `Table of ${collectionName}`;
   const tableDescription = computed(() => {
     return `${tableCaption}. ${filtering.textualInfo.value} ${sorting.textualInfo.value} Go to table actions landmark to adapt filtering and sorting. ${paging.textualInfo.value}`;

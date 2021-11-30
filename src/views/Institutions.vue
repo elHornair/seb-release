@@ -153,6 +153,7 @@ import TableContentField from "@/components/table/TableContentField";
 import MultiselectControls from "@/components/table/MultiselectControls";
 import ActionsPanel from "@/components/table/ActionsPanel";
 import { useInstitutions } from "@/composables/institution/useInstitutions";
+import { useDummyData } from "@/composables/useDummyData";
 import { computed } from "vue";
 
 export default {
@@ -185,6 +186,7 @@ export default {
       paging,
       columns,
     } = useInstitutions();
+    const { dummyFields } = useDummyData();
 
     const fields = [
       {
@@ -199,24 +201,7 @@ export default {
         isMain: false,
         isSecondary: false,
       },
-      {
-        name: "theme",
-        label: "Theme",
-        isMain: false,
-        isSecondary: true,
-      },
-      {
-        name: "alias",
-        label: "Alias",
-        isMain: false,
-        isSecondary: true,
-      },
-      {
-        name: "date",
-        label: "Founding date",
-        isMain: false,
-        isSecondary: true,
-      },
+      ...dummyFields.value,
       {
         name: "active",
         label: "Status",
