@@ -19,6 +19,7 @@
 <script>
 import { computed, onBeforeUnmount, onMounted, ref, toRefs, watch } from "vue";
 import { join } from "rambdax";
+import { useSkipLinks } from "@/composables/useSkipLinks";
 
 const focusableElementsSelector = join(",", [
   "a[href]",
@@ -44,6 +45,7 @@ export default {
 
   setup(props) {
     const { isEnabled } = toRefs(props);
+    const { activateSkipLinks, deActivateSkipLinks } = useSkipLinks();
     const containerRef = ref();
     const contentWrapperRef = ref();
     const tabCatcherTabIndex = computed(() => (isEnabled.value ? 0 : -1));
@@ -108,10 +110,13 @@ export default {
     const enableTrap = () => {
       hiddenElements = getElementsToHide(containerRef.value);
       addAriaHiddenOnElements(hiddenElements, true);
+      deActivateSkipLinks();
     };
+
     const disableTrap = () => {
       removeAriaHiddenOnElements(hiddenElements);
       hiddenElements = [];
+      activateSkipLinks();
     };
 
     watch(isEnabled, (enabled) => (enabled ? enableTrap() : disableTrap()));
