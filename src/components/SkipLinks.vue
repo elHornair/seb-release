@@ -1,13 +1,13 @@
 <template>
-  <ul class="skiplinks_list">
+  <ul>
     <li
       v-for="skipLinkItem in skipLinkData"
       :key="'skiplink_' + skipLinkItem.selector"
-      class="skiplinks_item hidden md:block"
+      class="hidden md:block"
     >
       <a
         :href="skipLinkItem.selector"
-        class="skiplinks_link"
+        class="skip_link"
         @click.prevent="focusElementBySelector(skipLinkItem.selector)"
         >{{ skipLinkItem.label }}</a
       >
@@ -40,20 +40,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.skiplinks {
-  &_link {
-    @apply sr-only;
+.skip_link {
+  @apply sr-only;
 
-    &:focus {
-      @apply not-sr-only;
-      @apply fixed;
-      @apply top-0;
-      @apply left-0;
-      @apply z-50;
-      @apply bg-white;
-      @apply p-2;
-      @apply m-1;
-    }
+  &:focus {
+    @apply not-sr-only;
+    @apply fixed;
+    @apply top-0;
+    @apply left-0;
+    @apply z-50;
+    @apply bg-white;
+    @apply p-2;
+    @apply m-1;
   }
 }
 </style>
