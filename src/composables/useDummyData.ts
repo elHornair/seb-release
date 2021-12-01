@@ -8,6 +8,7 @@ const dummyFieldsFull = [
     label: "Theme",
     isMain: false,
     isSecondary: true,
+    alignRight: false,
     getDummyDataById: (id: number) => {
       const dummyValues = [
         "dark",
@@ -28,6 +29,7 @@ const dummyFieldsFull = [
     label: "Alias",
     isMain: false,
     isSecondary: true,
+    alignRight: false,
     getDummyDataById: (id: number) => {
       const dummyValues = ["eth", "eth", "ethz", "uzh", "", "", ""];
       return dummyValues[(3 + 5 * id) % dummyValues.length];
@@ -35,9 +37,10 @@ const dummyFieldsFull = [
   },
   {
     name: "date",
-    label: "Founding date",
+    label: "Founded",
     isMain: false,
     isSecondary: true,
+    alignRight: true,
     getDummyDataById: (id: number) => {
       const years = ["1854", "2001", "1901", "1854", "1854"];
       const year = years[id % years.length];
@@ -52,8 +55,8 @@ const dummyFieldsFull = [
 
 const dummyFieldsBasic = computed(() =>
   dummyFieldsFull.map((dummyField) => {
-    const { name, label, isMain, isSecondary } = dummyField;
-    return { name, label, isMain, isSecondary };
+    const { name, label, isMain, isSecondary, alignRight } = dummyField;
+    return { name, label, isMain, isSecondary, alignRight };
   })
 );
 

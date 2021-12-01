@@ -7,7 +7,12 @@
     :aria-sort="currentSortingAria"
     :aria-label="label"
   >
-    <div class="flex items-end">
+    <div
+      :class="{
+        'flex items-end': true,
+        'justify-end': alignRight,
+      }"
+    >
       <span class="table_head_field__text">
         {{ label }}
       </span>
@@ -41,6 +46,10 @@ export default {
       required: true,
     },
     firstCol: {
+      type: Boolean,
+      default: false,
+    },
+    alignRight: {
       type: Boolean,
       default: false,
     },

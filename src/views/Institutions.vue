@@ -49,6 +49,7 @@
                   :field-name="field.name"
                   :label="field.label"
                   :first-col="index === 0"
+                  :align-right="field.alignRight"
                 ></table-head-field>
 
                 <th role="columnheader" scope="col" class="table_head_cell">
@@ -101,6 +102,7 @@
                   :class="{
                     table_cell: true,
                     'table_cell--spaced-left': isMultiselect,
+                    'table_cell--align-right': field.alignRight,
                   }"
                   :label="field.label"
                   :field-name="field.name"
@@ -194,12 +196,14 @@ export default {
         label: "Name",
         isMain: true,
         isSecondary: false,
+        alignRight: false,
       },
       {
         name: "urlSuffix",
         label: "URL Suffix",
         isMain: false,
         isSecondary: false,
+        alignRight: false,
       },
       ...dummyFields.value,
       {
@@ -207,6 +211,7 @@ export default {
         label: "Status",
         isMain: false,
         isSecondary: false,
+        alignRight: false,
         renderContentAs: "StatusBadge",
       },
     ];
@@ -378,6 +383,10 @@ $selection-column-width-sm: 6rem;
       @apply m-0;
       width: auto;
     }
+  }
+
+  &.table_cell--align-right {
+    @apply sm:text-right;
   }
 }
 
