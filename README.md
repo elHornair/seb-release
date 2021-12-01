@@ -129,7 +129,6 @@ here, as other people are using this service for testing
   message when a bulk action is triggered. Instead of this, we imagine that bulk actions would then allow for further
   settings in a Modal. Depending on the case, the modal might just display a confirmation button and a list of items,
   that would be affected by the bulk action.
-* Evtl. ein bisschen Features dokumentieren (bulk-actions exemplarisch -> bedingen entweder bestimmtes muster)
 * For ease of development and a quick start, we decided to mirror the application
   to [this](https://github.com/elHornair/seb-release) Github repository, so we can use the free and automatic CI/CD
   features of Vercel. This is not a long term solution (Vercel should be connected to the original Github repo).
@@ -148,7 +147,7 @@ here, as other people are using this service for testing
 
 **Accessible tables**:
 
-* https://adrianroselli.com/2017/11/a-responsive-accessible-table.html (das war der Wertvollste)
+* https://adrianroselli.com/2017/11/a-responsive-accessible-table.html
 * https://www.a11y-101.com/development/tables
 * https://adrianroselli.com/2021/04/sortable-table-columns.html
 * https://adrianroselli.com/2020/11/under-engineered-responsive-tables.html
@@ -190,6 +189,12 @@ features that could / should be done in the future. This is an incomplete list o
 * Use translation mechanism (currently all texts are hardcoded in English)
 * Error logging service (Edu-App uses Sentry)
 * Custom design / using ETH corporate design
+
+## Credits
+
+For the implementation of the responsive grid, Adrian
+Roselli's [article](https://adrianroselli.com/2017/11/a-responsive-accessible-table.html) was an extremely valuable and
+inspiring source.
 
 ## Contact
 
