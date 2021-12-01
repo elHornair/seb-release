@@ -67,7 +67,7 @@ export const useEntityCollection = (
   const dummyData = useDummyData();
   const tableCaption = `Table of ${collectionName}`;
   const tableDescription = computed(() => {
-    return `${tableCaption}. ${filtering.textualInfo.value} ${sorting.textualInfo.value} Go to table actions landmark to adapt filtering and sorting. ${paging.textualInfo.value}`;
+    return `${tableCaption}. ${filtering.textualInfo.value} ${sorting.textualInfo.value} ${columns.textualInfo.value} Go to table actions landmark to adapt filtering, sorting and column visibility. ${paging.textualInfo.value}`;
   });
 
   watch(paging.apiParamPageIndex, () => updateData());
