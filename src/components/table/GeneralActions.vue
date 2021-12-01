@@ -35,10 +35,34 @@
               <button
                 class="menu__item"
                 :class="{ 'menu__item--active': active }"
-                @click="handleBulkActionClick"
+                @click="handleBulkActionClick('delete')"
               >
                 <span class="menu__item__label"
                   >Delete selected
+                  <span class="sr-only">institutions</span></span
+                >
+              </button>
+            </MenuItem>
+            <MenuItem v-slot="{ active }" :disabled="!showBulkActions">
+              <button
+                class="menu__item"
+                :class="{ 'menu__item--active': active }"
+                @click="handleBulkActionClick('promote')"
+              >
+                <span class="menu__item__label"
+                  >Promote selected
+                  <span class="sr-only">institutions</span></span
+                >
+              </button>
+            </MenuItem>
+            <MenuItem v-slot="{ active }" :disabled="!showBulkActions">
+              <button
+                class="menu__item"
+                :class="{ 'menu__item--active': active }"
+                @click="handleBulkActionClick('archive')"
+              >
+                <span class="menu__item__label"
+                  >Archive selected
                   <span class="sr-only">institutions</span></span
                 >
               </button>
@@ -84,7 +108,25 @@
       type="button"
       :full-xl="true"
       :disabled="!showBulkActions"
-      @click="handleBulkActionClick"
+      @click="handleBulkActionClick('delete')"
+    >
+    </action-button>
+    <action-button
+      label="Promote Selected"
+      class="button"
+      type="button"
+      :full-xl="true"
+      :disabled="!showBulkActions"
+      @click="handleBulkActionClick('promote')"
+    >
+    </action-button>
+    <action-button
+      label="Archive Selected"
+      class="button"
+      type="button"
+      :full-xl="true"
+      :disabled="!showBulkActions"
+      @click="handleBulkActionClick('archive')"
     >
     </action-button>
   </div>
@@ -128,9 +170,10 @@ export default {
 
     const showBulkActions = computed(() => multiselect.selectedCount.value > 0);
 
-    const handleBulkActionClick = () => {
+    const handleBulkActionClick = (actionName) => {
+      console.log(actionName);
       alert(
-        `This will delete ${multiselect.selectedCount.value} selected item(s)`
+        `This will ${actionName} ${multiselect.selectedCount.value} selected item(s)`
       );
     };
 
