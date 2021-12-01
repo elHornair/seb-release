@@ -7,7 +7,6 @@ export const useSorting = () => {
   });
 
   const SORT_DIRECTION = {
-    // TODO: could typescript simplify this? Enum?
     ASC: "ASC",
     DSC: "DSC",
   };
