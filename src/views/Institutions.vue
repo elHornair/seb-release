@@ -140,7 +140,10 @@
       ></Paging>
     </template>
     <template #aside>
-      <ActionsPanel :fields="visibleFields"></ActionsPanel>
+      <ActionsPanel
+        class="actions-panel"
+        :fields="visibleFields"
+      ></ActionsPanel>
     </template>
   </view-split>
 </template>
@@ -307,12 +310,7 @@ $selection-column-width-sm: 6rem;
 
 .table_body {
   @apply block;
-  @apply overflow-y-scroll;
-  height: 80vh;
-
   @apply sm:table-row-group;
-  @apply sm:overflow-y-auto;
-  @apply sm:h-auto;
 }
 
 .table_row {
