@@ -14,7 +14,7 @@
 
           <MultiselectControls
             v-if="isMultiselect"
-            class="absolute z-10 top-1.5 left-2 sm:top-1.5 sm:left-3"
+            class="multiselect-controls"
           ></MultiselectControls>
 
           <table role="table" class="table">
@@ -248,6 +248,7 @@ export default {
 <style lang="scss" scoped>
 $selection-column-width: 1.5rem;
 $selection-column-width-sm: 6rem;
+$caption-height-mobile: 2rem;
 
 .table_region {
   @apply overflow-x-auto;
@@ -271,13 +272,40 @@ $selection-column-width-sm: 6rem;
   @apply min-w-full;
   @apply divide-y;
   @apply divide-gray-200;
+  padding-top: calc(
+    #{$caption-height-mobile} - 1px
+  ); // 1px for overlapping the border
 
   @apply sm:table;
+  @apply sm:pt-0;
+}
+
+.multiselect-controls {
+  @apply fixed;
+  @apply z-20;
+  @apply pt-1.5;
+  @apply pl-2;
+
+  @apply sm:absolute;
+  @apply sm:z-20;
+  @apply sm:top-1.5;
+  @apply sm:left-3;
+  @apply sm:pt-0;
+  @apply sm:pl-0;
 }
 
 .table_caption {
+  /*
+   * This element (together with the main header and the table actions) is sticky on mobile (meaning that it doesn't
+   * scroll, when the main content is scrolling). Making it behave the way we want was quite tricky, because these
+   * three sticky elements are situated in three different contexts. Make sure you fully understand how it works,
+   * before attempting to change any of it.
+   */
   @apply block;
-  @apply relative;
+  @apply fixed;
+  @apply z-10;
+  @apply border-b;
+  @apply border-gray-200;
   @apply px-2.5;
   @apply py-2;
   @apply text-gray-900;
@@ -287,8 +315,17 @@ $selection-column-width-sm: 6rem;
   @apply uppercase;
   @apply tracking-wider;
   @apply bg-gray-50;
+  width: calc(100% - 2px); // this leaves space for the table borders
+  height: $caption-height-mobile;
+  margin-top: (
+    calc(-#{$caption-height-mobile} + 1px)
+  ); // 1px for overlapping the border
 
   @apply sm:table-caption;
+  @apply sm:relative;
+  @apply sm:w-auto;
+  @apply sm:h-auto;
+  @apply sm:mt-0;
   @apply sm:sr-only;
 
   &.table_caption--multiselect {
