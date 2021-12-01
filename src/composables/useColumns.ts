@@ -1,6 +1,6 @@
 import { readonly, ref } from "vue";
 
-const allColumnsVisible = ref(true);
+const allColumnsVisible = ref(false);
 
 const toggleColumns = () => {
   allColumnsVisible.value = !allColumnsVisible.value;
