@@ -60,18 +60,19 @@
       </DropdownTransition>
     </Menu>
   </div>
-  <div class="hidden sm:block">
+  <div class="hidden sm:block sm:-mb-1">
     <action-button
       :disabled="!showAddAction()"
       label="Add institution"
       type="link"
+      class="button"
       :full-xl="true"
       :route-obj="{ name: 'institution-create' }"
     >
     </action-button>
     <action-button
       :label="toggleColumnsLabel"
-      class="mt-1 ml-0 sm:mt-0 sm:ml-1 xl:mt-1 xl:ml-0"
+      class="button"
       type="button"
       :full-xl="true"
       @click="handleToggleColumnsClick"
@@ -79,7 +80,7 @@
     </action-button>
     <action-button
       label="Delete Selected"
-      class="mt-1 ml-0 sm:mt-0 sm:ml-1 xl:mt-1 xl:ml-0"
+      class="button"
       type="button"
       :full-xl="true"
       :disabled="!showBulkActions"
@@ -157,3 +158,11 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.button {
+  @apply sm:mr-1;
+  @apply sm:mb-1;
+  @apply xl:mr-0;
+}
+</style>

@@ -126,6 +126,8 @@ export default {
 
     @apply sm:relative;
     @apply sm:w-full;
+    @apply sm:top-auto;
+    @apply sm:right-auto;
     @apply sm:z-0;
   }
 
