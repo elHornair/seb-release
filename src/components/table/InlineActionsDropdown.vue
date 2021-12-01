@@ -10,7 +10,10 @@
     </MenuButton>
 
     <DropdownTransition>
-      <MenuItems class="menu__content">
+      <MenuItems
+        class="menu__content"
+        :class="{ 'menu__content--top': openTop }"
+      >
         <div class="menu__section">
           <MenuItem v-slot="{ active }">
             <router-link
@@ -117,6 +120,10 @@ export default {
     institution: {
       type: Object,
       required: true,
+    },
+    openTop: {
+      type: Boolean,
+      default: false,
     },
   },
   emits: ["institution:change"],

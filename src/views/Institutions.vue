@@ -124,6 +124,7 @@
                 <td role="cell" class="table_cell table_cell--actions-sm">
                   <InlineActionsDropdown
                     :institution="institution"
+                    :open-top="institutionIndex > displayableItems.length - 4"
                     class="float-right"
                     @institution:change="updateData"
                   ></InlineActionsDropdown>
