@@ -7,7 +7,7 @@
         aria-describedby="table_description"
         aria-labelledby="table_caption"
         tabindex="0"
-        class="overflow-x-auto sm:rounded-sm"
+        class="table_region"
       >
         <div class="table_wrapper">
           <p id="table_description" class="sr-only">{{ tableDescription }}</p>
@@ -131,12 +131,12 @@
               </tr>
             </tbody>
           </table>
-          <Paging
-            :current-page="paging.currentPage.value"
-            :total-pages="paging.totalPages.value"
-          ></Paging>
         </div>
       </div>
+      <Paging
+        :current-page="paging.currentPage.value"
+        :total-pages="paging.totalPages.value"
+      ></Paging>
     </template>
     <template #aside>
       <ActionsPanel :fields="visibleFields"></ActionsPanel>
@@ -245,6 +245,14 @@ export default {
 $selection-column-width: 1.5rem;
 $selection-column-width-sm: 6rem;
 
+.table_region {
+  @apply overflow-x-auto;
+  @apply border;
+  @apply border-t-0;
+  @apply border-gray-200;
+  @apply sm:rounded-sm;
+}
+
 .table_wrapper {
   @apply relative;
   @apply z-0;
@@ -252,7 +260,6 @@ $selection-column-width-sm: 6rem;
   @apply inline-block;
   @apply min-w-full;
   @apply overflow-hidden;
-  @apply pb-12;
 }
 
 .table {
@@ -260,9 +267,6 @@ $selection-column-width-sm: 6rem;
   @apply min-w-full;
   @apply divide-y;
   @apply divide-gray-200;
-  @apply border;
-  @apply border-t-0;
-  @apply border-gray-200;
 
   @apply sm:table;
 }
