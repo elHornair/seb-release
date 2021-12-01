@@ -1,26 +1,29 @@
 <template>
   <div class="wrapper">
     <div class="wrapper__inner">
-      <p class="summary" :aria-hidden="true">
-        Showing
-        {{ " " }}
-        <span class="font-medium">{{ paging.firstVisibleItem.value }}</span>
-        {{ " " }}
-        to
-        {{ " " }}
-        <span class="font-medium">{{ paging.lastVisibleItem.value }}</span>
-        {{ " " }}
-        of
-        {{ " " }}
-        <span class="font-medium">{{ paging.totalItems.value }}</span>
-        {{ " " }}
-        results
-      </p>
-      <span class="sr-only"
-        >Table showing {{ paging.firstVisibleItem.value }} to
-        {{ paging.lastVisibleItem.value }} of
-        {{ paging.totalItems.value }} results</span
-      >
+      <template v-if="paging.totalItems.value > 0">
+        <p class="summary" :aria-hidden="true">
+          Showing
+          {{ " " }}
+          <span class="font-medium">{{ paging.firstVisibleItem.value }}</span>
+          {{ " " }}
+          to
+          {{ " " }}
+          <span class="font-medium">{{ paging.lastVisibleItem.value }}</span>
+          {{ " " }}
+          of
+          {{ " " }}
+          <span class="font-medium">{{ paging.totalItems.value }}</span>
+          {{ " " }}
+          results
+        </p>
+        <span class="sr-only"
+          >Table showing {{ paging.firstVisibleItem.value }} to
+          {{ paging.lastVisibleItem.value }} of
+          {{ paging.totalItems.value }} results</span
+        >
+      </template>
+      <p v-else class="summary">No results</p>
 
       <nav v-if="paging.totalPages.value > 1" class="nav" aria-label="Paging">
         <button
