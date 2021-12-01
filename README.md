@@ -105,11 +105,14 @@ here, as other people are using this service for testing
   application has been tested on NVDA on windows, VoiceOver for Mac, VoiceOver for iOS and TalkBack on Android.
 * Filtering: filter selection by different field types (text, boolean), show current filters, adapt/remove current
   filters
-* Sorting: inline sorting in table headers, general sorting in actions, alphabetical sorting ASC & DSC
+* Sorting: inline sorting in table headers, general sorting in actions (a11y: on Desktop, this is used on keyboard
+  navigation only), alphabetical sorting ASC & DSC
 * Inline actions: dropdown for all actions concerning a single table entry
 * General actions: actions concerning multiple table enties
 * Multiselect / Bulk actions (turn on feature by adding `?multiselect` to the URL): possibility to select/deselect each
-  single table entry, helper menu to select/deselect many entries at once.
+  single table entry, helper menu to select/deselect many entries at once. The bulk actions themselves are just dummies.
+* Show / Hide columns: in the POC, the additional columns have just dummy content. This means that sorting has no
+  effect, because the API doesn't know about them.
 * Paging: go the next, previous, first, last page
 * Mobile ready and responsive, basic PWA functionality
 * Application navigation and routing
@@ -130,8 +133,10 @@ here, as other people are using this service for testing
   settings in a Modal. Depending on the case, the modal might just display a confirmation button and a list of items,
   that would be affected by the bulk action.
 * For ease of development and a quick start, we decided to mirror the application
-  to [this](https://github.com/elHornair/seb-release) Github repository, so we can use the free and automatic CI/CD
-  features of Vercel. This is not a long term solution (Vercel should be connected to the original Github repo).
+  to [this](https://github.com/elHornair/seb-release) GitHub repository, so we can use the free and automatic CI/CD
+  features of Vercel. This is not a long term solution (Vercel should be connected to the original GitHub repo, which
+  will require a [Vercel license](https://vercel.com/pricing), costing 20 USD / month). When the CI/CD setup is moved to
+  an internal server, Vercel will not be needed anymore.
 * Security: storing the authentication token in the browsers Local Storage might or might not have unwanted security
   implications. For the POC we decided to accept that. For a production application, this should be looked into further.
 
@@ -157,28 +162,27 @@ here, as other people are using this service for testing
 As this project was a timeboxed proof of concept, it is by definition incomplete. There are several optimisations and
 features that could / should be done in the future. This is an incomplete list of them:
 
-* New action: show / hide secondary columns (toggle so only "important" columns are visible). This saves space,
-  especially on mobile. However, it should always be possible for the user to display all columns.
 * Alerts / confirmations: nice alert box instead of system dialog (currently used for warnings in edit forms,
   deactivating of institutions, ...). Something like the Modal.
 * Implement example bulk action: Modal with list of all currently selected items. Possibility to adapt selection.
   Possibility to select further settings for this particular bulk action. Confirm / cancel button.
-* Better scrolling / fixed header on mobile
 * Migrate all Vue components from vanilla JavaScript to TypeScript. Basic TypeScript setup is done, and all JavaScript
   files (e.g. composables) have been migrated to TypeScript. However, most Vue components haven't been migrated to
   TypeScript yet. This should be done. See `App.vue` for an example of a Vue component written in TypeScript.
 * Paging: add dropdown "show x elements per page". Or maybe wo could just make this more than 10 by default.
-* A11y: focus styling could be adapted so it generates more attention (currently we use the same styling as the Edu-App)
+* A11y: focus styling could be adapted, so it generates more attention (currently we use the same styling as the
+  Edu-App)
 * Empty state / loading animation: while loading data from the API (e.g. when sorting / filtering / paging), there is a
-  delay. During this, we should give the user an optical feedback, so it's clear that something is happening.
+  delay. During this, we should give the user an optical feedback, so it's clear that something is happening. If there
+  are no results, this should be indicated more clearly, both visually and with good text for screen readers.
 * Further design improvements on mobile (e.g. spacings)
 * Auto logout / refresh: when authentication token expires (after 12h), the user should be automatically redirected
   to `/login`. Currently nothing happens (i.e. the application is blocked) and the user needs to manually reload or
   navigate to the login page.
 * Config (GET parameter for demonstration purpose): show action buttons as normal links on mobile+ screens
 * Config (GET parameter for demonstration purpose): set theming, so interactive elements are shown in different colours
-* Safe sorting / filtering / paging settings in Local Storage. Currently the settings are lost upon a hard reload or a
-  logout
+* Safe settings (sorting / filtering / paging / visible column) in Local Storage. Currently, the settings are lost upon
+  a hard reload or a logout
 * Print styles (Ctrl + P / save as PDF): make sure that contents (e.g. a list of institutions) are displayed correctly
 * Prepare for E2E testing: set distinct data attributes on DOM elements
 * Current SEB server feature: realtime monitoring (probably as an aria live region)
@@ -192,9 +196,10 @@ features that could / should be done in the future. This is an incomplete list o
 
 ## Credits
 
-For the implementation of the responsive grid, Adrian
-Roselli's [article](https://adrianroselli.com/2017/11/a-responsive-accessible-table.html) was an extremely valuable and
-inspiring source.
+* For the implementation of the responsive grid, Adrian
+  Roselli's [article](https://adrianroselli.com/2017/11/a-responsive-accessible-table.html) was an extremely valuable
+  and inspiring source.
+* The Gmail web client was very helpful as an inspiration for dealing with multiselect functionality.
 
 ## Contact
 
