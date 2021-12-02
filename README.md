@@ -102,7 +102,7 @@ here, as other people are using this service for testing
 ## Features
 
 * Accessibility: the overall architecture of the application has been reviewed by an accessibility expert. The
-  application has been tested on NVDA on windows, VoiceOver for Mac, VoiceOver for iOS and TalkBack on Android.
+  application has been tested on NVDA on Windows, VoiceOver for Mac, VoiceOver for iOS and TalkBack on Android.
 * Filtering: filter selection by different field types (text, boolean), show current filters, adapt/remove current
   filters
 * Sorting: inline sorting in table headers, general sorting in actions (a11y: on Desktop, this is used on keyboard
@@ -118,12 +118,12 @@ here, as other people are using this service for testing
 * Application navigation and routing
 * CRUD institutions: forms for creating new institutions and editing existing ones. Viewing one or many institutions.
 * Authentication / Permissions
-* Simplistic design, ready for theming
+* Simplistic design, ready for theming (to adapt the theme, change the primary color in `tailwind.config.js`)
 
 ## Decisions
 
 * Changing page and adapting sorting keeps the current selection, while filtering resets it. This is probably what the
-  user expects. Also it avoids logical problems, where a selected item might not be in the current table anymore (
+  user expects. Also, it avoids logical problems, where a selected item might not be in the current table anymore (
   because of updated filter criteria).
 * Inline sorting buttons are read as part of the row description on NVDA. We couldn't find a way to make it not do this,
   without hiding the inline sorting buttons altogether. As this is an important feature, we decided to live with this
@@ -139,6 +139,23 @@ here, as other people are using this service for testing
   an internal server, Vercel will not be needed anymore.
 * Security: storing the authentication token in the browsers Local Storage might or might not have unwanted security
   implications. For the POC we decided to accept that. For a production application, this should be looked into further.
+* For a good mobile experience, it was important for the main actions to be sticky (meaning that they shouldn't scroll,
+  when the main content is scrolling). Because the three sticky elements (main header, table actions, table caption) are
+  situated in three different contexts, it was quite tricky to make the application behave that way. Make sure you fully
+  understand how it works, before attempting to change any of it. See `Institutions.vue` for further information.
+* Screen reader noise vs. information: the order of the table actions (`aside`) and the table itself (`main`) is
+  inverted with CSS. The reason for this is that we want the actions to visually appear before the table. For a11y
+  reasons however, we want them to appear logically (that is in the DOM) after the table itself, because the table is
+  the important content, and we don't want screen reader / keyboard users to have to go through all table actions before
+  reaching the table. As a consequence of that, one can't directly tab to the table form the table actions (even though
+  the optics indicate that). We discussed the possibility to add a hidden link "go to main content" after the table
+  actions, but refrained from it for now, because this creates more "noise" for screen readers. Keep in mind, that power
+  users can reach the main content via landmarks, headings and the skip link shortcuts at any time. The dilemma between
+  having "too much noise" for power users and "not enough information" for less experience users appeared in many cases
+  throughout the POC. We tried to find a fair balance, by deciding on a case by case basis. An example of "the noisy
+  way" is the inline actions menu: here we added more information, because it's crucial for less experienced users to
+  know that the menu targets this particular row. Power users that know this already can interrupt the screen reader and
+  move on to the next element or open the menu right away.
 
 ## Sources
 
@@ -175,7 +192,6 @@ features that could / should be done in the future. This is an incomplete list o
 * Empty state / loading animation: while loading data from the API (e.g. when sorting / filtering / paging), there is a
   delay. During this, we should give the user an optical feedback, so it's clear that something is happening. If there
   are no results, this should be indicated more clearly, both visually and with good text for screen readers.
-* Further design improvements on mobile (e.g. spacings)
 * Auto logout / refresh: when authentication token expires (after 12h), the user should be automatically redirected
   to `/login`. Currently nothing happens (i.e. the application is blocked) and the user needs to manually reload or
   navigate to the login page.
@@ -183,7 +199,6 @@ features that could / should be done in the future. This is an incomplete list o
 * Config (GET parameter for demonstration purpose): set theming, so interactive elements are shown in different colours
 * Safe settings (sorting / filtering / paging / visible column) in Local Storage. Currently, the settings are lost upon
   a hard reload or a logout
-* Print styles (Ctrl + P / save as PDF): make sure that contents (e.g. a list of institutions) are displayed correctly
 * Prepare for E2E testing: set distinct data attributes on DOM elements
 * Current SEB server feature: realtime monitoring (probably as an aria live region)
 * Current SEB server feature: exam configuration (complex, dynamic form with several tabs)
@@ -192,7 +207,19 @@ features that could / should be done in the future. This is an incomplete list o
 * Current SEB server feature: collection form control
 * Use translation mechanism (currently all texts are hardcoded in English)
 * Error logging service (Edu-App uses Sentry)
+
+### Related to interaction design
+
 * Custom design / using ETH corporate design
+* Currently, the application has a max width of 1280px. This ensures, that the content doesn't infinitely scale up,
+  making it hard to read on big screens. On the other hand, the tables will scroll horizontally if there is a lot of
+  content, which is not ideal. This should be considered when designing the applications main layout.
+* Improve vertically scrolling tables: sticky header column? Fadeout overlay? Inline actions always visible? Keep in
+  mind, that the rows of the table have a variable height, making absolutely positioning row elements tricky. Making the
+  columns one-line only is advised against, because we would have to cut the text of long table cells which is very bad
+  for the users, because they can't read the whole content.
+* Further design improvements on mobile (e.g. spacings)
+* Print styles (Ctrl + P / save as PDF): make sure that contents (e.g. a list of institutions) are displayed correctly
 
 ## Credits
 
