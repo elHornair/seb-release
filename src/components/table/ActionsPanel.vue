@@ -107,10 +107,11 @@ export default {
   @apply items-start;
   @apply w-full;
 
+  @apply sm:border-t;
+  @apply sm:border-gray-200;
+  @apply sm:pt-2;
+
   @apply xl:block;
-  @apply xl:pt-2;
-  @apply xl:border-t;
-  @apply xl:border-gray-200;
 
   &.section--xl-only {
     @apply hidden;

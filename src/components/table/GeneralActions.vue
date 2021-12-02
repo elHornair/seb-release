@@ -22,6 +22,8 @@
                 <span class="menu__item__label">Add institution</span>
               </router-link>
             </MenuItem>
+          </div>
+          <div class="menu__section">
             <MenuItem v-slot="{ active }">
               <button
                 class="menu__item"
@@ -31,6 +33,8 @@
                 <span class="menu__item__label">{{ toggleColumnsLabel }}</span>
               </button>
             </MenuItem>
+          </div>
+          <div class="menu__section">
             <MenuItem v-slot="{ active }" :disabled="!showBulkActions">
               <button
                 class="menu__item"
@@ -94,6 +98,7 @@
       :route-obj="{ name: 'institution-create' }"
     >
     </action-button>
+    <hr class="button-divider" />
     <action-button
       :label="toggleColumnsLabel"
       class="button"
@@ -102,6 +107,7 @@
       @click="handleToggleColumnsClick"
     >
     </action-button>
+    <hr class="button-divider" />
     <action-button
       label="Delete Selected"
       class="button"
@@ -207,5 +213,12 @@ export default {
   @apply sm:mr-1;
   @apply sm:mb-1;
   @apply xl:mr-0;
+}
+
+.button-divider {
+  @apply border-t;
+  @apply border-gray-200;
+  @apply sm:mt-1;
+  @apply sm:mb-2;
 }
 </style>
