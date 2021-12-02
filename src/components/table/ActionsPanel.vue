@@ -169,6 +169,6 @@ export default {
 
 .content {
   @apply col-span-9;
-  @apply lg:col-span-10;
+  @apply sm:col-span-10;
 }
 </style>
