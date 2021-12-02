@@ -182,7 +182,7 @@ export default {
     };
 
     const toggleColumnsLabel = computed(() =>
-      columns.allColumnsVisible.value ? "Show less columns" : "Show all columns"
+      columns.allColumnsVisible.value ? "Hide 3 columns" : "Show 3 more columns"
     );
 
     const handleCloseClick = () => {
