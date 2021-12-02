@@ -186,15 +186,28 @@ features that could / should be done in the future. This is an incomplete list o
 * Migrate all Vue components from vanilla JavaScript to TypeScript. Basic TypeScript setup is done, and all JavaScript
   files (e.g. composables) have been migrated to TypeScript. However, most Vue components haven't been migrated to
   TypeScript yet. This should be done. See `App.vue` for an example of a Vue component written in TypeScript.
-* Paging: add dropdown "show x elements per page". Or maybe wo could just make this more than 10 by default.
+* Paging: add dropdown "show x elements per page". Or maybe wo could just make this more than 10 by default. We also
+  discussed the possibility to make the amount of items dependent on the space currently available. This is not a good
+  idea however, because the items are not always the same height, so we would have to recalculate on every page of the
+  paging again.
 * A11y: focus styling could be adapted, so it generates more attention (currently we use the same styling as the
   Edu-App)
 * Empty state / loading animation: while loading data from the API (e.g. when sorting / filtering / paging), there is a
   delay. During this, we should give the user an optical feedback, so it's clear that something is happening. If there
   are no results, this should be indicated more clearly, both visually and with good text for screen readers.
+* Improve paging: if there is a big amount of items (e.g. > 1000), the paging should behave differently: show
+  page counter instead of item counter. Label buttons "prev/next/first/last" instead of the respective page number.
 * Auto logout / refresh: when authentication token expires (after 12h), the user should be automatically redirected
-  to `/login`. Currently nothing happens (i.e. the application is blocked) and the user needs to manually reload or
+  to `/login`. Currently, nothing happens (i.e. the application is blocked) and the user needs to manually reload or
   navigate to the login page.
+* Table: infinite scrolling, instead of paging. This is technically possible, but will take some effort to implement
+  properly. Things to keep in mind: performance, memory usage, a11y (screen reader should be able to break out of the
+  table), usability (if there is content after the infinite scrolling container, it must be reachable without scrolling
+  to... infinity)
+* Overscrolling / bouncing behaviour: currently, the behaviour on mobile Safari is not as desired, because
+  of [this](https://bugs.webkit.org/show_bug.cgi?id=176454) bug. If the bug doesn't get resolved soon it might be worth
+  looking into a workaround. The overscroll CSS property is well
+  explained [here](https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior).
 * Config (GET parameter for demonstration purpose): show action buttons as normal links on mobile+ screens
 * Config (GET parameter for demonstration purpose): set theming, so interactive elements are shown in different colours
 * Safe settings (sorting / filtering / paging / visible column) in Local Storage. Currently, the settings are lost upon
